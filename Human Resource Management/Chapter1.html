@@ -1,0 +1,436 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>HRM — Chapter 1: Introduction to Human Resource Management</title>
+    <style>
+        :root {
+            --bg: #0f172a;
+            --c: #1e293b;
+            --t: #f8fafc;
+            --m: #94a3b8;
+            --b: #334155;
+            --ac: #38bdf8;
+            --ok: #22c55e;
+            --okb: #052e16;
+            --no: #ef4444;
+            --nob: #450a0a;
+            box-sizing: border-box;
+        }
+
+        @media(prefers-color-scheme: light) {
+            :root[data-theme=light] {
+                --bg: #f8fafc;
+                --c: #ffffff;
+                --t: #0f172a;
+                --m: #64748b;
+                --b: #e2e8f0;
+                --ac: #0284c7;
+                --okb: #dcfce7;
+                --nob: #fee2e2;
+                --ok: #16a34a;
+                --no: #dc2626;
+            }
+        }
+
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--t);
+            font-family: 'Segoe UI', Tahoma, system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+        }
+        main {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 24px 16px 60px;
+        }
+        .header-panel {
+            text-align: center;
+            margin-bottom: 24px;
+            border-bottom: 8px solid var(--b);
+            padding-bottom: 30px;
+        }
+        h1 { font-size: 1.5rem; margin: 0 0 8px; color: var(--ac); }
+        .sub { color: var(--m); font-size: 0.95rem; margin: 0; }
+        
+        .nav-tabs {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .tab-btn {
+            flex: 1;
+            padding: 12px;
+            background: var(--c);
+            border: 1px solid var(--b);
+            color: var(--t);
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .tab-btn.active {
+            background: var(--ac);
+            color: #000;
+            border-color: var(--ac);
+        }
+
+        .bar {
+            height: 8px;
+            background: var(--b);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+        .bar i {
+            display: block;
+            height: 100%;
+            background: var(--ac);
+            width: 0;
+            transition: width 0.3s;
+        }
+        .meta {
+            display: flex;
+            justify-content: space-between;
+            color: var(--m);
+            font-size: 0.9rem;
+            margin-bottom: 16px;
+        }
+        .card {
+            background: var(--c);
+            border: 1px solid var(--b);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+        .q-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            background: var(--b);
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+            color: var(--ac);
+        }
+        .q-badge.high-level {
+            background: #f59e0b;
+            color: #000;
+            font-weight: bold;
+        }
+        .q {
+            font-size: 1.1rem;
+            font-weight: 600;
+            direction: ltr;
+            text-align: left;
+            margin: 0 0 16px;
+        }
+        .opt {
+            display: flex;
+            gap: 12px;
+            direction: ltr;
+            text-align: left;
+            width: 100%;
+            background: var(--c);
+            color: var(--t);
+            border: 1.5px solid var(--b);
+            border-radius: 8px;
+            padding: 12px 14px;
+            margin-bottom: 10px;
+            font: inherit;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+        .opt:hover:not(:disabled) { border-color: var(--ac); }
+        .opt b { min-width: 1.5em; color: var(--ac); }
+        .opt.ok { background: var(--okb); border-color: var(--ok); }
+        .opt.no { background: var(--nob); border-color: var(--no); }
+        .opt:disabled { cursor: default; }
+
+        .ex {
+            margin-top: 16px;
+            padding: 14px;
+            border-radius: 8px;
+            direction: ltr;
+            text-align: left;
+            font-size: 0.95rem;
+        }
+        .ex.ok { background: var(--okb); border: 1px solid var(--ok); }
+        .ex.no { background: var(--nob); border: 1px solid var(--no); }
+        .ex strong { display: block; margin-bottom: 4px; }
+
+        .btn {
+            margin-top: 16px;
+            background: var(--ac);
+            color: #000;
+            border: 0;
+            border-radius: 8px;
+            padding: 12px 24px;
+            font: inherit;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+        }
+        .score { text-align: center; font-size: 3rem; font-weight: 800; margin: 12px 0; color: var(--ac); }
+        .rev { margin: 16px 0 0; padding: 0; list-style: none; direction: ltr; text-align: left; font-size: 0.9rem; }
+        .rev li { padding: 8px 0; border-top: 1px solid var(--b); }
+    </style>
+</head>
+<body>
+    <main>
+        <div class="header-panel">
+            <h1>Human Resource Management — Chapter 1</h1>
+            <p class="sub">Introduction to Human Resource Management</p>
+        </div>
+        
+        <div class="nav-tabs">
+            <button class="tab-btn active" id="tab1" onclick="switchPart(1)">Multiple Choice</button>
+            <button class="tab-btn" id="tab2" onclick="switchPart(2)">True/False</button>
+        </div>
+
+        <div class="bar"><i id="bar"></i></div>
+        <div class="meta">
+            <span id="n"></span>
+            <span id="s"></span>
+        </div>
+        <div class="card" id="card"></div>
+    </main>
+      
+    <script>
+       const P1_SOURCE = [
+            // Standard Questions (1-45)
+            {"q": "How is an organization defined in Chapter 1?", "o": ["A collection of people with formally assigned roles who work together to achieve the organization's goals", "A purely financial investment portfolio managed by external brokers", "An informal social gathering with no structured objectives", "A collection of heavy machinery and automated factory buildings"], "a": 0, "e": "An organization consists of people with formally assigned roles who work together to achieve the organization's goals.", "type": "MCQ"},
+            {"q": "What is the primary role of a manager according to Chapter 1?", "o": ["Accomplishing organizational goals by managing the efforts of the organization's people", "Designing marketing brochures and corporate logos exclusively", "Filing corporate tax returns and auditing financial ledgers", "Negotiating commercial bank loans with external suppliers"], "a": 0, "e": "A manager is the person responsible for accomplishing organizational goals by managing the efforts of the organization's people.", "type": "MCQ"},
+            {"q": "Which of the following is NOT one of the five basic management functions?", "o": ["Arbitrating", "Planning", "Organizing", "Leading"], "a": 0, "e": "The five management functions are planning, organizing, staffing, leading, and controlling. Arbitrating is not one of them.", "type": "MCQ"},
+            {"q": "Establishing goals and standards, developing rules and procedures, and forecasting fall under which management function?", "o": ["Planning", "Organizing", "Staffing", "Controlling"], "a": 0, "e": "Planning involves establishing goals and standards, developing rules and procedures, developing plans, and forecasting.", "type": "MCQ"},
+            {"q": "Giving each subordinate a specific task, establishing departments, and delegating authority are components of:", "o": ["Organizing", "Planning", "Leading", "Controlling"], "a": 0, "e": "Organizing involves giving specific tasks, establishing departments, delegating authority, and coordinating work.", "type": "MCQ"},
+            {"q": "Determining hiring needs, recruiting, selecting, training, evaluating, counseling, and compensating employees represent:", "o": ["Staffing", "Planning", "Organizing", "Controlling"], "a": 0, "e": "Staffing involves determining hiring needs, recruiting, selecting, training, evaluating, counseling, and compensating employees.", "type": "MCQ"},
+            {"q": "Getting others to get the job done, maintaining morale, and motivating subordinates is known as:", "o": ["Leading", "Controlling", "Organizing", "Planning"], "a": 0, "e": "Leading means getting others to get the job done, maintaining morale, and motivating subordinates.", "type": "MCQ"},
+            {"q": "Setting sales quotas, quality standards, or production levels, and checking actual performance against them is:", "o": ["Controlling", "Planning", "Staffing", "Organizing"], "a": 0, "e": "Controlling involves setting standards, checking actual performance against standards, and taking corrective action.", "type": "MCQ"},
+            {"q": "How is Human Resource Management (HRM) defined in Chapter 1?", "o": ["The process of acquiring, training, appraising, and compensating employees, and attending to labor relations, health, safety, and fairness concerns", "The process of managing corporate bank accounts and issuing shareholder dividends", "The process of procuring raw materials and managing global supply chain logistics", "The process of maintaining computer hardware and software networks"], "a": 0, "e": "HRM is the process of acquiring, training, appraising, and compensating employees, and of attending to their labor relations, health and safety, and fairness concerns.", "type": "MCQ"},
+            {"q": "Which of the following is a core HRM activity?", "o": ["Conducting job analyses and planning labor needs", "Designing factory floor layouts and machinery", "Auditing annual corporate tax returns", "Filing commercial real estate deeds"], "a": 0, "e": "HRM activities include conducting job analyses, planning labor needs, recruiting, selecting, training, and compensating.", "type": "MCQ."},
+            {"q": "Why is Human Resource Management important to all managers?", "o": ["It helps avoid personnel mistakes and improves profits and performance", "It eliminates the need for any financial accounting departments", "It guarantees total exemption from corporate taxes", "It replaces top executive leadership boards"], "a": 0, "e": "HRM knowledge helps managers avoid personnel mistakes, improve profits and performance, and is vital for entrepreneurs.", "type": "MCQ."},
+            {"q": "Which of the following is an example of a personnel mistake managers want to avoid?", "o": ["Hiring the wrong person for the job", "Conducting thorough job analyses", "Providing adequate occupational safety training", "Establishing fair salary structures"], "a": 0, "e": "Hiring the wrong person, high turnover, and poor performance are personnel mistakes managers must avoid.", "type": "MCQ."},
+            {"q": "What authority traditionally gives a manager the right to issue orders to other managers or employees?", "o": ["Line authority", "Staff authority", "Advisory authority", "Functional matrix authority"], "a": 0, "e": "Line authority traditionally gives managers the right to issue orders, creating a superior-subordinate relationship.", "type": "MCQ."},
+            {"q": "Staff authority gives a manager the right to:", "o": ["Advise other managers or employees", "Issue direct binding orders to line workers", "Fire executive officers across divisions", "Override board of directors resolutions"], "a": 0, "e": "Staff authority gives a manager the right to advise other managers or employees.", "type": "MCQ."},
+            {"q": "Which of the following is a Line Manager's HR duty?", "o": ["Placing the right person in the right job and orienting new employees", "Drafting corporate union negotiation contracts", "Investigating EEO grievances across all company branches", "Compiling government occupational safety compliance reports"], "a": 0, "e": "Line HR duties include placing the right person in the right job, orientation, training, and maintaining morale.", "type": "MCQ."},
+            {"q": "What are the three distinct functions carried out by a Human Resource Manager?", "o": ["Line function, Coordinative function, and Staff (assist and advise) function", "Financial function, Marketing function, and Operational function", "Executive function, Legislative function, and Judicial function", "Production function, Sales function, and Logistics function"], "a": 1, "e": "The HR manager carries out a line function, a coordinative function, and staff (assist and advise) functions.", "type": "MCQ."},
+            {"q": "What does the HR manager's coordinative function entail?", "o": ["Ensuring that line managers are implementing the firm's human resource policies and practices", "Directing personnel in their own HR department exclusively", "Negotiating commercial bank loans with external lenders", "Auditing corporate income tax returns"], "a": 0, "e": "The coordinative function ensures that line managers are implementing the firm's human resource policies and practices.", "type": "MCQ."},
+            {"q": "Which HR specialist searches for qualified job applicants?", "o": ["Recruiter", "Job analyst", "Compensation manager", "Labor relations specialist"], "a": 0, "e": "Recruiters search for qualified job applicants.", "type": "MCQ."},
+            {"q": "Who investigates and resolves EEO grievances and compiles EEO reports?", "o": ["Equal employment opportunity (EEO) coordinator", "Training specialist", "Compensation manager", "Line supervisor"], "a": 0, "e": "EEO coordinators investigate and resolve EEO grievances, examine practices for violations, and compile EEO reports.", "type": "MCQ."},
+            {"q": "What do job analysts do?", "o": ["Collect and examine information about jobs to prepare job descriptions", "Develop compensation plans and employee benefits", "Advise management on union-management relations", "Direct corporate safety inspections"], "a": 0, "e": "Job analysts collect and examine information about jobs to prepare job descriptions.", "type": "MCQ."},
+            {"q": "Who develops compensation plans and handles employee benefits programs?", "o": ["Compensation manager", "Recruiter", "Job analyst", "Training specialist"], "a": 0, "e": "Compensation managers develop compensation plans and handle employee benefits programs.", "type": "MCQ."},
+            {"q": "What is the primary role of a training specialist?", "o": ["Plan, organize, and direct training activities", "Investigate and resolve EEO grievances", "Conduct legal courtroom defenses", "Negotiate commercial bank loans"], "a": 0, "e": "Training specialists plan, organize, and direct training activities.", "type": "MCQ."},
+            {"q": "What does a labor relations specialist do?", "o": ["Advise management on all aspects of union management relations", "Design computer software applications", "Recruit entry-level administrative clerks", "Calculate payroll tax withholdings"], "a": 0, "e": "Labor relations specialists advise management on all aspects of union management relations.", "type": "MCQ."},
+            {"q": "What is globalization in the context of HRM trends?", "o": ["The tendency of firms to extend their sales, ownership, and manufacturing to new markets abroad", "Limiting business strictly to local domestic towns", "Eliminating all international shipping containers", "Restricting employees to single-country assignments"], "a": 0, "e": "Globalization refers to the tendency of firms to extend their sales, ownership, and manufacturing to new markets abroad.", "type": "MCQ."},
+            {"q": "What are the effects of globalization and competition trends on workers?", "o": ["The prospect of working harder and perhaps less secure jobs, alongside lower consumer prices and higher quality", "Guaranteed lifetime employment with zero productivity pressure", "Immediate retirement benefits for all global employees", "Elimination of all competitive market pressures"], "a": 0, "e": "For consumers globalization means lower prices/higher quality, but for workers it means working harder and less secure jobs.", "type": "MCQ."},
+            {"q": "How has technology impacted HRM applications recently?", "o": ["Enabled digital recruiting tools like Facebook advertising and LinkedIn networking", "Eliminated all computer usage in modern offices", "Banned remote office electronic communication", "Made smartphones completely obsolete"], "a": 0, "e": "Technology is increasingly used for HR applications such as Facebook recruiting and LinkedIn advertising.", "type": "MCQ."},
+            {"q": "Which of the following are prominent categories in the trends in the nature of work?", "o": ["High-tech jobs and service jobs", "Agricultural jobs and fishing jobs", "Manual drafting and typewriter pools", "Monarchial administration jobs"], "a": 0, "e": "Trends in the nature of work highlight high-tech jobs and service jobs.", "type": "MCQ."},
+            {"q": "According to Chapter 1, what are the two skills human resource managers list as most likely to increase in importance?", "o": ["Critical thinking/problem-solving and information technology application", "Typing speed and shorthand notation", "Physical endurance and heavy lifting", "Manual ledger bookkeeping"], "a": 0, "e": "Critical thinking/problem-solving and information technology application are the two skills increasing most in importance.", "type": "MCQ."},
+            {"q": "What do many HR professionals call the biggest demographic trend affecting employers?", "o": ["The aging workforce (retirees)", "A massive surge in infant newborns", "A complete cessation of working-age adults", "Mandatory early retirement at age 20"], "a": 0, "e": "Many HR professionals call the aging workforce the biggest demographic trend affecting employers.", "type": "MCQ."},
+            {"q": "Who are considered nontraditional workers?", "o": ["Employees who hold multiple jobs, contingent or part-time workers, or those in alternative work arrangements", "Full-time lifetime corporate executives", "Monopoly business owners", "Government civil servants"], "a": 0, "e": "Nontraditional workers hold multiple jobs, are contingent or part-time, or work in alternative arrangements.", "type": "MCQ."},
+            {"q": "How do professional online websites like LinkedIn facilitate nontraditional work arrangements?", "o": ["By enabling free agent professionals to promote their services", "By preventing any remote work", "By replacing physical offices with mandatory paper filing", "By banning freelance contracts"], "a": 0, "e": "Websites like LinkedIn enable free agent professionals to promote their services.", "type": "MCQ."},
+            {"q": "Which management function specifically deals with maintaining morale and motivating subordinates?", "o": ["Leading", "Planning", "Organizing", "Controlling"], "a": 0, "e": "Leading involves getting others to get the job done, maintaining morale, and motivating subordinates.", "type": "MCQ."},
+            {"q": "Which of the following is an example of a personnel mistake a manager should avoid?", "o": ["Having your company taken to court because of discriminatory actions", "Conducting structured job analyses", "Training employees thoroughly", "Complying with federal safety regulations"], "a": 0, "e": "Having your company taken to court for discriminatory actions is a major personnel mistake to avoid.", "type": "MCQ."},
+            {"q": "Why should small business managers and entrepreneurs learn about HR practices?", "o": ["Because effective human resource management helps ensure effective results through people", "Because HR principles apply exclusively to multi-billion dollar conglomerates", "To avoid paying any taxes", "To eliminate the need for any employees"], "a": 0, "e": "Small business managers need to learn HR practices to ensure effective results through people.", "type": "MCQ."},
+            {"q": "What is the primary role of the HR manager in their 'line function'?", "o": ["Directing the activities of people in their own department", "Advising external competitors", "Filing corporate tax returns", "Auditing factory machinery"], "a": 0, "e": "The HR manager directs the activities of people in their own department (line function).", "type": "MCQ."},
+            {"q": "When an HR manager assists a line manager in hiring or evaluating employees, which function are they performing?", "o": ["Staff (assist and advise) function", "Line function", "Coordinative function", "Punitive disciplinary function"], "a": 0, "e": "Assisting and advising line managers in hiring, training, and rewarding is the staff function.", "type": "MCQ."},
+            {"q": "Which trend is most closely associated with the extension of sales, ownership, and manufacturing to new markets abroad?", "o": ["Globalization", "Local protectionism", "Domestic isolation", "Manual labor stagnation"], "a": 0, "e": "Globalization refers to firms extending sales, ownership, and manufacturing to new markets abroad.", "type": "MCQ."},
+            {"q": "What type of authority creates a superior-subordinate order-giving relationship?", "o": ["Line authority", "Staff authority", "Advisory authority", "Informal peer authority"], "a": 0, "e": "Line authority traditionally gives managers the right to issue orders, creating a superior-subordinate relationship.", "type": "MCQ."},
+            {"q": "Which HR activity involves communicating through interviewing, counseling, and disciplining?", "o": ["HR communication activities", "Financial auditing", "Software engineering", "Supply chain logistics"], "a": 0, "e": "Communicating (interviewing, counseling, disciplining) is a key HR activity.", "type": "MCQ."},
+            {"q": "What is a major risk of allowing a lack of training in an organization?", "o": ["Undermining departmental effectiveness", "Improved departmental efficiency", "Lower turnover rates", "Higher profitability"], "a": 0, "e": "Allowing a lack of training can undermine your department's effectiveness.", "type": "MCQ."},
+            {"q": "What does staffing involve regarding performance standards?", "o": ["Setting performance standards and evaluating performance", "Ignoring performance altogether", "Punishing employees randomly", "Eliminating production quotas"], "a": 0, "e": "Staffing involves setting performance standards, evaluating performance, counseling, and compensating.", "type": "MCQ."},
+            {"q": "Which tool or platform is frequently cited for modern professional networking and recruiting?", "o": ["LinkedIn", "Typewriters", "Paper bulletin boards", "Carrier pigeons"], "a": 0, "e": "LinkedIn is cited as an online website enabling free agent promotion and recruiting.", "type": "MCQ."},
+            {"q": "What should a manager know about regarding employee health and safety?", "o": ["Federal occupational safety laws and avoiding unsafe practices", "How to maximize workplace hazards", "How to bypass safety inspections", "How to ignore workplace injuries"], "a": 0, "e": "Managers must know about employee health and safety and avoid being cited under federal laws for unsafe practices.", "type": "MCQ."},
+            {"q": "How does effective human resource management impact a company's bottom line?", "o": ["It helps ensure that you get effective results through people, improving profits and performance", "It drains financial resources uselessly", "It increases personnel mistakes and turnover", "It causes legal court battles"], "a": 0, "e": "Effective HRM can help ensure you get effective results through people, improving profits and performance.", "type": "MCQ."},
+            {"q": "What does a job analysis determine?", "o": ["The nature of each employee's job", "The daily stock market ticker", "The office floor plan layout", "The corporate tax rate"], "a": 0, "e": "Conducting job analyses determines the nature of each employee's job.", "type": "MCQ."},
+
+            // High-Level Questions (46-50)
+            {"q": "[HIGH-LEVEL] A line manager bypasses the HR department entirely and independently hires an applicant without verifying credentials, later facing a major lawsuit for negligent hiring and discriminatory interview practices. According to Chapter 1, what fundamental management principle and HR concept was violated?", "o": ["The manager failed to utilize HR expertise and command of personnel knowledge, resulting in costly personnel mistakes and legal liability", "The manager successfully exercised pure staff advisory authority", "The manager demonstrated perfect entrepreneur staffing efficiency", "The manager complied with federal occupational safety laws"], "a": 0, "e": "Command of HRM knowledge helps managers avoid personnel mistakes like discriminatory lawsuits and hiring the wrong person.", "type": "MCQ."},
+            {"q": "[HIGH-LEVEL] An entrepreneur starting a small tech startup believes that HR management functions are exclusively necessary for massive Fortune 500 corporations with thousands of employees. Based on Chapter 1, how should this assumption be corrected?", "o": ["Small business managers and entrepreneurs equally need to learn and apply HR practices to ensure effective results through people", "Small businesses are legally exempt from all employment laws", "HR practices only apply to government civil service agencies", "Entrepreneurs should focus solely on accounting and ignore personnel"], "a": 0, "e": "Small business managers need to learn more about HR practices to ensure effective results through people.", "type": "MCQ."},
+            {"q": "[HIGH-LEVEL] A multinational firm expands its manufacturing plants overseas to leverage foreign labor markets (globalization). While this lowers consumer prices, local domestic workers face increased job insecurity and pressure to boost productivity. Which dual aspect of globalization does this scenario illustrate?", "o": ["Benefits for consumers (lower prices/higher quality) alongside threats and challenges for workers (harder work and less secure jobs)", "Purely positive outcomes with zero negative consequences", "The elimination of all technological trends", "Strict adherence to static domestic markets"], "a": 0, "e": "Globalization brings lower prices/higher quality for consumers, but workers face working harder and less secure jobs.", "type": "MCQ."},
+            {"q": "[HIGH-LEVEL] An HR manager discovers that various line supervisors are ignoring company grievance policies and arbitrarily disciplining workers without documentation. The HR manager steps in to ensure all line supervisors correctly implement the established HR policies and practices uniformly. Which specific function of the HR manager is being demonstrated?", "o": ["The coordinative function", "The pure line manufacturing function", "The external recruiter function", "The labor union strike leadership function"], "a": 0, "e": "The coordinative function ensures that line managers are implementing the firm's human resource policies and practices.", "type": "MCQ."},
+            {"q": "[HIGH-LEVEL] As global competition intensifies and remote technologies evolve, an organization shifts toward a hybrid workforce model utilizing contingent, part-time workers and freelance free agents found via platforms like LinkedIn. Which combined macro trends from Chapter 1 are driving this organizational shift?", "o": ["Globalization/competition, technological trends, and demographic/nontraditional worker trends", "Agricultural stagnation and manual typewriter obsolescence", "Monarchial governance and feudal labor laws", "Strict domestic isolationism"], "a": 0, "e": "Globalization, technological trends (smartphones, LinkedIn), and nontraditional/demographic trends drive alternative work arrangements.", "type": "MCQ."}
+        ];
+
+        const P2_SOURCE = [
+            // Standard Questions (1-45)
+            {"q": "An organization consists of people with formally assigned roles who work together to achieve goals.", "o": ["True", "False"], "a": 0, "e": "True: An organization consists of people with formally assigned roles working toward goals.", "type": "TF"},
+            {"q": "A manager is responsible for accomplishing organizational goals by managing the efforts of people.", "o": ["True", "False"], "a": 0, "e": "True: A manager accomplishes goals by managing people's efforts.", "type": "TF"},
+            {"q": "Planning involves establishing goals, standards, rules, procedures, and forecasting.", "o": ["True", "False"], "a": 0, "e": "True: Planning includes establishing goals, rules, procedures, and forecasting.", "type": "TF"},
+            {"q": "Organizing involves delegating authority, establishing departments, and coordinating subordinate work.", "o": ["True", "False"], "a": 0, "e": "True: Organizing involves giving tasks, departments, delegating authority, and coordinating work.", "type": "TF"},
+            {"q": "Staffing includes recruiting, selecting, training, evaluating, counseling, and compensating employees.", "o": ["True", "False"], "a": 0, "e": "True: Staffing covers hiring, recruiting, selecting, training, evaluating, and compensating.", "type": "TF"},
+            {"q": "Leading involves getting others to get the job done, maintaining morale, and motivating subordinates.", "o": ["True", "False"], "a": 0, "e": "True: Leading is getting the job done, maintaining morale, and motivating subordinates.", "type": "TF"},
+            {"q": "Controlling involves checking actual performance against standards and taking corrective action.", "o": ["True", "False"], "a": 0, "e": "True: Controlling sets standards, checks performance, and takes corrective action.", "type": "TF"},
+            {"q": "Human Resource Management is defined as acquiring, training, appraising, compensating employees, and attending to labor relations, health, safety, and fairness.", "o": ["True", "False"], "a": 0, "e": "True: This is the exact definition of HRM given in Chapter 1.", "type": "TF"},
+            {"q": "Conducting job analyses and planning labor needs are part of HRM activities.", "o": ["True", "False"], "a": 0, "e": "True: Conducting job analyses and planning labor needs are core HRM activities.", "type": "TF"},
+            {"q": "Managing wages, salaries, providing incentives and benefits are outside the scope of HRM.", "o": ["True", "False"], "a": 1, "e": "False: Managing wages, salaries, incentives, and benefits are key HRM activities.", "type": "TF"},
+            {"q": "Command of HRM knowledge helps managers avoid costly personnel mistakes.", "o": ["True", "False"], "a": 0, "e": "True: HRM knowledge helps managers avoid hiring the wrong person, turnover, and court lawsuits.", "type": "TF"},
+            {"q": "Effective human resource management can help improve corporate profits and performance.", "o": ["True", "False"], "a": 0, "e": "True: Effective HRM ensures effective results through people, improving profits and performance.", "type": "TF"},
+            {"q": "Small business managers and entrepreneurs do not need to learn about HR practices.", "o": ["True", "False"], "a": 1, "e": "False: Small business managers need to learn more about HR practices.", "type": "TF"},
+            {"q": "Line authority traditionally gives managers the right to issue orders to other managers or employees.", "o": ["True", "False"], "a": 0, "e": "True: Line authority creates a superior-subordinate order-giving relationship.", "type": "TF"},
+            {"q": "Staff authority gives a manager the right to advise other managers or employees.", "o": ["True", "False"], "a": 0, "e": "True: Staff authority gives the right to advise other managers or employees.", "type": "TF"},
+            {"q": "Placing the right person in the right job is one of the line manager's HR duties.", "o": ["True", "False"], "a": 0, "e": "True: Placing the right person in the right job is a line manager HR duty.", "type": "TF"},
+            {"q": "The HR manager carries out a line function, a coordinative function, and a staff (assist and advise) function.", "o": ["True", "False"], "a": 0, "e": "True: HR managers carry out line, coordinative, and staff functions.", "type": "TF"},
+            {"q": "Recruiters search for qualified job applicants.", "o": ["True", "False"], "a": 0, "e": "True: Recruiters search for qualified job applicants.", "type": "TF"},
+            {"q": "EEO coordinators investigate and resolve EEO grievances and compile EEO reports.", "o": ["True", "False"], "a": 0, "e": "True: EEO coordinators handle EEO grievances and reports.", "type": "TF"},
+            {"q": "Job analysts collect and examine information about jobs to prepare job descriptions.", "o": ["True", "False"], "a": 0, "e": "True: Job analysts collect info to prepare job descriptions.", "type": "TF"},
+            {"q": "Compensation managers develop compensation plans and handle employee benefits programs.", "o": ["True", "False"], "a": 0, "e": "True: Compensation managers develop plans and handle benefits.", "type": "TF"},
+            {"q": "Training specialists plan, organize, and direct training activities.", "o": ["True", "False"], "a": 0, "e": "True: Training specialists plan, organize, and direct training.", "type": "TF"},
+            {"q": "Labor relations specialists advise management on all aspects of union-management relations.", "o": ["True", "False"], "a": 0, "e": "True: Labor relations specialists advise management on union relations.", "type": "TF"},
+            {"q": "Globalization refers to the tendency of firms to extend their sales, ownership, and manufacturing to new markets abroad.", "o": ["True", "False"], "a": 0, "e": "True: This is the exact definition of globalization in Chapter 1.", "type": "TF"},
+            {"q": "Globalization means less competition and zero pressure to lower costs.", "o": ["True", "False"], "a": 1, "e": "False: Globalization means *more* competition and *more* pressure to lower costs and be world-class.", "type": "TF"},
+            {"q": "For consumers, globalization brings lower prices and higher quality on products from computers to cars.", "o": ["True", "False"], "a": 0, "e": "True: Consumers benefit from lower prices and higher quality.", "type": "TF"},
+            {"q": "Technology has changed almost everything we do, including recruitment via Facebook and LinkedIn.", "o": ["True", "False"], "a": 0, "e": "True: Technology changed HR applications, using Facebook and LinkedIn recruiting.", "type": "TF"},
+            {"q": "High-tech jobs and service jobs are prominent examples of trends in the nature of work.", "o": ["True", "False"], "a": 0, "e": "True: High-tech jobs and service jobs represent trends in the nature of work.", "type": "TF"},
+            {"q": "HR managers list critical thinking/problem-solving and IT application as skills increasing most in importance.", "o": ["True", "False"], "a": 0, "e": "True: Critical thinking and IT application are the top two skills increasing in importance.", "type": "TF"},
+            {"q": "Many HR professionals call the aging workforce (retirees) the biggest demographic trend affecting employers.", "o": ["True", "False"], "a": 0, "e": "True: The aging workforce is cited as the biggest demographic trend.", "type": "TF"},
+            {"q": "Nontraditional workers include employees holding multiple jobs, part-time workers, and contingent workers.", "o": ["True", "False"], "a": 0, "e": "True: Nontraditional workers hold multiple jobs, are contingent or part-time.", "type": "TF"},
+            {"q": "Online professional websites like LinkedIn enable free agent professionals to promote their services.", "o": ["True", "False"], "a": 0, "e": "True: LinkedIn enables free agent professionals to promote services.", "type": "TF"},
+            {"q": "Controlling involves establishing departments and delegating authority to subordinates.", "o": ["True", "False"], "a": 1, "e": "False: Establishing departments and delegating authority are part of *organizing*, not controlling.", "type": "TF"},
+            {"q": "Hiring the wrong person for the job is a personnel mistake managers should actively avoid.", "o": ["True", "False"], "a": 0, "e": "True: Hiring the wrong person is a major personnel mistake to avoid.", "type": "TF"},
+            {"q": "Staff authority creates a superior-subordinate order-giving relationship.", "o": ["True", "False"], "a": 1, "e": "False: *Line* authority creates the superior-subordinate relationship, whereas staff authority gives the right to advise.", "type": "TF"},
+            {"q": "Controlling labor costs and protecting employee health are line manager HR duties.", "o": ["True", "False"], "a": 0, "e": "True: Controlling labor costs and protecting health are line manager duties.", "type": "TF"},
+            {"q": "The HR manager's coordinative function ensures that line managers implement HR policies and practices.", "o": ["True", "False"], "a": 0, "e": "True: The coordinative function ensures line managers implement HR policies.", "type": "TF"},
+            {"q": "Communicating through interviewing, counseling, and disciplining is an optional activity unrelated to HRM.", "o": ["True", "False"], "a": 1, "e": "False: Communicating (interviewing, counseling, disciplining) is a core HRM activity.", "type": "TF"},
+            {"q": "Allowing a lack of training in an organization can seriously undermine department effectiveness.", "o": ["True", "False"], "a": 0, "e": "True: Lack of training undermines department effectiveness.", "type": "TF"},
+            {"q": "Equal opportunity and affirmative action are topics a manager should know about.", "o": ["True", "False"], "a": 0, "e": "True: Managers should know about equal opportunity and affirmative action.", "type": "TF"},
+            {"q": "Staffing is exclusively handled by external accountants rather than managers.", "o": ["True", "False"], "a": 1, "e": "False: Staffing is a core management and HRM function.", "type": "TF"},
+            {"q": "Technological trends facilitate alternative work arrangements like freelance contracting.", "o": ["True", "False"], "a": 0, "e": "True: Technological trends facilitate alternative work arrangements.", "type": "TF"},
+            {"q": "A manager's primary responsibility is accomplishing organizational goals by managing people.", "o": ["True", "False"], "a": 0, "e": "True: Managers accomplish goals by managing the efforts of people.", "type": "TF"},
+            {"q": "Building employee commitment and training managers are part of broader HRM activities.", "o": ["True", "False"], "a": 0, "e": "True: Building employee commitment and training managers are key HRM activities.", "type": "TF"},
+            {"q": "Having your company taken to court because of discriminatory actions is a desirable management outcome.", "o": ["True", "False"], "a": 1, "e": "False: Being taken to court for discrimination is a serious personnel mistake to avoid.", "type": "TF"},
+
+            // High-Level Questions (46-50)
+            {"q": "[HIGH-LEVEL] If a manager completely ignores labor safety laws, employee training, and fair compensation structures, Chapter 1 indicates they are successfully mitigating all personnel risks and maximizing organizational longevity.", "o": ["True", "False"], "a": 1, "e": "False: Ignoring safety laws, training, and fairness leads to court lawsuits, safety citations, high turnover, and undermined effectiveness, which are personnel mistakes to avoid.", "type": "TF"},
+            {"q": "[HIGH-LEVEL] An entrepreneur who assumes human resource management principles apply exclusively to giant multinational corporations will miss out on the proven benefits of hiring, motivating, and developing the right people to drive small business performance.", "o": ["True", "False"], "a": 0, "e": "True: Small business managers need to learn HR practices because effective HRM ensures effective results through people regardless of company size.", "type": "TF"},
+            {"q": "[HIGH-LEVEL] While globalization offers consumers lower prices and higher quality goods, it simultaneously exposes workers to heightened productivity pressures and job security concerns.", "o": ["True", "False"], "a": 0, "e": "True: Globalization brings lower prices and higher quality for consumers, but workers face working harder and perhaps less secure jobs.", "type": "TF"},
+            {"q": "[HIGH-LEVEL] When an HR manager directs the staff within their own department, they are performing a coordinative function rather than a line function.", "o": ["True", "False"], "a": 1, "e": "False: Directing people in their *own* department is a *line* function, whereas coordinating HR policies across other departments is the coordinative function.", "type": "TF"},
+            {"q": "[HIGH-LEVEL] The convergence of globalization, advanced smartphone/social media technologies, and aging demographic shifts is actively transforming the nature of work toward high-tech service jobs and flexible nontraditional arrangements.", "o": ["True", "False"], "a": 0, "e": "True: Globalization, tech trends, nature of work shifts, and demographic trends collectively reshape modern employment and alternative work arrangements.", "type": "TF"}
+        ];
+
+        const getQuestionType = question => question.type.replace(/[.!?]+$/, "");
+
+        const P1_DATA = [
+            ...P1_SOURCE.filter(question => getQuestionType(question) === "MCQ"),
+            ...P2_SOURCE.filter(question => getQuestionType(question) === "MCQ")
+        ];
+        const P2_DATA = [
+            ...P1_SOURCE.filter(question => getQuestionType(question) === "TF"),
+            ...P2_SOURCE.filter(question => getQuestionType(question) === "TF")
+        ];
+
+        let activePart = 1;
+        let qData = P1_DATA;
+        let cIdx = 0;
+        let score = 0;
+        let wrongList = [];
+
+        const $ = id => document.getElementById(id);
+
+        function switchPart(part) {
+            activePart = part;
+            $("tab1").className = "tab-btn " + (part === 1 ? "active" : "");
+            $("tab2").className = "tab-btn " + (part === 2 ? "active" : "");
+            qData = part === 1 ? P1_DATA : P2_DATA;
+            resetQuiz();
+        }
+
+        function resetQuiz() {
+            cIdx = 0;
+            score = 0;
+            wrongList = [];
+            renderQuestion();
+        }
+
+        function renderQuestion() {
+            const q = qData[cIdx];
+            $("n").textContent = `Question ${cIdx + 1} of ${qData.length}`;
+            $("s").textContent = `Score: ${score}`;
+            $("bar").style.width = `${(cIdx / qData.length) * 100}%`;
+
+            const isHighLevel = cIdx >= 45;
+            const badgeClass = isHighLevel ? "q-badge high-level" : "q-badge";
+            const badgeText = isHighLevel 
+                ? (getQuestionType(q) === 'TF' ? 'True / False — High Level' : 'Multiple Choice — High Level')
+                : (getQuestionType(q) === 'TF' ? 'True / False' : 'Multiple Choice');
+            
+            $("card").innerHTML = `
+                <span class="${badgeClass}">${badgeText}</span>
+                <p class="q">${q.q}</p>
+                <div id="opts"></div>
+                <div id="fb"></div>
+            `;
+
+            q.o.forEach((optText, i) => {
+                const b = document.createElement("button");
+                b.className = "opt";
+                b.innerHTML = `<b>${getQuestionType(q) === 'TF' ? (i===0?'T':'F') : "ABCD"[i] + ")"}</b><span></span>`;
+                b.querySelector("span").textContent = optText;
+                b.onclick = () => handleAnswer(i);
+                $("opts").appendChild(b);
+            });
+        }
+
+        function handleAnswer(selected) {
+            const q = qData[cIdx];
+            const isCorrect = selected === q.a;
+            const buttons = document.querySelectorAll(".opt");
+
+            buttons.forEach((btn, idx) => {
+                btn.disabled = true;
+                if (idx === q.a) btn.classList.add("ok");
+                else if (idx === selected) btn.classList.add("no");
+            });
+
+            if (isCorrect) score++;
+            else wrongList.push(cIdx);
+
+            $("s").textContent = `Score: ${score}`;
+
+            $("fb").innerHTML = `
+                <div class="ex ${isCorrect ? 'ok' : 'no'}">
+                    <strong>${isCorrect ? 'Correct answer ✓' : 'Incorrect answer ✗'}</strong>
+                    <span>${q.e}</span>
+                </div>
+                <button class="btn" id="nxtBtn">${cIdx < qData.length - 1 ? 'Next question' : 'Show final results'}</button>
+            `;
+
+            $("nxtBtn").onclick = () => {
+                cIdx++;
+                if (cIdx < qData.length) renderQuestion();
+                else finishQuiz();
+            };
+            $("nxtBtn").focus();
+        }
+
+        function finishQuiz() {
+            $("bar").style.width = "100%";
+            $("n").textContent = "Quiz complete";
+            const pct = Math.round((score / qData.length) * 100);
+            
+            let html = `
+                <div class="score">${score} / ${qData.length}</div>
+                <p style="text-align:center;font-size:1.2rem;margin:0 0 16px;">Percentage: <b>${pct}%</b></p>
+            `;
+
+            if (wrongList.length > 0) {
+                html += `<p style="margin:16px 0 8px;"><b>Questions to review:</b></p><ul class="rev">`;
+                wrongList.reverse().forEach(w => {
+                    html += `<li><b>Question ${w + 1}:</b> ${qData[w].q}</li>`;
+                });
+                html += `</ul>`;
+            } else {
+                html += `<p style="text-align:center;color:var(--ok);">Excellent! All answers are correct (100%).</p>`;
+            }
+
+            html += `<button class="btn" onclick="resetQuiz()">Restart quiz</button>`;
+            $("card").innerHTML = html;
+        }
+
+        renderQuestion();
+    </script>
+</body>
+</html>

@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="ar" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Question bank For BIDT Level Three</title>
+    <script>
+        if (sessionStorage.getItem("questionBankAccess") !== "granted") {
+            window.location.replace("login.html");
+        }
+    </script>
+    <style>
+        :root {
+            --bg: #0f172a;
+            --c: #1e293b;
+            --t: #f8fafc;
+            --m: #94a3b8;
+            --b: #334155;
+            --ac: #fdfeff;
+            --card-bg: linear-gradient(135deg, #1e3a8a 0%, #1e293b 100%);
+            --ok: #22c55e;
+            box-sizing: border-box;
+        }
+
+        @media(prefers-color-scheme: light) {
+            :root[data-theme=light] {
+                --bg: #f8fafc;
+                --c: #ffffff;
+                --t: #0f172a;
+                --m: #64748b;
+                --b: #e2e8f0;
+                --ac: #f8f9fa;
+                --card-bg: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
+            }
+        }
+
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--t);
+            font-family: 'Segoe UI', Tahoma, system-ui, -apple-system, sans-serif;
+            line-height: 1;
+            padding: 20px 16px 60px;
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header-panel {
+            text-align: center;
+            margin-bottom: 20px;
+            border-bottom: 10px solid var(--b);
+            padding-bottom: 30px;
+        }
+
+        h1 { font-size: 4rem; margin: 0 0 8px; color: #ffffff; }
+        .sub { color: var(--m); font-size: 1.1rem; margin: 0; }
+
+        /* Grid Layout for Courses Cards */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            justify-content: center;
+        }
+
+        /* Card Design */
+        .course-card {
+            background: var(--c);
+            border: 1.5px solid var(--b);
+            border-radius: 60px;
+            padding: 10px;
+            text-align: center;
+            box-shadow: 0 10px 25px -5px rgba(1, 1, 90, 0), 0 25px 10px -6px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 100px;
+        }
+
+        /* Inner Content Box styled like the blue container in image */
+        .card-inner {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            color: #ffffff;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Hover Effect */
+        .course-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 35px -10px rgba(252, 253, 253, 0.3);
+            border-color: var(--ac);
+        }
+
+        .course-title {
+            font-size: 1.50rem;
+            font-weight: 800;
+            margin: 0 0 16px;
+            direction: ltr;
+            color: #ffffff;
+            letter-spacing: 0.5px;
+        }
+
+        .course-info {
+            font-size: 0.9rem;
+            color: #cbd5e1;
+            margin-bottom: 20px;
+            direction: rtl;
+        }
+
+        .course-info p {
+            margin: 4px 0;
+        }
+
+        /* Button Styling */
+        .btn-material {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: #ffffff;
+            color: #010e2b;
+            border: none;
+            border-radius: 25px;
+            padding: 10px 20px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.2s;
+            text-decoration: none;
+            margin: 0 auto;
+            width: fit-content;
+        }
+
+        .btn-material:hover {
+            background: #f2ff03;
+            transform: scale(1.05);
+        }
+    </style>
+    <link rel="stylesheet" href="site-theme.css">
+</head>
+<body>
+    <main>
+        <div class="header-panel">
+            <h1>Question Bank For BIDT Level Three</h1>
+            Prepared By: Mohamed Essam
+        </div>
+
+        <div class="grid-container">
+            <!-- 1. Data Structure -->
+            <div class="course-card" onclick="location.href='DS.html'">
+                <div class="card-inner">
+                    <h3 class="course-title">Data Structure</h3>
+                    <div class="course-info">
+                    </div>
+                    <a href="DS.html" class="btn-material">Content ➔</a>
+                </div>
+            </div>
+
+ <!-- 2. Data management -->
+            <div class="course-card" onclick="location.href='DM.html'">
+                <div class="card-inner">
+                    <h3 class="course-title">Data management</h3>
+                    <div class="course-info">
+                    </div>
+                    <a href="DM.html" class="btn-material">Content ➔</a>
+                </div>
+            </div>
+
+            <!-- 3. Corporate finance -->
+            <div class="course-card" onclick="location.href='CF.html'">
+                <div class="card-inner">
+                    <h3 class="course-title">Corporate finance</h3>
+                    <div class="course-info">
+                    </div>
+                    <a href="CF.html" class="btn-material">Content ➔</a>
+                </div>
+            </div>
+
+            <!-- 4. Strategic management -->
+            <div class="course-card" onclick="location.href='SM.html'">
+                <div class="card-inner">
+                    <h3 class="course-title">Strategic management</h3>
+                    <div class="course-info">
+                 </div>
+                    <a href="SM.html" class="btn-material">Content ➔</a>
+                </div>
+            </div>
+
+            <!-- 5. Human Resource Management -->
+            <div class="course-card" onclick="location.href='HRM.html'">
+                <div class="card-inner">
+                    <h3 class="course-title">Human Resource Management</h3>
+                    <div class="course-info">
+                    </div>
+                    <a href="HRM.html" class="btn-material">Content ➔</a>
+                </div>
+            </div>
+
+            <!-- 6. Foundations of digital technology -->
+            <div class="course-card" onclick="location.href='FDT.html'">
+                <div class="card-inner">
+                    <h3 class="course-title">Foundations of digital technology</h3>
+                    <div class="course-info">
+                    </div>
+                    <a href="FDT.html" class="btn-material">Content ➔</a>
+                </div>
+            </div>
+            <!-- 7. Problem Solving -->
+            <div class="course-card" onclick="location.href='PS.html'">
+                <div class="card-inner">
+                    <h3 class="course-title">Problem Solving</h3>
+                    <div class="course-info">
+                    </div>
+                    <a href="PS.html" class="btn-material">Content ➔</a>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

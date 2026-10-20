@@ -1,0 +1,436 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Strategic Management — Chapter 4: Internal Scanning</title>
+    <style>
+        :root {
+            --bg: #0f172a;
+            --c: #1e293b;
+            --t: #f8fafc;
+            --m: #94a3b8;
+            --b: #334155;
+            --ac: #38bdf8;
+            --ok: #22c55e;
+            --okb: #052e16;
+            --no: #ef4444;
+            --nob: #450a0a;
+            box-sizing: border-box;
+        }
+
+        @media(prefers-color-scheme: light) {
+            :root[data-theme=light] {
+                --bg: #f8fafc;
+                --c: #ffffff;
+                --t: #0f172a;
+                --m: #64748b;
+                --b: #e2e8f0;
+                --ac: #0284c7;
+                --okb: #dcfce7;
+                --nob: #fee2e2;
+                --ok: #16a34a;
+                --no: #dc2626;
+            }
+        }
+
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--t);
+            font-family: 'Segoe UI', Tahoma, system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+        }
+        main {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 24px 16px 60px;
+        }
+        .header-panel {
+            text-align: center;
+            margin-bottom: 24px;
+            border-bottom: 8px solid var(--b);
+            padding-bottom: 30px;
+        }
+        h1 { font-size: 1.5rem; margin: 0 0 8px; color: var(--ac); }
+        .sub { color: var(--m); font-size: 0.95rem; margin: 0; }
+        
+        .nav-tabs {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .tab-btn {
+            flex: 1;
+            padding: 12px;
+            background: var(--c);
+            border: 1px solid var(--b);
+            color: var(--t);
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .tab-btn.active {
+            background: var(--ac);
+            color: #000;
+            border-color: var(--ac);
+        }
+
+        .bar {
+            height: 8px;
+            background: var(--b);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+        .bar i {
+            display: block;
+            height: 100%;
+            background: var(--ac);
+            width: 0;
+            transition: width 0.3s;
+        }
+        .meta {
+            display: flex;
+            justify-content: space-between;
+            color: var(--m);
+            font-size: 0.9rem;
+            margin-bottom: 16px;
+        }
+        .card {
+            background: var(--c);
+            border: 1px solid var(--b);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+        .q-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            background: var(--b);
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+            color: var(--ac);
+        }
+        .q-badge.high-level {
+            background: #f59e0b;
+            color: #000;
+            font-weight: bold;
+        }
+        .q {
+            font-size: 1.1rem;
+            font-weight: 600;
+            direction: ltr;
+            text-align: left;
+            margin: 0 0 16px;
+        }
+        .opt {
+            display: flex;
+            gap: 12px;
+            direction: ltr;
+            text-align: left;
+            width: 100%;
+            background: var(--c);
+            color: var(--t);
+            border: 1.5px solid var(--b);
+            border-radius: 8px;
+            padding: 12px 14px;
+            margin-bottom: 10px;
+            font: inherit;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+        .opt:hover:not(:disabled) { border-color: var(--ac); }
+        .opt b { min-width: 1.5em; color: var(--ac); }
+        .opt.ok { background: var(--okb); border-color: var(--ok); }
+        .opt.no { background: var(--nob); border-color: var(--no); }
+        .opt:disabled { cursor: default; }
+
+        .ex {
+            margin-top: 16px;
+            padding: 14px;
+            border-radius: 8px;
+            direction: ltr;
+            text-align: left;
+            font-size: 0.95rem;
+        }
+        .ex.ok { background: var(--okb); border: 1px solid var(--ok); }
+        .ex.no { background: var(--nob); border: 1px solid var(--no); }
+        .ex strong { display: block; margin-bottom: 4px; }
+
+        .btn {
+            margin-top: 16px;
+            background: var(--ac);
+            color: #000;
+            border: 0;
+            border-radius: 8px;
+            padding: 12px 24px;
+            font: inherit;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+        }
+        .score { text-align: center; font-size: 3rem; font-weight: 800; margin: 12px 0; color: var(--ac); }
+        .rev { margin: 16px 0 0; padding: 0; list-style: none; direction: ltr; text-align: left; font-size: 0.9rem; }
+        .rev li { padding: 8px 0; border-top: 1px solid var(--b); }
+    </style>
+</head>
+<body>
+    <main>
+        <div class="header-panel">
+            <h1>Strategic Management — Chapter 4</h1>
+            <p class="sub">Internal Scanning: Resources, Competencies, Value Chain & IFAS</p>
+        </div>
+        
+        <div class="nav-tabs">
+            <button class="tab-btn active" id="tab1" onclick="switchPart(1)">Multiple Choice</button>
+            <button class="tab-btn" id="tab2" onclick="switchPart(2)">True/False</button>
+        </div>
+
+        <div class="bar"><i id="bar"></i></div>
+        <div class="meta">
+            <span id="n"></span>
+            <span id="s"></span>
+        </div>
+        <div class="card" id="card"></div>
+    </main>
+      
+    <script>
+       const P1_SOURCE = [
+            // Standard Questions (1-45)
+            {"q": "How is Internal Scanning (Organizational Analysis) defined in Chapter 4?", "o": ["Identifying and developing an organization's resources and competencies to determine strengths and weaknesses", "Analyzing macro-societal economic trends like GDP and inflation", "Evaluating industry competitors using Porter's five forces", "Auditing quarterly government tax returns"], "a": 0, "e": "Internal scanning is organizational analysis focused on identifying and developing resources and competencies to find strengths and weaknesses.", "type": "MCQ"},
+            {"q": "What are the three main areas examined during internal scanning?", "o": ["Functional resources, corporate culture, and organizational structure", "Natural, societal, and task environments", "Mission, objectives, and policies", "Programs, budgets, and procedures"], "a": 0, "e": "Internal scanning examines functional resources, corporate culture, and organizational structure.", "type": "MCQ"},
+            {"q": "What are Tangible Assets in a corporation's resource base?", "o": ["Plant, equipment, and physical assets e.g., Tesla Gigafactories and Amazon fulfillment centers", "Reputation, brand recognition, and technology patents", "Employee headcount, skills, and tacit knowledge", "Customer credit scores and accounts receivable"], "a": 0, "e": "Tangible assets are physical resources like plant and equipment.", "type": "MCQ"},
+            {"q": "Which of the following represents Intangible Assets?", "o": ["Reputation and technology (patents and copyrights) e.g., Tesla brand and Amazon's tech platform", "Physical machinery and warehousing real estate", "Number of assembly workers and delivery drivers", "Raw material inventory stockpiles"], "a": 0, "e": "Intangible assets include reputation and technology such as patents and copyrights.", "type": "MCQ"},
+            {"q": "How are Human Assets defined in resource analysis?", "o": ["Number of employees and their skills and capabilities e.g., Amazon engineers and Breadfast ops teams", "Company stock market capitalization", "Physical office buildings and corporate headquarters", "Registered trademarks and brand logos"], "a": 0, "e": "Human assets refer to the number of employees and their collective skills.", "type": "MCQ"},
+            {"q": "What is a Capability?", "o": ["A corporation's ability to exploit and use its resources", "A cross-functional integration of multiple departments", "A baseline physical asset owned by the firm", "An external market opportunity"], "a": 0, "e": "Capabilities are a corporation's ability to use its resources.", "type": "MCQ"},
+            {"q": "What is a Competency?", "o": ["Cross-functional integration and coordination of a corporation's capabilities", "A single tangible asset owned by a department", "An external threat posed by industry rivals", "A legal patent registered with the government"], "a": 0, "e": "Competency is the cross-functional integration and coordination of capabilities.", "type": "MCQ"},
+            {"q": "What is a Core Competency?", "o": ["A collection of competencies common throughout the corporation that is something the corporation does very well", "An isolated skill possessed by a single entry-level clerk", "An external market threat that all firms face", "A baseline tangible asset like office furniture"], "a": 0, "e": "A core competency is common throughout the corporation and performed very well.", "type": "MCQ"},
+            {"q": "What makes a Distinctive Competency different from a Core Competency?", "o": ["Distinctive competencies are core competencies that are better than those of the competition", "Distinctive competencies are physical manufacturing plants", "Distinctive competencies are external opportunities", "Distinctive competencies are shared corporate cultural values"], "a": 0, "e": "Distinctive competencies are core competencies that outperform competitors.", "type": "MCQ"},
+            {"q": "What are the three levels of capability illustrated in Chapter 4?", "o": ["Competency (Level 1: baseline), Core Competency (Level 2: engine), and Distinctive Competency (Level 3: moat)", "Simple, Functional, and Divisional structures", "Inbound, Operations, and Outbound logistics", "Tangible, Human, and Intangible assets"], "a": 0, "e": "The three capability levels are Competency, Core Competency, and Distinctive Competency.", "type": "MCQ"},
+            {"q": "What is Amazon Go's Distinctive Competency according to Chapter 4 examples?", "o": ["'Just Walk Out' technology using computer vision, weight sensors, and AI", "Advanced data-driven supply chain inventory management", "Standard customer service desks", "Physical paper catalog distribution"], "a": 0, "e": "Amazon Go's distinctive competency is its 'Just Walk Out' technology, which is technically hard for competitors to copy.", "type": "MCQ"},
+            {"q": "What framework did J.B. Barney suggest to evaluate whether a firm's internal competency is a distinctive competency and strength?", "o": ["VRIO (Value, Rareness, Imitability, Organization)", "PESTEL analysis", "Porter's Five Forces", "BCG Growth-Share Matrix"], "a": 0, "e": "J.B. Barney suggested the VRIO framework to evaluate competencies.", "type": "MCQ"},
+            {"q": "In the VRIO framework, what does 'V' stand for and evaluate?", "o": ["Value: Does it provide customer value and competitive advantage?", "Volume: Does the firm produce large batches?", "Variability: Are customer tastes changing?", "Velocity: How fast are goods shipped?"], "a": 0, "e": "'V' stands for Value, evaluating whether it provides customer value and competitive advantage.", "type": "MCQ"},
+            {"q": "In VRIO, what does 'R' stand for?", "o": ["Rareness: Do no other competitors possess it?", "Returns: What is the financial ROI?", "Resources: What tangible assets are owned?", "Regulations: Are government permits secured?"], "a": 0, "e": "'R' stands for Rareness, asking if no other competitors possess the resource.", "type": "MCQ"},
+            {"q": "In VRIO, what does 'I' stand for?", "o": ["Imitability: Is it costly for others to imitate?", "Integration: Are departments coordinated?", "Inflation: How do price changes affect costs?", "Infrastructure: Is general management strong?"], "a": 0, "e": "'I' stands for Imitability, asking if it is costly for others to imitate.", "type": "MCQ"},
+            {"q": "In VRIO, what does 'O' stand for?", "o": ["Organization: Is the firm organized to exploit the resource?", "Operations: Are factory machines running?", "Objectives: What financial targets are set?", "Outbound: Is distribution efficient?"], "a": 0, "e": "'O' stands for Organization, asking if the firm is organized to exploit the resource.", "type": "MCQ."},
+            {"q": "According to VRIO decision path, when is a competency considered a distinctive competency and strength?", "o": ["When the answer is YES to all four questions (Value, Rareness, Imitability, Organization)", "When only Value and Rareness are answered YES", "When Organization is YES regardless of Imitability", "When the asset is purely tangible"], "a": 0, "e": "A competency is a distinctive competency only when all four VRIO criteria are YES.", "type": "MCQ."},
+            {"q": "According to Grant's Resource-Based Approach, what is Step 1?", "o": ["Identify and classify resources as strengths and weaknesses", "Select the strategy that best uses capabilities", "Combine strengths into core competencies", "Close resource gaps with capital investments"], "a": 0, "e": "Step 1 of Grant's approach is identifying and classifying resources as strengths and weaknesses.", "type": "MCQ."},
+            {"q": "What is Step 4 in Grant's resource-based approach?", "o": ["Select the strategy that best uses the firm's capabilities and competencies relative to external opportunities", "Identify resource gaps and invest in weaknesses", "Appraise whether there are distinctive competencies", "Combine strengths into core capabilities"], "a": 0, "e": "Step 4 is selecting the strategy that best uses capabilities relative to external opportunities.", "type": "MCQ."},
+            {"q": "What is the final step (Step 5) in Grant's approach?", "o": ["Identify resource gaps and invest in improving weaknesses", "Liquidate underperforming tangible assets", "Merge with an external competitor", "Audit corporate income tax returns"], "a": 0, "e": "Step 5 is identifying resource gaps and investing in improving weaknesses.", "type": "MCQ."},
+            {"q": "How does Grant's approach differ from traditional strategic planning?", "o": ["It starts with the firm's internal resources rather than assuming every market opportunity should be taken", "It ignores internal capabilities entirely and focuses only on competitors", "It starts with external macro-societal PESTEL forecasting", "It relies exclusively on government subsidies"], "a": 0, "e": "Grant's approach starts with internal resources rather than assuming every market opportunity should be seized.", "type": "MCQ."},
+            {"q": "What is a Corporate Value Chain?", "o": ["A linked set of value-creating activities from raw materials suppliers through production and marketing to distributors and final consumers", "A financial balance sheet listing corporate assets and liabilities", "An organization chart showing reporting lines of command", "A set of cultural beliefs shared by employees"], "a": 0, "e": "A value chain is a linked set of value-creating activities from suppliers to the final consumer.", "type": "MCQ."},
+            {"q": "How are value-chain activities categorized?", "o": ["Primary activities and Support activities", "Tangible activities and Intangible activities", "Internal activities and External activities", "Financial activities and Operational activities"], "a": 0, "e": "Value-chain activities are divided into Primary activities and Support activities.", "type": "MCQ."},
+            {"q": "Which of the following are Primary Activities in the value chain?", "o": ["Inbound logistics, Operations, Outbound logistics, Marketing and sales, and Service", "Procurement, Technology development, HR management, and Firm infrastructure", "Accounting, Finance, Strategic planning, and Legal counsel", "Recruiting, Training, and Employee compensation"], "a": 0, "e": "Primary activities directly create and deliver the product: inbound logistics, operations, outbound logistics, marketing & sales, and service.", "type": "MCQ."},
+            {"q": "Which of the following are Support Activities in the value chain?", "o": ["Procurement, Technology development, Human Resource Management, and Firm infrastructure", "Machining, assembling, and testing", "Warehousing and distribution of finished goods", "Customer installation and repair"], "a": 0, "e": "Support activities enable primary activities: procurement, technology development, HR management, and firm infrastructure.", "type": "MCQ."},
+            {"q": "What is the function of Inbound Logistics in the value chain?", "o": ["Raw materials handling and warehousing (e.g., Amazon receiving stock in fulfillment centers)", "Machining, assembling, and testing finished products", "Advertising, promotion, and channel pricing", "Purchasing raw machines and supplies"], "a": 0, "e": "Inbound logistics handles raw materials and warehousing.", "type": "MCQ."},
+            {"q": "What is the function of Outbound Logistics?", "o": ["Warehousing and distribution of the finished product to customers", "Receiving raw materials from suppliers", "Assembling component parts in factory plants", "Conducting R&D product innovation"], "a": 0, "e": "Outbound logistics handles warehousing and distribution of finished products.", "type": "MCQ."},
+            {"q": "What does Procurement involve as a support activity?", "o": ["Purchasing raw materials, machines, and supplies e.g., Walmart's bulk-purchasing scale", "Recruiting and training new employees", "Conducting R&D and process improvement", "General executive accounting and finance"], "a": 0, "e": "Procurement involves purchasing raw materials, machines, and supplies.", "type": "MCQ."},
+            {"q": "What are the three steps in Value Chain Analysis?", "o": ["1. Examine each product line's value chain, 2. Examine linkages within each value chain, 3. Examine synergies among value chains", "1. Identify resources, 2. Appraise VRIO, 3. Calculate IFAS scores", "1. Simple structure, 2. Functional structure, 3. Divisional structure", "1. Inbound, 2. Operations, 3. Outbound"], "a": 0, "e": "The three steps are examining product line value chains, examining linkages, and examining synergies among value chains.", "type": "MCQ."},
+            {"q": "How is Corporate Culture defined in Chapter 4?", "o": ["The collection of beliefs, expectations, and values learned and shared by members and passed to new employees", "The formal chain of command and reporting hierarchy", "The tangible plant and machinery owned by the firm", "The quarterly financial profit margins"], "a": 0, "e": "Culture is the collection of shared beliefs, expectations, and values learned by members.", "type": "MCQ."},
+            {"q": "What is Cultural Intensity (Depth)?", "o": ["The degree to which members of a unit accept the norms, values, and cultural content", "The extent to which units throughout the organization share a common culture", "The number of product lines manufactured in a division", "The total financial assets owned by the firm"], "a": 0, "e": "Cultural intensity (depth) measures how strongly members accept norms and values.", "type": "MCQ."},
+            {"q": "What is Cultural Integration (Breadth)?", "o": ["The extent to which units throughout the organization share a common culture", "The depth of belief in company slogans", "The level of vertical integration in manufacturing", "The speed of outbound logistics delivery"], "a": 0, "e": "Cultural integration (breadth) measures the extent to which units throughout the organization share a common culture.", "type": "MCQ."},
+            {"q": "When does corporate culture become an internal weakness?", "o": ["When a proposed new strategy goes against the accepted culture of the firm", "When employees strongly believe in core company values", "When all departments share a unified culture", "When founder values align with customer service"], "a": 0, "e": "Culture becomes a weakness when a new strategy goes against the accepted culture.", "type": "MCQ."},
+            {"q": "What are the three basic organizational structures covered in Chapter 4?", "o": ["Simple structure, Functional structure, and Divisional structure", "Tangible, Intangible, and Human structures", "Inbound, Operational, and Outbound structures", "Primary, Support, and Synergistic structures"], "a": 0, "e": "The three basic structures are simple, functional, and divisional.", "type": "MCQ."},
+            {"q": "Which structure is typical for a small, entrepreneur-dominated company with one or two product lines where employees are generalists?", "o": ["Simple structure", "Divisional structure", "Conglomerate structure", "Strategic Business Unit structure"], "a": 0, "e": "A simple structure is used by small, entrepreneur-dominated firms with generalist employees.", "type": "MCQ."},
+            {"q": "What characterizes a Functional Structure?", "o": ["A medium-sized firm with several product lines in one industry where employees are specialists in finance, manufacturing, marketing, and HR", "A single owner-manager directing workers directly", "Independent legally separate subsidiaries operating under a parent holding company", "Completely autonomous divisions with zero functional departments"], "a": 0, "e": "A functional structure features specialists organized by business function (manufacturing, sales, finance, personnel).", "type": "MCQ."},
+            {"q": "What is a Divisional Structure?", "o": ["A large corporation with many product lines in several related industries organized by product or market", "A small startup managed solely by an entrepreneur", "A single department handling all manufacturing tasks", "A collection of unrelated businesses with no common management"], "a": 0, "e": "A divisional structure organizes a large corporation with many product lines by product or market.", "type": "MCQ."},
+            {"q": "What is a Conglomerate Structure?", "o": ["A group of legally independent companies that operate under one parent company, controlled by a board of directors e.g., Mansour Group in Egypt", "A single corporate entity where divisions share legal and corporate liability e.g., Juhayna Food Industries", "A small startup with generalist workers", "A functional department structure"], "a": 0, "e": "A conglomerate is a group of legally independent companies under a parent company holding separate legal entities.", "type": "MCQ."},
+            {"q": "What are Strategic Business Units (SBUs)?", "o": ["Independent product-market segments given primary authority for their own functional areas within the same legal entity e.g., Juhayna's Dairy, Yogurt, and Juice divisions", "Legally independent corporations with separate balance sheets", "Entrepreneur-led small businesses", "External supplier vendors"], "a": 0, "e": "SBUs are independent product-market segments within the same legal entity sharing corporate liability.", "type": "MCQ."},
+            {"q": "When is an organizational structure considered an internal strength?", "o": ["When authority and tasks match what a new strategy requires", "When the structure is simple regardless of company expansion", "When employees are generalists in a massive multinational conglomerate", "When legal subsidiaries are dissolved"], "a": 0, "e": "Structure is an internal strength when authority and tasks match strategy requirements.", "type": "MCQ."},
+            {"q": "What does IFAS stand for in internal strategic analysis?", "o": ["Internal Factor Analysis Summary", "Internal Financial Audit System", "Industry Factor Assessment Strategy", "Integrated Functional Appraisal Schedule"], "a": 0, "e": "IFAS stands for Internal Factor Analysis Summary.", "type": "MCQ.", "type": "MCQ"},
+            {"q": "In an IFAS table, what must the sum of all factor weights equal?", "o": ["Exactly 1.0 (or 1.00)", "Exactly 5.0", "100.0", "Zero"], "a": 0, "e": "Factor weights in IFAS must sum to 1.0.", "type": "MCQ."},
+            {"q": "What rating scale is used in IFAS tables to evaluate company response to each factor?", "o": ["1 to 5 scale (1 = poor, 5 = outstanding)", "0 to 10 scale", "1 to 100 scale", "A to F letter grades"], "a": 0, "e": "IFAS uses a 1 to 5 rating scale (1 is poor, 5 is outstanding).", "type": "MCQ."},
+            {"q": "How is the Weighted Score calculated in an IFAS table?", "o": ["Weight multiplied by Rating (Weight x Rating)", "Weight plus Rating", "Rating divided by Weight", "Weight subtracted from 5.0"], "a": 0, "e": "Weighted score is calculated as Weight multiplied by Rating.", "type": "MCQ."},
+            {"q": "In the textbook Maytag IFAS case study, what was Maytag's total weighted score?", "o": ["3.05 (indicating a slightly above-average internal response)", "1.00", "5.00", "2.00"], "a": 0, "e": "Maytag's total IFAS score was 3.05, placing it slightly above the 3.0 average baseline.", "type": "MCQ."},
+
+            // High-Level Questions (46-50)
+            {"q": "[HIGH-LEVEL] A firm possesses a valuable and rare technological resource, but other competitors can easily and cheaply duplicate it without financial penalty, and the firm's internal organizational structure fails to coordinate its deployment. According to the VRIO framework, how should this competency be classified?", "o": ["Not a distinctive competency, because it fails the Imitability and Organization criteria", "A permanent sustainable distinctive competency because it is valuable and rare", "A core competency equal to Walmart's supply chain", "A primary value chain support activity"], "a": 0, "e": "Under VRIO, failing any single step (like Imitability or Organization) means the resource is not a distinctive competency.", "type": "MCQ."},
+            {"q": "[HIGH-LEVEL] An e-commerce startup rapidly expands its operations across multiple countries while retaining a founder-run 'Simple Structure' where generalist workers report directly to the owner-manager without functional departments or divisions. According to Chapter 4 structural analysis, what internal strategic issue arises?", "o": ["The simple structure becomes an internal weakness because it blocks execution and fails to match the strategic requirements of a large multi-market firm", "The simple structure becomes an unbeatable distinctive competency", "The startup automatically transforms into a conglomerate", "The startup's culture turns into a strong unified norms network"], "a": 0, "e": "Keeping a simple structure after expanding across regions creates a mismatch, turning structure into an internal weakness.", "type": "MCQ."},
+            {"q": "[HIGH-LEVEL] When analyzing corporate culture using cultural intensity (depth) and integration (breadth), a company has strong subcultures where IT loves risk-taking while Finance enforces strict rules, resulting in inter-departmental clashes. How does Chapter 4 categorize this cultural profile?", "o": ["Strong subcultures (high intensity within departments, but low integration across the organization)", "Strong, unified culture", "Weak, divided culture", "Shared but shallow culture"], "a": 0, "e": "Strong subcultures occur when individual units have high intensity but clash because integration across departments is weak.", "type": "MCQ."},
+            {"q": "[HIGH-LEVEL] A corporate strategist assigns a weight of 0.20 to a weak global positioning factor and gives it a rating of 2.1 in the IFAS table, resulting in a weighted score of 0.42. Why is this factor identified as a 'Priority Gap' in internal analysis?", "o": ["Because it carries a high weight (importance) combined with a low rating (poor response), signaling an urgent area requiring strategic investment and corrective action", "Because its weighted score equals 3.05", "Because it is classified as a primary value chain support activity", "Because it satisfies all four VRIO criteria"], "a": 0, "e": "High weight combined with low rating creates a priority gap requiring immediate management attention.", "type": "MCQ."},
+            {"q": "[HIGH-LEVEL] According to Grant's Resource-Based Approach, why must management appraise and identify internal resources before selecting a corporate strategy, rather than blindly pursuing every external market opportunity?", "o": ["Because strategy must fit internal capabilities and resource potential; pursuing opportunities without matching resources leads to strategic failure", "Because external environment scanning is completely illegal", "Because internal resources are irrelevant to competitive advantage", "Because financial accounting audits forbid market expansion"], "a": 0, "e": "Grant's approach starts with internal resources to ensure strategy fits capabilities relative to external opportunities.", "type": "MCQ."}
+        ];
+
+        const P2_SOURCE = [
+            // Standard Questions (1-45)
+            {"q": "Internal scanning is often called organizational analysis.", "o": ["True", "False"], "a": 0, "e": "True: Internal scanning is organizational analysis identifying resources and competencies.", "type": "TF"},
+            {"q": "Scanning the external environment alone is enough to give a firm a competitive advantage.", "o": ["True", "False"], "a": 1, "e": "False: Strategy must fit external opportunity AND internal capability (strengths and weaknesses).", "type": "TF"},
+            {"q": "Tangible assets include physical plant and equipment like Tesla Gigafactories.", "o": ["True", "False"], "a": 0, "e": "True: Tangible assets are physical plant and equipment.", "type": "TF"},
+            {"q": "Intangible assets include corporate reputation and technology patents.", "o": ["True", "False"], "a": 0, "e": "True: Intangible assets include reputation and technology patents.", "type": "TF"},
+            {"q": "Human assets refer to employee headcount and their collective skills.", "o": ["True", "False"], "a": 0, "e": "True: Human assets are employees and their skills.", "type": "TF"},
+            {"q": "A capability is a corporation's ability to use its resources.", "o": ["True", "False"], "a": 0, "e": "True: Capabilities are the ability to use resources.", "type": "TF"},
+            {"q": "Competency is the cross-functional integration and coordination of capabilities.", "o": ["True", "False"], "a": 0, "e": "True: Competency is cross-functional integration of capabilities.", "type": "TF"},
+            {"q": "A core competency is something common in the firm and done very well.", "o": ["True", "False"], "a": 0, "e": "True: Core competencies are common in the firm and done very well.", "type": "TF"},
+            {"q": "A distinctive competency is a core competency that is better than those of the competition.", "o": ["True", "False"], "a": 0, "e": "True: Distinctive competencies outperform competitors.", "type": "TF"},
+            {"q": "A resource alone is always an automatic competitive advantage without capability integration.", "o": ["True", "False"], "a": 1, "e": "False: A resource alone is not an advantage; integration of capabilities is required.", "type": "TF"},
+            {"q": "In Barney's VRIO framework, 'V' stands for Value and 'R' stands for Rareness.", "o": ["True", "False"], "a": 0, "e": "True: V stands for Value and R stands for Rareness.", "type": "TF"},
+            {"q": "In VRIO, 'I' stands for Imitability and 'O' stands for Organization.", "o": ["True", "False"], "a": 0, "e": "True: I stands for Imitability and O stands for Organization.", "type": "TF"},
+            {"q": "A competency is a distinctive competency if it passes all four VRIO criteria.", "o": ["True", "False"], "a": 0, "e": "True: Passing all four VRIO tests makes it a distinctive competency and strength.", "type": "TF"},
+            {"q": "Grant's resource-based approach starts by assuming every market opportunity should be seized immediately.", "o": ["True", "False"], "a": 1, "e": "False: Grant's approach starts with internal resources, not an assumption that every opportunity should be taken.", "type": "TF"},
+            {"q": "In Grant's approach, identifying and classifying resources is Step 1.", "o": ["True", "False"], "a": 0, "e": "True: Step 1 is identifying and classifying resources.", "type": "TF5"},
+            {"q": "A value chain is a linked set of value-creating activities from raw materials to final consumers.", "o": ["True", "False"], "a": 0, "e": "True: A value chain links activities from raw materials to final consumers.", "type": "TF"},
+            {"q": "Primary activities in the value chain include inbound logistics, operations, outbound logistics, marketing & sales, and service.", "o": ["True", "False"], "a": 0, "e": "True: These are the five primary value chain activities.", "type": "TF"},
+            {"q": "Support activities in the value chain include procurement, technology development, HR management, and firm infrastructure.", "o": ["True", "False"], "a": 0, "e": "True: These are the four support activities.", "type": "TF"},
+            {"q": "Procurement is classified as a primary value chain activity.", "o": ["True", "False"], "a": 1, "e": "False: Procurement is a *support* activity, whereas operations and logistics are primary.", "type": "TF"},
+            {"q": "Warehousing and distribution of finished products is called outbound logistics.", "o": ["True", "False"], "a": 0, "e": "True: Outbound logistics handles warehousing and distribution of finished goods.", "type": "TF"},
+            {"q": "Corporate culture consists of shared beliefs, expectations, and values passed to new employees.", "o": ["True", "False"], "a": 0, "e": "True: Culture is the collection of shared beliefs and values.", "type": "TF"},
+            {"q": "Cultural intensity measures the depth of belief in company norms, while integration measures breadth across units.", "o": ["True", "False"], "a": 0, "e": "True: Intensity is depth, and integration is breadth.", "type": "TF"},
+            {"q": "A corporate culture can become an internal weakness if it conflicts with a proposed new strategy.", "o": ["True", "False"], "a": 0, "e": "True: Culture is a weakness if a new strategy goes against accepted cultural norms.", "type": "TF"},
+            {"q": "A simple structure is typically used by small, entrepreneur-dominated companies with generalist workers.", "o": ["True", "False"], "a": 0, "e": "True: Simple structures are used by entrepreneur-led small firms.", "type": "TF"},
+            {"q": "A functional structure organizes employees as specialists by business function like manufacturing, sales, and finance.", "o": ["True", "False"], "a": 0, "e": "True: Functional structures organize specialists by business function.", "type": "TF"},
+            {"q": "A divisional structure is used by large corporations with many product lines in related industries organized by product or market.", "o": ["True", "False"], "a": 0, "e": "True: Divisional structures organize large firms by product or market.", "type": "TF"},
+            {"q": "A conglomerate structure consists of legally independent companies operating under one parent company e.g., Mansour Group.", "o": ["True", "False"], "a": 0, "e": "True: Conglomerates are legally independent subsidiaries under a parent holding company.", "type": "TF"},
+            {"q": "Strategic Business Units (SBUs) operate as independent product-market segments within the same legal entity e.g., Juhayna divisions.", "o": ["True", "False"], "a": 0, "e": "True: SBUs operate within the same legal entity with shared corporate liability.", "type": "TF"},
+            {"q": "An organizational structure that matches a new strategy is considered an internal strength.", "o": ["True", "False"], "a": 0, "e": "True: A matching structure is an internal strength.", "type": "TF"},
+            {"q": "IFAS stands for Internal Factor Analysis Summary.", "o": ["True", "False"], "a": 0, "e": "True: IFAS stands for Internal Factor Analysis Summary.", "type": "TF"},
+            {"q": "In an IFAS table, the sum of all factor weights must equal exactly 1.0.", "o": ["True", "False"], "a": 0, "e": "True: IFAS weights must sum to 1.0.", "type": "TF"},
+            {"q": "The rating scale in IFAS ranges from 1 (outstanding) to 5 (poor).", "o": ["True", "False"], "a": 1, "e": "False: The scale ranges from 1 for *poor* to 5 for *outstanding*.", "type": "TF"},
+            {"q": "Weighted score in IFAS is calculated by multiplying weight by rating.", "o": ["True", "False"], "a": 0, "e": "True: Weighted score equals weight multiplied by rating.", "type": "TF"},
+            {"q": "Maytag's total IFAS weighted score of 3.05 indicates an above-average internal response.", "o": ["True", "False"], "a": 0, "e": "True: Maytag's score of 3.05 is slightly above the 3.0 average baseline.", "type": "TF"},
+            {"q": "Economies of scale refer to lower unit costs achieved by producing large volumes of the same product.", "o": ["True", "False"], "a": 0, "e": "True: Economies of scale lower unit costs from large scale production.", "type": "TF"},
+            {"q": "Economies of scope occur when costs are lowered because two products share value-chain activities.", "o": ["True", "False"], "a": 0, "e": "True: Economies of scope lower costs by sharing activities across product lines.", "type": "TF"},
+            {"q": "Synergy occurs when the whole is less than the sum of its parts.", "o": ["True", "False"], "a": 1, "e": "False: Synergy means the whole is *greater* than the sum of its parts.", "type": "TF"},
+            {"q": "Inbound logistics handles the warehousing and distribution of finished goods to consumers.", "o": ["True", "False"], "a": 1, "e": "False: Inbound logistics handles raw materials, whereas outbound logistics handles finished goods.", "type": "TF"},
+            {"q": "Human resource management in the value chain is a primary activity.", "o": ["True", "False"], "a": 1, "e": "False: HR management is a *support* activity.", "type": "TF"},
+            {"q": "Kodak successfully adapted its internal culture and structure to dominate the digital photography market.", "o": ["True", "False"], "a": 1, "e": "False: Kodak invented digital tech but failed to adapt its internal culture and structure, losing its market.", "type": "TF"},
+            {"q": "Breadfast's fast-delivery operations were classified in Chapter 4 examples as valuable and rare, but not costly to imitate.", "o": ["True", "False"], "a": 0, "e": "True: Breadfast operations are valuable and rare, but not distinctive because delivery operations are easy to copy.", "type": "TF"},
+            {"q": "In Grant's approach, strategy selection occurs before identifying and classifying resources.", "o": ["True", "False"], "a": 1, "e": "False: Step 1 is identifying resources; strategy selection is Step 4.", "type": "TF"},
+            {"q": "The 'O' in VRIO stands for Opportunity.", "o": ["True", "False"], "a": 1, "e": "False: 'O' stands for Organization (is the firm organized to exploit the resource?).", "type": "TF"},
+            {"q": "A core competency becomes distinctive only when it is superior to those of competitors.", "o": ["True", "False"], "a": 0, "e": "True: Core competencies become distinctive when they outperform rivals.", "type": "TF"},
+            {"q": "Internal scanning is solely concerned with financial accounting ledgers and has no connection to organizational culture.", "o": ["True", "False"], "a": 1, "e": "False: Internal scanning examines functional resources, organizational culture, and structure.", "type": "TF"},
+
+            // High-Level Questions (46-50)
+            {"q": "[HIGH-LEVEL] According to Chapter 4, if a firm possesses a valuable and rare resource but lacks the internal organizational structure to exploit it, that resource qualifies as a full distinctive competency.", "o": ["True", "False"], "a": 1, "e": "False: Under VRIO, failing the Organization criterion means it is not a distinctive competency.", "type": "TF"},
+            {"q": "[HIGH-LEVEL] Retaining a founder-run simple structure during rapid multi-city and multi-market expansion typically serves as an internal strength that accelerates strategic execution.", "o": ["True", "False"], "a": 1, "e": "False: A non-matching structure blocks execution and becomes an internal weakness.", "type": "TF"},
+            {"q": "[HIGH-LEVEL] Grant's resource-based model emphasizes starting with internal firm capabilities and resources rather than assuming every external market opportunity must be pursued.", "o": ["True", "False"], "a": 0, "e": "True: Grant's model starts with firm resources and capabilities rather than seizing every opportunity.", "type": "TF"},
+            {"q": "[HIGH-LEVEL] In an IFAS table, a factor with a high weight and a low rating represents a priority gap that requires immediate managerial corrective action.", "o": ["True", "False"], "a": 0, "e": "True: High weight combined with low rating indicates a priority gap.", "type": "TF"},
+            {"q": "[HIGH-LEVEL] Primary activities in the corporate value chain directly create and deliver the product, whereas support activities enable primary activities to function effectively.", "o": ["True", "False"], "a": 0, "e": "True: Primary activities create/deliver products while support activities enable them.", "type": "TF"}
+        ];
+
+        const getQuestionType = question => question.type.replace(/[.!?]+$/, "");
+
+        const P1_DATA = [
+            ...P1_SOURCE.filter(question => getQuestionType(question) === "MCQ"),
+            ...P2_SOURCE.filter(question => getQuestionType(question) === "MCQ")
+        ];
+        const P2_DATA = [
+            ...P1_SOURCE.filter(question => getQuestionType(question) === "TF"),
+            ...P2_SOURCE.filter(question => getQuestionType(question) === "TF")
+        ];
+
+        let activePart = 1;
+        let qData = P1_DATA;
+        let cIdx = 0;
+        let score = 0;
+        let wrongList = [];
+
+        const $ = id => document.getElementById(id);
+
+        function switchPart(part) {
+            activePart = part;
+            $("tab1").className = "tab-btn " + (part === 1 ? "active" : "");
+            $("tab2").className = "tab-btn " + (part === 2 ? "active" : "");
+            qData = part === 1 ? P1_DATA : P2_DATA;
+            resetQuiz();
+        }
+
+        function resetQuiz() {
+            cIdx = 0;
+            score = 0;
+            wrongList = [];
+            renderQuestion();
+        }
+
+        function renderQuestion() {
+            const q = qData[cIdx];
+            $("n").textContent = `Question ${cIdx + 1} of ${qData.length}`;
+            $("s").textContent = `Score: ${score}`;
+            $("bar").style.width = `${(cIdx / qData.length) * 100}%`;
+
+            const isHighLevel = cIdx >= 45;
+            const badgeClass = isHighLevel ? "q-badge high-level" : "q-badge";
+            const badgeText = isHighLevel 
+                ? (getQuestionType(q) === 'TF' ? 'True / False — High Level' : 'Multiple Choice — High Level')
+                : (getQuestionType(q) === 'TF' ? 'True / False' : 'Multiple Choice');
+            
+            $("card").innerHTML = `
+                <span class="${badgeClass}">${badgeText}</span>
+                <p class="q">${q.q}</p>
+                <div id="opts"></div>
+                <div id="fb"></div>
+            `;
+
+            q.o.forEach((optText, i) => {
+                const b = document.createElement("button");
+                b.className = "opt";
+                b.innerHTML = `<b>${getQuestionType(q) === 'TF' ? (i===0?'T':'F') : "ABCD"[i] + ")"}</b><span></span>`;
+                b.querySelector("span").textContent = optText;
+                b.onclick = () => handleAnswer(i);
+                $("opts").appendChild(b);
+            });
+        }
+
+        function handleAnswer(selected) {
+            const q = qData[cIdx];
+            const isCorrect = selected === q.a;
+            const buttons = document.querySelectorAll(".opt");
+
+            buttons.forEach((btn, idx) => {
+                btn.disabled = true;
+                if (idx === q.a) btn.classList.add("ok");
+                else if (idx === selected) btn.classList.add("no");
+            });
+
+            if (isCorrect) score++;
+            else wrongList.push(cIdx);
+
+            $("s").textContent = `Score: ${score}`;
+
+            $("fb").innerHTML = `
+                <div class="ex ${isCorrect ? 'ok' : 'no'}">
+                    <strong>${isCorrect ? 'Correct answer ✓' : 'Incorrect answer ✗'}</strong>
+                    <span>${q.e}</span>
+                </div>
+                <button class="btn" id="nxtBtn">${cIdx < qData.length - 1 ? 'Next question' : 'Show final results'}</button>
+            `;
+
+            $("nxtBtn").onclick = () => {
+                cIdx++;
+                if (cIdx < qData.length) renderQuestion();
+                else finishQuiz();
+            };
+            $("nxtBtn").focus();
+        }
+
+        function finishQuiz() {
+            $("bar").style.width = "100%";
+            $("n").textContent = "Quiz complete";
+            const pct = Math.round((score / qData.length) * 100);
+            
+            let html = `
+                <div class="score">${score} / ${qData.length}</div>
+                <p style="text-align:center;font-size:1.2rem;margin:0 0 16px;">Percentage: <b>${pct}%</b></p>
+            `;
+
+            if (wrongList.length > 0) {
+                html += `<p style="margin:16px 0 8px;"><b>Questions to review:</b></p><ul class="rev">`;
+                wrongList.reverse().forEach(w => {
+                    html += `<li><b>Question ${w + 1}:</b> ${qData[w].q}</li>`;
+                });
+                html += `</ul>`;
+            } else {
+                html += `<p style="text-align:center;color:var(--ok);">Excellent! All answers are correct (100%).</p>`;
+            }
+
+            html += `<button class="btn" onclick="resetQuiz()">Restart quiz</button>`;
+            $("card").innerHTML = html;
+        }
+
+        renderQuestion();
+    </script>
+</body>
+</html>

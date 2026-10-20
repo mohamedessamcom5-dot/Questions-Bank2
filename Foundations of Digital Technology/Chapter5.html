@@ -1,0 +1,426 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Foundation of Digital Technology — Chapter 5: Enterprise Systems & E-Commerce</title>
+    <style>
+        :root {
+            --bg: #0f172a;
+            --c: #1e293b;
+            --t: #f8fafc;
+            --m: #94a3b8;
+            --b: #334155;
+            --ac: #38bdf8;
+            --ok: #22c55e;
+            --okb: #052e16;
+            --no: #ef4444;
+            --nob: #450a0a;
+            box-sizing: border-box;
+        }
+
+        @media(prefers-color-scheme: light) {
+            :root[data-theme=light] {
+                --bg: #f8fafc;
+                --c: #ffffff;
+                --t: #0f172a;
+                --m: #64748b;
+                --b: #e2e8f0;
+                --ac: #0284c7;
+                --okb: #dcfce7;
+                --nob: #fee2e2;
+                --ok: #16a34a;
+                --no: #dc2626;
+            }
+        }
+
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--t);
+            font-family: 'Segoe UI', Tahoma, system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+        }
+        main {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 24px 16px 60px;
+        }
+        .header-panel {
+            text-align: center;
+            margin-bottom: 24px;
+            border-bottom: 8px solid var(--b);
+            padding-bottom: 30px;
+        }
+        h1 { font-size: 1.5rem; margin: 0 0 8px; color: var(--ac); }
+        .sub { color: var(--m); font-size: 0.95rem; margin: 0; }
+        
+        .nav-tabs {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .tab-btn {
+            flex: 1;
+            padding: 12px;
+            background: var(--c);
+            border: 1px solid var(--b);
+            color: var(--t);
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .tab-btn.active {
+            background: var(--ac);
+            color: #000;
+            border-color: var(--ac);
+        }
+
+        .bar {
+            height: 8px;
+            background: var(--b);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+        .bar i {
+            display: block;
+            height: 100%;
+            background: var(--ac);
+            width: 0;
+            transition: width 0.3s;
+        }
+        .meta {
+            display: flex;
+            justify-content: space-between;
+            color: var(--m);
+            font-size: 0.9rem;
+            margin-bottom: 16px;
+        }
+        .card {
+            background: var(--c);
+            border: 1px solid var(--b);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+        .q-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            background: var(--b);
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+            color: var(--ac);
+        }
+        .q-badge.high-level {
+            background: #f59e0b;
+            color: #000;
+            font-weight: bold;
+        }
+        .q {
+            font-size: 1.1rem;
+            font-weight: 600;
+            direction: ltr;
+            text-align: left;
+            margin: 0 0 16px;
+        }
+        .opt {
+            display: flex;
+            gap: 12px;
+            direction: ltr;
+            text-align: left;
+            width: 100%;
+            background: var(--c);
+            color: var(--t);
+            border: 1.5px solid var(--b);
+            border-radius: 8px;
+            padding: 12px 14px;
+            margin-bottom: 10px;
+            font: inherit;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+        .opt:hover:not(:disabled) { border-color: var(--ac); }
+        .opt b { min-width: 1.5em; color: var(--ac); }
+        .opt.ok { background: var(--okb); border-color: var(--ok); }
+        .opt.no { background: var(--nob); border-color: var(--no); }
+        .opt:disabled { cursor: default; }
+
+        .ex {
+            margin-top: 16px;
+            padding: 14px;
+            border-radius: 8px;
+            direction: ltr;
+            text-align: left;
+            font-size: 0.95rem;
+        }
+        .ex.ok { background: var(--okb); border: 1px solid var(--ok); }
+        .ex.no { background: var(--nob); border: 1px solid var(--no); }
+        .ex strong { display: block; margin-bottom: 4px; }
+
+        .btn {
+            margin-top: 16px;
+            background: var(--ac);
+            color: #000;
+            border: 0;
+            border-radius: 8px;
+            padding: 12px 24px;
+            font: inherit;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+        }
+        .score { text-align: center; font-size: 3rem; font-weight: 800; margin: 12px 0; color: var(--ac); }
+        .rev { margin: 16px 0 0; padding: 0; list-style: none; direction: ltr; text-align: left; font-size: 0.9rem; }
+        .rev li { padding: 8px 0; border-top: 1px solid var(--b); }
+    </style>
+</head>
+<body>
+    <main>
+        <div class="header-panel">
+            <h1>Foundation of Digital Technology — Chapter 5</h1>
+            <p class="sub">Enterprise Systems, E-Commerce & Digital Business Transformation</p>
+        </div>
+        
+        <div class="nav-tabs">
+            <button class="tab-btn active" id="tab1" onclick="switchPart(1)">Multiple Choice</button>
+            <button class="tab-btn" id="tab2" onclick="switchPart(2)">True/False</button>
+        </div>
+
+        <div class="bar"><i id="bar"></i></div>
+        <div class="meta">
+            <span id="n"></span>
+            <span id="s"></span>
+        </div>
+        <div class="card" id="card"></div>
+    </main>
+      
+    <script>
+       const P1_SOURCE = [
+            // Standard MCQs (1-45)
+            {"q": "What is an Enterprise Resource Planning (ERP) system primarily designed to do?", "o": ["Integrate core business processes—such as finance, HR, manufacturing, sales, and supply chain—into a unified centralized database", "Manage personal social media accounts", "Design 3D video game graphics", "Perform local file compression"], "a": 0, "e": "ERP systems integrate core enterprise business processes into a unified centralized database.", "type": "MCQ"},
+            {"q": "What is the primary focus of Customer Relationship Management (CRM) software?", "o": ["Managing an organization's relationships and interactions with current and potential customers across sales, marketing, and support", "Managing factory machinery maintenance schedules", "Tracking server hardware temperatures", "Calculating employee payroll taxes"], "a": 0, "e": "CRM systems manage customer interactions, sales pipelines, and customer service workflows.", "type": "MCQ"},
+            {"q": "What does Supply Chain Management (SCM) software optimize?", "o": ["The flow of goods, services, information, and finances from raw material suppliers to final customers", "Desktop computer screen resolution settings", "Local Wi-Fi router bandwidth speeds", "Employee desktop wallpaper designs"], "a": 0, "e": "SCM software oversees and optimizes the flow of goods, materials, and finances along the supply chain.", "type": "MCQ"},
+            {"q": "What characterizes a Business-to-Consumer (B2C) e-commerce model?", "o": ["Commercial transactions conducted directly between a business and individual retail consumers", "Transactions between two corporate manufacturers", "Peer-to-peer used item sales between individuals", "Government tax collection transactions"], "a": 0, "e": "B2C involves businesses selling products or services directly to individual consumers.", "type": "MCQ"},
+            {"q": "What characterizes a Business-to-Business (B2B) e-commerce model?", "o": ["Commercial transactions between two or more business organizations (e.g., a manufacturer selling parts to an assembler)", "Retail sales from a store to a shopper", "An individual selling a used bicycle to a neighbor online", "A government paying citizen pensions"], "a": 0, "e": "B2B transactions occur between business entities rather than retail consumers.", "type": "MCQ"},
+            {"q": "What is a Consumer-to-Consumer (C2C) e-commerce model?", "o": ["Transactions facilitated by online platforms where consumers sell goods or services directly to other consumers (e.g., eBay, OLX)", "A corporation buying raw steel from a foundry", "A retail supermarket selling groceries to families", "A software company licensing enterprise tools"], "a": 0, "e": "C2C platforms enable peer-to-peer transactions between individual consumers.", "type": "MCQ"},
+            {"q": "What is Business Intelligence (BI) in digital enterprises?", "o": ["Technologies, tools, and practices used to collect, integrate, analyze, and present business data to support decision-making", "Physical security guards patrolling server rooms", "Coding artificial intelligence neural networks", "Writing marketing copy for brochures"], "a": 0, "e": "BI encompasses tools and practices for analyzing enterprise data to drive informed decision-making.", "type": "MCQ"},
+            {"q": "What role do Executive Dashboards play in Business Intelligence?", "o": ["Providing visual, real-time summaries of key performance indicators (KPIs) and operational metrics for leadership", "Typing emails for office workers", "Repairing broken physical computer keyboards", "Scanning computers for computer viruses"], "a": 0, "e": "Dashboards visualize key performance indicators (KPIs) for executive monitoring and decision-making.", "type": "MCQ"},
+            {"q": "What is Digital Business Transformation?", "o": ["The integration of digital technology into all areas of a business, fundamentally changing how the organization operates and delivers value to customers", "Buying a new laptop for every employee", "Migrating paper folders to plastic filing cabinets", "Switching office desk chairs"], "a": 0, "e": "Digital transformation fundamentally alters business operations and value delivery through digital technology.", "type": "MCQ"},
+            {"q": "What is Knowledge Management (KM) in modern organizations?", "o": ["The systematic process of creating, sharing, using, and managing the knowledge and information of an organization", "Deleting old log files from hard drives", "Archiving physical paper tax receipts", "Counting office printer ink cartridges"], "a": 0, "e": "Knowledge management organizes and shares organizational expertise and information assets.", "type": "MCQ"},
+            {"q": "What is a Legacy System in enterprise IT architecture?", "o": ["An older computing method, software system, or application program that continues to be used because it still functions, despite newer technology existing", "A brand-new quantum computing server", "A cutting-edge smartphone released this year", "A cloud-native microservice application"], "a": 0, "e": "Legacy systems are older established software/hardware systems still in operational use.", "type": "MCQ"},
+            {"q": "What is Enterprise Application Integration (EAI)?", "o": ["The process of linking multiple disparate enterprise applications and databases so they can share data seamlessly", "Washing computer monitor screens with cleaning solution", "Connecting two HDMI monitors to a laptop", "Printing multi-page financial reports"], "a": 0, "e": "EAI connects disparate enterprise applications to enable seamless data exchange and workflow integration.", "type": "MCQ"},
+            {"q": "What is a Transaction Processing System (TPS)?", "o": ["An operational information system that records and processes routine daily business transactions (e.g., sales orders, payroll)", "A strategic planning tool for corporate mergers", "An AI model for generating artistic images", "A cybersecurity firewall rule"], "a": 0, "e": "TPS captures and processes routine operational transaction data.", "type": "MCQ"},
+            {"q": "What is a Decision Support System (DSS)?", "o": ["An information system that supports organizational decision-making by analyzing complex data and simulating scenarios", "A system that automatically types customer emails", "A physical printer repair manual", "A tool for measuring office room temperature"], "a": 0, "e": "DSS assists decision-makers by analyzing complex data models and unstructured problems.", "type": "MCQ"},
+            {"q": "What is Electronic Data Interchange (EDI)?", "o": ["The computer-to-computer exchange of business documents in a standard electronic format between business partners", "Sending casual text messages via mobile phone", "Browsing social media feeds on a tablet", "Streaming music over an online radio station"], "a": 0, "e": "EDI standardizes the electronic exchange of business documents like purchase orders and invoices between partners.", "type": "MCQ"},
+            {"q": "What is Mobile Commerce (M-Commerce)?", "o": ["The buying and selling of goods and services through wireless handheld mobile devices such as smartphones and tablets", "Driving a delivery truck across city streets", "Making phone calls on a landline telephone", "Running desktop accounting software on a mainframe"], "a": 0, "e": "M-Commerce refers to commercial transactions executed via mobile wireless devices.", "type": "MCQ"},
+            {"q": "What is a Digital Marketplace?", "o": ["An e-commerce site where third-party sellers offer products or services, while the platform operator handles transactions (e.g., Amazon, eBay)", "A physical supermarket building", "A local farmers market with tents", "An offline wholesale warehouse"], "a": 0, "e": "Digital marketplaces aggregate multiple third-party vendors on a single e-commerce platform.", "type": "MCQ"},
+            {"q": "What is Customer Lifetime Value (CLV)?", "o": ["An estimate of the total financial revenue a business can expect from a single customer account over the entire duration of their relationship", "The retail price of a single product item", "The monthly salary of a customer service representative", "The cost of manufacturing a computer monitor"], "a": 0, "e": "CLV predicts total net profit attributed to the entire future relationship with a customer.", "type": "MCQ"},
+            {"q": "What is Supply Chain Visibility?", "o": ["The ability to track and trace inventory, shipments, and processes across every stage of the supply chain in real time", "Wearing night-vision goggles in a warehouse", "Installing bright overhead lighting in offices", "Printing shipping labels with large fonts"], "a": 0, "e": "Supply chain visibility provides end-to-end transparency into inventory movement and status.", "type": "MCQ"},
+            {"q": "What is Bullwhip Effect in supply chain management?", "o": ["A phenomenon where minor fluctuations in retail consumer demand result in increasingly amplified and distorted demand swings upstream across the supply chain", "A physical whip used in logistics loading docks", "A network cable connection failure", "A software bug in database queries"], "a": 0, "e": "The bullwhip effect describes demand forecast distortions multiplying as they move up the supply chain.", "type": "MCQ"},
+            {"q": "What is Enterprise Portal technology?", "o": ["A unified web-based interface that provides employees, customers, and partners with personalized access to corporate applications and data", "A revolving door at a corporate office entrance", "A physical security gate parking barrier", "An email spam filtering box"], "a": 0, "e": "Enterprise portals provide single-point web access to corporate applications, information, and services.", "type": "MCQ"},
+            {"q": "What is Data Warehousing in business intelligence?", "o": ["A central repository of integrated data collected from multiple operational source systems, optimized for querying and analysis", "A physical warehouse building storing old desktop computers", "A plastic bin for storing backup USB drives", "A secure safe for holding company cash"], "a": 0, "e": "A data warehouse centralizes aggregated data from various sources for analytical reporting.", "type": "MCQ"},
+            {"q": "What is Data Mining?", "o": ["The computational process of discovering hidden patterns, anomalies, and correlations within large datasets using machine learning and statistics", "Extracting physical gold from computer microchips", "Typing data into Excel spreadsheets manually", "Deleting duplicate database rows"], "a": 0, "e": "Data mining uncovers valuable patterns and insights from large data volumes.", "type": "MCQ"},
+            {"q": "What is Customer Churn Rate?", "o": ["The percentage of customers who stop doing business with an organization over a given time period", "The rate at which employees resign from jobs", "The speed at which computers boot up", "The frequency of software updates"], "a": 0, "e": "Churn rate measures customer attrition over time, critical for CRM analysis.", "type": "MCQ"},
+            {"q": "What is Omnichannel Retailing?", "o": ["A multichannel sales approach that provides a seamless, integrated shopping experience whether the customer is shopping online from a desktop, mobile device, or in a physical store", "Selling products exclusively through physical mail catalogs", "Opening only a single local retail storefront", "Banning online sales entirely"], "a": 0, "e": "Omnichannel integration unifies physical and digital customer shopping touchpoints seamlessly.", "type": "MCQ"},
+            {"q": "What is B2B2C (Business-to-Business-to-Consumer) e-commerce?", "o": ["A model where a business sells products to an intermediary business, which then sells them to the final consumer", "Transactions conducted strictly between government agencies", "Peer-to-peer barter systems", "Direct retail sales with no intermediaries"], "a": 0, "e": "B2B2C involves partnering with intermediary businesses to reach final retail consumers.", "type": "MCQ"},
+            {"q": "What is Crowdsourcing?", "o": ["The practice of obtaining needed services, ideas, or content by soliciting contributions from a large group of online people", "Borrowing money from a bank loan officer", "Hiring full-time corporate employees", "Purchasing wholesale inventory from a factory"], "a": 0, "e": "Crowdsourcing leverages distributed online communities for ideas, funding, or tasks.", "type": "MCQ"},
+            {"q": "What is Enterprise Risk Management (ERM)?", "o": ["Methods and processes used by organizations to manage risks and seize opportunities related to the achievement of their objectives", "Repairing broken physical office windows", "Purchasing corporate fire insurance policies", "Installing antivirus software on laptops"], "a": 0, "e": "ERM provides a structured framework for managing enterprise-wide risks.", "type": "MCQ"},
+            {"q": "What is Business Process Reengineering (BPR)?", "o": ["The radical redesign of core business processes to achieve dramatic improvements in productivity, cycle times, and quality", "Changing the company logo font color", "Upgrading computer RAM memory", "Fixing typographical errors in email memos"], "a": 0, "e": "BPR involves fundamental and radical redesign of business processes for massive performance gains.", "type": "MCQ"},
+            {"q": "What is an Application Programming Interface (API) in enterprise systems?", "o": ["A set of rules and protocols that allows different software applications to communicate and exchange data with each other", "A physical cable connecting two servers", "A user manual printed on paper", "A database backup utility program"], "a": 0, "e": "APIs enable disparate software systems to interoperate and share data programmatically.", "type": "MCQ"},
+            {"q": "What is Cloud ERP?", "o": ["An enterprise resource planning software hosted and delivered via a cloud computing provider rather than on-premises servers", "ERP software stored on floppy disks in a desk drawer", "ERP software running offline with zero internet access", "An enterprise system exclusively for weather forecasting"], "a": 0, "e": "Cloud ERP delivers enterprise resource planning services over the cloud on demand.", "type": "MCQ"},
+            {"q": "What is Click-and-Mortar business strategy?", "o": ["A business model that combines both online (clicks) and offline physical store (mortar) operations", "A business operating exclusively through physical mail catalogs", "A purely digital startup with no physical offices", "A construction company building office walls"], "a": 0, "e": "Click-and-mortar integrates physical retail storefronts with online e-commerce channels.", "type": "MCQ"},
+            {"q": "What is Pure-Play e-commerce?", "o": ["An enterprise that operates exclusively online without any physical brick-and-mortar retail stores", "A traditional retail store with zero website presence", "A factory manufacturing computer keyboards", "A physical bookstore in a shopping mall"], "a": 0, "e": "Pure-play businesses operate entirely in the digital online space.", "type": "MCQ"},
+            {"q": "What is the primary purpose of a Corporate Intranet?", "o": ["A private network accessible only to an organization's staff for secure internal communication and collaboration", "A public website open to all internet users globally", "A social media platform for public advertising", "A customer-facing e-commerce storefront"], "a": 0, "e": "Intranets provide secure internal networks for employee collaboration and document sharing.", "type": "MCQ"},
+            {"q": "What is an Extranet?", "o": ["A controlled private network that allows secure access from outside an organization (for trusted partners, vendors, or customers)", "An unencrypted public Wi-Fi hotspot", "A global social media network", "A local desktop spreadsheet file"], "a": 0, "e": "Extranets safely extend internal corporate networks to trusted external stakeholders.", "type": "MCQ"},
+            {"q": "What is Marketing Automation in CRM systems?", "o": ["Software that automates repetitive marketing tasks—such as email campaigns, lead scoring, and social posting—across channels", "Printing marketing brochures in a print shop", "Mailing paper letters via postal couriers", "Hand-writing customer greeting cards"], "a": 0, "e": "Marketing automation streamlines marketing workflows, lead nurturing, and campaign execution.", "type": "MCQ"},
+            {"q": "What is Collaborative Filtering in e-commerce recommendation engines?", "o": ["A technique used by recommendation systems to predict user preferences based on past behavior and preferences of similar users", "Filtering spam emails from an inbox", "Screening job applicants during HR interviews", "Filtering water in office drinking fountains"], "a": 0, "e": "Collaborative filtering recommends products based on peer similarity and collective user behavior patterns.", "type": "MCQ"},
+            {"q": "What is Enterprise Content Management (ECM)?", "o": ["Strategies, methods, and tools used to capture, manage, store, and deliver organizational content and documents", "Managing office cafeteria menus", "Cleaning carpet flooring in corporate offices", "Designing employee ID badges"], "a": 0, "e": "ECM organizes, stores, and governs unstructured corporate content and document lifecycles.", "type": "MCQ"},
+            {"q": "What is Operational CRM?", "o": ["CRM software that automates customer-facing processes such as sales force automation, customer service, and marketing", "CRM analytics for strategic forecasting", "Managing physical warehouse shelving", "Installing computer hardware operating systems"], "a": 0, "e": "Operational CRM automates front-office customer touchpoints like sales, marketing, and support.", "type": "MCQ"},
+            {"q": "What is Analytical CRM?", "o": ["CRM systems focused on analyzing customer data to extract insights, segment audiences, and optimize business strategies", "Taking customer phone calls at a helpdesk desk", "Printing paper invoices for billing", "Shipping merchandise packages in trucks"], "a": 0, "e": "Analytical CRM evaluates customer data to uncover actionable behavioral insights and trends.", "type": "MCQ"},
+            
+            // High-Level MCQs (41-50)
+            {"q": "[HIGH-LEVEL] An enterprise maintains separate, disconnected databases for its Sales, HR, Finance, and Manufacturing departments, leading to data silos, redundant entries, and order fulfillment delays. According to Chapter 5, what solution directly resolves this architectural flaw?", "o": ["Implementing an Enterprise Resource Planning (ERP) system to integrate all core business processes into a centralized unified database", "Upgrading employee desktop monitors to 4K resolution", "Switching from Wi-Fi to Ethernet cables", "Deleting all historical accounting records"], "a": 0, "e": "[HIGH-LEVEL] ERP systems eliminate data silos by unifying enterprise data and processes across departments into a single centralized database.", "type": "MCQ"},
+            {"q": "[HIGH-LEVEL] A retail chain experiences minor 5% fluctuations in end-consumer demand in stores, yet upstream suppliers face massive 40% inventory swings and shortages due to lack of coordination. What supply chain phenomenon does this illustrate and how is it mitigated?", "o": ["The Bullwhip Effect, mitigated by improving supply chain visibility, data sharing, and demand forecasting across trading partners using SCM systems", "The Turing Test, mitigated by artificial intelligence chatbots", "The CIA Triad, mitigated by data encryption firewalls", "Network latency, mitigated by upgrading router firmware"], "a": 0, "e": "[HIGH-LEVEL] The bullwhip effect causes distorted demand amplification upstream, which is counteracted by enhanced supply chain visibility and SCM data sharing.", "type": "MCQ"},
+            {"q": "[HIGH-LEVEL] An e-commerce startup wants to deploy personalized product recommendations and predictive customer churn analysis using historical purchasing logs. Which enterprise technology stack component should they implement?", "o": ["Business Intelligence (BI) and Data Warehousing integrated with Analytical CRM and Machine Learning data mining tools", "A basic paper filing cabinet and manual ledgers", "An offline word processor application", "A network firewall and antivirus scanner"], "a": 0, "e": "[HIGH-LEVEL] BI, data warehousing, and analytical CRM provide the computational framework for customer analytics and predictive modeling.", "type": "MCQ"},
+            {"q": "[HIGH-LEVEL] If a global manufacturer decides to radically overhaul its slow, bureaucratic order-to-delivery workflow by redesigning it from scratch using modern digital automation APIs, which business process strategy are they executing?", "o": ["Business Process Reengineering (BPR)", "Routine data entry backup", "Legacy system maintenance", "Physical inventory auditing"], "a": 0, "e": "[HIGH-LEVEL] Business Process Reengineering (BPR) involves radical workflow redesign to achieve quantum performance breakthroughs.", "type": "MCQ"},
+            {"q": "[HIGH-LEVEL] Why must an enterprise pursuing omnichannel retailing integrate its physical store POS (Point of Sale) systems with its online e-commerce platform and CRM database?", "o": ["To ensure real-time inventory visibility and consistent customer profiles across all touchpoints, enabling seamless 'click-and-collect' and unified shopping experiences", "To slow down e-commerce transaction processing times", "To eliminate the need for any online web servers", "To restrict customer purchases strictly to physical storefronts"], "a": 0, "e": "[HIGH-LEVEL] Omnichannel integration requires unified inventory and CRM data across physical and digital channels for a seamless customer experience.", "type": "MCQ"}
+        ];
+
+        const P2_SOURCE = [
+            // Standard TFs (1-45)
+            {"q": "Enterprise Resource Planning (ERP) systems integrate core business processes into a centralized database.", "o": ["True", "False"], "a": 0, "e": "True: ERP systems unify core enterprise processes.", "type": "TF"},
+            {"q": "Customer Relationship Management (CRM) software manages customer interactions and sales pipelines.", "o": ["True", "False"], "a": 0, "e": "True: CRM software manages customer relationships.", "type": "TF"},
+            {"q": "Supply Chain Management (SCM) optimizes the flow of goods, materials, and finances from suppliers to customers.", "o": ["True", "False"], "a": 0, "e": "True: SCM optimizes end-to-end supply chain flows.", "type": "TF"},
+            {"q": "B2C e-commerce involves commercial transactions between businesses and individual retail consumers.", "o": ["True", "False"], "a": 0, "e": "True: B2C is business-to-consumer retail.", "type": "TF"},
+            {"q": "B2B e-commerce transactions occur between two or more business organizations.", "o": ["True", "False"], "a": 0, "e": "True: B2B involves corporate-to-corporate transactions.", "type": "TF"},
+            {"q": "C2C e-commerce platforms enable peer-to-peer transactions between individual consumers (e.g., eBay).", "o": ["True", "False"], "a": 0, "e": "True: C2C connects individual consumers directly.", "type": "TF"},
+            {"q": "Business Intelligence (BI) tools analyze enterprise data to support managerial decision-making.", "o": ["True", "False"], "a": 0, "e": "True: BI tools support data-driven decision making.", "type": "TF"},
+            {"q": "Executive dashboards visualize key performance indicators (KPIs) for leadership monitoring.", "o": ["True", "False"], "a": 0, "e": "True: Dashboards display KPIs for executive review.", "type": "TF"},
+            {"q": "Digital business transformation fundamentally alters operations and value delivery using digital technology.", "o": ["True", "False"], "a": 0, "e": "True: Digital transformation reshapes business value and operations.", "type": "TF"},
+            {"q": "Knowledge management organizes, shares, and manages organizational information assets.", "o": ["True", "False"], "a": 0, "e": "True: KM manages intellectual capital and organizational knowledge.", "type": "TF"},
+            {"q": "Legacy systems are older established software systems still in operational use despite newer technology.", "o": ["True", "False"], "a": 0, "e": "True: Legacy systems are older functioning applications.", "type": "TF"},
+            {"q": "Enterprise Application Integration (EAI) links disparate applications so they share data seamlessly.", "o": ["True", "False"], "a": 0, "e": "True: EAI connects disparate software applications.", "type": "TF"},
+            {"q": "Transaction Processing Systems (TPS) record and process routine daily business operations.", "o": ["True", "False"], "a": 0, "e": "True: TPS handles routine operational transactions.", "type": "TF"},
+            {"q": "Decision Support Systems (DSS) assist managers in analyzing complex data and semi-structured problems.", "o": ["True", "False"], "a": 0, "e": "True: DSS aids complex managerial decision-making.", "type": "TF"},
+            {"q": "Electronic Data Interchange (EDI) standardizes computer-to-computer business document exchanges.", "o": ["True", "False"], "a": 0, "e": "True: EDI automates standardized B2B document exchanges.", "type": "TF"},
+            {"q": "Mobile Commerce (M-Commerce) refers to commercial transactions executed via wireless mobile devices.", "o": ["True", "False"], "a": 0, "e": "True: M-commerce enables shopping via mobile devices.", "type": "TF"},
+            {"q": "Digital marketplaces aggregate multiple third-party vendors on a single e-commerce platform.", "o": ["True", "False"], "a": 0, "e": "True: Marketplaces host multiple third-party sellers.", "type": "TF"},
+            {"q": "Customer Lifetime Value (CLV) predicts total financial revenue from a customer over their relationship.", "o": ["True", "False"], "a": 0, "e": "True: CLV estimates long-term customer profitability.", "type": "TF"},
+            {"q": "Supply chain visibility provides end-to-end real-time tracking of inventory and shipments.", "o": ["True", "False"], "a": 0, "e": "True: Supply chain visibility ensures tracking transparency.", "type": "TF"},
+            {"q": "The bullwhip effect describes demand forecast distortions multiplying as they move up the supply chain.", "o": ["True", "False"], "a": 0, "e": "True: Bullwhip effect amplifies demand variability upstream.", "type": "TF"},
+            {"q": "Enterprise portals provide single-point web access to corporate applications and information.", "o": ["True", "False"], "a": 0, "e": "True: Portals offer unified web access to corporate tools.", "type": "TF"},
+            {"q": "Data warehouses centralize aggregated data from various operational systems for analytical reporting.", "o": ["True", "False"], "a": 0, "e": "True: Data warehouses store integrated historical data for BI.", "type": "TF"},
+            {"q": "Data mining uncovers hidden patterns, correlations, and anomalies within large datasets.", "o": ["True", "False"], "a": 0, "e": "True: Data mining extracts hidden patterns from big data.", "type": "TF"},
+            {"q": "Customer churn rate measures the percentage of customers who stop doing business with a company.", "o": ["True", "False"], "a": 0, "e": "True: Churn rate tracks customer attrition over time.", "type": "TF"},
+            {"q": "Omnichannel retailing unifies physical and digital customer shopping touchpoints seamlessly.", "o": ["True", "False"], "a": 0, "e": "True: Omnichannel integrates physical and online shopping experiences.", "type": "TF"},
+            {"q": "B2B2C e-commerce involves partnering with intermediary businesses to reach final consumers.", "o": ["True", "False"], "a": 0, "e": "True: B2B2C reaches consumers through business intermediaries.", "type": "TF"},
+            {"q": "Crowdsourcing solicits ideas, services, or funding from distributed online communities.", "o": ["True", "False"], "a": 0, "e": "True: Crowdsourcing leverages online collective contributions.", "type": "TF"},
+            {"q": "Enterprise Risk Management (ERM) provides a structured framework for managing enterprise risks.", "o": ["True", "False"], "a": 0, "e": "True: ERM manages organization-wide risks systematically.", "type": "TF"},
+            {"q": "Business Process Reengineering (BPR) involves radical redesign of workflows for massive performance gains.", "o": ["True", "False"], "a": 0, "e": "True: BPR radically transforms core business processes.", "type": "TF"},
+            {"q": "APIs enable disparate software systems to interoperate and share data programmatically.", "o": ["True", "False"], "a": 0, "e": "True: APIs allow applications to communicate with each other.", "type": "TF"},
+            {"q": "Cloud ERP delivers enterprise resource planning software over the cloud on demand.", "o": ["True", "False"], "a": 0, "e": "True: Cloud ERP hosts enterprise systems on cloud infrastructure.", "type": "TF"},
+            {"q": "Click-and-mortar businesses combine physical retail storefronts with online e-commerce channels.", "o": ["True", "False"], "a": 0, "e": "True: Click-and-mortar integrates physical and digital retail.", "type": "TF"},
+            {"q": "Pure-play e-commerce enterprises operate exclusively online without physical retail stores.", "o": ["True", "False"], "a": 0, "e": "True: Pure-play businesses exist entirely in digital spaces.", "type": "TF"},
+            {"q": "Corporate intranets provide secure private networks for internal employee collaboration.", "o": ["True", "False"], "a": 0, "e": "True: Intranets serve internal organizational communication.", "type": "TF"},
+            {"q": "Extranets safely extend internal corporate networks to trusted external partners and vendors.", "o": ["True", "False"], "a": 0, "e": "True: Extranets allow secure external partner access.", "type": "TF"},
+            {"q": "Marketing automation software streamlines repetitive marketing workflows and lead nurturing.", "o": ["True", "False"], "a": 0, "e": "True: Marketing automation executes campaigns and lead scoring.", "type": "TF"},
+            {"q": "Collaborative filtering recommends products based on peer similarity and collective user behavior.", "o": ["True", "False"], "a": 0, "e": "True: Collaborative filtering powers recommendation engines.", "type": "TF"},
+            {"q": "Enterprise Content Management (ECM) organizes and governs unstructured corporate documents.", "o": ["True", "False"], "a": 0, "e": "True: ECM manages unstructured document lifecycles.", "type": "TF"},
+            {"q": "Operational CRM automates customer-facing front-office processes like sales and support.", "o": ["True", "False"], "a": 0, "e": "True: Operational CRM manages sales and service workflows.", "type": "TF"},
+            {"q": "Analytical CRM evaluates customer data to uncover actionable behavioral insights.", "o": ["True", "False"], "a": 0, "e": "True: Analytical CRM extracts insights from customer data.", "type": "TF"},
+            
+            // High-Level TFs (46-50)
+            {"q": "[HIGH-LEVEL] Disconnected departmental databases (sales, HR, finance) foster optimal efficiency without needing an ERP system.", "o": ["True", "False"], "a": 1, "e": "[HIGH-LEVEL] False: Disconnected databases create data silos and inefficiencies; ERP integration is required.", "type": "TF"},
+            {"q": "[HIGH-LEVEL] The bullwhip effect causes minor retail demand changes to amplify into major upstream supply chain disruptions.", "o": ["True", "False"], "a": 0, "e": "[HIGH-LEVEL] True: Demand variations multiply upstream across supply chains, known as the bullwhip effect.", "type": "TF"},
+            {"q": "[HIGH-LEVEL] Business Intelligence and Data Warehousing play zero role in customer personalization and predictive churn analytics.", "o": ["True", "False"], "a": 1, "e": "[HIGH-LEVEL] False: BI and data warehouses are foundational for customer analytics and data-driven personalization.", "type": "TF"},
+            {"q": "[HIGH-LEVEL] Business Process Reengineering (BPR) focuses on minor incremental tweaks rather than radical workflow overhauls.", "o": ["True", "False"], "a": 1, "e": "[HIGH-LEVEL] False: BPR is defined by radical and fundamental redesign, not minor incremental tweaks.", "type": "TF"},
+            {"q": "[HIGH-LEVEL] Omnichannel retailing requires unifying inventory and customer data across physical and digital storefronts.", "o": ["True", "False"], "a": 0, "e": "[HIGH-LEVEL] True: Seamless omnichannel experiences depend on real-time data integration across physical and online touchpoints.", "type": "TF"}
+        ];
+
+        const getQuestionType = question => question.type.replace(/[.!?]+$/, "");
+
+        const P1_DATA = [
+            ...P1_SOURCE.filter(question => getQuestionType(question) === "MCQ"),
+            ...P2_SOURCE.filter(question => getQuestionType(question) === "MCQ")
+        ];
+        const P2_DATA = [
+            ...P1_SOURCE.filter(question => getQuestionType(question) === "TF"),
+            ...P2_SOURCE.filter(question => getQuestionType(question) === "TF")
+        ];
+
+        let activePart = 1;
+        let qData = P1_DATA;
+        let cIdx = 0;
+        let score = 0;
+        let wrongList = [];
+
+        const $ = id => document.getElementById(id);
+
+        function switchPart(part) {
+            activePart = part;
+            $("tab1").className = "tab-btn " + (part === 1 ? "active" : "");
+            $("tab2").className = "tab-btn " + (part === 2 ? "active" : "");
+            qData = part === 1 ? P1_DATA : P2_DATA;
+            resetQuiz();
+        }
+
+        function resetQuiz() {
+            cIdx = 0;
+            score = 0;
+            wrongList = [];
+            renderQuestion();
+        }
+
+        function renderQuestion() {
+            const q = qData[cIdx];
+            $("n").textContent = `Question ${cIdx + 1} of ${qData.length}`;
+            $("s").textContent = `Score: ${score}`;
+            $("bar").style.width = `${(cIdx / qData.length) * 100}%`;
+
+            const isHighLevel = q.q.includes("[HIGH-LEVEL]");
+            const badgeClass = isHighLevel ? "q-badge high-level" : "q-badge";
+            const badgeText = isHighLevel 
+                ? (getQuestionType(q) === 'TF' ? 'True / False — High Level' : 'Multiple Choice — High Level')
+                : (getQuestionType(q) === 'TF' ? 'True / False' : 'Multiple Choice');
+            
+            $("card").innerHTML = `
+                <span class="${badgeClass}">${badgeText}</span>
+                <p class="q">${q.q}</p>
+                <div id="opts"></div>
+                <div id="fb"></div>
+            `;
+
+            q.o.forEach((optText, i) => {
+                const b = document.createElement("button");
+                b.className = "opt";
+                b.innerHTML = `<b>${getQuestionType(q) === 'TF' ? (i===0?'T':'F') : "ABCD"[i] + ")"}</b><span></span>`;
+                b.querySelector("span").textContent = optText;
+                b.onclick = () => handleAnswer(i);
+                $("opts").appendChild(b);
+            });
+        }
+
+        function handleAnswer(selected) {
+            const q = qData[cIdx];
+            const isCorrect = selected === q.a;
+            const buttons = document.querySelectorAll(".opt");
+
+            buttons.forEach((btn, idx) => {
+                btn.disabled = true;
+                if (idx === q.a) btn.classList.add("ok");
+                else if (idx === selected) btn.classList.add("no");
+            });
+
+            if (isCorrect) score++;
+            else wrongList.push(cIdx);
+
+            $("s").textContent = `Score: ${score}`;
+
+            $("fb").innerHTML = `
+                <div class="ex ${isCorrect ? 'ok' : 'no'}">
+                    <strong>${isCorrect ? 'Correct answer ✓' : 'Incorrect answer ✗'}</strong>
+                    <span>${q.e}</span>
+                </div>
+                <button class="btn" id="nxtBtn">${cIdx < qData.length - 1 ? 'Next question' : 'Show final results'}</button>
+            `;
+
+            $("nxtBtn").onclick = () => {
+                cIdx++;
+                if (cIdx < qData.length) renderQuestion();
+                else finishQuiz();
+            };
+            $("nxtBtn").focus();
+        }
+
+        function finishQuiz() {
+            $("bar").style.width = "100%";
+            $("n").textContent = "Quiz complete";
+            const pct = Math.round((score / qData.length) * 100);
+            
+            let html = `
+                <div class="score">${score} / ${qData.length}</div>
+                <p style="text-align:center;font-size:1.2rem;margin:0 0 16px;">Percentage: <b>${pct}%</b></p>
+            `;
+
+            if (wrongList.length > 0) {
+                html += `<p style="margin:16px 0 8px;"><b>Questions to review:</b></p><ul class="rev">`;
+                wrongList.reverse().forEach(w => {
+                    html += `<li><b>Question ${w + 1}:</b> ${qData[w].q}</li>`;
+                });
+                html += `</ul>`;
+            } else {
+                html += `<p style="text-align:center;color:var(--ok);">Excellent! All answers are correct (100%).</p>`;
+            }
+
+            html += `<button class="btn" onclick="resetQuiz()">Restart quiz</button>`;
+            $("card").innerHTML = html;
+        }
+
+        renderQuestion();
+    </script>
+</body>
+</html>

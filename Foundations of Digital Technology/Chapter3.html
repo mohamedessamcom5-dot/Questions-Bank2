@@ -1,0 +1,436 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Foundation of Digital Technology — Chapter 3: Big Data & Internet of Things (IoT)</title>
+    <style>
+        :root {
+            --bg: #0f172a;
+            --c: #1e293b;
+            --t: #f8fafc;
+            --m: #94a3b8;
+            --b: #334155;
+            --ac: #38bdf8;
+            --ok: #22c55e;
+            --okb: #052e16;
+            --no: #ef4444;
+            --nob: #450a0a;
+            box-sizing: border-box;
+        }
+
+        @media(prefers-color-scheme: light) {
+            :root[data-theme=light] {
+                --bg: #f8fafc;
+                --c: #ffffff;
+                --t: #0f172a;
+                --m: #64748b;
+                --b: #e2e8f0;
+                --ac: #0284c7;
+                --okb: #dcfce7;
+                --nob: #fee2e2;
+                --ok: #16a34a;
+                --no: #dc2626;
+            }
+        }
+
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--t);
+            font-family: 'Segoe UI', Tahoma, system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+        }
+        main {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 24px 16px 60px;
+        }
+        .header-panel {
+            text-align: center;
+            margin-bottom: 24px;
+            border-bottom: 8px solid var(--b);
+            padding-bottom: 30px;
+        }
+        h1 { font-size: 1.5rem; margin: 0 0 8px; color: var(--ac); }
+        .sub { color: var(--m); font-size: 0.95rem; margin: 0; }
+        
+        .nav-tabs {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .tab-btn {
+            flex: 1;
+            padding: 12px;
+            background: var(--c);
+            border: 1px solid var(--b);
+            color: var(--t);
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .tab-btn.active {
+            background: var(--ac);
+            color: #000;
+            border-color: var(--ac);
+        }
+
+        .bar {
+            height: 8px;
+            background: var(--b);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+        .bar i {
+            display: block;
+            height: 100%;
+            background: var(--ac);
+            width: 0;
+            transition: width 0.3s;
+        }
+        .meta {
+            display: flex;
+            justify-content: space-between;
+            color: var(--m);
+            font-size: 0.9rem;
+            margin-bottom: 16px;
+        }
+        .card {
+            background: var(--c);
+            border: 1px solid var(--b);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+        .q-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            background: var(--b);
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+            color: var(--ac);
+        }
+        .q-badge.high-level {
+            background: #f59e0b;
+            color: #000;
+            font-weight: bold;
+        }
+        .q {
+            font-size: 1.1rem;
+            font-weight: 600;
+            direction: ltr;
+            text-align: left;
+            margin: 0 0 16px;
+        }
+        .opt {
+            display: flex;
+            gap: 12px;
+            direction: ltr;
+            text-align: left;
+            width: 100%;
+            background: var(--c);
+            color: var(--t);
+            border: 1.5px solid var(--b);
+            border-radius: 8px;
+            padding: 12px 14px;
+            margin-bottom: 10px;
+            font: inherit;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+        .opt:hover:not(:disabled) { border-color: var(--ac); }
+        .opt b { min-width: 1.5em; color: var(--ac); }
+        .opt.ok { background: var(--okb); border-color: var(--ok); }
+        .opt.no { background: var(--nob); border-color: var(--no); }
+        .opt:disabled { cursor: default; }
+
+        .ex {
+            margin-top: 16px;
+            padding: 14px;
+            border-radius: 8px;
+            direction: ltr;
+            text-align: left;
+            font-size: 0.95rem;
+        }
+        .ex.ok { background: var(--okb); border: 1px solid var(--ok); }
+        .ex.no { background: var(--nob); border: 1px solid var(--no); }
+        .ex strong { display: block; margin-bottom: 4px; }
+
+        .btn {
+            margin-top: 16px;
+            background: var(--ac);
+            color: #000;
+            border: 0;
+            border-radius: 8px;
+            padding: 12px 24px;
+            font: inherit;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+        }
+        .score { text-align: center; font-size: 3rem; font-weight: 800; margin: 12px 0; color: var(--ac); }
+        .rev { margin: 16px 0 0; padding: 0; list-style: none; direction: ltr; text-align: left; font-size: 0.9rem; }
+        .rev li { padding: 8px 0; border-top: 1px solid var(--b); }
+    </style>
+</head>
+<body>
+    <main>
+        <div class="header-panel">
+            <h1>Foundation of Digital Technology — Chapter 3</h1>
+            <p class="sub">Big Data & Internet of Things (IoT)</p>
+        </div>
+        
+        <div class="nav-tabs">
+            <button class="tab-btn active" id="tab1" onclick="switchPart(1)">Multiple Choice</button>
+            <button class="tab-btn" id="tab2" onclick="switchPart(2)">True/False</button>
+        </div>
+
+        <div class="bar"><i id="bar"></i></div>
+        <div class="meta">
+            <span id="n"></span>
+            <span id="s"></span>
+        </div>
+        <div class="card" id="card"></div>
+    </main>
+      
+    <script>
+       const P1_SOURCE = [
+            // Standard MCQs (1-45)
+            {"q": "How is the Internet of Things (IoT) formally defined in Chapter 3?", "o": ["An isolated offline database storing financial ledgers", "A network of interconnected physical devices embedded with sensors, software, and connectivity, enabling them to collect and exchange data in real time", "A manual bookkeeping method for paper invoices", "A programming language used for statistical regressions"], "a": 1, "e": "IoT is a network of interconnected physical devices embedded with sensors, software, and connectivity enabling real-time data exchange.", "type": "MCQ"},
+            {"q": "What is the primary synergy between Big Data and the Internet of Things (IoT)?", "o": ["IoT generates massive streams of data, while Big Data analytics transforms this information into actionable insights for smarter decision-making", "IoT deletes all historical corporate records", "Big Data replaces the need for physical internet connections", "IoT operates independently of any data storage systems"], "a": 0, "e": "IoT generates massive data streams, while Big Data analytics transforms them into actionable insights.", "type": "MCQ"},
+            {"q": "Which data type serves as the traditional foundation of relational database systems (RDBMS) following tabular structures?", "o": ["Unstructured data", "Semi-structured data", "Structured data", "Random acoustic waveforms"], "a": 2, "e": "Structured data follows tabular structure models and is the foundation of relational database systems using SQL.", "type": "MCQ"},
+            {"q": "What proportion of collected big data is estimated to be unstructured (such as voice, images, videos, and sensor data)?", "o": ["10-20 percent", "50 percent", "80-90 percent", "Zero percent"], "a": 2, "e": "It is estimated that about 80-90 percent of the big data collected is unstructured.", "type": "MCQ"},
+            {"q": "Which of the following is considered an example of semi-structured data?", "o": ["Traditional SQL rows and columns", "HTML, XML, and emails", "Pure raw binary machine code", "Plain physical paper notebooks"], "a": 1, "e": "Examples of semi-structured data include HTML, XML, and emails.", "type": "MCQ"},
+            {"q": "What are the initial three classic Vs used to distinguish Big Data?", "o": ["Volume, Velocity, and Variety", "Value, Visualization, and Veracity", "Visibility, Viability, and Vocation", "Venture, Venture, and Venture"], "a": 0, "e": "Big Data is initially distinguished by 3 Vs: Volume, Velocity, and Variety.", "type": "MCQ"},
+            {"q": "Which 'V' of Big Data refers to the trustworthiness and reliability of the data?", "o": ["Volume", "Velocity", "Veracity", "Variety"], "a": 2, "e": "Veracity refers to the trustworthiness and reliability of data, as big data can be noisy or incomplete.", "type": "MCQ"},
+            {"q": "What does the 'Velocity' feature of Big Data describe?", "o": ["The physical shipping speed of hardware servers", "The speed at which data is generated and needs to be processed in real-time or at high speeds", "The financial investment return rate", "The typing speed of database administrators"], "a": 1, "e": "Velocity describes the speed at which data is generated and needs real-time or high-speed processing.", "type": "MCQ"},
+            {"q": "Which orchestration technologies can be used to automate big data workflows and move data between sources and sinks?", "o": ["Azure Data Factory, Apache Oozie, and Sqoop", "Microsoft Paint and Notepad", "Adobe Premiere Pro", "Python Tkinter GUI loops"], "a": 0, "e": "To automate workflows, you can use orchestration technology such as Azure Data Factory or Apache Oozie and Sqoop.", "type": "MCQ"},
+            {"q": "What are the critical success factors for Big Data analytics besides tools and skilled personnel?", "o": ["Clear business need, alignment between business and IT strategy, and a strong infrastructure", "Unlimited financial budgets and zero IT staff", "Mandatory replacement of all management teams", "Elimination of all customer feedback channels"], "a": 0, "e": "Critical success factors include clear business need, alignment between business and IT strategy, and a strong infrastructure.", "type": "MCQ"},
+            {"q": "What is the main storage system used by Apache Hadoop for managing large amounts of data across multiple cluster machines?", "o": ["Hadoop Distributed File System (HDFS)", "Microsoft Excel worksheets", "Local floppy disks", "Paper filing cabinets"], "a": 0, "e": "HDFS is the main storage system used by Apache Hadoop for managing large data across machines in a cluster.", "type": "MCQ"},
+            {"q": "What is Apache HBase?", "o": ["An open-source nonrelational column DB NoSQL storage solution using HDFS for storing large unstructured data", "A graphic design software for video games", "A local desktop web browser", "A mechanical printer driver"], "a": 0, "e": "HBASE is an open-source nonrelational column DB storage using HDFS as a NoSQL solution for unstructured data.", "type": "MCQ"},
+            {"q": "Which tool allows users to write scripts in a language called 'Pig Latin' to query large datasets in HDFS?", "o": ["Pig", "Hive", "Oozie", "Sqoop"], "a": 0, "e": "Pig allows writing scripts in Pig Latin to query large datasets stored in HDFS.", "type": "MCQ"},
+            {"q": "Which Hadoop-based data warehousing framework was originally developed by Facebook and uses an SQL-like language called HiveQL?", "o": ["Hive", "Mahout", "Ambari", "YARN"], "a": 0, "e": "Hive is a framework originally developed by Facebook allowing queries in HiveQL.", "type": "MCQ"},
+            {"q": "What is the primary responsibility of YARN in a Hadoop cluster?", "o": ["Managing workloads, monitoring, security controls, and allocating system resources to applications", "Designing aesthetic website landing pages", "Printing physical shipping invoices", "Recording employee attendance hours"], "a": 0, "e": "YARN is responsible for managing workloads, monitoring, security, and allocating system resources.", "type": "MCQ"},
+            {"q": "What is the function of Apache Oozie?", "o": ["A workflow processing system letting users define a series of jobs written in multiple languages", "A web browser for searching e-commerce products", "A physical cooling fan for data center servers", "An encryption key generator"], "a": 0, "e": "Oozie is a workflow processing system letting users define a series of jobs written in multiple languages.", "type": "MCQ."},
+            {"q": "What does Sqoop do as a connectivity tool in Hadoop?", "o": ["Moves data from non-Hadoop data stores (like relational databases and data warehouses) into Hadoop", "Deletes redundant database files automatically", "Encrypts user passwords on local laptops", "Renders 3D virtual reality graphics"], "a": 0, "e": "Sqoop moves data from non-Hadoop data stores into Hadoop.", "type": "MCQ."},
+            {"q": "What is Apache Mahout?", "o": ["A suite of machine-learning libraries running on top of Hadoop implementing standard algorithms like k-means clustering", "A relational database management system for desktop PCs", "A social media mobile application", "A cloud storage pricing calculator"], "a": 0, "e": "Mahout is a suite of machine-learning libraries running on Hadoop with k-means clustering and Naive Bayes.", "type": "MCQ."},
+            {"q": "What is Apache Ambari?", "o": ["A Web-based set of tools for deploying, administering, and monitoring Apache Hadoop clusters", "A web browser plugin for video streaming", "A mobile fitness tracking app", "An automated robotic vacuum cleaner"], "a": 0, "e": "Ambari is a Web-based set of tools for deploying, administering, and monitoring Apache Hadoop clusters.", "type": "MCQ."},
+            {"q": "Which Japanese AI venture received funding from Google in 2018 and specializes in retail in-store analytics using high volumes of data from drones, robots, and IoT sensors?", "o": ["ABEJA", "eBay", "Amazon", "Alibaba"], "a": 0, "e": "ABEJA is a Japanese AI venture specializing in big data analysis and deep learning solutions for retail.", "type": "MCQ."},
+            {"q": "Which major e-commerce platform turned to NoSQL technologies like Apache Cassandra and DataStax Enterprise to manage 250TBs+ of storage?", "o": ["eBay", "Netflix", "Uber", "Airbnb"], "a": 0, "e": "eBay turned to Apache Cassandra and DataStax Enterprise to process massive amounts of data.", "type": "MCQ."},
+            {"q": "What are the four different bases that make up the technology stack of the Internet of Things (IoT)?", "o": ["System hardware, Software device, Communication route, and Platform", "CPU, RAM, Motherboard, and Power supply", "Input, Output, Storage, and Processing", "HTML, CSS, JavaScript, and SQL"], "a": 0, "e": "The IoT technology stack comprises system hardware, software device, communication route, and platform.", "type": "MCQ."},
+            {"q": "What role does the Data Acquisition System (DAS) play in IoT software devices?", "o": ["Converting analog data received from physical devices into digital streams by performing logical and analytical operations", "Printing hardcopy reports on paper", "Managing employee payroll checks", "Delivering physical mail packages"], "a": 0, "e": "DAS converts analog data into digital streams by performing logical operations.", "type": "MCQ."},
+            {"q": "Which of the following are examples of consumer IoT smart assistant devices?", "o": ["Amazon Echo (Alexa), Google Home (Google Assistant), and Apple HomePod (Siri)", "Microsoft Word, Excel, and PowerPoint", "Adobe Premiere Pro and Photoshop", "Cisco network routers"], "a": 0, "e": "Amazon Echo, Google Home, and Apple HomePod are voice-activated smart assistant IoT devices.", "type": "MCQ."},
+            {"q": "How do smart thermostats like Nest or Ecobee function as IoT devices?", "o": ["By controlling and automating heating and cooling systems remotely, learning preferences, and optimizing energy usage", "By printing architectural blueprints", "By playing high-definition video games", "By tracking stock market shares offline"], "a": 0, "e": "Smart thermostats control heating/cooling, learn preferences, and optimize energy usage.", "type": "MCQ."},
+            {"q": "What is the function of industrial sensors in IoT manufacturing settings?", "o": ["Tracking machinery performance, detecting anomalies, and scheduling maintenance proactively to minimize downtime", "Brewing coffee for factory workers", "Writing corporate tax returns", "Cleaning facility floors automatically"], "a": 0, "e": "Industrial sensors track performance, detect anomalies, and schedule maintenance to minimize downtime.", "type": "MCQ."},
+            {"q": "Why is data Veracity crucial in Big Data analytics?", "o": ["Because big data can be noisy, incomplete, or contain errors, requiring data quality and accuracy verification", "Because it determines the physical weight of server racks", "Because it dictates the corporate income tax rate", "Because it replaces the need for cloud storage"], "a": 0, "e": "Veracity refers to trustworthiness; data can be noisy or incomplete, making quality and accuracy crucial.", "type": "MCQ."},
+            {"q": "What does the 'Value' feature of Big Data represent?", "o": ["Potential insights, knowledge, and economic value that can be extracted from large datasets", "The retail price of computer monitors", "The electrical voltage of server power supplies", "The monthly salary of data scientists"], "a": 0, "e": "Value represents potential insights, knowledge, and economic value extracted from big data.", "type": "MCQ."},
+            {"q": "What role does Big Data Visualization play?", "o": ["Helping make complex data understandable and interpretable by presenting it in a visually appealing manner to identify patterns", "Creating physical oil paintings of corporate executives", "Blocking unauthorized firewall intrusions", "Encrypting database backup files"], "a": 0, "e": "Visualization helps make complex data understandable, aiding in pattern and trend identification.", "type": "MCQ."},
+            {"q": "What are the layers typically included in Big Data architecture?", "o": ["Data collection and ingestion, data processing and analysis, data visualization and reporting, and data governance and security", "Hardware assembly, monitor calibration, keyboard wiring, and mouse testing", "Marketing, sales, accounting, and human resources", "Frontend design, backend routing, database queries, and client hosting"], "a": 0, "e": "Big Data architecture includes data collection/ingestion, processing/analysis, visualization/reporting, and governance/security.", "type": "MCQ."},
+            {"q": "How does Big Data analytics support real-time decision making?", "o": ["By enabling businesses to process and analyze data in real-time or near real-time", "By stopping all computer operations overnight", "By requiring manual approval for every transaction", "By relying exclusively on printed paper reports"], "a": 0, "e": "Big Data analytics supports real-time decision making by processing data in real-time or near real-time.", "type": "MCQ."},
+            {"q": "What role does sentiment analysis play in Big Data analytics for businesses?", "o": ["Understanding customer behavior and preferences to personalize offerings and marketing campaigns", "Measuring factory machine operating temperatures", "Calculating employee income tax deductions", "Testing network cable bandwidth speed"], "a": 0, "e": "Sentiment analysis helps understand customer behavior and preferences to personalize offerings.", "type": "MCQ."},
+            {"q": "What was the global volume of data generated in 2023 according to IDC data cited in the course?", "o": ["123 zettabytes", "4.4 zettabytes", "44 zettabytes", "1 petabyte"], "a": 0, "e": "In 2023, the world generated approximately 123 zettabytes of data according to IDC.", "type": "MCQ."},
+            {"q": "How did global data circulation grow between 2013 and 2020?", "o": ["It grew from 4.4 zettabytes in 2013 to 44 zettabytes in 2020", "It decreased by 50 percent", "It remained completely stagnant", "It was replaced entirely by analog vinyl records"], "a": 0, "e": "In 2013 data circulation was 4.4 zettabytes; in 2020 it reached 44 zettabytes.", "type": "MCQ."},
+            {"q": "What is the primary function of IoT asset tracking devices?", "o": ["Attaching GPS and location-based devices to valuable assets (vehicles, containers) for real-time monitoring and theft prevention", "Measuring employee body weight in offices", "Printing shipping labels in post offices", "Hosting cloud server databases"], "a": 0, "e": "Asset tracking uses GPS and location tech to monitor assets, prevent theft, and streamline logistics.", "type": "MCQ."},
+            {"q": "What does the 'Platform' layer of IoT represent in the technology stack?", "o": ["The final step where gathered and processed data is stored, labeled on shelves, and presented to the user in a user-friendly form", "The physical metal casing of a smartphone", "The electrical power outlet on a wall", "The keyboard typing interface"], "a": 0, "e": "The platform acts like a cupboard with shelves storing and presenting data in a user-friendly form.", "type": "MCQ."},
+            {"q": "Why is the communication route important in an IoT system?", "o": ["It determines how data is transmitted (via Wi-Fi, LAN, Bluetooth, or satellite) and how devices are managed", "It generates electric power for the building", "It prints physical accounting invoices", "It replaces software algorithms entirely"], "a": 0, "e": "Communication routes decide how data is transmitted and devices managed (Wi-Fi, Bluetooth, satellite).", "type": "MCQ."},
+            {"q": "What is the role of the 'IT Edge' in data processing before entering the data center in IoT architectures?", "o": ["Repeating operations to make data more exact and informative", "Deleting all incoming sensor logs", "Disconnecting the internet connection", "Disconnecting hardware sensors"], "a": 0, "e": "The IT edge repeats operations before entering the data center to make data more exact and informative.", "type": "MCQ."},
+            {"q": "How does AI utilize Big Data according to Chapter 3?", "o": ["AI applications utilize big data within their algorithms to better analyze clientele and make accurate predictions", "AI uses big data exclusively to play video games", "AI deletes big data to save storage space", "AI converts big data into printed books"], "a": 0, "e": "AI applications utilize big data within their algorithms to better analyze clientele and make predictions.", "type": "MCQ."},
+            {"q": "What shift occurred in business decision-making with the advent of Big Data and AI?", "o": ["Moving from 'gut and intuition' to 'data and rigor' to make predictions and revolutionize management", "Moving from computers back to manual paper ledgers", "Eliminating all data collection entirely", "Relying solely on coin flipping"], "a": 0, "e": "Big data provided the business world the opportunity to utilize 'data and rigor' instead of 'gut and intuition'.", "type": "MCQ."},
+            
+            // High-Level MCQs (41-50)
+            {"q": "[HIGH-LEVEL] An enterprise collects petabytes of unstructured video and sensor data from IoT devices, but stores it in a traditional relational database management system (RDBMS) using standard SQL tabular schemas without NoSQL or Hadoop architecture. Based on Chapter 3, why is this system bound to fail?", "o": ["Because RDBMS and tabular structures are designed for structured data, whereas 80-90% of big data is unstructured and requires scalable NoSQL/Hadoop storage solutions like HBase or Cassandra", "Because RDBMS databases are illegal in corporate environments", "Because IoT devices cannot generate data in video formats", "Because relational databases have zero storage capacity"], "a": 0, "e": "[HIGH-LEVEL] Traditional RDBMS handles structured data, whereas big data is predominantly unstructured (80-90%), requiring NoSQL or Hadoop architectures.", "type": "MCQ."},
+            {"q": "[HIGH-LEVEL] A retail company deploys expensive IoT sensors and big data analytics tools simply because they are trending in technology, without aligning the initiative with business strategy or defining a clear business need. According to Chapter 3 success factors, why will this project underperform?", "o": ["Because technology investments must be driven by clear business needs and strategic alignment, not mere technology trends", "Because IoT sensors are incompatible with retail store environments", "Because big data analytics prohibits the use of retail sensors", "Because business strategy must always ignore IT infrastructure"], "a": 0, "e": "[HIGH-LEVEL] Investments must be made for the good of the business driven by clear business needs and strategic alignment, not mere trends.", "type": "MCQ."},
+            {"q": "[HIGH-LEVEL] If a real-time IoT security system detects an intruder and instantly triggers an alarm while automatically notifying local police without human intervention, which IoT and AI architectural principle does this demonstrate?", "o": ["The ability of integrated IoT and software platforms to process real-time data at the edge and make autonomous decisions to execute responsive workflows", "The exclusive reliance on manual paper incident logging", "The total absence of data communication routes", "The failure of cloud computing infrastructure"], "a": 0, "e": "[HIGH-LEVEL] IoT systems can process data and make autonomous decisions/actions without immediate human interference (e.g., intruder alarms and police notification).", "type": "MCQ."},
+            {"q": "[HIGH-LEVEL] An IT architect claims that Apache Hadoop is completely unnecessary because traditional batch file storage can handle high-velocity streaming IoT data streams without YARN or HDFS. Why does Chapter 3 refute this claim?", "o": ["Because IoT generates high-velocity, high-volume data requiring specialized distributed storage (HDFS) and resource management frameworks (YARN) to handle scale and complexity", "Because Hadoop was discontinued in 1999", "Because streaming data cannot be stored on computers", "Because YARN is strictly used for graphic design"], "a": 0, "e": "[HIGH-LEVEL] Big data volume and velocity exceed traditional system capabilities, requiring specialized architectures like HDFS and YARN.", "type": "MCQ."},
+            {"q": "[HIGH-LEVEL] A company implements Hive to query massive datasets using HiveQL, but expects the queries to execute directly on raw Hadoop storage files without any conversion. Based on Chapter 3 tool descriptions, what is the flaw in this understanding?", "o": ["Hive allows SQL-like HiveQL queries, but these queries are automatically converted to MapReduce to process the underlying data", "Hive queries bypass computer processors entirely", "Hive is a relational database management system that rejects Hadoop", "HiveQL cannot be used by SQL programmers"], "a": 0, "e": "[HIGH-LEVEL] Hive allows HiveQL queries which are then converted to MapReduce for Hadoop execution.", "type": "MCQ."},
+            {"q": "[HIGH-LEVEL] If an organization utilizes Sqoop, Oozie, and MapReduce within its Hadoop ecosystem, how do these three tools collaboratively support big data operations?", "o": ["Sqoop moves data from relational databases into Hadoop, Oozie orchestrates complex workflow job sequences, and MapReduce processes and generates large datasets", "Sqoop designs website graphics, Oozie prints invoices, and MapReduce sends emails", "Sqoop deletes files, Oozie plays music, and MapReduce manages thermostats", "Sqoop acts as a smart assistant speaker, Oozie is a smart thermostat, and MapReduce is a wearable fitness tracker"], "a": 0, "e": "[HIGH-LEVEL] Sqoop moves data from non-Hadoop stores, Oozie orchestrates workflow jobs, and MapReduce processes large datasets.", "type": "MCQ."},
+            {"q": "[HIGH-LEVEL] Why did retail giant eBay select Apache Cassandra and DataStax Enterprise for its big data infrastructure rather than relying on standard single-server databases?", "o": ["To leverage scale-out architecture and high-velocity data capabilities across multiple commodity hardware data centers processing massive zettabytes of data", "To reduce internet connectivity speeds to zero", "To eliminate the need for any computer storage", "To restrict database access to a single user"], "a": 0, "e": "[HIGH-LEVEL] eBay adopted Cassandra and DataStax for scale-out architecture and high-velocity data across multiple data centers.", "type": "MCQ."},
+            {"q": "[HIGH-LEVEL] What distinguishes unstructured data from structured data in terms of architectural processing requirements?", "o": ["Structured data obeys tabular models for RDBMS/SQL, whereas unstructured data (80-90% of big data) lacks traditional tabular format and requires NoSQL/Hadoop tools", "Unstructured data is smaller and easier to process than structured data", "Structured data is generated exclusively by social media, while unstructured data comes from SQL spreadsheets", "There is no processing difference between the two data types"], "a": 0, "e": "[HIGH-LEVEL] Structured data follows tabular models for RDBMS/SQL, while unstructured data requires NoSQL/Hadoop tools.", "type": "MCQ."},
+            {"q": "[HIGH-LEVEL] An analyst argues that IoT devices are merely isolated physical gadgets with no need for cloud communication, software brains, or communication routes. According to Chapter 3, why is this an inaccurate description of IoT technology?", "o": ["Because IoT is an interconnected system comprising hardware sensors, software brains, communication routes (Wi-Fi/Bluetooth), and cloud platforms", "Because IoT devices operate without electricity or batteries", "Because IoT devices are strictly used for manual bookkeeping", "Because IoT devices cannot collect data"], "a": 0, "e": "[HIGH-LEVEL] IoT requires a complete stack including hardware, software, communication routes, and platforms.", "type": "MCQ."},
+            {"q": "[HIGH-LEVEL] How do Big Data analytics and AI intersect to transform modern management decision-making?", "o": ["Big data provides massive data pools that train machine learning algorithms, enabling organizations to replace 'gut and intuition' with rigorous predictive analytics", "AI replaces all data storage so that big data is no longer needed", "Big data and AI operate in completely separate industries with zero interaction", "AI eliminates the need for any computer hardware infrastructure"], "a": 0, "e": "[HIGH-LEVEL] Big data provides massive data pools for machine learning algorithms, enabling rigorous predictive analytics over gut intuition.", "type": "MCQ."}
+        ];
+
+        const P2_SOURCE = [
+            // Standard TFs (1-45)
+            {"q": "The Internet of Things (IoT) is a network of interconnected physical devices embedded with sensors, software, and connectivity.", "o": ["True", "False"], "a": 0, "e": "True: IoT is a network of interconnected physical devices with sensors and connectivity.", "type": "TF"},
+            {"q": "Big Data analytics transforms IoT-generated data streams into actionable insights for decision-making.", "o": ["True", "False"], "a": 0, "e": "True: Big Data analytics transforms IoT data into actionable insights.", "type": "TF"},
+            {"q": "Structured data is the foundation of relational database systems and follows tabular formats.", "o": ["True", "False"], "a": 0, "e": "True: Structured data follows tabular formats as the foundation of RDBMS.", "type": "TF"},
+            {"q": "Companies use RDBMS and SQL to store and retrieve structured data.", "o": ["True", "False"], "a": 0, "e": "True: Companies use RDBMS and SQL for structured data.", "type": "TF"},
+            {"q": "Unstructured data accounts for approximately 80-90% of collected big data.", "o": ["True", "False"], "a": 0, "e": "True: About 80-90% of big data collected is unstructured.", "type": "TF"},
+            {"q": "Semi-structured data strictly obeys the tabular structure of relational database models.", "o": ["True", "False"], "a": 1, "e": "False: Semi-structured data does not strictly obey tabular structures of traditional models.", "type": "TF"},
+            {"q": "Examples of semi-structured data include HTML, XML, and emails.", "o": ["True", "False"], "a": 0, "e": "True: Examples of semi-structured data include HTML, XML, and emails.", "type": "TF"},
+            {"q": "Big Data is commonly characterized by Vs including Volume, Velocity, Variety, and Veracity.", "o": ["True", "False"], "a": 0, "e": "True: Common Vs include Volume, Velocity, Variety, and Veracity.", "type": "TF"},
+            {"q": "Volume refers to the vast amount of data generated and collected from various sources.", "o": ["True", "False"], "a": 0, "e": "True: Volume refers to vast amounts of data exceeding traditional systems.", "type": "TF"},
+            {"q": "Velocity describes the speed at which data is generated and needs to be processed.", "o": ["True", "False"], "a": 0, "e": "True: Velocity describes the speed of data generation and processing.", "type": "TF"},
+            {"q": "Variety represents the diverse types and formats of data, including structured, unstructured, and semi-structured.", "o": ["True", "False"], "a": 0, "e": "True: Variety represents diverse data formats and types.", "type": "TF"},
+            {"q": "Veracity refers to the trustworthiness and reliability of data.", "o": ["True", "False"], "a": 0, "e": "True: Veracity refers to trustworthiness and reliability.", "type": "TF"},
+            {"q": "Value represents potential insights, knowledge, and economic value extracted from big data.", "o": ["True", "False"], "a": 0, "e": "True: Value represents potential insights and economic value.", "type": "TF"},
+            {"q": "Big Data visualization helps make complex data understandable by presenting it visually.", "o": ["True", "False"], "a": 0, "e": "True: Visualization helps make complex data understandable.", "type": "TF"},
+            {"q": "Big Data architecture typically includes data collection, processing, visualization, and governance layers.", "o": ["True", "False"], "a": 0, "e": "True: Architecture includes collection, processing, visualization, and governance layers.", "type": "TF"},
+            {"q": "Orchestration technologies like Azure Data Factory, Oozie, and Sqoop automate big data workflows.", "o": ["True", "False"], "a": 0, "e": "True: Orchestration technologies include Azure Data Factory, Oozie, and Sqoop.", "type": "TF"},
+            {"q": "Big Data analytics supports real-time decision making by processing data in near real-time.", "o": ["True", "False"], "a": 0, "e": "True: Analytics supports real-time decision making.", "type": "TF"},
+            {"q": "Critical success factors for Big Data include a clear business need, IT-business alignment, and strong infrastructure.", "o": ["True", "False"], "a": 0, "e": "True: Success factors include clear business need, alignment, and strong infrastructure.", "type": "TF"},
+            {"q": "ABEJA is a Japanese AI venture specializing in big data analysis and deep learning for retail store management.", "o": ["True", "False"], "a": 0, "e": "True: ABEJA specializes in big data and deep learning solutions for retail.", "type": "TF."},
+            {"q": "eBay utilized Apache Cassandra and DataStax Enterprise to process massive amounts of data cost-effectively.", "o": ["True", "False"], "a": 0, "e": "True: eBay used Cassandra and DataStax Enterprise for high-velocity data.", "type": "TF."},
+            {"q": "HDFS is the main storage system used by Apache Hadoop for managing large data across a cluster.", "o": ["True", "False"], "a": 0, "e": "True: HDFS is Hadoop's main storage system for clusters.", "type": "TF."},
+            {"q": "Apache HBase is an open-source nonrelational column DB NoSQL storage solution using HDFS.", "o": ["True", "False"], "a": 0, "e": "True: HBase is a nonrelational column DB using HDFS.", "type": "TF."},
+            {"q": "Pig allows writing scripts in Pig Latin to query large datasets stored in HDFS.", "o": ["True", "False"], "a": 0, "e": "True: Pig allows writing scripts in Pig Latin.", "type": "TF."},
+            {"q": "Hive is a Hadoop-based framework developed by Facebook using HiveQL queries converted to MapReduce.", "o": ["True", "False"], "a": 0, "e": "True: Hive was developed by Facebook and uses HiveQL converted to MapReduce.", "type": "TF."},
+            {"q": "YARN is responsible for managing workloads, monitoring, security, and cluster resource allocation.", "o": ["True", "False"], "a": 0, "e": "True: YARN manages workloads, monitoring, and resource allocation.", "type": "TF."},
+            {"q": "Oozie is a workflow processing system allowing users to define a series of jobs.", "o": ["True", "False"], "a": 0, "e": "True: Oozie is a workflow processing system.", "type": "TF."},
+            {"q": "Sqoop is a connectivity tool for moving data from non-Hadoop data stores into Hadoop.", "o": ["True", "False"], "a": 0, "e": "True: Sqoop moves data from non-Hadoop stores into Hadoop.", "type": "TF."},
+            {"q": "Mahout is a suite of machine-learning libraries running on top of Hadoop.", "o": ["True", "False"], "a": 0, "e": "True: Mahout is a suite of machine-learning libraries on Hadoop.", "type": "TF."},
+            {"q": "Ambari is a Web-based toolset for deploying, administering, and monitoring Hadoop clusters.", "o": ["True", "False"], "a": 0, "e": "True: Ambari is a Web-based toolset for Hadoop clusters.", "type": "TF."},
+            {"q": "Consumer IoT smart assistants include Amazon Echo, Google Home, and Apple HomePod.", "o": ["True", "False"], "a": 0, "e": "True: Smart assistants include Amazon Echo, Google Home, and Apple HomePod.", "type": "TF."},
+            {"q": "Smart thermostats like Nest or Ecobee help automate and optimize home heating and cooling energy usage.", "o": ["True", "False"], "a": 0, "e": "True: Smart thermostats automate heating/cooling and optimize energy usage.", "type": "TF."},
+            {"q": "Industrial IoT sensors track machinery performance and schedule proactive maintenance to minimize downtime.", "o": ["True", "False"], "a": 0, "e": "True: Industrial sensors track machinery performance and schedule maintenance.", "type": "TF."},
+            {"q": "The four technology bases of IoT are hardware, software device, communication route, and platform.", "o": ["True", "False"], "a": 0, "e": "True: The four bases of IoT are hardware, software device, communication route, and platform.", "type": "TF."},
+            {"q": "The Data Acquisition System (DAS) converts analog data from IoT devices into digital streams.", "o": ["True", "False"], "a": 0, "e": "True: DAS converts analog data into digital streams.", "type": "TF."},
+            {"q": "The IT edge performs operations before data enters the data center to make it more exact and informative.", "o": ["True", "False"], "a": 0, "e": "True: The IT edge processes data before entering the data center.", "type": "TF."},
+            {"q": "IoT communication routes include options such as Wi-Fi, LAN, Bluetooth, or satellite controlling.", "o": ["True", "False"], "a": 0, "e": "True: Communication routes include Wi-Fi, LAN, Bluetooth, or satellite.", "type": "TF."},
+            {"q": "The IoT platform acts like a cupboard with shelves storing and presenting data in a user-friendly form.", "o": ["True", "False"], "a": 0, "e": "True: The platform acts like a cupboard with shelves for stored data.", "type": "TF."},
+            {"q": "Big Data analytics replaced the need for human management with 'data and rigor' over 'gut and intuition'.", "o": ["True", "False"], "a": 0, "e": "True: Big data enabled organizations to utilize 'data and rigor' over 'gut and intuition'.", "type": "TF."},
+            {"q": "In 2023, the world generated approximately 123 zettabytes of data according to IDC.", "o": ["True", "False"], "a": 0, "e": "True: The world generated approximately 123 zettabytes of data in 2023.", "type": "TF."},
+            {"q": "Global data circulation grew from 4.4 zettabytes in 2013 to 44 zettabytes in 2020.", "o": ["True", "False"], "a": 0, "e": "True: Data circulation grew from 4.4 ZB in 2013 to 44 ZB in 2020.", "type": "TF."},
+            {"q": "IoT asset tracking devices use GPS and location tech for real-time whereabouts and theft prevention.", "o": ["True", "False"], "a": 0, "e": "True: Asset tracking uses GPS to monitor whereabouts and prevent theft.", "type": "TF."},
+            {"q": "AI applications utilize big data within their algorithms to better analyze clientele and make predictions.", "o": ["True", "False"], "a": 0, "e": "True: AI applications use big data within their algorithms.", "type": "TF."},
+            {"q": "Sentiment analysis in Big Data helps businesses understand customer behavior and preferences.", "o": ["True", "False"], "a": 0, "e": "True: Sentiment analysis helps understand customer behavior and preferences.", "type": "TF."},
+            {"q": "Digital transformation of business processes enabled companies to accumulate more data and make better decisions.", "o": ["True", "False"], "a": 0, "e": "True: Digital transformation enabled accumulating more data and making better decisions.", "type": "TF."},
+            {"q": "Big Data architecture must be able to handle the scale, complexity, and variety of Big Data streams.", "o": ["True", "False"], "a": 0, "e": "True: Big Data architecture handles scale, complexity, and variety.", "type": "TF."},
+            
+            // High-Level TFs (46-50)
+            {"q": "[HIGH-LEVEL] Storing massive volumes of unstructured video and sensor data in a traditional SQL relational database without NoSQL or Hadoop architecture is the recommended best practice in Chapter 3.", "o": ["True", "False"], "a": 1, "e": "[HIGH-LEVEL] Relational databases are for structured data, whereas 80-90% of big data is unstructured, requiring NoSQL/Hadoop solutions like HBase or Cassandra.", "type": "TF"},
+            {"q": "[HIGH-LEVEL] Investing in Big Data analytics requires a clear business need and strategic alignment rather than adopting technology solely because it is trending.", "o": ["True", "False"], "a": 0, "e": "[HIGH-LEVEL] Investments must be driven by business needs and strategic alignment, not mere trends.", "type": "TF"},
+            {"q": "[HIGH-LEVEL] IoT systems are strictly passive devices that cannot make autonomous decisions or trigger automated workflows without constant human manual intervention.", "o": ["True", "False"], "a": 1, "e": "[HIGH-LEVEL] IoT systems can make autonomous decisions and execute workflows (e.g., intruder alarms and police calls) without human intervention.", "type": "TF"},
+            {"q": "[HIGH-LEVEL] Hive queries written in HiveQL are executed directly on raw storage files without any translation or conversion into MapReduce.", "o": ["True", "False"], "a": 1, "e": "[HIGH-LEVEL] Hive queries in HiveQL are automatically converted to MapReduce for Hadoop processing.", "type": "TF"},
+            {"q": "[HIGH-LEVEL] The integration of Big Data, cloud computing, and IoT set the momentum for artificial intelligence to grow rapidly and revolutionize business decision-making.", "o": ["True", "False"], "a": 0, "e": "[HIGH-LEVEL] Big data, cloud computing, and IoT set the momentum for AI to grow at high speed.", "type": "TF"}
+        ];
+
+        const getQuestionType = question => question.type.replace(/[.!?]+$/, "");
+
+        const P1_DATA = [
+            ...P1_SOURCE.filter(question => getQuestionType(question) === "MCQ"),
+            ...P2_SOURCE.filter(question => getQuestionType(question) === "MCQ")
+        ];
+        const P2_DATA = [
+            ...P1_SOURCE.filter(question => getQuestionType(question) === "TF"),
+            ...P2_SOURCE.filter(question => getQuestionType(question) === "TF")
+        ];
+
+        let activePart = 1;
+        let qData = P1_DATA;
+        let cIdx = 0;
+        let score = 0;
+        let wrongList = [];
+
+        const $ = id => document.getElementById(id);
+
+        function switchPart(part) {
+            activePart = part;
+            $("tab1").className = "tab-btn " + (part === 1 ? "active" : "");
+            $("tab2").className = "tab-btn " + (part === 2 ? "active" : "");
+            qData = part === 1 ? P1_DATA : P2_DATA;
+            resetQuiz();
+        }
+
+        function resetQuiz() {
+            cIdx = 0;
+            score = 0;
+            wrongList = [];
+            renderQuestion();
+        }
+
+        function renderQuestion() {
+            const q = qData[cIdx];
+            $("n").textContent = `Question ${cIdx + 1} of ${qData.length}`;
+            $("s").textContent = `Score: ${score}`;
+            $("bar").style.width = `${(cIdx / qData.length) * 100}%`;
+
+            const isHighLevel = q.q.includes("[HIGH-LEVEL]");
+            const badgeClass = isHighLevel ? "q-badge high-level" : "q-badge";
+            const badgeText = isHighLevel 
+                ? (getQuestionType(q) === 'TF' ? 'True / False — High Level' : 'Multiple Choice — High Level')
+                : (getQuestionType(q) === 'TF' ? 'True / False' : 'Multiple Choice');
+            
+            $("card").innerHTML = `
+                <span class="${badgeClass}">${badgeText}</span>
+                <p class="q">${q.q}</p>
+                <div id="opts"></div>
+                <div id="fb"></div>
+            `;
+
+            q.o.forEach((optText, i) => {
+                const b = document.createElement("button");
+                b.className = "opt";
+                b.innerHTML = `<b>${getQuestionType(q) === 'TF' ? (i===0?'T':'F') : "ABCD"[i] + ")"}</b><span></span>`;
+                b.querySelector("span").textContent = optText;
+                b.onclick = () => handleAnswer(i);
+                $("opts").appendChild(b);
+            });
+        }
+
+        function handleAnswer(selected) {
+            const q = qData[cIdx];
+            const isCorrect = selected === q.a;
+            const buttons = document.querySelectorAll(".opt");
+
+            buttons.forEach((btn, idx) => {
+                btn.disabled = true;
+                if (idx === q.a) btn.classList.add("ok");
+                else if (idx === selected) btn.classList.add("no");
+            });
+
+            if (isCorrect) score++;
+            else wrongList.push(cIdx);
+
+            $("s").textContent = `Score: ${score}`;
+
+            $("fb").innerHTML = `
+                <div class="ex ${isCorrect ? 'ok' : 'no'}">
+                    <strong>${isCorrect ? 'Correct answer ✓' : 'Incorrect answer ✗'}</strong>
+                    <span>${q.e}</span>
+                </div>
+                <button class="btn" id="nxtBtn">${cIdx < qData.length - 1 ? 'Next question' : 'Show final results'}</button>
+            `;
+
+      $("nxtBtn").onclick = () => {
+                cIdx++;
+                if (cIdx < qData.length) renderQuestion();
+                else finishQuiz();
+            };
+            $("nxtBtn").focus();
+        }
+
+        function finishQuiz() {
+            $("bar").style.width = "100%";
+            $("n").textContent = "Quiz complete";
+            const pct = Math.round((score / qData.length) * 100);
+            
+            let html = `
+                <div class="score">${score} / ${qData.length}</div>
+                <p style="text-align:center;font-size:1.2rem;margin:0 0 16px;">Percentage: <b>${pct}%</b></p>
+            `;
+
+            if (wrongList.length > 0) {
+                html += `<p style="margin:16px 0 8px;"><b>Questions to review:</b></p><ul class="rev">`;
+                wrongList.reverse().forEach(w => {
+                    html += `<li><b>Question ${w + 1}:</b> ${qData[w].q}</li>`;
+                });
+                html += `</ul>`;
+            } else {
+                html += `<p style="text-align:center;color:var(--ok);">Excellent! All answers are correct (100%).</p>`;
+            }
+
+            html += `<button class="btn" onclick="resetQuiz()">Restart quiz</button>`;
+            $("card").innerHTML = html;
+        }
+
+        renderQuestion();
+    </script>
+</body>
+</html>

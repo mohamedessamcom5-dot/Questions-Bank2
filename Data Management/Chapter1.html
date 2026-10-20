@@ -1,0 +1,436 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Data Management</title>
+    <style>
+        :root {
+            --bg: #0f172a;
+            --c: #1e293b;
+            --t: #f8fafc;
+            --m: #94a3b8;
+            --b: #334155;
+            --ac: #38bdf8;
+            --ok: #22c55e;
+            --okb: #052e16;
+            --no: #ef4444;
+            --nob: #450a0a;
+            box-sizing: border-box;
+        }
+
+        @media(prefers-color-scheme: light) {
+            :root[data-theme=light] {
+                --bg: #f8fafc;
+                --c: #ffffff;
+                --t: #0f172a;
+                --m: #64748b;
+                --b: #e2e8f0;
+                --ac: #0284c7;
+                --okb: #dcfce7;
+                --nob: #fee2e2;
+                --ok: #16a34a;
+                --no: #dc2626;
+            }
+        }
+
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--t);
+            font-family: 'Segoe UI', Tahoma, system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+        }
+        main {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 24px 16px 60px;
+        }
+        .header-panel {
+            text-align: center;
+            margin-bottom: 24px;
+            border-bottom: 8px solid var(--b);
+            padding-bottom: 30px;
+        }
+        h1 { font-size: 1.5rem; margin: 0 0 8px; color: var(--ac); }
+        .sub { color: var(--m); font-size: 0.95rem; margin: 0; }
+        
+        .nav-tabs {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .tab-btn {
+            flex: 1;
+            padding: 12px;
+            background: var(--c);
+            border: 1px solid var(--b);
+            color: var(--t);
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .tab-btn.active {
+            background: var(--ac);
+            color: #000;
+            border-color: var(--ac);
+        }
+
+        .bar {
+            height: 8px;
+            background: var(--b);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+        .bar i {
+            display: block;
+            height: 100%;
+            background: var(--ac);
+            width: 0;
+            transition: width 0.3s;
+        }
+        .meta {
+            display: flex;
+            justify-content: space-between;
+            color: var(--m);
+            font-size: 0.9rem;
+            margin-bottom: 16px;
+        }
+        .card {
+            background: var(--c);
+            border: 1px solid var(--b);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+        .q-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            background: var(--b);
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+            color: var(--ac);
+        }
+        .q {
+            font-size: 1.1rem;
+            font-weight: 600;
+            direction: ltr;
+            text-align: left;
+            margin: 0 0 16px;
+        }
+        .diagram-container {
+            direction: ltr;
+            background: rgba(0,0,0,0.2);
+            border: 1px dashed var(--b);
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+        .opt {
+            display: flex;
+            gap: 12px;
+            direction: ltr;
+            text-align: left;
+            width: 100%;
+            background: var(--c);
+            color: var(--t);
+            border: 1.5px solid var(--b);
+            border-radius: 8px;
+            padding: 12px 14px;
+            margin-bottom: 10px;
+            font: inherit;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+        .opt:hover:not(:disabled) { border-color: var(--ac); }
+        .opt b { min-width: 1.5em; color: var(--ac); }
+        .opt.ok { background: var(--okb); border-color: var(--ok); }
+        .opt.no { background: var(--nob); border-color: var(--no); }
+        .opt:disabled { cursor: default; }
+
+        .ex {
+            margin-top: 16px;
+            padding: 14px;
+            border-radius: 8px;
+            direction: ltr;
+            text-align: left;
+            font-size: 0.95rem;
+        }
+        .ex.ok { background: var(--okb); border: 1px solid var(--ok); }
+        .ex.no { background: var(--nob); border: 1px solid var(--no); }
+        .ex strong { display: block; margin-bottom: 4px; }
+
+        .btn {
+            margin-top: 16px;
+            background: var(--ac);
+            color: #000;
+            border: 0;
+            border-radius: 8px;
+            padding: 12px 24px;
+            font: inherit;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+        }
+        .score { text-align: center; font-size: 3rem; font-weight: 800; margin: 12px 0; color: var(--ac); }
+        .rev { margin: 16px 0 0; padding: 0; list-style: none; direction: ltr; text-align: left; font-size: 0.9rem; }
+        .rev li { padding: 8px 0; border-top: 1px solid var(--b); }
+    </style>
+    <link rel="stylesheet" href="../site-theme.css">
+</head>
+<body>
+    <main>
+        <div class="header-panel">
+            <h1>Data Management — Chapter 1</h1>
+            <p class="sub">Basic Concepts</p>
+            <p class="sub"></p>
+        </div>
+
+        <div class="nav-tabs">
+            <button class="tab-btn active" id="tab1" onclick="switchPart(1)">Multiple Choice</button>
+            <button class="tab-btn" id="tab2" onclick="switchPart(2)">True/False</button>
+        </div>
+
+        <div class="bar"><i id="bar"></i></div>
+        <div class="meta">
+            <span id="n"></span>
+            <span id="s"></span>
+        </div>
+        <div class="card" id="card"></div>
+    </main>
+      
+    <script>
+        const P1_SOURCE = [
+           {"q": "What is defined as basic individual items of numeric or other information garnered through observation without context?", "o": ["Information", "Knowledge", "Data", "Wisdom"], "a": 2, "e": "Data consists of raw facts and symbols without context.", "type": "MCQ"},
+            {"q": "According to Zins (2007), without context, raw data items are devoid of:", "o": ["Symbols", "Information", "Measurements", "Observations"], "a": 1, "e": "Without context, raw data items are devoid of information.", "type": "MCQ"},
+            {"q": "Informally, 'data' can be thought of as any collection of symbols representing a set of:", "o": ["Algorithms and software", "Measurements or observations", "Business regulations", "Hardware devices"], "a": 1, "e": "Data represents measurements or observations about events or occurrences.", "type": "MCQ"},
+            {"q": "What is 'information' according to the course concepts?", "o": ["Raw unorganized facts", "Data after processing and placed in context", "Physical memory registers", "Garbage input"], "a": 1, "e": "Information is data after processing, assembled in context for interpretation.", "type": "MCQ"},
+            {"q": "Information is that which is conveyed and possibly amenable to:", "o": ["Hardware compilation", "Analysis and interpretation", "Manual destruction only", "Data rot"], "a": 1, "e": "Information is amenable to analysis and interpretation.", "type": "MCQ"},
+            {"q": "Which term is defined as the general understanding and awareness garnered from accumulated information, tempered by experience?", "o": ["Data", "Information", "Knowledge", "Metadata"], "a": 2, "e": "Knowledge is accumulated information tempered by experience.", "type": "MCQ"},
+            {"q": "Knowledge enables what capability according to Zins (2007)?", "o": ["Faster clock speeds", "Envisaging new contexts", "Automatic typing", "Data transcription"], "a": 1, "e": "Knowledge enables new contexts to be envisaged.", "type": "MCQ"},
+            {"q": "The practice of collecting, organizing, storing, securing, and analyzing data to make it useful and reliable is called:", "o": ["Data Processing", "Data Management", "Data Rotting", "Data Mining"], "a": 1, "e": "Data management covers collecting, storing, securing, and analyzing data.", "type": "MCQ"},
+            {"q": "Which of the following is NOT one of the stages in the Data Management Lifecycle?", "o": ["Creation", "Storage", "Archiving", "Compilation"], "a": 3, "e": "The lifecycle consists of Creation, Storage, Usage, Archiving, and Destruction.", "type": "MCQ"},
+            {"q": "What is the final stage of the Data Management Lifecycle?", "o": ["Archiving", "Usage", "Destruction", "Storage"], "a": 2, "e": "The lifecycle ends with destruction.", "type": "MCQ"},
+            {"q": "Getting data right is critical because data provides:", "o": ["Hardware upgrades", "Evidence for or against a claim", "Automatic code generation", "Compiler flags"], "a": 1, "e": "Data provides evidence for or against claims, supporting informed decision-making.", "type": "MCQ"},
+            {"q": "Which benefit of getting data right helps organizations spot trends, anomalies, and potential risks?", "o": ["Regulatory Compliance", "Analytics and Innovation", "Operational Efficiency", "Creation phase"], "a": 1, "e": "Analytics and innovation leverage good data to spot trends, anomalies, and risks.", "type": "MCQ"},
+            {"q": "Which of the following is listed as a source of data in Chapter 1?", "o": ["Social media", "Traffic surveillance", "Wearable devices", "All of the above"], "a": 3, "e": "Data comes from endless sources including social media, traffic, wearables, health records, etc.", "type": "MCQ"},
+            {"q": "'Good' data is defined as information that is accurate, complete, reliable, and:", "o": ["Stored on physical hard drives", "Fit for a specific business or analytical purpose", "Written in uppercase letters", "Compressed using zip"], "a": 1, "e": "Good data must be fit for a specific business or analytical purpose.", "type": "MCQ"},
+            {"q": "Where does 'Good' data come from?", "o": ["Random observations", "Explicit design and collection decisions", "Post-hoc guess work", "Data rot"], "a": 1, "e": "Good data results from explicit design and collection decisions.", "type": "MCQ"},
+            {"q": "Which good data characteristic ensures measurements correctly reflect what is being observed?", "o": ["Relevance", "Accuracy", "Granularity", "Timeliness"], "a": 1, "e": "Accuracy means measurements correctly reflect what is observed.", "type": "MCQ"},
+            {"q": "Which good data characteristic requires selected items to directly relate to the phenomenon being studied?", "o": ["Relevance", "Validity", "Granularity", "Consistency"], "a": 0, "e": "Relevance ensures items directly relate to the phenomenon under study.", "type": "MCQ"},
+            {"q": "Selecting appropriate data types to properly reflect what is being studied relates to which characteristic?", "o": ["Timeliness", "Representative", "Completeness", "Destruction"], "a": 1, "e": "Representative data types are chosen appropriately to reflect the subject.", "type": "MCQ"},
+            {"q": "Where should the unambiguous meanings of 'Well-defined' data items be documented?", "o": ["In raw CSV files", "In a schema, metadata, or data dictionary", "In system RAM", "In user comments"], "a": 1, "e": "Well-defined items are documented in a schema, metadata, or data dictionary.", "type": "MCQ"},
+            {"q": "Which characteristic ensures that selected data items include all potentially relevant measurements?", "o": ["Accuracy", "Completeness", "Validity", "Timeliness"], "a": 1, "e": "Completeness means including all potentially relevant measurements and characteristics.", "type": "MCQ"},
+            {"q": "Data types having sufficient range and detail to capture full variability exhibit:", "o": ["Consistency", "Granularity", "Validity", "Relevance"], "a": 1, "e": "Granularity refers to having sufficient depth/detail to capture variability.", "type": "MCQ"},
+            {"q": "Which characteristic guarantees that data matches and synchronizes properly across different systems?", "o": ["Consistency / Validity", "Timeliness", "Granularity", "Representative"], "a": 0, "e": "Consistency/Validity ensures synchronization across different systems and records.", "type": "MCQ"},
+            {"q": "Which characteristic ensures that data is up-to-date and available when expected for decisions?", "o": ["Accuracy", "Timeliness", "Completeness", "Archiving"], "a": 1, "e": "Timeliness ensures data is up-to-date and ready when decisions are made.", "type": "MCQ"},
+            {"q": "Data that conforms to defined formatting rules, standards, or business requirements demonstrates:", "o": ["Format / Rule Compliance", "Data Rot", "Transcription error", "Methodological failure"], "a": 0, "e": "Good data conforms to defined formatting rules and business standards.", "type": "MCQ"},
+            {"q": "What succinct phrase describes the outcome of using bad data in analysis?", "o": ["Data structures + algorithms", "Garbage in, garbage out", "First in, first out", "Creation to destruction"], "a": 1, "e": "Garbage in, garbage out (GIGO) describes the effect of bad data.", "type": "MCQ"},
+            {"q": "The three general categories for sources of bad data are:", "o": ["Creation/Pre-collection, Collection, and Post-collection errors", "Hardware, Software, and Network errors", "Input, Output, and Storage errors", "Data, Information, and Knowledge errors"], "a": 0, "e": "Bad data originates in pre-collection design, collection, or post-collection stages.", "type": "MCQ"},
+            {"q": "Poorly designed experiments, surveys, or instrumentation are examples of:", "o": ["Collection errors", "Methodological failures", "Transcription errors", "Data rot"], "a": 1, "e": "Methodological failures occur in creation and pre-collection planning.", "type": "MCQ"},
+            {"q": "Unclear definitions of terms and missing metadata fall under:", "o": ["Bad documentation", "Post-collection processing", "Data destruction", "Fraudulent answers"], "a": 0, "e": "Bad documentation refers to missing schemas, metadata, or unclear definitions.", "type": "MCQ"},
+            {"q": "Forgetting or avoiding standard data types during system design is a:", "o": ["Collection error", "Misspecification of data types and formats", "Data rot issue", "Transcription typo"], "a": 1, "e": "Misspecification happens during design when standard formats are ignored.", "type": "MCQ"},
+            {"q": "Which error occurs during the active gathering of data when rules are not enforced?", "o": ["Pre-collection error", "Ineffective enforcement of data recording rules", "Archiving failure", "Knowledge gap"], "a": 1, "e": "Ineffective enforcement of rules during collection leads to bad data.", "type": "MCQ"},
+            {"q": "Typing errors made while recording data without checking or validation are called:", "o": ["Methodological failures", "Transcription/typos", "Data rot", "Fraudulent observations"], "a": 1, "e": "Transcription/typos happen when manually entering data without validation.", "type": "MCQ"},
+            {"q": "When survey respondents purposefully give misleading or nonsensical answers, this is:", "o": ["Transcription typo", "Fraudulent answers/observations", "Data rot", "Bad documentation"], "a": 1, "e": "Purposely misleading responses are fraudulent observations.", "type": "MCQ"},
+            {"q": "Failing to check if an entered age value is '-25' or '300' indicates a lack of:", "o": ["Bounds checking (Impossible/out-of-range data)", "Data rot prevention", "Archiving", "Data schema"], "a": 0, "e": "Out-of-range data occurs when bounds checking is omitted.", "type": "MCQ"},
+            {"q": "Recording numbers with leading zeros like '0013' instead of '13' is classified as a:", "o": ["Methodological design failure", "Typical recording error", "Fraudulent observation", "Data destruction error"], "a": 1, "e": "Leading zeros (e.g. 0013 vs 13) are typical recording errors.", "type": "MCQ"},
+            {"q": "Using the uppercase letter 'O' instead of the number zero ('0') is problematic because:", "o": ["It causes stack overflow", "It is hard to spot visually and corrupts numeric operations", "It automatically deletes the database", "It changes data from information to knowledge"], "a": 1, "e": "Substituting letter 'O' for number 0 is a common, hard-to-spot recording error.", "type": "MCQ"},
+            {"q": "Entering '32' instead of '23' or 'LA' instead of 'AL' is known as:", "o": ["Transposing letters or numbers", "Data rot", "Fraudulent response", "Methodological flaw"], "a": 0, "e": "Transposing characters is a classic human recording mistake.", "type": "MCQ"},
+            {"q": "Using 'Italy', 'Italia', 'US', and 'USA' interchangeably in the same column violates:", "o": ["Consistent naming conventions", "Data destruction rules", "Hardware alignment", "Data rot laws"], "a": 0, "e": "Inconsistent naming conventions introduce ambiguity and noise into datasets.", "type": "MCQ"},
+            {"q": "Errors occurring after gathering data during cleaning, processing, or statistical evaluation are:", "o": ["Creation errors", "Post-collection and analysis errors", "Collection errors", "Pre-collection errors"], "a": 1, "e": "Post-collection errors happen during storage, copying, cleaning, or evaluation.", "type": "MCQ"},
+            {"q": "The expiration of data validity over time (e.g. old addresses or outdated prices) is known as:", "o": ["Data Rot", "Data Bounds", "Data Schema", "Data Granularity"], "a": 0, "e": "Data rot refers to data becoming stale or invalid over time.", "type": "MCQ"},
+            {"q": "A medical database stores patient weights in kilograms, but a newly integrated sensor sends weights in pounds without unit tags. Which characteristic is directly violated?", "o": ["Completeness", "Consistency / Validity", "Archiving", "Destruction"], "a": 1, "e": "Mixing units violates consistency/validity across records and systems.", "type": "MCQ"},
+            {"q": "If a dataset records employee salaries only as 'Low', 'Medium', 'High' instead of exact figures, which characteristic lacks depth?", "o": ["Granularity", "Timeliness", "Accuracy", "Creation"], "a": 0, "e": "Coarse categories lack the range and detail required for fine granularity.", "type": "MCQ"},
+            {"q": "Creating clear data dictionaries before collecting research survey data directly prevents:", "o": ["Data rot", "Bad documentation and misinterpretation", "Hardware failure", "High clock speed"], "a": 1, "e": "Clear metadata and data dictionaries ensure terms are unambiguously defined.", "type": "MCQ"},
+            {"q": "In the data management lifecycle, moving inactive old data to low-cost long-term storage is known as:", "o": ["Creation", "Archiving", "Usage", "Destruction"], "a": 1, "e": "Archiving stores historical data securely before eventual destruction.", "type": "MCQ"},
+            {"q": "A system logs transaction dates in DD/MM/YYYY format, but a user enters '31/02/2025'. What check failed?", "o": ["Bounds / Validity checking", "Data rot", "Archiving check", "Granularity"], "a": 0, "e": "Validation and bounds checking prevent impossible dates from entering systems.", "type": "MCQ"},
+            {"q": "Why is 'Information' considered a higher-level concept than 'Data'?", "o": ["Data requires hardware; information does not", "Information includes context and allows analysis", "Data is always digital", "Information is always numeric"], "a": 1, "e": "Data lacks context; information adds context to make data meaningful and actionable.", "type": "MCQ"},
+
+            // High-Level Questions (46-50)
+            {"q": "[HIGH-LEVEL] A retail chain analyzes customer purchases but fails to collect data from non-purchasing store visitors. Algorithms predict customer preferences inaccurately. Which pre-collection/design error occurred?", "o": ["Transposing numbers", "Methodological failure & representative sampling flaw", "Data rot during processing", "Post-collection copy error"], "a": 1, "e": "Failing to capture non-purchasers is a pre-collection methodological failure that distorts sample representativeness.", "type": "MCQ"},
+            {"q": "[HIGH-LEVEL] An AI automated trading model failed because 20-year-old financial trends were fed into it without updating current interest rate contexts. This failure is primarily attributed to:", "o": ["Lack of data granularity", "Data rot and post-collection misinterpretation", "Transcription typos", "Missing leading zeros"], "a": 1, "e": "Outdated data loses validity over time (data rot) and leads to misinterpretation when applied to new contexts.", "type": "MCQ"},
+            {"q": "[HIGH-LEVEL] A healthcare provider has complete, granular, and accurate patient records, but the system takes 24 hours to sync emergency room intakes to central databases. Which data quality characteristic fails here?", "o": ["Accuracy", "Granularity", "Timeliness", "Representative"], "a": 2, "e": "Delaying critical real-time data violates timeliness, rendering the data unavailable when needed.", "type": "MCQ"},
+            {"q": "[HIGH-LEVEL] An analyst merges two datasets: Dataset A uses 'US' and 'USA' for country, while Dataset B uses ISO codes '840'. The resulting report shows duplicated country entries. What combination of errors caused this?", "o": ["Data destruction & archiving error", "Inconsistent naming conventions & lack of schema harmonization", "Data rot & transcription typo", "Out-of-range bounds failure"], "a": 1, "e": "Merging inconsistent naming conventions without standardizing schemas causes duplication and analysis errors.", "type": "MCQ"},
+            {"q": "[HIGH-LEVEL] Which sequence correctly traces the transformation from raw observations to actionable business decisions?", "o": ["Information -> Data -> Knowledge -> Decision", "Data -> Information -> Knowledge -> Informed Decision-Making", "Knowledge -> Data -> Information -> Action", "Data Management -> Data Rot -> Information -> Destruction"], "a": 1, "e": "Data (raw facts) is processed into Information (context), accumulated into Knowledge (experience), enabling Informed Decision-Making.", "type": "MCQ"}
+        ];
+
+        const P2_SOURCE = [
+           // Standard Questions (1-45)
+            {"q": "Data consists of raw facts gathered through observation that are devoid of information without context.", "o": ["True", "False"], "a": 0, "e": "True: Raw data lacks context and requires processing to become information.", "type": "TF"},
+            {"q": "Information and Data are identical concepts in computer science and can be used interchangeably without distinction.", "o": ["True", "False"], "a": 1, "e": "False: Data is raw facts; Information is data that has been processed and contextualized.", "type": "TF"},
+            {"q": "Information is data after processing.", "o": ["True", "False"], "a": 0, "e": "True: Processing data gives it context, converting it to information.", "type": "TF"},
+            {"q": "Knowledge is simply raw data stored inside physical RAM memory chips.", "o": ["True", "False"], "a": 1, "e": "False: Knowledge is the awareness and understanding gained from accumulated information tempered by experience.", "type": "TF"},
+            {"q": "Knowledge enables new contexts to be envisaged.", "o": ["True", "False"], "a": 0, "e": "True: Experience and understanding allow knowledge to be applied to new contexts.", "type": "TF"},
+            {"q": "Data management lifecycle stages include Creation, Storage, Usage, Archiving, and Destruction.", "o": ["True", "False"], "a": 0, "e": "True: These 5 stages define the complete data management lifecycle.", "type": "TF"},
+            {"q": "Getting data right is unimportant for regulatory compliance.", "o": ["True", "False"], "a": 1, "e": "False: Getting data right is critical for regulatory compliance and risk mitigation.", "type": "TF"},
+            {"q": "Sports statistics, wearable devices, and traffic surveillance are all valid sources of data.", "o": ["True", "False"], "a": 0, "e": "True: Sources of data are virtually endless.", "type": "TF"},
+            {"q": "Good data occurs naturally by accident without explicit design decisions.", "o": ["True", "False"], "a": 1, "e": "False: Good data comes from explicit design and collection decisions.", "type": "TF"},
+            {"q": "Accuracy requires measurements to correctly reflect what is being observed.", "o": ["True", "False"], "a": 0, "e": "True: Accurate data reflects physical or real-world truth.", "type": "TF"},
+            {"q": "Relevance means data items can be selected randomly regardless of the phenomenon being studied.", "o": ["True", "False"], "a": 1, "e": "False: Items must directly relate to the phenomenon being studied.", "type": "TF"},
+            {"q": "Representative data requires choosing appropriate data types to mirror the study subject.", "o": ["True", "False"], "a": 0, "e": "True: Data types must adequately represent the underlying reality.", "type": "TF"},
+            {"q": "A schema or data dictionary is used to unambiguously define data items' meanings.", "o": ["True", "False"], "a": 0, "e": "True: Well-defined data relies on schemas, metadata, or data dictionaries.", "type": "TF"},
+            {"q": "Completeness means omitting irrelevant measurements to save storage space.", "o": ["True", "False"], "a": 1, "e": "False: Completeness requires including all potentially relevant measurements.", "type": "TF"},
+            {"q": "Granular data lacks detail and variability.", "o": ["True", "False"], "a": 1, "e": "False: Granular data has sufficient range and detail to capture variability.", "type": "TF"},
+            {"q": "Consistency means data matches and synchronizes properly across different systems.", "o": ["True", "False"], "a": 0, "e": "True: Consistency guarantees cross-system alignment and validity.", "type": "TF"},
+            {"q": "Timeliness ensures data is available whenever expected for decision-making.", "o": ["True", "False"], "a": 0, "e": "True: Up-to-date data available on time fulfills timeliness.", "type": "TF"},
+            {"q": "Good data must conform to defined formatting rules, standards, or business requirements.", "o": ["True", "False"], "a": 0, "e": "True: Rule and format compliance is a key characteristic of good data.", "type": "TF"},
+            {"q": "Bad data almost certainly results in misleading or harmful conclusions.", "o": ["True", "False"], "a": 0, "e": "True: Bad data distorts analytical results and leads to poor decisions.", "type": "TF"},
+            {"q": "The phrase 'Garbage In, Garbage Out' applies to data structures, not data quality.", "o": ["True", "False"], "a": 1, "e": "False: GIGO succinctly describes how bad input data yields bad output analysis.", "type": "TF"},
+            {"q": "Methodological failures occur after data has been fully collected and cleaned.", "o": ["True", "False"], "a": 1, "e": "False: Methodological failures happen during pre-collection design (surveys/experiments).", "type": "TF"},
+            {"q": "Bad documentation includes unclear definitions of terms and missing metadata.", "o": ["True", "False"], "a": 0, "e": "True: Missing or confusing schemas lead to bad documentation errors.", "type": "TF"},
+            {"q": "Misspecification of data types involves forgetting or avoiding standard data types.", "o": ["True", "False"], "a": 0, "e": "True: Misunderstanding or neglecting standard data types causes formatting errors.", "type": "TF"},
+            {"q": "Ineffective enforcement of data recording rules is a collection error.", "o": ["True", "False"], "a": 0, "e": "True: Lack of oversight during collection produces bad data.", "type": "TF"},
+            {"q": "Transcription errors (typos) can be eliminated by lack of validation rules.", "o": ["True", "False"], "a": 1, "e": "False: Lack of checking/validation actually causes transcription errors to persist.", "type": "TF"},
+            {"q": "Fraudulent answers occur when respondents intentionally provide misleading responses.", "o": ["True", "False"], "a": 0, "e": "True: Deliberately fake or nonsensical entries are fraudulent observations.", "type": "TF"},
+            {"q": "Bounds checking helps prevent impossible, out-of-range data from being recorded.", "o": ["True", "False"], "a": 0, "e": "True: Setting upper and lower bounds filters out impossible values like negative age.", "type": "TF"},
+            {"q": "Recording '0013' instead of '13' is an example of an impossible out-of-range value.", "o": ["True", "False"], "a": 1, "e": "False: Leading zeros are typical recording/formatting errors, not out-of-range values.", "type": "TF"},
+            {"q": "Using the uppercase letter 'O' instead of number zero '0' is easily detected by standard text compilers without errors.", "o": ["True", "False"], "a": 1, "e": "False: Letter 'O' and zero '0' look visually similar and are hard to spot, causing data issues.", "type": "TF"},
+            {"q": "Transposing letters or numbers means swapping their positions (e.g., entering 32 for 23).", "o": ["True", "False"], "a": 0, "e": "True: Transposition is a common human recording error.", "type": "TF"},
+            {"q": "Mixing 'US', 'USA', and 'United States' in one dataset represents consistent naming conventions.", "o": ["True", "False"], "a": 1, "e": "False: This is an inconsistent use of naming conventions.", "type": "TF"},
+            {"q": "Post-collection errors occur during data cleaning, processing, and statistical evaluation.", "o": ["True", "False"], "a": 0, "e": "True: Post-collection errors happen after gathering data.", "type": "TF"},
+            {"q": "Data 'rot' refers to physical damage to hard drive storage discs.", "o": ["True", "False"], "a": 1, "e": "False: Data rot refers to data losing validity over time (e.g. outdated locations or prices).", "type": "TF"},
+            {"q": "Moving or copying data during storage can introduce processing errors.", "o": ["True", "False"], "a": 0, "e": "True: Storage-related copying/moving operations can distort data.", "type": "TF"},
+            {"q": "Data management includes securing data against unauthorized access.", "o": ["True", "False"], "a": 0, "e": "True: Securing data is an explicit duty of data management.", "type": "TF"},
+            {"q": "Operational efficiency is reduced when an organization has good quality data.", "o": ["True", "False"], "a": 1, "e": "False: Good data improves operational efficiency and customer trust.", "type": "TF"},
+            {"q": "A metadata dictionary explains the meaning and structure of dataset fields.", "o": ["True", "False"], "a": 0, "e": "True: Metadata dictionaries clarify term meanings.", "type": "TF"},
+            {"q": "Missing data errors can be ignored safely without understanding non-answer reasons.", "o": ["True", "False"], "a": 1, "e": "False: Failure to understand missing data reasons distorts analysis.", "type": "TF"},
+            {"q": "Data collection errors can stem from unclear instructions provided to recorders.", "o": ["True", "False"], "a": 0, "e": "True: Lack of clear instructions causes collection errors.", "type": "TF"},
+            {"q": "Destruction is the second step in the data management lifecycle.", "o": ["True", "False"], "a": 1, "e": "False: Destruction is the final stage following archiving.", "type": "TF"},
+            {"q": "Analytical conclusions can be distorted even if errors happen only after data collection.", "o": ["True", "False"], "a": 0, "e": "True: Post-collection cleaning and moving errors distort final conclusions.", "type": "TF"},
+            {"q": "Observations without context carry rich analytical information.", "o": ["True", "False"], "a": 1, "e": "False: Raw observations without context are devoid of information.", "type": "TF"},
+            {"q": "Informed decision-making relies on data providing evidence for or against claims.", "o": ["True", "False"], "a": 0, "e": "True: Evidence-based data supports informed decisions.", "type": "TF"},
+            {"q": "Systematic collection rules enforcement reduces data recording errors.", "o": ["True", "False"], "a": 0, "e": "True: Monitoring and rule enforcement improve data accuracy.", "type": "TF"},
+            {"q": "Data archiving involves permanently deleting files immediately after creation.", "o": ["True", "False"], "a": 1, "e": "False: Archiving stores data safely for future reference; destruction comes later.", "type": "TF"},
+
+            // High-Level Questions (46-50)
+            {"q": "[HIGH-LEVEL] An automated algorithm flags transactions above $10,000. If a user inputs '$10,000' as a string instead of numeric '10000', the system fails to parse it. This is both a misspecification of data formats and a lack of input validation.", "o": ["True", "False"], "a": 0, "e": "True: Combining non-standard string formatting with poor input validation represents pre-collection and collection flaws.", "type": "TF"},
+            {"q": "[HIGH-LEVEL] A company purges historical sales records after 1 year to save space. Later, machine learning algorithms fail to detect 5-year seasonal trends. This represents a failure in the 'Archiving/Destruction' stage of Data Management.", "o": ["True", "False"], "a": 0, "e": "True: Premature destruction without proper archiving destroys long-term completeness and analytical value.", "type": "TF"},
+            {"q": "[HIGH-LEVEL] If a scientific sensor records temperature correctly in Kelvin, but software interprets it as Celsius, the error is classified as a Collection Error rather than Post-Collection Misinterpretation.", "o": ["True", "False"], "a": 1, "e": "False: The sensor recorded data accurately; interpreting units incorrectly during processing is a Post-Collection Misinterpretation error.", "type": "TF"},
+            {"q": "[HIGH-LEVEL] High granularity guarantees data accuracy regardless of collection methods.", "o": ["True", "False"], "a": 1, "e": "False: Detailed/granular data can still be completely inaccurate if collection procedures or instruments are faulty.", "type": "TF"},
+            {"q": "[HIGH-LEVEL] Data Rot can occur even if physical database disks remain 100% corruption-free.", "o": ["True", "False"], "a": 0, "e": "True: Data rot refers to semantic expiration (e.g. outdated addresses or dead phone numbers), regardless of physical disk integrity.", "type": "TF"}
+        ];
+
+        const P1_DATA = [
+            ...P1_SOURCE.filter(question => question.type === "MCQ"),
+            ...P2_SOURCE.filter(question => question.type === "MCQ")
+        ];
+        const P2_DATA = [
+            ...P1_SOURCE.filter(question => question.type === "TF"),
+            ...P2_SOURCE.filter(question => question.type === "TF")
+        ];
+
+        let activePart = 1;
+        let qData = P1_DATA;
+        let cIdx = 0;
+        let score = 0;
+        let wrongList = [];
+
+        const $ = id => document.getElementById(id);
+
+        function switchPart(part) {
+            activePart = part;
+            $("tab1").className = "tab-btn " + (part === 1 ? "active" : "");
+            $("tab2").className = "tab-btn " + (part === 2 ? "active" : "");
+            qData = part === 1 ? P1_DATA : P2_DATA;
+            resetQuiz();
+        }
+
+        function resetQuiz() {
+            cIdx = 0;
+            score = 0;
+            wrongList = [];
+            renderQuestion();
+        }
+
+        function renderQuestion() {
+            const q = qData[cIdx];
+            $("n").textContent = `Question ${cIdx + 1} of ${qData.length}`;
+            $("s").textContent = `Score: ${score}`;
+            $("bar").style.width = `${(cIdx / qData.length) * 100}%`;
+
+            let diagHtml = q.diagram ? `<div class="diagram-container">${q.diagram}</div>` : '';
+            
+            $("card").innerHTML = `
+                <span class="q-badge">${q.type === 'TF' ? 'True / False' : 'Multiple Choice'}</span>
+                <p class="q">${q.q}</p>
+                ${diagHtml}
+                <div id="opts"></div>
+                <div id="fb"></div>
+            `;
+
+            q.o.forEach((optText, i) => {
+                const b = document.createElement("button");
+                b.className = "opt";
+                b.innerHTML = `<b>${q.type === 'TF' ? (i===0?'T':'F') : "ABCD"[i] + ")"}</b><span></span>`;
+                b.querySelector("span").textContent = optText;
+                b.onclick = () => handleAnswer(i);
+                $("opts").appendChild(b);
+            });
+        }
+
+        function handleAnswer(selected) {
+            const q = qData[cIdx];
+            const isCorrect = selected === q.a;
+            const buttons = document.querySelectorAll(".opt");
+
+            buttons.forEach((btn, idx) => {
+                btn.disabled = true;
+                if (idx === q.a) btn.classList.add("ok");
+                else if (idx === selected) btn.classList.add("no");
+            });
+
+            if (isCorrect) score++;
+            else wrongList.push(cIdx);
+
+            $("s").textContent = `Score: ${score}`;
+
+            $("fb").innerHTML = `
+                <div class="ex ${isCorrect ? 'ok' : 'no'}">
+                    <strong>${isCorrect ? 'Correct answer ✓' : 'Incorrect answer ✗'}</strong>
+                    <span>${q.e}</span>
+                </div>
+                <button class="btn" id="nxtBtn">${cIdx < qData.length - 1 ? 'Next question' : 'Show final results'}</button>
+            `;
+
+            $("nxtBtn").onclick = () => {
+                cIdx++;
+                if (cIdx < qData.length) renderQuestion();
+                else finishQuiz();
+            };
+            $("nxtBtn").focus();
+        }
+
+        function finishQuiz() {
+            $("bar").style.width = "100%";
+            $("n").textContent = "Quiz complete";
+            const pct = Math.round((score / qData.length) * 100);
+            
+            let html = `
+                <div class="score">${score} / ${qData.length}</div>
+                <p style="text-align:center;font-size:1.2rem;margin:0 0 16px;">Percentage: <b>${pct}%</b></p>
+            `;
+
+            if (wrongList.length > 0) {
+                html += `<p style="margin:16px 0 8px;"><b>Questions to review:</b></p><ul class="rev">`;
+                wrongList.forEach(w => {
+                    html += `<li><b>Question ${w + 1}:</b> ${qData[w].q}</li>`;
+                });
+                html += `</ul>`;
+            } else {
+                html += `<p style="text-align:center;color:var(--ok);">Excellent! All answers are correct (100%).</p>`;
+            }
+
+            html += `<button class="btn" onclick="resetQuiz()">Restart quiz</button>`;
+            $("card").innerHTML = html;
+        }
+
+        renderQuestion();
+    </script>
+</body>
+</html>

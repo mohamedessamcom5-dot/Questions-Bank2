@@ -1,0 +1,436 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Foundation of Digital Technology — Chapter 4: Cloud, Cybersecurity & Emerging Tech</title>
+    <style>
+        :root {
+            --bg: #0f172a;
+            --c: #1e293b;
+            --t: #f8fafc;
+            --m: #94a3b8;
+            --b: #334155;
+            --ac: #38bdf8;
+            --ok: #22c55e;
+            --okb: #052e16;
+            --no: #ef4444;
+            --nob: #450a0a;
+            box-sizing: border-box;
+        }
+
+        @media(prefers-color-scheme: light) {
+            :root[data-theme=light] {
+                --bg: #f8fafc;
+                --c: #ffffff;
+                --t: #0f172a;
+                --m: #64748b;
+                --b: #e2e8f0;
+                --ac: #0284c7;
+                --okb: #dcfce7;
+                --nob: #fee2e2;
+                --ok: #16a34a;
+                --no: #dc2626;
+            }
+        }
+
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--t);
+            font-family: 'Segoe UI', Tahoma, system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+        }
+        main {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 24px 16px 60px;
+        }
+        .header-panel {
+            text-align: center;
+            margin-bottom: 24px;
+            border-bottom: 8px solid var(--b);
+            padding-bottom: 30px;
+        }
+        h1 { font-size: 1.5rem; margin: 0 0 8px; color: var(--ac); }
+        .sub { color: var(--m); font-size: 0.95rem; margin: 0; }
+        
+        .nav-tabs {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .tab-btn {
+            flex: 1;
+            padding: 12px;
+            background: var(--c);
+            border: 1px solid var(--b);
+            color: var(--t);
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .tab-btn.active {
+            background: var(--ac);
+            color: #000;
+            border-color: var(--ac);
+        }
+
+        .bar {
+            height: 8px;
+            background: var(--b);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+        .bar i {
+            display: block;
+            height: 100%;
+            background: var(--ac);
+            width: 0;
+            transition: width 0.3s;
+        }
+        .meta {
+            display: flex;
+            justify-content: space-between;
+            color: var(--m);
+            font-size: 0.9rem;
+            margin-bottom: 16px;
+        }
+        .card {
+            background: var(--c);
+            border: 1px solid var(--b);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+        .q-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            background: var(--b);
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+            color: var(--ac);
+        }
+        .q-badge.high-level {
+            background: #f59e0b;
+            color: #000;
+            font-weight: bold;
+        }
+        .q {
+            font-size: 1.1rem;
+            font-weight: 600;
+            direction: ltr;
+            text-align: left;
+            margin: 0 0 16px;
+        }
+        .opt {
+            display: flex;
+            gap: 12px;
+            direction: ltr;
+            text-align: left;
+            width: 100%;
+            background: var(--c);
+            color: var(--t);
+            border: 1.5px solid var(--b);
+            border-radius: 8px;
+            padding: 12px 14px;
+            margin-bottom: 10px;
+            font: inherit;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+        .opt:hover:not(:disabled) { border-color: var(--ac); }
+        .opt b { min-width: 1.5em; color: var(--ac); }
+        .opt.ok { background: var(--okb); border-color: var(--ok); }
+        .opt.no { background: var(--nob); border-color: var(--no); }
+        .opt:disabled { cursor: default; }
+
+        .ex {
+            margin-top: 16px;
+            padding: 14px;
+            border-radius: 8px;
+            direction: ltr;
+            text-align: left;
+            font-size: 0.95rem;
+        }
+        .ex.ok { background: var(--okb); border: 1px solid var(--ok); }
+        .ex.no { background: var(--nob); border: 1px solid var(--no); }
+        .ex strong { display: block; margin-bottom: 4px; }
+
+        .btn {
+            margin-top: 16px;
+            background: var(--ac);
+            color: #000;
+            border: 0;
+            border-radius: 8px;
+            padding: 12px 24px;
+            font: inherit;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+        }
+        .score { text-align: center; font-size: 3rem; font-weight: 800; margin: 12px 0; color: var(--ac); }
+        .rev { margin: 16px 0 0; padding: 0; list-style: none; direction: ltr; text-align: left; font-size: 0.9rem; }
+        .rev li { padding: 8px 0; border-top: 1px solid var(--b); }
+    </style>
+</head>
+<body>
+    <main>
+        <div class="header-panel">
+            <h1>Foundation of Digital Technology — Chapter 4</h1>
+            <p class="sub">Cloud Computing, Cybersecurity & Emerging Technologies</p>
+        </div>
+        
+        <div class="nav-tabs">
+            <button class="tab-btn active" id="tab1" onclick="switchPart(1)">Multiple Choice</button>
+            <button class="tab-btn" id="tab2" onclick="switchPart(2)">True/False</button>
+        </div>
+
+        <div class="bar"><i id="bar"></i></div>
+        <div class="meta">
+            <span id="n"></span>
+            <span id="s"></span>
+        </div>
+        <div class="card" id="card"></div>
+    </main>
+      
+    <script>
+       const P1_SOURCE = [
+            // Standard MCQs (1-45)
+            {"q": "What is Cloud Computing primarily defined as?", "o": ["The delivery of computing services—including servers, storage, databases, networking, and software—over the internet", "A meteorological study of cloud formations for weather forecasting", "The physical storage of backup magnetic tapes in basement lockers", "An offline desktop application for word processing"], "a": 0, "e": "Cloud computing delivers on-demand computing services over the internet.", "type": "MCQ"},
+            {"q": "Which cloud service model provides virtualized computing resources over the internet, such as virtual machines, storage, and networks?", "o": ["Infrastructure as a Service (IaaS)", "Platform as a Service (PaaS)", "Software as a Service (SaaS)", "Hardware as a Hardcopy (HaH)"], "a": 0, "e": "IaaS provides foundational computing infrastructure like virtual servers, storage, and networking.", "type": "MCQ"},
+            {"q": "What does PaaS (Platform as a Service) supply to developers?", "o": ["An on-demand environment for developing, testing, delivering, and managing software applications without worrying about underlying hardware", "Pre-installed desktop spreadsheet software only", "Physical server racks shipped via courier", "Analog telephone landline switches"], "a": 0, "e": "PaaS provides a managed platform and environment for developers to build and deploy applications.", "type": "MCQ"},
+            {"q": "Which cloud service model delivers software applications over the internet on a subscription basis, typically accessed via a web browser?", "o": ["Software as a Service (SaaS)", "Infrastructure as a Service (IaaS)", "Platform as a Service (PaaS)", "Local Operating System (LOS)"], "a": 0, "e": "SaaS delivers fully functioning software applications over the web on demand (e.g., Google Workspace, Microsoft 365).", "type": "MCQ"},
+            {"q": "What characterizes a 'Public Cloud' deployment model?", "o": ["Cloud resources are owned and operated by a third-party cloud service provider and shared over the public internet", "Cloud servers are kept exclusively inside a single company's locked basement", "Cloud storage is recorded strictly on physical paper ledgers", "Cloud networks are completely disconnected from the internet"], "a": 0, "e": "Public clouds are owned by third-party providers (e.g., AWS, Azure, Google Cloud) and shared among multiple tenants.", "type": "MCQ"},
+            {"q": "What is a 'Private Cloud'?", "o": ["Cloud computing resources used exclusively by a single business or organization, hosted on-premises or managed externally", "A public social media platform open to anyone", "An unsecured Wi-Fi network in a coffee shop", "A public website hosting open-source code"], "a": 0, "e": "Private clouds are dedicated solely to a single organization for enhanced security and control.", "type": "MCQ"},
+            {"q": "What is a 'Hybrid Cloud'?", "o": ["An environment combining public and private clouds, allowing data and apps to be shared between them", "A computer that runs both Windows and Linux simultaneously", "A server powered half by electricity and half by solar energy", "A network connecting landlines and mobile phones"], "a": 0, "e": "Hybrid clouds integrate public and private clouds for greater flexibility and workload optimization.", "type": "MCQ"},
+            {"q": "What is the primary purpose of the CIA Triad in cybersecurity?", "o": ["A foundational model guiding information security policies focusing on Confidentiality, Integrity, and Availability", "An intelligence agency task force investigating software bugs", "A cloud computing pricing tier", "A network cable wiring standard"], "a": 0, "e": "The CIA Triad stands for Confidentiality, Integrity, and Availability, the core pillars of cybersecurity.", "type": "MCQ"},
+            {"q": "What does 'Confidentiality' mean in the CIA Triad?", "o": ["Ensuring that sensitive data is accessed only by authorized individuals and kept away from unauthorized entities", "Making sure data can never be modified by anyone", "Guaranteeing that web servers never experience downtime", "Encrypting computer monitor display resolutions"], "a": 0, "e": "Confidentiality protects sensitive information from unauthorized disclosure or access.", "type": "MCQ"},
+            {"q": "What does 'Integrity' mean in cybersecurity?", "o": ["Maintaining and assuring the accuracy, completeness, and trustworthiness of data over its lifecycle", "Keeping computer systems powered on 24/7", "Keeping user passwords secret", "Backing up physical keyboards"], "a": 0, "e": "Integrity ensures data is accurate, reliable, and has not been tampered with or altered maliciously.", "type": "MCQ"},
+            {"q": "What does 'Availability' represent in the CIA Triad?", "o": ["Ensuring that information, network resources, and services are accessible to authorized users when needed", "Making all corporate data public on the internet", "Ensuring employees are present in the office building", "Checking computer battery percentages"], "a": 0, "e": "Availability ensures systems and data are operational and accessible to authorized users whenever required.", "type": "MCQ"},
+            {"q": "What is 'Phishing' in the context of cybersecurity threats?", "o": ["A social engineering attack where attackers impersonate legitimate entities to steal sensitive info like credentials or credit card numbers", "Using a computer to catch digital fish in a video game", "Testing network cable bandwidth speed", "Cleaning dust from computer keyboards"], "a": 0, "e": "Phishing uses deceptive emails or messages disguised as trusted sources to trick users into revealing sensitive data.", "type": "MCQ"},
+            {"q": "What is Malware?", "o": ["Malicious software designed to damage, disrupt, or gain unauthorized access to computer systems (e.g., viruses, ransomware, trojans)", "Software used to format computer hard drives safely", "An operating system update utility", "A web browser extension for ad blocking"], "a": 0, "e": "Malware is malicious software encompassing viruses, worms, ransomware, and spyware.", "type": "MCQ"},
+            {"q": "What is Ransomware?", "o": ["A type of malware that encrypts a victim's files, demanding a financial ransom in exchange for the decryption key", "Software that speeds up computer gaming performance", "An antivirus scanning tool", "A cloud storage pricing calculator"], "a": 0, "e": "Ransomware locks or encrypts data and extorts victims for payment to restore access.", "type": "MCQ"},
+            {"q": "What is the function of a network Firewall?", "o": ["To monitor and filter incoming and outgoing network traffic based on predetermined security rules", "To physically heat up server rooms during winter", "To speed up Wi-Fi download rates", "To print physical firewall schematics on paper"], "a": 0, "e": "A firewall acts as a barrier between trusted internal networks and untrusted external networks, filtering traffic.", "type": "MCQ"},
+            {"q": "What is Data Encryption?", "o": ["The process of converting plain readable data into coded ciphertext to prevent unauthorized access", "Compressing files into ZIP format to save disk space", "Deleting temporary browser cache files", "Printing documents with invisible ink"], "a": 0, "e": "Encryption transforms plaintext into secure ciphertext using cryptographic algorithms and keys.", "type": "MCQ"},
+            {"q": "What is Multi-Factor Authentication (MFA)?", "o": ["A security system requiring users to provide two or more verification factors to gain access (e.g., password + SMS code)", "Logging into a website using only a simple username", "Sharing a password with multiple colleagues", "Using multiple computer monitors on a desk"], "a": 0, "e": "MFA strengthens security by requiring multiple independent credentials (something you know, have, or are).", "type": "MCQ"},
+            {"q": "What is a Distributed Denial of Service (DDoS) attack?", "o": ["An attack where multiple compromised systems flood a target server or network with traffic to overwhelm it and cause downtime", "A software update crashing a local app", "An internet disconnection caused by a broken cable", "A virus that deletes database backup files"], "a": 0, "e": "DDoS attacks overwhelm servers with massive coordinated traffic streams from multiple sources, denying service.", "type": "MCQ"},
+            {"q": "What is a Local Area Network (LAN)?", "o": ["A computer network that interconnects computers within a limited geographic area such as a residence, school, or office building", "A global satellite communication network connecting continents", "A telephone landline network", "A wide-area cable television transmission line"], "a": 0, "e": "A LAN connects computers and devices within a restricted local geographic area.", "type": "MCQ"},
+            {"q": "What is a Wide Area Network (WAN)?", "o": ["A telecommunications network that extends over a large geographic area, connecting multiple smaller networks like LANs (e.g., the Internet)", "A small Wi-Fi network inside a single room", "A Bluetooth connection between a phone and earbuds", "A USB cable connecting a mouse to a laptop"], "a": 0, "e": "A WAN spans large geographic distances, interconnecting multiple LANs across cities or countries.", "type": "MCQ"},
+            {"q": "What is the primary function of the Domain Name System (DNS)?", "o": ["Translating human-friendly domain names (like www.google.com) into numerical IP addresses understood by computers", "Designing graphic website banners", "Encrypting database passwords", "Managing printer driver queues"], "a": 0, "e": "DNS acts as the phone book of the internet, translating domain names into IP addresses.", "type": "MCQ"},
+            {"q": "What is Blockchain technology?", "o": ["A decentralized, distributed and public digital ledger that securely records transactions across a network of computers", "A physical chain used to lock computer server racks", "A database software for managing SQL spreadsheets", "A video compression codec for streaming movies"], "a": 0, "e": "Blockchain is an immutable, decentralized ledger ensuring secure and transparent transaction records.", "type": "MCQ"},
+            {"q": "What is a 'Smart Contract' on a blockchain?", "o": ["Self-executing digital contracts with the terms of the agreement directly written into lines of code", "A paper contract signed by corporate lawyers", "An employment agreement sent via email", "A hardware warranty certificate"], "a": 0, "e": "Smart contracts execute automatically when predefined conditions are met on a blockchain network.", "type": "MCQ"},
+            {"q": "What distinguishes Virtual Reality (VR) from Augmented Reality (AR)?", "o": ["VR immerses users in a completely computer-generated virtual environment, while AR overlays digital elements onto the real physical world", "VR requires no headset, whereas AR requires massive mainframe computers", "VR is used exclusively for spreadsheets, while AR is for gaming", "There is no technological difference between them"], "a": 0, "e": "VR provides total immersion in virtual worlds, whereas AR enhances the real world with digital overlays.", "type": "MCQ"},
+            {"q": "What is Quantum Computing?", "o": ["Computing that utilizes quantum mechanics principles (such as qubits, superposition, and entanglement) to solve complex problems exponentially faster than classical computers", "Computing that runs at the speed of light using ordinary silicon microchips", "Repairing computer hardware using quantum physics tools", "A marketing term for fast Wi-Fi routers"], "a": 0, "e": "Quantum computing leverages quantum mechanics (qubits, superposition) for advanced computational power.", "type": "MCQ"},
+            {"q": "What is 'Zero Trust' cybersecurity architecture?", "o": ["A security model requiring strict identity verification for every person and device trying to access resources, assuming breach by default", "Allowing zero users to ever access corporate data", "Using zero passwords on any computer system", "Disconnecting all computers from the internet permanently"], "a": 0, "e": "Zero Trust operates on the principle 'never trust, always verify', regardless of network location.", "type": "MCQ"},
+            {"q": "What is a Metropolitan Area Network (MAN)?", "o": ["A computer network that interconnects users with computer resources in a geographic area larger than a LAN but smaller than a WAN (e.g., a city)", "A network connecting devices inside a single backpack", "A global satellite constellation", "A home Wi-Fi router network"], "a": 0, "e": "MANs cover a city or regional geographic area, bridging LANs and WANs.", "type": "MCQ"},
+            {"q": "What is the role of a network Router?", "o": ["Forwarding data packets between computer networks, directing internet traffic efficiently", "Printing hardcopy documents in an office", "Displaying graphical user interfaces on monitors", "Storing database backup files"], "a": 0, "e": "Routers direct traffic and connect different networks (e.g., connecting a home LAN to the internet WAN).", "type": "MCQ"},
+            {"q": "What is the role of a network Switch?", "o": ["Connecting devices together within a single LAN and forwarding data to the correct destination device", "Connecting global satellite dishes across oceans", "Translating domain names into IP addresses", "Encrypting hard disk drive partitions"], "a": 0, "e": "Switches connect devices within a local network (LAN) and manage internal data packet forwarding.", "type": "MCQ"},
+            {"q": "What is asymmetric encryption (public-key cryptography)?", "o": ["An encryption system using a pair of keys: a public key for encryption and a private key for decryption", "Using the exact same secret key to both lock and unlock data", "Encrypting only 50% of a file while leaving the rest readable", "An unencrypted plain text document"], "a": 0, "e": "Asymmetric encryption uses a public-private key pair for secure key exchange and communication.", "type": "MCQ"},
+            {"q": "What is symmetric encryption?", "o": ["An encryption method where a single secret key is used for both encrypting and decrypting data", "Using two different keys for locking and unlocking files", "Sending passwords via unencrypted text messages", "Backing up files to external USB drives"], "a": 0, "e": "Symmetric encryption uses the same secret key for both encryption and decryption operations.", "type": "MCQ"},
+            {"q": "What is Social Engineering in cybersecurity?", "o": ["Manipulating people into breaking security procedures and divulging confidential information", "Coding social media mobile apps in Python", "Analyzing customer sentiment via AI", "Designing user interfaces for websites"], "a": 0, "e": "Social engineering exploits human psychology rather than technical software flaws (e.g., phishing, pretexting).", "type": "MCQ"},
+            {"q": "What is a Trojan Horse in malware terminology?", "o": ["Malware disguised as legitimate or useful software to trick users into installing it", "A hardware processor chip manufactured in Greece", "An antivirus quarantine folder", "A secure backup protocol"], "a": 0, "e": "Trojans disguise themselves as harmless applications to gain covert access to systems.", "type": "MCQ"},
+            {"q": "What is Spyware?", "o": ["Malware that covertly gathers information about a person or organization without their knowledge and sends it to third parties", "Software used to design spy movie special effects", "An IT network monitoring tool for performance", "A web browser privacy plugin"], "a": 0, "e": "Spyware secretly monitors user activity and steals data like keystrokes or browsing habits.", "type": "MCQ"},
+            {"q": "What is a Virtual Private Network (VPN)?", "o": ["A technology that creates a secure, encrypted connection over a less secure network like the internet", "A physical private cable connecting two houses", "A public Wi-Fi hotspot in an airport", "An offline computer storage drive"], "a": 0, "e": "VPNs encrypt internet traffic and mask IP addresses, ensuring private and secure communication.", "type": "MCQ"},
+            {"q": "What is Edge Computing?", "o": ["Processing data closer to where it is collected (at the 'edge' of the network) rather than sending all raw data to a centralized cloud data center", "Running computer calculations on the edge of a desk", "Disconnecting computers from the internet", "Printing documents at paper edges"], "a": 0, "e": "Edge computing reduces latency and bandwidth by processing data locally near IoT sensors or devices.", "type": "MCQ"},
+            {"q": "What is the primary benefit of cloud scalability?", "o": ["The ability to increase or decrease IT resources (storage, compute) dynamically based on demand", "Requiring companies to buy physical server racks every year", "Eliminating the need for internet connections", "Slowing down software application execution"], "a": 0, "e": "Scalability allows businesses to scale resources up or down instantly according to workload demands.", "type": "MCQ"},
+            {"q": "What is a Data Breach?", "o": ["A security incident where unauthorized individuals access, steal, or view sensitive, confidential, or protected data", "Backing up corporate files to secure cloud storage", "Upgrading server RAM memory", "Installing new antivirus software"], "a": 0, "e": "A data breach involves unauthorized exposure or theft of sensitive information.", "type": "MCQ"},
+            {"q": "What is Patch Management in IT security?", "o": ["The process of regularly acquiring, testing, and installing software updates (patches) to fix security vulnerabilities", "Patching physical holes in computer monitor screens", "Sewing patches onto corporate employee uniforms", "Weaving fiber optic cables"], "a": 0, "e": "Patch management keeps software and operating systems secure by fixing known vulnerabilities promptly.", "type": "MCQ"},
+            {"q": "What is Multi-Cloud strategy?", "o": ["Using cloud computing services from multiple independent public cloud providers (e.g., AWS plus Azure)", "Using only a single local desktop computer", "Running software without an internet connection", "Storing files on physical floppy disks"], "a": 0, "e": "Multi-cloud strategies avoid vendor lock-in by distributing workloads across multiple cloud vendors.", "type": "MCQ"},
+            {"q": "What is a Botnet?", "o": ["A network of private computers infected with malicious software and controlled as a group without the owners' knowledge", "A group of robots manufacturing computer chips", "An online chat forum for software developers", "A social media networking group"], "a": 0, "e": "Botnets are networks of compromised machines ('bots') controlled by hackers to launch DDoS attacks or spam.", "type": "MCQ"},
+            {"q": "What is Biometric Authentication?", "o": ["Security identification based on unique biological characteristics such as fingerprints, facial recognition, or iris scans", "Logging in using a traditional password and username", "Answering security questions about your pet's name", "Entering a 4-digit PIN code"], "a": 0, "e": "Biometrics verify identity using unique physical or behavioral traits like fingerprints or facial scans.", "type": "MCQ"},
+            {"q": "What is Cryptography?", "o": ["The practice and study of techniques for secure communication in the presence of adversarial third parties", "Writing fictional novels about computer science", "Designing website graphics and logos", "Repairing damaged computer hard drives"], "a": 0, "e": "Cryptography encompasses encryption, hashing, and digital signatures for secure data transmission.", "type": "MCQ"},
+            {"q": "What is a Digital Certificate in web security?", "o": ["An electronic document used to prove the ownership of a public key and secure website connections via HTTPS/SSL", "A university degree certificate in computer science", "An electronic receipt for purchasing software online", "A warranty card for laptop hardware"], "a": 0, "e": "Digital certificates bind cryptographic public keys to entities, verifying website authenticity (SSL/TLS).", "type": "MCQ"},
+            {"q": "What is the primary role of a Chief Information Security Officer (CISO)?", "o": ["Establishing and maintaining enterprise cybersecurity strategy, operations, and governance", "Writing Python software scripts", "Installing local desktop printers", "Managing office cafeteria catering"], "a": 0, "e": "The CISO is the senior executive responsible for an organization's information security program.", "type": "MCQ"},
+            
+            // High-Level MCQs (46-50)
+            {"q": "[HIGH-LEVEL] An organization migrates its legacy database to a public cloud IaaS provider, but fails to configure proper access control lists (ACLs) and encryption, leading to a massive data leak. Based on Chapter 4 cloud security principles, where does the security responsibility lie?", "o": ["Under the cloud Shared Responsibility Model, data security, access control, and configurations remain the customer's responsibility even in public cloud infrastructure", "Exclusively with the cloud vendor, as they own the physical data center", "With internet service providers (ISPs)", "With hardware manufacturers of server CPU chips"], "a": 0, "e": "[HIGH-LEVEL] Cloud security follows a Shared Responsibility Model where the customer secures their data, configurations, and identity access.", "type": "MCQ"},
+            {"q": "[HIGH-LEVEL] A company implements a perimeter firewall and considers its internal network 100% safe, allowing any authenticated employee unrestricted access to all corporate servers. According to modern cybersecurity paradigms, why is this strategy flawed?", "o": ["It violates Zero Trust architecture principles ('never trust, always verify'), leaving the network vulnerable to lateral movement if a single credential is compromised", "Because firewalls are illegal in modern enterprise networks", "Because internal networks do not require IP addresses", "Because Wi-Fi routers replace firewalls"], "a": 0, "e": "[HIGH-LEVEL] Perimeter-only defense fails modern security; Zero Trust requires continuous verification and least-privilege access internally.", "type": "MCQ"},
+            {"q": "[HIGH-LEVEL] If a critical hospital database is infected with ransomware that encrypts patient records, violating the 'Availability' pillar of the CIA Triad, which mitigation strategy would have best protected the hospital without paying the ransom?", "o": ["Maintaining robust, offline, immutable data backups combined with regular patch management and employee phishing awareness training", "Turning off all hospital lights", "Switching from Wi-Fi to Bluetooth", "Deleting all database software"], "a": 0, "e": "[HIGH-LEVEL] Offline immutable backups and proactive patch management protect against ransomware by restoring availability without ransom payment.", "type": "MCQ"},
+            {"q": "[HIGH-LEVEL] Why is asymmetric encryption essential for secure e-commerce transactions over the public internet, whereas symmetric encryption alone is insufficient for initial key exchange?", "o": ["Asymmetric encryption allows secure sharing of data/keys over insecure public networks without requiring a prior secret channel, solving the key distribution problem", "Asymmetric encryption runs 10,000 times faster than symmetric encryption", "Symmetric encryption cannot encrypt credit card numbers", "Symmetric encryption requires quantum computers to operate"], "a": 0, "e": "[HIGH-LEVEL] Asymmetric encryption solves the secure key exchange problem over public networks, enabling secure sessions (TLS/SSL).", "type": "MCQ"},
+            {"q": "[HIGH-LEVEL] How do blockchain's decentralization and cryptographic hashing ensure data integrity across a distributed network?", "o": ["Every block contains a cryptographic hash of the previous block, and any tampering breaks the hash chain across distributed nodes, making unauthorized alteration computationally impossible", "By storing all transaction data on a single centralized server in the cloud", "By encrypting data with a simple password shared via email", "By deleting transaction logs every 24 hours"], "a": 0, "e": "[HIGH-LEVEL] Immutable ledger design via cryptographic hashes and distributed consensus ensures absolute data integrity in blockchains.", "type": "MCQ"}
+        ];
+
+        const P2_SOURCE = [
+            // Standard TFs (1-45)
+            {"q": "Cloud computing delivers on-demand computing services over the internet.", "o": ["True", "False"], "a": 0, "e": "True: Cloud computing provides on-demand IT services over the internet.", "type": "TF"},
+            {"q": "Infrastructure as a Service (IaaS) provides virtualized computing resources like virtual machines and storage over the internet.", "o": ["True", "False"], "a": 0, "e": "True: IaaS provides foundational computing infrastructure.", "type": "TF"},
+            {"q": "Platform as a Service (PaaS) provides an environment for developers to build and deploy applications without managing hardware.", "o": ["True", "False"], "a": 0, "e": "True: PaaS supplies a managed development platform.", "type": "TF"},
+            {"q": "Software as a Service (SaaS) delivers fully functioning software applications over the web on a subscription basis.", "o": ["True", "False"], "a": 0, "e": "True: SaaS delivers software applications over the internet.", "type": "TF"},
+            {"q": "Public cloud resources are owned and operated by third-party providers and shared over the public internet.", "o": ["True", "False"], "a": 0, "e": "True: Public clouds are third-party shared environments.", "type": "TF"},
+            {"q": "Private clouds are used exclusively by a single business or organization.", "o": ["True", "False"], "a": 0, "e": "True: Private clouds provide dedicated single-tenant infrastructure.", "type": "TF"},
+            {"q": "Hybrid clouds combine public and private clouds, allowing data and apps to be shared between them.", "o": ["True", "False"], "a": 0, "e": "True: Hybrid clouds integrate public and private cloud environments.", "type": "TF"},
+            {"q": "The CIA Triad stands for Confidentiality, Integrity, and Availability.", "o": ["True", "False"], "a": 0, "e": "True: The CIA Triad comprises Confidentiality, Integrity, and Availability.", "type": "TF"},
+            {"q": "Confidentiality ensures that sensitive data is accessed only by authorized individuals.", "o": ["True", "False"], "a": 0, "e": "True: Confidentiality protects data from unauthorized disclosure.", "type": "TF"},
+            {"q": "Integrity maintains and assures the accuracy and trustworthiness of data over its lifecycle.", "o": ["True", "False"], "a": 0, "e": "True: Integrity ensures data accuracy and prevents tampering.", "type": "TF"},
+            {"q": "Availability ensures that systems and data are operational and accessible to authorized users when needed.", "o": ["True", "False"], "a": 0, "e": "True: Availability guarantees system access and uptime.", "type": "TF"},
+            {"q": "Phishing is a social engineering attack where attackers impersonate legitimate entities to steal credentials.", "o": ["True", "False"], "a": 0, "e": "True: Phishing uses deceptive communications to steal sensitive data.", "type": "TF"},
+            {"q": "Malware is malicious software designed to damage or disrupt computer systems.", "o": ["True", "False"], "a": 0, "e": "True: Malware includes viruses, ransomware, and spyware.", "type": "TF"},
+            {"q": "Ransomware encrypts a victim's files and demands a financial ransom for the decryption key.", "o": ["True", "False"], "a": 0, "e": "True: Ransomware extorts victims by locking their encrypted data.", "type": "TF"},
+            {"q": "Network firewalls monitor and filter incoming and outgoing traffic based on security rules.", "o": ["True", "False"], "a": 0, "e": "True: Firewalls filter network traffic to enforce security.", "type": "TF"},
+            {"q": "Data encryption converts plaintext data into secure ciphertext to prevent unauthorized reading.", "o": ["True", "False"], "a": 0, "e": "True: Encryption protects data confidentiality using cryptographic keys.", "type": "TF"},
+            {"q": "Multi-Factor Authentication (MFA) requires two or more verification factors to gain access.", "o": ["True", "False"], "a": 0, "e": "True: MFA strengthens access security using multiple credentials.", "type": "TF"},
+            {"q": "Distributed Denial of Service (DDoS) attacks overwhelm servers with traffic to cause downtime.", "o": ["True", "False"], "a": 0, "e": "True: DDoS attacks disrupt availability via traffic floods.", "type": "TF"},
+            {"q": "A Local Area Network (LAN) connects computers within a limited geographic area like an office building.", "o": ["True", "False"], "a": 0, "e": "True: LANs connect local devices within a small area.", "type": "TF"},
+            {"q": "A Wide Area Network (WAN) spans large geographic distances, interconnecting multiple LANs like the Internet.", "o": ["True", "False"], "a": 0, "e": "True: WANs connect networks across wide geographic regions.", "type": "TF"},
+            {"q": "The Domain Name System (DNS) translates human-readable domain names into numerical IP addresses.", "o": ["True", "False"], "a": 0, "e": "True: DNS acts as the internet's phone book for domain resolution.", "type": "TF"},
+            {"q": "Blockchain is a decentralized and distributed digital ledger that securely records transactions.", "o": ["True", "False"], "a": 0, "e": "True: Blockchain provides immutable distributed transaction logging.", "type": "TF"},
+            {"q": "Smart contracts are self-executing digital contracts written in code on a blockchain.", "o": ["True", "False"], "a": 0, "e": "True: Smart contracts automate agreements upon meeting coded conditions.", "type": "TF"},
+            {"q": "Virtual Reality (VR) immerses users in a fully computer-generated environment.", "o": ["True", "False"], "a": 0, "e": "True: VR provides total immersion in virtual worlds.", "type": "TF"},
+            {"q": "Augmented Reality (AR) overlays digital elements onto the real physical world.", "o": ["True", "False"], "a": 0, "e": "True: AR enhances the real physical environment with digital overlays.", "type": "TF"},
+            {"q": "Quantum computing utilizes quantum mechanics principles like qubits and superposition.", "o": ["True", "False"], "a": 0, "e": "True: Quantum computers leverage qubits and superposition.", "type": "TF"},
+            {"q": "Zero Trust architecture operates on the principle of 'never trust, always verify'.", "o": ["True", "False"], "a": 0, "e": "True: Zero Trust mandates continuous identity and device verification.", "type": "TF"},
+            {"q": "A Metropolitan Area Network (MAN) covers a geographic area larger than a LAN but smaller than a WAN.", "o": ["True", "False"], "a": 0, "e": "True: MANs interconnect resources across a city or region.", "type": "TF"},
+            {"q": "Routers forward data packets between different computer networks.", "o": ["True", "False"], "a": 0, "e": "True: Routers direct traffic across distinct networks.", "type": "TF"},
+            {"q": "Switches connect devices together within a single LAN.", "o": ["True", "False"], "a": 0, "e": "True: Switches manage internal traffic within a local network.", "type": "TF"},
+            {"q": "Asymmetric encryption uses a public key for encryption and a private key for decryption.", "o": ["True", "False"], "a": 0, "e": "True: Asymmetric cryptography relies on public-private key pairs.", "type": "TF"},
+            {"q": "Symmetric encryption uses the exact same secret key for both encryption and decryption.", "o": ["True", "False"], "a": 0, "e": "True: Symmetric encryption uses a shared single secret key.", "type": "TF"},
+            {"q": "Social engineering manipulates human psychology to bypass security procedures.", "o": ["True", "False"], "a": 0, "e": "True: Social engineering exploits human trust rather than software bugs.", "type": "TF"},
+            {"q": "A Trojan Horse is malware disguised as legitimate software to deceive users.", "o": ["True", "False"], "a": 0, "e": "True: Trojans masquerade as useful programs to gain system access.", "type": "TF"},
+            {"q": "Spyware covertly monitors user activity and gathers data without their knowledge.", "o": ["True", "False"], "a": 0, "e": "True: Spyware secretly tracks and transmits user information.", "type": "TF"},
+            {"q": "A Virtual Private Network (VPN) creates a secure encrypted connection over an insecure network.", "o": ["True", "False"], "a": 0, "e": "True: VPNs encrypt traffic and mask IP addresses for privacy.", "type": "TF"},
+            {"q": "Edge computing processes data closer to where it is collected rather than sending all raw data to the cloud.", "o": ["True", "False"], "a": 0, "e": "True: Edge computing minimizes latency by processing locally.", "type": "TF"},
+            {"q": "Cloud scalability allows organizations to scale IT resources up or down dynamically based on demand.", "o": ["True", "False"], "a": 0, "e": "True: Scalability offers elastic resource provisioning.", "type": "TF"},
+            {"q": "A data breach involves unauthorized access or theft of sensitive confidential information.", "o": ["True", "False"], "a": 0, "e": "True: Data breaches compromise confidential data security.", "type": "TF"},
+            {"q": "Patch management involves regularly installing software updates to fix security vulnerabilities.", "o": ["True", "False"], "a": 0, "e": "True: Patch management secures systems against known flaws.", "type": "TF"},
+            {"q": "A multi-cloud strategy utilizes cloud services from multiple independent public cloud vendors.", "o": ["True", "False"], "a": 0, "e": "True: Multi-cloud diversifies providers to prevent vendor lock-in.", "type": "TF"},
+            {"q": "A botnet is a network of infected computers controlled remotely by hackers.", "o": ["True", "False"], "a": 0, "e": "True: Botnets execute coordinated attacks like DDoS or spam.", "type": "TF"},
+            {"q": "Biometric authentication uses unique physical characteristics like fingerprints or facial scans.", "o": ["True", "False"], "a": 0, "e": "True: Biometrics verify identity using physical traits.", "type": "TF"},
+            {"q": "Cryptography is the practice of techniques for secure communication against adversaries.", "o": ["True", "False"], "a": 0, "e": "True: Cryptography secures information exchange.", "type": "TF"},
+            {"q": "Digital certificates bind public keys to entities to secure website connections via SSL/TLS.", "o": ["True", "False"], "a": 0, "e": "True: Digital certificates verify authenticity and enable secure HTTPS.", "type": "TF"},
+            
+            // High-Level TFs (46-50)
+            {"q": "[HIGH-LEVEL] Under the cloud Shared Responsibility Model, data security and access control are exclusively the responsibility of the cloud provider.", "o": ["True", "False"], "a": 1, "e": "[HIGH-LEVEL] False: The customer remains fully responsible for securing their data, access controls, and configurations in the cloud.", "type": "TF"},
+            {"q": "[HIGH-LEVEL] Perimeter defense alone is sufficient to secure modern enterprise networks against advanced persistent threats.", "o": ["True", "False"], "a": 1, "e": "[HIGH-LEVEL] False: Perimeter security is inadequate; Zero Trust and internal least-privilege controls are required.", "type": "TF"},
+            {"q": "[HIGH-LEVEL] Offline immutable backups provide an effective defense against ransomware attacks by restoring system availability without paying extortion.", "o": ["True", "False"], "a": 0, "e": "[HIGH-LEVEL] True: Immutable offline backups ensure recovery and maintain availability without yielding to ransomware extortion.", "type": "TF"},
+            {"q": "[HIGH-LEVEL] Asymmetric encryption solves the secure key distribution problem over public networks without requiring a prior secret channel.", "o": ["True", "False"], "a": 0, "e": "[HIGH-LEVEL] True: Public-key cryptography allows secure communication without pre-shared secret keys.", "type": "TF"},
+            {"q": "[HIGH-LEVEL] Blockchain ledger integrity relies on cryptographic hashes linking blocks together across a decentralized network.", "o": ["True", "False"], "a": 0, "e": "[HIGH-LEVEL] True: Hash links and decentralization guarantee tamper-proof integrity in blockchain systems.", "type": "TF"}
+        ];
+
+        const getQuestionType = question => question.type.replace(/[.!?]+$/, "");
+
+        const P1_DATA = [
+            ...P1_SOURCE.filter(question => getQuestionType(question) === "MCQ"),
+            ...P2_SOURCE.filter(question => getQuestionType(question) === "MCQ")
+        ];
+        const P2_DATA = [
+            ...P1_SOURCE.filter(question => getQuestionType(question) === "TF"),
+            ...P2_SOURCE.filter(question => getQuestionType(question) === "TF")
+        ];
+
+        let activePart = 1;
+        let qData = P1_DATA;
+        let cIdx = 0;
+        let score = 0;
+        let wrongList = [];
+
+        const $ = id => document.getElementById(id);
+
+        function switchPart(part) {
+            activePart = part;
+            $("tab1").className = "tab-btn " + (part === 1 ? "active" : "");
+            $("tab2").className = "tab-btn " + (part === 2 ? "active" : "");
+            qData = part === 1 ? P1_DATA : P2_DATA;
+            resetQuiz();
+        }
+
+        function resetQuiz() {
+            cIdx = 0;
+            score = 0;
+            wrongList = [];
+            renderQuestion();
+        }
+
+        function renderQuestion() {
+            const q = qData[cIdx];
+            $("n").textContent = `Question ${cIdx + 1} of ${qData.length}`;
+            $("s").textContent = `Score: ${score}`;
+            $("bar").style.width = `${(cIdx / qData.length) * 100}%`;
+
+            const isHighLevel = q.q.includes("[HIGH-LEVEL]");
+            const badgeClass = isHighLevel ? "q-badge high-level" : "q-badge";
+            const badgeText = isHighLevel 
+                ? (getQuestionType(q) === 'TF' ? 'True / False — High Level' : 'Multiple Choice — High Level')
+                : (getQuestionType(q) === 'TF' ? 'True / False' : 'Multiple Choice');
+            
+            $("card").innerHTML = `
+                <span class="${badgeClass}">${badgeText}</span>
+                <p class="q">${q.q}</p>
+                <div id="opts"></div>
+                <div id="fb"></div>
+            `;
+
+            q.o.forEach((optText, i) => {
+                const b = document.createElement("button");
+                b.className = "opt";
+                b.innerHTML = `<b>${getQuestionType(q) === 'TF' ? (i===0?'T':'F') : "ABCD"[i] + ")"}</b><span></span>`;
+                b.querySelector("span").textContent = optText;
+                b.onclick = () => handleAnswer(i);
+                $("opts").appendChild(b);
+            });
+        }
+
+        function handleAnswer(selected) {
+            const q = qData[cIdx];
+            const isCorrect = selected === q.a;
+            const buttons = document.querySelectorAll(".opt");
+
+            buttons.forEach((btn, idx) => {
+                btn.disabled = true;
+                if (idx === q.a) btn.classList.add("ok");
+                else if (idx === selected) btn.classList.add("no");
+            });
+
+            if (isCorrect) score++;
+            else wrongList.push(cIdx);
+
+            $("s").textContent = `Score: ${score}`;
+
+            $("fb").innerHTML = `
+                <div class="ex ${isCorrect ? 'ok' : 'no'}">
+                    <strong>${isCorrect ? 'Correct answer ✓' : 'Incorrect answer ✗'}</strong>
+                    <span>${q.e}</span>
+                </div>
+                <button class="btn" id="nxtBtn">${cIdx < qData.length - 1 ? 'Next question' : 'Show final results'}</button>
+            `;
+
+            $("nxtBtn").onclick = () => {
+                cIdx++;
+                if (cIdx < qData.length) renderQuestion();
+                else finishQuiz();
+            };
+            $("nxtBtn").focus();
+        }
+
+        function finishQuiz() {
+            $("bar").style.width = "100%";
+            $("n").textContent = "Quiz complete";
+            const pct = Math.round((score / qData.length) * 100);
+            
+            let html = `
+                <div class="score">${score} / ${qData.length}</div>
+                <p style="text-align:center;font-size:1.2rem;margin:0 0 16px;">Percentage: <b>${pct}%</b></p>
+            `;
+
+            if (wrongList.length > 0) {
+                html += `<p style="margin:16px 0 8px;"><b>Questions to review:</b></p><ul class="rev">`;
+                wrongList.reverse().forEach(w => {
+                    html += `<li><b>Question ${w + 1}:</b> ${qData[w].q}</li>`;
+                });
+                html += `</ul>`;
+            } else {
+                html += `<p style="text-align:center;color:var(--ok);">Excellent! All answers are correct (100%).</p>`;
+            }
+
+            html += `<button class="btn" onclick="resetQuiz()">Restart quiz</button>`;
+            $("card").innerHTML = html;
+        }
+
+        renderQuestion();
+    </script>
+</body>
+</html>

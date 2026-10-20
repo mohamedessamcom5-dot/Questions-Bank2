@@ -1,0 +1,436 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Finance — Chapter 2: Project Analysis</title>    <style>
+        :root {
+            --bg: #0f172a;
+            --c: #1e293b;
+            --t: #f8fafc;
+            --m: #94a3b8;
+            --b: #334155;
+            --ac: #38bdf8;
+            --ok: #22c55e;
+            --okb: #052e16;
+            --no: #ef4444;
+            --nob: #450a0a;
+            box-sizing: border-box;
+        }
+
+        @media(prefers-color-scheme: light) {
+            :root[data-theme=light] {
+                --bg: #f8fafc;
+                --c: #ffffff;
+                --t: #0f172a;
+                --m: #64748b;
+                --b: #e2e8f0;
+                --ac: #0284c7;
+                --okb: #dcfce7;
+                --nob: #fee2e2;
+                --ok: #16a34a;
+                --no: #dc2626;
+            }
+        }
+
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--t);
+            font-family: 'Segoe UI', Tahoma, system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+        }
+        main {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 24px 16px 60px;
+        }
+        .header-panel {
+            text-align: center;
+            margin-bottom: 24px;
+            border-bottom: 8px solid var(--b);
+            padding-bottom: 30px;
+        }
+        h1 { font-size: 1.5rem; margin: 0 0 8px; color: var(--ac); }
+        .sub { color: var(--m); font-size: 0.95rem; margin: 0; }
+        
+        .nav-tabs {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .tab-btn {
+            flex: 1;
+            padding: 12px;
+            background: var(--c);
+            border: 1px solid var(--b);
+            color: var(--t);
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .tab-btn.active {
+            background: var(--ac);
+            color: #000;
+            border-color: var(--ac);
+        }
+
+        .bar {
+            height: 8px;
+            background: var(--b);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+        .bar i {
+            display: block;
+            height: 100%;
+            background: var(--ac);
+            width: 0;
+            transition: width 0.3s;
+        }
+        .meta {
+            display: flex;
+            justify-content: space-between;
+            color: var(--m);
+            font-size: 0.9rem;
+            margin-bottom: 16px;
+        }
+        .card {
+            background: var(--c);
+            border: 1px solid var(--b);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+        .q-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            background: var(--b);
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+            color: var(--ac);
+        }
+        .q {
+            font-size: 1.1rem;
+            font-weight: 600;
+            direction: ltr;
+            text-align: left;
+            margin: 0 0 16px;
+        }
+        .diagram-container {
+            direction: ltr;
+            background: rgba(0,0,0,0.2);
+            border: 1px dashed var(--b);
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+        .opt {
+            display: flex;
+            gap: 12px;
+            direction: ltr;
+            text-align: left;
+            width: 100%;
+            background: var(--c);
+            color: var(--t);
+            border: 1.5px solid var(--b);
+            border-radius: 8px;
+            padding: 12px 14px;
+            margin-bottom: 10px;
+            font: inherit;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+        .opt:hover:not(:disabled) { border-color: var(--ac); }
+        .opt b { min-width: 1.5em; color: var(--ac); }
+        .opt.ok { background: var(--okb); border-color: var(--ok); }
+        .opt.no { background: var(--nob); border-color: var(--no); }
+        .opt:disabled { cursor: default; }
+
+        .ex {
+            margin-top: 16px;
+            padding: 14px;
+            border-radius: 8px;
+            direction: ltr;
+            text-align: left;
+            font-size: 0.95rem;
+        }
+        .ex.ok { background: var(--okb); border: 1px solid var(--ok); }
+        .ex.no { background: var(--nob); border: 1px solid var(--no); }
+        .ex strong { display: block; margin-bottom: 4px; }
+
+        .btn {
+            margin-top: 16px;
+            background: var(--ac);
+            color: #000;
+            border: 0;
+            border-radius: 8px;
+            padding: 12px 24px;
+            font: inherit;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+        }
+        .score { text-align: center; font-size: 3rem; font-weight: 800; margin: 12px 0; color: var(--ac); }
+        .rev { margin: 16px 0 0; padding: 0; list-style: none; direction: ltr; text-align: left; font-size: 0.9rem; }
+        .rev li { padding: 8px 0; border-top: 1px solid var(--b); }
+    </style>
+    <link rel="stylesheet" href="../site-theme.css">
+</head>
+<body>
+    <main>
+        <div class="header-panel">
+            <h1>Finance — Chapter 2</h1>
+            <p class="sub">Project Analysis: Break-Even Analysis & Leverage Analysis</p>
+        </div>
+
+        <div class="nav-tabs">
+            <button class="tab-btn active" id="tab1" onclick="switchPart(1)">Multiple Choice</button>
+            <button class="tab-btn" id="tab2" onclick="switchPart(2)">True/False</button>
+        </div>
+
+        <div class="bar"><i id="bar"></i></div>
+        <div class="meta">
+            <span id="n"></span>
+            <span id="s"></span>
+        </div>
+        <div class="card" id="card"></div>
+    </main>
+      
+    <script>
+        const P1_SOURCE = [
+            // Standard Questions (1-45)
+            {"q": "What is the break-even point defined as in project analysis?", "o": ["The point where total revenues exceed total costs", "The point at which revenues are equal to costs, where net profit or loss equals zero", "The point of maximum possible operational risk", "The point where fixed costs equal variable costs"], "a": 1, "e": "At the break-even point, revenues equal costs and net profit or loss equals zero.", "type": "MCQ"},
+            {"q": "At the break-even point, what is the net profit or loss?", "o": ["Equal to total fixed costs", "Equal to contribution margin", "Zero", "Equal to variable costs"], "a": 2, "e": "At break-even, net profit or loss equals zero.", "type": "MCQ"},
+            {"q": "What is the formula to calculate Break-even Quantity?", "o": ["Total fixed costs / (Price per unit - Variable cost per unit)", "(Price per unit - Variable cost per unit) / Total fixed costs", "Total variable costs / Total fixed costs", "Selling price x Quantity sold"], "a": 0, "e": "Break-even (Quantity) = Total fixed costs / (price per unit - variable cost per unit).", "type": "MCQ"},
+            {"q": "How is Break-even Value calculated?", "o": ["Break-even Quantity / Price per unit", "Break-even Quantity x Price per unit", "Total fixed costs x Variable cost per unit", "Total revenues - Total costs"], "a": 1, "e": "Break-even (value) = The break-even Quantity x the price per unit.", "type": "MCQ"},
+            {"q": "In a break-even chart, what does 'R' stand for?", "o": ["Risk factor", "Revenues", "Remaining assets", "Rate of return"], "a": 1, "e": "R stands for Revenues in the break-even analysis chart.", "type": "MCQ"},
+            {"q": "In a break-even chart, what does 'T.C' represent?", "o": ["Total Contribution", "Tax Credit", "Total Costs", "Time Cost"], "a": 2, "e": "T.C represents Total Costs.", "type": "MCQ"},
+            {"q": "In a break-even chart, what does 'F.C' represent?", "o": ["Financial Capital", "Fixed Costs", "Future Cashflows", "Foreign Currency"], "a": 1, "e": "F.C represents Fixed Costs.", "type": "MCQ"},
+            {"q": "What does 'Leverage' mean in financial and project analysis?", "o": ["The total physical assets of a firm", "The degree of risk to which the project is exposed where a simple change in one variable significantly impacts others", "The percentage of tax on industrial profits", "The ratio of equity to debt"], "a": 1, "e": "Leverage means the degree of risk to which the project is exposed and how a variable change impacts others.", "type": "MCQ"},
+            {"q": "Which of the following is NOT one of the leverage types covered in Chapter 2?", "o": ["The Degree of Operating Leverage (DOL)", "The Degree of Financial Leverage (DFL)", "The Degree of Combined Leverage (DCL)", "The Degree of Liquidity Leverage (DLL)"], "a": 3, "e": "The three leverage types are DOL, DFL, and DCL.", "type": "MCQ"},
+            {"q": "What does the Degree of Operating Leverage (DOL) measure?", "o": ["Financial risk due to debt interest", "Operational risk due to changes in fixed costs", "Total combined risk of bankruptcy", "Tax rate impact on net profit"], "a": 1, "e": "DOL means the degree of operational risk to which the project is exposed as a result of fixed costs.", "type": "MCQ"},
+            {"q": "DOL represents the percentage change in Earnings Before Interest and Taxes (EBIT) as a result of the change in:", "o": ["Interest rates", "Sales or gross profit", "Total assets", "Tax brackets"], "a": 1, "e": "DOL is the percentage change in EBIT resulting from a change in sales or gross profit.", "type": "MCQ"},
+            {"q": "What is the formula for calculating DOL?", "o": ["Contribution / EBIT", "EBIT / EBT", "DOL x DFL", "Fixed Costs / Variable Costs"], "a": 0, "e": "DOL = Contribution / EBIT.", "type": "MCQ"},
+            {"q": "What is the relationship between fixed costs and operational risk?", "o": ["The higher the fixed costs, the lower the operational risks", "The higher the fixed costs, the higher the project's operational risks", "Fixed costs have no impact on operational risk", "Fixed costs inversely affect contribution margin"], "a": 1, "e": "The higher the fixed costs, the higher the project's operational risks.", "type": "MCQ"},
+            {"q": "What does the Degree of Financial Leverage (DFL) measure?", "o": ["Operational risk due to production volume", "Financial risk due to relying on debt financing (interests)", "Combined risk of sales fluctuations", "Working capital adequacy"], "a": 1, "e": "DFL means the degree of financial risk to which the project is exposed as a result of relying on debts for financing.", "type": "MCQ"},
+            {"q": "DFL represents the percentage change in Net Profit as a result of the change in:", "o": ["Sales volume", "Earnings Before Interest and Taxes (EBIT)", "Total assets", "Selling price per unit"], "a": 1, "e": "DFL measures the percentage change in net profit resulting from a change in EBIT.", "type": "MCQ"},
+            {"q": "What is the formula for calculating DFL?", "o": ["Contribution / EBIT", "EBIT / EBT", "Contribution / EBT", "Sales / Variable Costs"], "a": 1, "e": "DFL = Earnings Before Interest and Taxes (EBIT) / Earnings Before Taxes (EBT).", "type": "MCQ."},
+            {"q": "What is the relationship between financial fixed costs (interests) and financial risk?", "o": ["Higher interest costs reduce financial risk", "Higher financial fixed costs increase the financing risk for the project", "Interests only affect operational leverage", "Interests have zero effect on DFL"], "a": 1, "e": "The higher the financial fixed costs (interests), the higher the financing risk for the project.", "type": "MCQ"},
+            {"q": "What does the Degree of Combined Leverage (DCL) measure?", "o": ["Total risk due to operational fixed costs and financial fixed costs combined", "Risk from foreign exchange fluctuation only", "Inventory holding risk", "Tax compliance risk"], "a": 0, "e": "DCL is the degree of total risk due to the increase in operational fixed costs and fixed financial costs.", "type": "MCQ"},
+            {"q": "DCL represents the percentage change in net profit after tax as a result of the change in:", "o": ["EBIT", "Sales", "Total assets", "Interest rate"], "a": 1, "e": "DCL represents the percentage change in net profit after tax as a result of the change in sales.", "type": "MCQ"},
+            {"q": "How is DCL calculated from DOL and DFL?", "o": ["DCL = DOL + DFL", "DCL = DOL x DFL", "DCL = DOL / DFL", "DCL = DFL - DOL"], "a": 1, "e": "DCL = The Degree of Operating Leverage (DOL) x The Degree of Financial Leverage (DFL).", "type": "MCQ"},
+            {"q": "What is the expanded formula for DCL using income statement components?", "o": ["Contribution / EBT", "EBIT / Contribution", "EBT / EBIT", "Fixed Costs / Sales"], "a": 0, "e": "DCL = (Contribution / EBIT) x (EBIT / EBT) = Contribution / EBT.", "type": "MCQ"},
+            {"q": "In Example 1, if quantity sold is 500,000 units, selling price is EP 5, and variable cost is EP 3, what is the Contribution Margin per unit?", "o": ["EP 2", "EP 5", "EP 3", "EP 8"], "a": 0, "e": "Contribution per unit = Price (5) - Variable Cost (3) = EP 2.", "type": "MCQ"},
+            {"q": "In Example 1, total fixed costs are EP 500,000 and contribution per unit is EP 2. What is the break-even quantity?", "o": ["100,000 units", "250,000 units", "500,000 units", "1,000,000 units"], "a": 1, "e": "Break-even Quantity = 500,000 / (5 - 3) = 250,000 units.", "type": "MCQ"},
+            {"q": "If break-even quantity is 250,000 units and selling price is EP 5, what is the break-even value?", "o": ["EP 500,000", "EP 1,000,000", "EP 1,250,000", "EP 2,500,000"], "a": 2, "e": "Break-even value = 250,000 x 5 = EP 1,250,000.", "type": "MCQ."},
+            {"q": "In Example 1 income statement structure, Sales (Q x P) for 500,000 units at EP 5 is:", "o": ["EP 1,000,000", "EP 1,500,000", "EP 2,000,000", "EP 2,500,000"], "a": 3, "e": "Sales = 500,000 x 5 = EP 2,500,000.", "type": "MCQ."},
+            {"q": "In Example 1, total variable costs (500,000 units x EP 3) equal:", "o": ["EP 500,000", "EP 1,000,000", "EP 1,500,000", "EP 2,500,000"], "a": 2, "e": "Variable costs = 500,000 x 3 = EP 1,500,000.", "type": "MCQ."},
+            {"q": "In Example 1, Gross Profit or Contribution Margin (Sales - Variable Costs) equals:", "o": ["EP 500,000", "EP 1,000,000", "EP 1,500,000", "EP 2,500,000"], "a": 1, "e": "Contribution Margin = 2,500,000 - 1,500,000 = EP 1,000,000.", "type": "MCQ."},
+            {"q": "In Example 1, Earnings Before Interest and Taxes (EBIT) is calculated as Contribution Margin minus:", "o": ["Taxes", "Interests", "Operational Fixed Costs (FC)", "Variable Costs"], "a": 2, "e": "EBIT = Contribution Margin - Operational Fixed Costs = 1,000,000 - 500,000 = EP 500,000.", "type": "MCQ."},
+            {"q": "In Example 1, if DOL = 1,000,000 / 500,000 = 2, what does this mean?", "o": ["Every 1% increase/decrease in sales leads to a 2% change in EBIT", "Every 2% increase in sales leads to a 1% change in EBIT", "Fixed costs are double the variable costs", "Net profit increases by 2% for every unit sold"], "a": 0, "e": "DOL of 2 means every 1% increase or decrease in sales leads to a 2% change in EBIT.", "type": "MCQ."},
+            {"q": "In Example 1, if DFL = 500,000 / 320,000 = 1.56, what does this mean?", "o": ["Every 1% change in EBIT leads to a 1.56% change in Net Profit", "Every 1.56% change in sales leads to a 1% change in EBIT", "Interest rate is 1.56%", "Total debt is 1.56 times assets"], "a": 0, "e": "DFL of 1.56 means every 1% change in EBIT leads to a 1.56% change in net profit.", "type": "MCQ."},
+            {"q": "In Example 1, DCL = DOL (2) x DFL (1.56) = 3.12. What does this mean?", "o": ["Every 1% change in sales leads to a 3.12% change in net profit", "Every 3.12% change in EBIT leads to a 1% change in sales", "Total fixed costs are 3.12 times variable costs", "Tax rate is 3.12%"], "a": 0, "e": "DCL of 3.12 means every 1% change in sales leads to a 3.12% change in net profit.", "type": "MCQ."},
+            {"q": "What is the primary purpose of Break-Even Analysis?", "o": ["To determine the tax bracket of the company", "To find the sales volume where total revenues equal total costs (zero profit/loss)", "To calculate foreign exchange hedging risks", "To set employee wage scales"], "a": 1, "e": "Break-even analysis identifies the sales volume where revenues equal costs and profit/loss is zero.", "type": "MCQ."},
+            {"q": "Which cost remains constant regardless of production quantity changes in the short run?", "o": ["Variable cost", "Fixed cost", "Total cost", "Contribution margin"], "a": 1, "e": "Fixed costs do not change with production quantity changes in the short run.", "type": "MCQ."},
+            {"q": "Which cost changes directly in proportion to the volume of production?", "o": ["Fixed cost", "Variable cost", "Interest expense", "Tax expense"], "a": 1, "e": "Variable costs vary directly with production volume.", "type": "MCQ."},
+            {"q": "If selling price per unit is EP 10 and variable cost per unit is EP 6, what is the contribution per unit?", "o": ["EP 4", "EP 6", "EP 10", "EP 16"], "a": 0, "e": "Contribution per unit = 10 - 6 = EP 4.", "type": "MCQ."},
+            {"q": "If total fixed costs are EP 500,000 and contribution per unit is EP 4, what is the break-even quantity?", "o": ["50,000 units", "100,000 units", "125,000 units", "250,000 units"], "a": 2, "e": "Break-even Quantity = 500,000 / 4 = 125,000 units.", "type": "MCQ."},
+            {"q": "Higher Operating Leverage indicates:", "o": ["Lower business risk and lower fixed costs", "Higher operational risk due to a greater proportion of fixed operating costs", "Zero debt financing", "Instant profitability at zero sales"], "a": 1, "e": "Higher fixed costs create higher operational leverage and operational risk.", "type": "MCQ."},
+            {"q": "Higher Financial Leverage indicates:", "o": ["Higher financial risk due to greater reliance on debt financing and interest", "Lower dependency on loans", "Higher equity reserves", "Lower tax burden"], "a": 0, "e": "Greater reliance on debt increases financial leverage and financial risk.", "type": "MCQ."},
+            {"q": "Combined leverage evaluates the total risk from:", "o": ["Operating fixed costs only", "Financial fixed costs (interest) only", "Both operational fixed costs and financial fixed costs combined", "External market competition only"], "a": 2, "e": "DCL evaluates total risk from both operational and financial fixed costs.", "type": "MCQ."},
+            {"q": "If a firm has zero debt (no interest expense), what will its DFL be?", "o": ["0", "1", "Infinity", "Undefined"], "a": 1, "e": "When interest is zero, EBT equals EBIT, making DFL = EBIT / EBIT = 1.", "type": "MCQ."},
+            {"q": "What happens to the break-even quantity if fixed costs increase while selling price and variable cost remain constant?", "o": ["Break-even quantity decreases", "Break-even quantity increases", "Break-even quantity remains unchanged", "Break-even quantity drops to zero"], "a": 1, "e": "Higher fixed costs require a higher sales volume to break even, increasing break-even quantity.", "type": "MCQ."},
+            {"q": "What happens to the break-even quantity if the selling price per unit increases while costs remain constant?", "o": ["Break-even quantity increases", "Break-even quantity decreases", "Break-even quantity is unaffected", "Variable costs double"], "a": 1, "e": "A higher selling price increases contribution per unit, lowering the break-even quantity.", "type": "MCQ."},
+            {"q": "In the income statement breakdown, Earnings Before Taxes (EBT) is derived by subtracting what from EBIT?", "o": ["Taxes", "Interests (financial fixed costs)", "Operational fixed costs", "Variable costs"], "a": 1, "e": "EBT = EBIT - Interests.", "type": "MCQ."},
+            {"q": "Net Profit after Taxes is derived by subtracting taxes from:", "o": ["EBIT", "Contribution Margin", "Earnings Before Taxes (EBT)", "Gross Sales"], "a": 2, "e": "Net Profit after taxes = EBT - Taxes.", "type": "MCQ."},
+            {"q": "Why is leverage considered a double-edged sword in financial management?", "o": ["It only applies to manufacturing firms", "It magnifies both potential gains (profits) and potential losses (risks)", "It eliminates all corporate taxes", "It requires constant government intervention"], "a": 1, "e": "Leverage magnifies fluctuations in earnings, boosting profits in good times and worsening losses in bad times.", "type": "MCQ."},
+
+            // High-Level Questions (46-50)
+            {"q": "[HIGH-LEVEL] Project Alpha has high operational fixed costs and high debt financing, while Project Beta has low fixed costs and zero debt. During an economic downturn where sales drop by 20%, which project faces a significantly higher risk of severe net loss?", "o": ["Project Beta", "Project Alpha, due to the magnification effect of high combined leverage (DOL and DFL)", "Both face identical risk", "Neither, because break-even protects them"], "a": 1, "e": "High operating and financial leverage (combined leverage) severely magnifies the negative impact of sales drops on net profit.", "type": "MCQ."},
+            {"q": "[HIGH-LEVEL] A company's management wants to lower its break-even point without changing its selling price. Which strategic operational adjustment would achieve this?", "o": ["Increasing operational fixed costs while keeping variable costs identical", "Restructuring production to substitute fixed machinery costs with variable labor costs (reducing fixed costs and increasing contribution margin efficiency)", "Halting all sales promotions", "Doubling loan interest obligations"], "a": 1, "e": "Lowering fixed costs reduces the numerator in the break-even formula, lowering the required break-even quantity.", "type": "MCQ."},
+            {"q": "[HIGH-LEVEL] If a firm's DOL is 3.0 and its DFL is 2.0, what is its DCL, and what does it indicate about a 5% increase in sales?", "o": ["DCL = 1.5; Net profit increases by 7.5%", "DCL = 6.0; Net profit increases by 30%", "DCL = 5.0; Net profit increases by 25%", "DCL = 6.0; Net profit increases by 10%"], "a": 1, "e": "DCL = 3.0 x 2.0 = 6.0. A 5% increase in sales leads to a 5% x 6.0 = 30% increase in net profit.", "type": "MCQ."},
+            {"q": "[HIGH-LEVEL] Company X has an EBIT of EP 500,000 and an EBT of EP 250,000. Company Y has an EBIT of EP 500,000 and an EBT of EP 450,000. Which company has higher financial risk, and why?", "o": ["Company Y, because lower EBT relative to EBIT indicates higher interest obligations and a higher DFL (1.81 vs 2.0? Wait: Company X DFL=2.0, Company Y DFL=1.11. Company X has higher DFL and higher financial risk)", "Company X, because its DFL is 2.0 (500k/250k) compared to Company Y's DFL of 1.11 (500k/450k), indicating higher interest debt burden and financial risk", "Company Y, because higher EBT means more taxes", "Both have identical financial risk"], "a": 1, "e": "Company X DFL = 500/250 = 2.0; Company Y DFL = 500/450 = 1.11. Higher DFL means higher financial risk due to debt interest.", "type": "MCQ."},
+            {"q": "[HIGH-LEVEL] In break-even analysis, if a company's selling price per unit is EP 10, variable cost per unit is EP 6, and total fixed costs are EP 400,000, what happens to the break-even quantity if variable costs rise to EP 7 per unit while fixed costs and price remain constant?", "o": ["Break-even quantity decreases from 100,000 to 80,000 units", "Break-even quantity increases from 100,000 units to 133,333 units", "Break-even quantity remains exactly 100,000 units", "Break-even quantity drops to zero"], "a": 1, "e": "Original BE = 400k / (10-6) = 100k units. New BE = 400k / (10-7) = 400k / 3 = 133,333 units. Rising variable costs shrink contribution margin, requiring higher sales to break even.", "type": "MCQ."}
+        ];
+
+        const P2_SOURCE = [
+            // Standard Questions (1-45)
+            {"q": "The break-even point is the point at which revenues are equal to costs for the project.", "o": ["True", "False"], "a": 0, "e": "True: At break-even, revenues equal costs.", "type": "TF"},
+            {"q": "At the break-even point, net profit or loss is equal to zero.", "o": ["True", "False"], "a": 0, "e": "True: Net profit or loss equals zero at break-even.", "type": "TF"},
+            {"q": "Break-even Quantity is calculated by dividing total fixed costs by the contribution per unit (price minus variable cost).", "o": ["True", "False"], "a": 0, "e": "True: BE (Quantity) = Total Fixed Costs / (Price - VC).", "type": "TF"},
+            {"q": "Break-even value is calculated by dividing break-even quantity by the selling price per unit.", "o": ["True", "False"], "a": 1, "e": "False: Break-even value is quantity multiplied by the price per unit.", "type": "TF"},
+            {"q": "In a break-even chart, 'R' represents Revenues and 'T.C' represents Total Costs.", "o": ["True", "False"], "a": 0, "e": "True: R is revenues and T.C is total costs on the chart.", "type": "TF"},
+            {"q": "Leverage means the degree of risk to which the project is exposed.", "o": ["True", "False"], "a": 0, "e": "True: Leverage defines project exposure to risk and variable sensitivity.", "type": "TF"},
+            {"q": "Financial leverage risks include DOL, DFL, and DCL.", "o": ["True", "False"], "a": 0, "e": "True: Leverage risks include operating, financial, and combined leverage.", "type": "TF"},
+            {"q": "The Degree of Operating Leverage (DOL) measures operational risk resulting from changes in fixed costs.", "o": ["True", "False"], "a": 0, "e": "True: DOL measures operational risk due to fixed costs.", "type": "TF"},
+            {"q": "DOL represents the percentage change in Earnings Before Interest and Taxes (EBIT) as a result of a change in sales.", "o": ["True", "False"], "a": 0, "e": "True: DOL is % change in EBIT divided by % change in sales.", "type": "TF"},
+            {"q": "The formula for DOL is Contribution divided by EBIT.", "o": ["True", "False"], "a": 0, "e": "True: DOL = Contribution / EBIT.", "type": "TF"},
+            {"q": "The higher the fixed costs, the lower the project's operational risks.", "o": ["True", "False"], "a": 1, "e": "False: Higher fixed costs increase operational risks.", "type": "TF"},
+            {"q": "The Degree of Financial Leverage (DFL) measures financial risk resulting from relying on debt financing (interests).", "o": ["True", "False"], "a": 0, "e": "True: DFL measures financial risk from debt/interests.", "type": "TF"},
+            {"q": "DFL represents the percentage change in net profit resulting from a change in EBIT.", "o": ["True", "False"], "a": 0, "e": "True: DFL measures % change in net profit due to EBIT change.", "type": "TF"},
+            {"q": "The formula for DFL is EBIT divided by EBT.", "o": ["True", "False"], "a": 0, "e": "True: DFL = EBIT / EBT.", "type": "TF"},
+            {"q": "The higher the financial fixed costs (interests), the higher the financing risk for the project.", "o": ["True", "False"], "a": 0, "e": "True: Higher interest burdens increase financing risk.", "type": "TF"},
+            {"q": "The Degree of Combined Leverage (DCL) measures total risk from operational fixed costs and financial fixed costs combined.", "o": ["True", "False"], "a": 0, "e": "True: DCL measures total combined risk.", "type": "TF"},
+            {"q": "DCL is calculated by adding DOL and DFL together.", "o": ["True", "False"], "a": 1, "e": "False: DCL is calculated by multiplying DOL by DFL.", "type": "TF"},
+            {"q": "The formula for DCL is DOL multiplied by DFL, which equals Contribution divided by EBT.", "o": ["True", "False"], "a": 0, "e": "True: DCL = DOL x DFL = Contribution / EBT.", "type": "TF"},
+            {"q": "In Example 1, if sales quantity is 500,000 units and break-even quantity is 250,000 units, the firm operates above break-even.", "o": ["True", "False"], "a": 0, "e": "True: 500,000 is greater than the break-even point of 250,000 units.", "type": "TF"},
+            {"q": "In Example 1, DOL is calculated as 1,000,000 / 500,000 = 2.", "o": ["True", "False"], "a": 0, "e": "True: Contribution (1,000,000) / EBIT (500,000) = 2.", "type": "TF"},
+            {"q": "A DOL of 2 means every 1% change in sales leads to a 2% change in EBIT.", "o": ["True", "False"], "a": 0, "e": "True: DOL of 2 indicates a 2% EBIT change per 1% sales change.", "type": "TF"},
+            {"q": "In Example 1, DFL is calculated as 500,000 / 320,000 = 1.56.", "o": ["True", "False"], "a": 0, "e": "True: EBIT (500,000) / EBT (320,000) = 1.56.", "type": "TF."},
+            {"q": "A DFL of 1.56 means every 1% change in EBIT leads to a 1.56% change in net profit.", "o": ["True", "False"], "a": 0, "e": "True: DFL of 1.56 translates to 1.56% net profit change per 1% EBIT change.", "type": "TF"},
+            {"q": "In Example 1, DCL = 2 x 1.56 = 3.12.", "o": ["True", "False"], "a": 0, "e": "True: DCL = DOL x DFL = 2 x 1.56 = 3.12.", "type": "TF"},
+            {"q": "A DCL of 3.12 means every 1% change in sales leads to a 3.12% change in net profit.", "o": ["True", "False"], "a": 0, "e": "True: DCL of 3.12 means a 3.12% net profit change per 1% sales change.", "type": "TF"},
+            {"q": "Variable costs remain constant in total regardless of changes in sales volume.", "o": ["True", "False"], "a": 1, "e": "False: Variable costs change in total directly with sales volume.", "type": "TF"},
+            {"q": "Fixed costs remain constant in total as production volume changes within a relevant range.", "o": ["True", "False"], "a": 0, "e": "True: Fixed costs remain constant in total in the short run.", "type": "TF"},
+            {"q": "Contribution Margin is calculated as Sales minus Variable Costs.", "o": ["True", "False"], "a": 0, "e": "True: Gross profit or contribution margin = Sales - Variable Costs.", "type": "TF"},
+            {"q": "Earnings Before Interest and Taxes (EBIT) is found by subtracting operational fixed costs from the contribution margin.", "o": ["True", "False"], "a": 0, "e": "True: EBIT = Contribution - Fixed Costs.", "type": "TF"},
+            {"q": "Earnings Before Taxes (EBT) is found by subtracting interest expenses from EBIT.", "o": ["True", "False"], "a": 0, "e": "True: EBT = EBIT - Interests.", "type": "TF"},
+            {"q": "Taxes are calculated as a percentage of Net Profit after Taxes.", "o": ["True", "False"], "a": 1, "e": "False: Taxes are calculated as a percentage of EBT (Earnings Before Taxes), not net profit.", "type": "TF"},
+            {"q": "Break-even analysis can only be measured in monetary value and never in physical units.", "o": ["True", "False"], "a": 1, "e": "False: Break-even is measured in both physical quantity units and monetary value.", "type": "TF"},
+            {"q": "If a project's sales volume is below its break-even point, the project incurs a net loss.", "o": ["True", "False"], "a": 0, "e": "True: Sales below break-even mean revenues are less than costs, resulting in a loss.", "type": "TF"},
+            {"q": "Financial leverage deals exclusively with operational machinery maintenance costs.", "o": ["True", "False"], "a": 1, "e": "False: Financial leverage deals with debt financing and interest costs.", "type": "TF"},
+            {"q": "Operating leverage deals with operational fixed costs such as factory rent and depreciation.", "o": ["True", "False"], "a": 0, "e": "True: Operating leverage is driven by operational fixed costs.", "type": "TF."},
+            {"q": "A firm with zero operational fixed costs would have a DOL of 1.0.", "o": ["True", "False"], "a": 0, "e": "True: If fixed costs are zero, contribution equals EBIT, making DOL = 1.0.", "type": "TF"},
+            {"q": "Higher combined leverage amplifies the volatility of net earnings.", "o": ["True", "False"], "a": 0, "e": "True: Combined leverage magnifies earnings volatility and risk.", "type": "TF"},
+            {"q": "Break-even analysis assumes that selling price and variable cost per unit remain constant.", "o": ["True", "False"], "a": 0, "e": "True: Standard break-even analysis assumes constant selling price and unit variable cost.", "type": "TF"},
+            {"q": "Interest on loans is considered an operational fixed cost.", "o": ["True", "False"], "a": 1, "e": "False: Interest is a financial fixed cost, while factory rent/depreciation are operational fixed costs.", "type": "TF"},
+            {"q": "Project analysis tools like break-even and leverage help managers assess project risks and profitability thresholds.", "o": ["True", "False"], "a": 0, "e": "True: These tools evaluate risks, cost structures, and profit thresholds.", "type": "TF"},
+            {"q": "The break-even value equals break-even quantity divided by selling price.", "o": ["True", "False"], "a": 1, "e": "False: Break-even value equals break-even quantity multiplied by selling price.", "type": "TF"},
+            {"q": "DOL measures the sensitivity of EBIT to changes in sales volume.", "o": ["True", "False"], "a": 0, "e": "True: DOL measures percentage change in EBIT due to sales changes.", "type": "TF"},
+            {"q": "DFL measures the sensitivity of net profit to changes in EBIT.", "o": ["True", "False"], "a": 0, "e": "True: DFL measures percentage change in net profit due to EBIT changes.", "type": "TF."},
+            {"q": "DCL combines both operational and financial leverage into a single total risk metric.", "o": ["True", "False"], "a": 0, "e": "True: DCL measures total risk from operational and financial fixed costs.", "type": "TF"},
+            {"q": "If fixed operating costs increase, the break-even point in units will decrease.", "o": ["True", "False"], "a": 1, "e": "False: Higher fixed costs increase the break-even point in units.", "type": "TF"},
+
+            // High-Level Questions (46-50)
+            {"q": "[HIGH-LEVEL] If a firm has a DOL of 4.0 and its sales increase by 10%, its EBIT will increase by exactly 40%.", "o": ["True", "False"], "a": 0, "e": "True: DOL of 4.0 means a 10% sales increase results in 10% x 4.0 = 40% increase in EBIT.", "type": "TF"},
+            {"q": "[HIGH-LEVEL] An increase in the loan interest rate will cause Earnings Before Taxes (EBT) to decrease, which in turn decreases the Degree of Financial Leverage (DFL).", "o": ["True", "False"], "a": 1, "e": "False: Higher interest lowers EBT. Since DFL = EBIT / EBT, a smaller denominator (EBT) actually causes DFL to INCREASE, raising financial risk.", "type": "TF"},
+            {"q": "[HIGH-LEVEL] If a project's variable cost per unit equals its selling price per unit, the break-even quantity formula becomes mathematically undefined because the denominator (P - VC) becomes zero.", "o": ["True", "False"], "a": 0, "e": "True: If P = VC, contribution is zero, meaning each unit sold generates no margin to cover fixed costs, making break-even impossible to calculate (denominator is zero).", "type": "TF"},
+            {"q": "[HIGH-LEVEL] A firm with high operating leverage and high financial leverage is safer during economic recessions than a firm with low leverage.", "o": ["True", "False"], "a": 1, "e": "False: High leverage magnifies losses during downturns, making highly leveraged firms much riskier and prone to bankruptcy.", "type": "TF"},
+            {"q": "[HIGH-LEVEL] If DCL is 5.0, it indicates that a 2% decrease in sales will result in a 10% decrease in net profit after taxes.", "o": ["True", "False"], "a": 0, "e": "True: 2% decrease in sales x DCL of 5.0 = 10% decrease in net profit.", "type": "TF"}
+        ];
+        const getQuestionType = question => question.type.replace(/[.!?]+$/, "");
+
+        const P1_DATA = [
+            ...P1_SOURCE.filter(question => getQuestionType(question) === "MCQ"),
+            ...P2_SOURCE.filter(question => getQuestionType(question) === "MCQ")
+        ];
+        const P2_DATA = [
+            ...P1_SOURCE.filter(question => getQuestionType(question) === "TF"),
+            ...P2_SOURCE.filter(question => getQuestionType(question) === "TF")
+        ];
+
+        let activePart = 1;
+        let qData = P1_DATA;
+        let cIdx = 0;
+        let score = 0;
+        let wrongList = [];
+
+        const $ = id => document.getElementById(id);
+
+        function switchPart(part) {
+            activePart = part;
+            $("tab1").className = "tab-btn " + (part === 1 ? "active" : "");
+            $("tab2").className = "tab-btn " + (part === 2 ? "active" : "");
+            qData = part === 1 ? P1_DATA : P2_DATA;
+            resetQuiz();
+        }
+
+        function resetQuiz() {
+            cIdx = 0;
+            score = 0;
+            wrongList = [];
+            renderQuestion();
+        }
+
+        function renderQuestion() {
+            const q = qData[cIdx];
+            $("n").textContent = `Question ${cIdx + 1} of ${qData.length}`;
+            $("s").textContent = `Score: ${score}`;
+            $("bar").style.width = `${(cIdx / qData.length) * 100}%`;
+
+            let diagHtml = q.diagram ? `<div class="diagram-container">${q.diagram}</div>` : '';
+            
+            $("card").innerHTML = `
+                <span class="q-badge">${getQuestionType(q) === 'TF' ? 'True / False' : 'Multiple Choice'}</span>
+                <p class="q">${q.q}</p>
+                ${diagHtml}
+                <div id="opts"></div>
+                <div id="fb"></div>
+            `;
+
+            q.o.forEach((optText, i) => {
+                const b = document.createElement("button");
+                b.className = "opt";
+                b.innerHTML = `<b>${getQuestionType(q) === 'TF' ? (i===0?'T':'F') : "ABCD"[i] + ")"}</b><span></span>`;
+                b.querySelector("span").textContent = optText;
+                b.onclick = () => handleAnswer(i);
+                $("opts").appendChild(b);
+            });
+        }
+
+        function handleAnswer(selected) {
+            const q = qData[cIdx];
+            const isCorrect = selected === q.a;
+            const buttons = document.querySelectorAll(".opt");
+
+            buttons.forEach((btn, idx) => {
+                btn.disabled = true;
+                if (idx === q.a) btn.classList.add("ok");
+                else if (idx === selected) btn.classList.add("no");
+            });
+
+            if (isCorrect) score++;
+            else wrongList.push(cIdx);
+
+            $("s").textContent = `Score: ${score}`;
+
+            $("fb").innerHTML = `
+                <div class="ex ${isCorrect ? 'ok' : 'no'}">
+                    <strong>${isCorrect ? 'Correct answer ✓' : 'Incorrect answer ✗'}</strong>
+                    <span>${q.e}</span>
+                </div>
+                <button class="btn" id="nxtBtn">${cIdx < qData.length - 1 ? 'Next question' : 'Show final results'}</button>
+            `;
+
+            $("nxtBtn").onclick = () => {
+                cIdx++;
+                if (cIdx < qData.length) renderQuestion();
+                else finishQuiz();
+            };
+            $("nxtBtn").focus();
+        }
+
+        function finishQuiz() {
+            $("bar").style.width = "100%";
+            $("n").textContent = "Quiz complete";
+            const pct = Math.round((score / qData.length) * 100);
+            
+            let html = `
+                <div class="score">${score} / ${qData.length}</div>
+                <p style="text-align:center;font-size:1.2rem;margin:0 0 16px;">Percentage: <b>${pct}%</b></p>
+            `;
+
+            if (wrongList.length > 0) {
+                html += `<p style="margin:16px 0 8px;"><b>Questions to review:</b></p><ul class="rev">`;
+                wrongList.forEach(w => {
+                    html += `<li><b>Question ${w + 1}:</b> ${qData[w].q}</li>`;
+                });
+                html += `</ul>`;
+            } else {
+                html += `<p style="text-align:center;color:var(--ok);">Excellent! All answers are correct (100%).</p>`;
+            }
+
+            html += `<button class="btn" onclick="resetQuiz()">Restart quiz</button>`;
+            $("card").innerHTML = html;
+        }
+
+        renderQuestion();
+    </script>
+</body>
+</html>

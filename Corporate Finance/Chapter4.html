@@ -1,0 +1,449 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Finance — Chapter 4: Security Analysis Approaches</title>
+    <style>
+        :root {
+            --bg: #0f172a;
+            --c: #1e293b;
+            --t: #f8fafc;
+            --m: #94a3b8;
+            --b: #334155;
+            --ac: #38bdf8;
+            --ok: #22c55e;
+            --okb: #052e16;
+            --no: #ef4444;
+            --nob: #450a0a;
+            box-sizing: border-box;
+        }
+
+        @media(prefers-color-scheme: light) {
+            :root[data-theme=light] {
+                --bg: #f8fafc;
+                --c: #ffffff;
+                --t: #0f172a;
+                --m: #64748b;
+                --b: #e2e8f0;
+                --ac: #0284c7;
+                --okb: #dcfce7;
+                --nob: #fee2e2;
+                --ok: #16a34a;
+                --no: #dc2626;
+            }
+        }
+
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--t);
+            font-family: 'Segoe UI', Tahoma, system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+        }
+        main {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 24px 16px 60px;
+        }
+        .header-panel {
+            text-align: center;
+            margin-bottom: 24px;
+            border-bottom: 8px solid var(--b);
+            padding-bottom: 30px;
+        }
+        h1 { font-size: 1.5rem; margin: 0 0 8px; color: var(--ac); }
+        .sub { color: var(--m); font-size: 0.95rem; margin: 0; }
+        
+        .nav-tabs {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .tab-btn {
+            flex: 1;
+            padding: 12px;
+            background: var(--c);
+            border: 1px solid var(--b);
+            color: var(--t);
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .tab-btn.active {
+            background: var(--ac);
+            color: #000;
+            border-color: var(--ac);
+        }
+
+        .bar {
+            height: 8px;
+            background: var(--b);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+        .bar i {
+            display: block;
+            height: 100%;
+            background: var(--ac);
+            width: 0;
+            transition: width 0.3s;
+        }
+        .meta {
+            display: flex;
+            justify-content: space-between;
+            color: var(--m);
+            font-size: 0.9rem;
+            margin-bottom: 16px;
+        }
+        .card {
+            background: var(--c);
+            border: 1px solid var(--b);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+        .q-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            background: var(--b);
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+            color: var(--ac);
+        }
+        .q-badge.high-level {
+            background: #f59e0b;
+            color: #000;
+            font-weight: bold;
+        }
+        .q {
+            font-size: 1.1rem;
+            font-weight: 600;
+            direction: ltr;
+            text-align: left;
+            margin: 0 0 16px;
+        }
+        .diagram-container {
+            direction: ltr;
+            background: rgba(0,0,0,0.2);
+            border: 1px dashed var(--b);
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+        .opt {
+            display: flex;
+            gap: 12px;
+            direction: ltr;
+            text-align: left;
+            width: 100%;
+            background: var(--c);
+            color: var(--t);
+            border: 1.5px solid var(--b);
+            border-radius: 8px;
+            padding: 12px 14px;
+            margin-bottom: 10px;
+            font: inherit;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+        .opt:hover:not(:disabled) { border-color: var(--ac); }
+        .opt b { min-width: 1.5em; color: var(--ac); }
+        .opt.ok { background: var(--okb); border-color: var(--ok); }
+        .opt.no { background: var(--nob); border-color: var(--no); }
+        .opt:disabled { cursor: default; }
+
+        .ex {
+            margin-top: 16px;
+            padding: 14px;
+            border-radius: 8px;
+            direction: ltr;
+            text-align: left;
+            font-size: 0.95rem;
+        }
+        .ex.ok { background: var(--okb); border: 1px solid var(--ok); }
+        .ex.no { background: var(--nob); border: 1px solid var(--no); }
+        .ex strong { display: block; margin-bottom: 4px; }
+
+        .btn {
+            margin-top: 16px;
+            background: var(--ac);
+            color: #000;
+            border: 0;
+            border-radius: 8px;
+            padding: 12px 24px;
+            font: inherit;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+        }
+        .score { text-align: center; font-size: 3rem; font-weight: 800; margin: 12px 0; color: var(--ac); }
+        .rev { margin: 16px 0 0; padding: 0; list-style: none; direction: ltr; text-align: left; font-size: 0.9rem; }
+        .rev li { padding: 8px 0; border-top: 1px solid var(--b); }
+    </style>
+    <link rel="stylesheet" href="../site-theme.css">
+</head>
+<body>
+    <main>
+        <div class="header-panel">
+            <h1>Finance — Chapter 4</h1>
+            <p class="sub">Security Analysis Approaches (Fundamental vs Technical Analysis)</p>
+        </div>
+
+        <div class="nav-tabs">
+            <button class="tab-btn active" id="tab1" onclick="switchPart(1)">Multiple Choice</button>
+            <button class="tab-btn" id="tab2" onclick="switchPart(2)">True/False</button>
+        </div>
+
+        <div class="bar"><i id="bar"></i></div>
+        <div class="meta">
+            <span id="n"></span>
+            <span id="s"></span>
+        </div>
+        <div class="card" id="card"></div>
+    </main>
+      
+    <script>
+        const P1_SOURCE = [
+            // Standard Questions (1-45)
+            {"q": "What are the two primary approaches to Security Analysis covered in Chapter 4?", "o": ["Internal and External Analysis", "Fundamental Analysis and Technical Analysis", "Short-term and Long-term Analysis", "Quantitative and Qualitative Analysis"], "a": 1, "e": "The approaches to security analysis are Fundamental Analysis and Technical Analysis.", "type": "MCQ"},
+            {"q": "How does Fundamental Analysis measure a security's value?", "o": ["By analyzing related economic, market, and financial factors to determine fair value", "By charting historical market trading volumes", "By predicting short-term psychological trends", "By tracking order book queues"], "a": 0, "e": "Fundamental analysis measures fair value by analyzing related economic, market, and financial factors.", "type": "MCQ"},
+            {"q": "What is 'fair value' in the context of fundamental analysis?", "o": ["The current market transaction price at any given second", "The value of an investment based on the company's financial situation, industry, and economic conditions", "The liquidation value of physical machinery only", "The historical high price of a stock"], "a": 1, "e": "Fair value is based on the company's financial situation, industry, and economic conditions.", "type": "MCQ"},
+            {"q": "What do fundamental analysts study?", "o": ["Only daily stock chart patterns", "Anything that can affect security value from macroeconomic to microeconomic factors", "Exclusively short-term rumors", "Foreign exchange trading bots"], "a": 1, "e": "Fundamental analysts study anything affecting value, from macroeconomic state to microeconomic management effectiveness.", "type": "MCQ."},
+            {"q": "What is the ultimate end goal of Fundamental Analysis?", "o": ["To determine whether a security is undervalued or overvalued compared to its current price", "To time daily market entries and exits within minutes", "To execute high-frequency arbitrage", "To generate technical chart oscillators"], "a": 0, "e": "The end goal is to compare calculated value with current price to see if it's undervalued or overvalued.", "type": "MCQ."},
+            {"q": "Which of the following describes the Top-Down Approach in fundamental analysis?", "o": ["Starting from individual company management down to the global economy", "Starting from the overall economy, moving to industry sectors, and finally analyzing specific companies", "Analyzing technical price charts first, then fundamentals", "Looking only at financial statements of single firms"], "a": 1, "e": "Top-down approach moves from Economy -> Sectors -> Companies.", "type": "MCQ."},
+            {"q": "Which of the following describes the Bottom-Up Approach in fundamental analysis?", "o": ["Starting from the macroeconomic state down to specific stocks", "Starting from individual companies and working up to sectors and the economy", "Studying market trading volume first", "Analyzing government fiscal policies first"], "a": 1, "e": "Bottom-up approach moves from Company -> Sectors -> Economy.", "type": "MCQ."},
+            {"q": "What are the two major types of Fundamental Analysis?", "o": ["Quantitative and Qualitative Fundamental Analysis", "Domestic and International Analysis", "Primary and Secondary Analysis", "Static and Dynamic Analysis"], "a": 0, "e": "Fundamental analysis divides into Quantitative and Qualitative analysis.", "type": "MCQ."},
+            {"q": "Which of the following is classified under Quantitative Fundamental Analysis?", "o": ["Business Model", "Competitive Advantage", "Financial Statements (Income Statement, Balance Sheet, Assets, Cash Flows)", "Corporate Governance"], "a": 2, "e": "Financial statements, income statements, balance sheets, and cash flows are quantitative fundamental analysis.", "type": "MCQ."},
+            {"q": "Which of the following is classified under Qualitative Fundamental Analysis?", "o": ["Balance Sheet assets", "Income Statement revenues", "Business Model, Management, Competitive Advantage, and Corporate Governance", "Quarterly cash flow tallies"], "a": 2, "e": "Business model, competitive advantage, management, and corporate governance are qualitative.", "type": "MCQ."},
+            {"q": "What are the three fundamental analysis levels (phases)?", "o": ["Short-term, Medium-term, Long-term", "Economic Analysis, Industry Analysis, Company Analysis", "Technical, Psychological, Fundamental", "Price, Time, Volume"], "a": 1, "e": "The three phases are Economic Analysis, Industry Analysis, and Company Analysis.", "type": "MCQ."},
+            {"q": "What assumption does fundamental analysis make regarding short-term vs. long-term stock prices?", "o": ["Stock prices always match value instantly every second", "In the short-term stock prices don't match their value, but they adjust in the long term", "Stock prices are entirely random and never adjust", "Long-term prices are irrelevant"], "a": 1, "e": "Fundamental analysis assumes short-term prices don't match value, but adjust in the long term.", "type": "MCQ."},
+            {"q": "Economic analysis in fundamental research involves:", "o": ["Analyzing general economic status and condition of the country using economic indicators", "Studying single company product packaging", "Charting minute-by-minute trading trends", "Inspecting boardroom chairs"], "a": 0, "e": "Economic analysis analyzes general economic status and condition using economic indicators.", "type": "MCQ."},
+            {"q": "Industry analysis aims to determine prospects of industry classification with the help of:", "o": ["Daily stock tick volume", "Competitive analysis of industries and industry life cycle analysis", "Foreign currency exchange rates", "Individual employee payroll records"], "a": 1, "e": "Industry analysis determines prospects via competitive analysis and industry life cycle analysis.", "type": "MCQ."},
+            {"q": "Company analysis is conducted to ascertain financial and non-financial characteristics in order to:", "o": ["Decide whether to buy, sell, or hold the company's shares", "Design technical chart moving averages", "Calculate daily market momentum", "Execute high-frequency trades"], "a": 0, "e": "Company analysis determines whether to buy, sell, or hold shares by examining sales, profitability, EPS, management, etc..", "type": "MCQ."},
+            {"q": "Which of the following is a principle of fundamental analysis?", "o": ["The price of an asset doesn't necessarily reflect its real value, as it may be underpriced or overpriced", "Prices follow strict mathematical wave patterns ignoring financial data", "History repeats itself on price charts exactly", "All information is purely psychological"], "a": 0, "e": "Principle 1 states asset prices don't necessarily reflect real value and may be underpriced or overpriced.", "type": "MCQ."},
+            {"q": "Technical analysis focuses primarily on:", "o": ["Studying financial statement audits", "Studying the movement of the market, not the commodities traded in it, using charts and trading info", "Evaluating corporate management effectiveness", "Assessing macroeconomic GDP growth"], "a": 1, "e": "Technical analysis is studying market movement (not commodities) through charts and historical trading info.", "type": "MCQ."},
+            {"q": "Technical analysis records and monitors what information in the form of charts?", "o": ["Trading date, trading price, trading volume for a specific stock or group of shares", "Corporate board member salaries", "Macroeconomic inflation rates", "Company patent filings"], "a": 0, "e": "Technical analysis monitors trading date, price, volume, etc., in charts.", "type": "MCQ."},
+            {"q": "What are the 3 Key Principles of Technical Analysis?", "o": ["Economy, Industry, Company", "All relevant info is reflected in stock price; Stock prices move in trends; History tends to repeat itself", "Quantitative, Qualitative, Financial", "Assets, Liabilities, Equity"], "a": 1, "e": "The 3 key principles are: info reflected in price, prices move in trends, history repeats itself.", "type": "MCQ."},
+            {"q": "Which of the following are primary tools used for Technical Analysis?", "o": ["Price charts, Indicators, and Oscillators", "Balance sheets and income statements", "GDP growth reports and unemployment metrics", "Corporate governance codes"], "a": 0, "e": "Price charts, indicators, and oscillators are technical analysis tools.", "type": "MCQ."},
+            {"q": "In technical analysis, how is price movement related to investor attitude?", "o": ["Change in security price represents the change in investor attitude and demand/supply", "Price movement has no relation to demand", "Price is solely determined by management efficiency", "Price reflects corporate tax audits"], "a": 0, "e": "Price change represents change in investor attitude and demand/supply.", "type": "MCQ."},
+            {"q": "What is the relationship between trading volume and market prices in technical analysis?", "o": ["Direct linear relationship", "Inverse relationship: trading volume increases when prices are in the direction of the bottom (declining) and decreases when prices rise", "Volume is completely independent of price", "Volume increases only when management changes"], "a": 1, "e": "There is an inverse relationship: volume increases when prices decline (bottom) and decreases when prices rise (top).", "type": "MCQ."},
+            {"q": "What is the basic functional difference between fundamental and technical analysis?", "o": ["Fundamental is for understanding financial performance patterns; technical is for share price movement patterns", "Fundamental uses charts; technical uses balance sheets", "Both serve identical trading functions", "Fundamental is short-term; technical is long-term"], "a": 0, "e": "Fundamental understands financial performance patterns; technical understands share price patterns.", "type": "MCQ."},
+            {"q": "For what functions are fundamental vs technical analysis utilized?", "o": ["Fundamental for trading-related; technical for investment-related", "Fundamental for investment-related functions; technical for trading-related functions", "Both are used exclusively for tax filing", "Both are used for human resource management"], "a": 1, "e": "Fundamental is used for investment-related functions; technical is for trading-related functions.", "type": "MCQ."},
+            {"q": "What is the typical time frame relevance for fundamental analysis?", "o": ["Short-term in nature", "Long-term in nature", "Intraday (minutes)", "Exactly 24 hours"], "a": 1, "e": "Fundamental analysis is relevant for investments that are long-term in nature.", "type": "MCQ."},
+            {"q": "What is the typical time frame relevance for technical analysis?", "o": ["Long-term in nature (decades)", "Short-term in nature", "Multi-generational", "Permanent buy-and-hold"], "a": 1, "e": "Technical analysis is relevant for investments that are short-term in nature.", "type": "MCQ."},
+            {"q": "What type of data does fundamental analysis focus on?", "o": ["Historical data as well as present data", "Only intraday price ticks", "Only psychological sentiment", "Only chart wave patterns"], "a": 0, "e": "Fundamental analysis focuses on historical data as well as present data.", "type": "MCQ."},
+            {"q": "What type of data does technical analysis focus on?", "o": ["Historical data only", "Future forecasted GDP figures", "Management interview transcripts", "Corporate governance reports"], "a": 0, "e": "Technical analysis focuses only on historical data.", "type": "MCQ."},
+            {"q": "What is the primary aim of technical analysis?", "o": ["To identify the fair value of a stock", "To identify the perfect time to invest or withdraw investments from the market", "To audit corporate financial statements", "To calculate corporate tax liability"], "a": 1, "e": "Technical analysis identifies the perfect time to invest or withdraw from the market.", "type": "MCQ."},
+            {"q": "What is the basis of decision-making in technical analysis?", "o": ["Market prices and market trends of the stock", "Internal company asset valuations", "Economic GDP forecasts", "Management corporate integrity"], "a": 0, "e": "Market prices and market trends are the basis of decision-making in technical analysis.", "type": "MCQ."},
+            {"q": "What methodology is utilized in technical analysis?", "o": ["Examining market psychology as well as price movements", "Examining industry trends and financial statements", "Analyzing tax returns", "Evaluating CEO effectiveness"], "a": 0, "e": "Technical analysis examines market psychology and price movements.", "type": "MCQ."},
+            {"q": "Where is data sourced from in technical analysis?", "o": ["Economic reports and financial statements", "Chart analysis", "Government census yearbooks", "Corporate board minutes"], "a": 1, "e": "In technical analysis, data is sourced from chart analysis.", "type": "MCQ."},
+            {"q": "Where is data sourced from in fundamental analysis?", "o": ["Chart patterns exclusively", "Economic reports, industry statistics, financial statements, management processes, news events", "Only intraday volume meters", "Social media hashtag counts"], "a": 1, "e": "Fundamental data is sourced from economic reports, industry statistics, financial statements, management, news, etc..", "type": "MCQ."},
+            {"q": "Which concepts are utilized in fundamental analysis?", "o": ["ROA (return on assets) and ROE (return on equity)", "Price data, time, and volume", "Elliott wave counts", "Candlestick formations"], "a": 0, "e": "Fundamental analysis uses concepts like ROA and ROE.", "type": "MCQ."},
+            {"q": "Which concepts are utilized in technical analysis?", "o": ["ROA and ROE ratios", "Price data, time, and volume", "Debt-equity ratio", "Earnings per share (EPS)"], "a": 1, "e": "Technical analysis uses price data, time, and volume.", "type": "MCQ."},
+            {"q": "Which traders prefer fundamental analysis?", "o": ["Long-term position traders", "High-frequency day traders", "Intraday scalpers", "Algorithmic momentum traders"], "a": 0, "e": "Fundamental analysis is preferred by long-term position traders.", "type": "MCQ."},
+            {"q": "Which traders prefer technical analysis?", "o": ["Long-term pension fund allocators", "Short-term traders", "Multi-decade buy-and-hold investors", "Estate planners"], "a": 1, "e": "Technical analysis is preferred by short-term traders.", "type": "MCQ."},
+            {"q": "How does external news impact fundamental analysis compared to technical analysis?", "o": ["Fundamental analysis remains un-impacted by external news, while technical analysis can get impacted", "Technical analysis is immune to external news", "Both are completely immune", "Both are equally impacted every second"], "a": 0, "e": "Fundamental analysis remains un-impacted with external news, whereas technical can get impacted.", "type": "MCQ."},
+            {"q": "What indicators and tools does fundamental analysis study?", "o": ["Charts, patterns, and waves", "Expenses, revenues, assets, liabilities, debt-equity ratio, return on equity ratio (Financial analysis)", "Moving average crossovers", "Trendline channels"], "a": 1, "e": "Fundamental studies financial analysis indicators like expenses, revenues, assets, liabilities, debt-equity, ROE.", "type": "MCQ."},
+            {"q": "What tools does technical analysis make use of?", "o": ["Financial statements and balance sheets", "Charts, patterns, and waves", "Tax audit reports", "Management governance scorecards"], "a": 1, "e": "Technical analysis makes use of charts, patterns, and waves.", "type": "MCQ."},
+            {"q": "The time factor in technical analysis dictates that:", "o": ["Time is irrelevant to price movement", "The degree of price movement is a function of time (time taken in trend reversal determines price change)", "Time spent studying charts guarantees profit", "Longer time periods invalidate technical trends"], "a": 1, "e": "Degree of price movement is a function of time; time taken in trend reversal determines price change.", "type": "MCQ."},
+            {"q": "What is the primary function of industry life cycle analysis within fundamental analysis?", "o": ["To determine the prospects of various industry classifications", "To track daily stock market opening bells", "To evaluate individual employee attendance", "To measure corporate office electricity consumption"], "a": 0, "e": "Industry life cycle analysis helps determine the prospects of various industry classifications.", "type": "MCQ."},
+            {"q": "In fundamental analysis, corporate governance and business model evaluation fall under:", "o": ["Quantitative analysis", "Qualitative fundamental analysis", "Technical chart analysis", "Statistical price modeling"], "a": 1, "e": "Business model and corporate governance are qualitative fundamental analysis.", "type": "MCQ."},
+            {"q": "Which statement best describes the core belief of technical analysts regarding market information?", "o": ["All relevant information about a stock is already reflected in the stock price", "Information is never reflected in prices", "Only fundamental financial statements matter", "External news never reaches market prices"], "a": 0, "e": "Principle 1 of technical analysis states all relevant information about a stock is already reflected in the stock price.", "type": "MCQ."},
+            {"q": "Why do technical analysts believe that 'history tends to repeat itself in the stock market'?", "o": ["Because human psychology and market participant behavior patterns recur over time", "Because computers repeat random loops", "Because government mandates identical stock prices", "Because financial statements never change"], "a": 0, "e": "Market participant psychology and behavior patterns recur, causing history to repeat itself in price trends.", "type": "MCQ."},
+
+            // High-Level Questions (46-50)
+            {"q": "[HIGH-LEVEL] An investor identifies a stock trading at EP 50 whose fundamental fair value calculated via discounted cash flows and financial statement analysis is EP 80. However, technical indicators show heavy short-term downward momentum. As a rational fundamental analyst with a long-term horizon, what conclusion should they draw?", "o": ["Sell the stock immediately because technical momentum is down", "Recognize that short-term prices may deviate from fair value, but long-term adjustment toward fair value makes the stock an attractive undervalued investment opportunity", "Abandon fundamental analysis entirely", "Assume the company has zero assets"], "a": 1, "e": "Fundamental analysis assumes short-term prices may not match value but adjust in the long term, marking it as undervalued.", "type": "MCQ."},
+            {"q": "[HIGH-LEVEL] A day trader ignores corporate earnings reports, balance sheets, and management quality entirely, focusing solely on candlestick charts, trading volume spikes during price bottoms, and moving average crossovers. Which analysis approach and trader profile does this represent?", "o": ["Fundamental analysis for long-term position traders", "Technical analysis preferred by short-term traders focusing on price movements and market psychology", "Economic top-down analysis", "Qualitative fundamental governance analysis"], "a": 1, "e": "Technical analysis focuses on charts, volume, and price movements and is preferred by short-term traders.", "type": "MCQ."},
+            {"q": "[HIGH-LEVEL] A top-down fundamental analyst starts their research by evaluating global and national GDP growth rates, interest rate trajectories, and inflation indicators before selecting a specific industry sector and finally analyzing individual company balance sheets. Why is this sequence logically sound?", "o": ["Because macroeconomic conditions profoundly influence industry profitability and individual corporate earnings potential", "Because companies operate in complete isolation from the economy", "Because technical charts require GDP inputs", "Because top-down analysis starts with company management first"], "a": 0, "e": "Top-down approach moves from Economy -> Sectors -> Companies because macro conditions set the stage for industry and firm performance.", "type": "MCQ."},
+            {"q": "[HIGH-LEVEL] During a severe market panic, external breaking news causes widespread irrational selling across all stocks, temporarily driving prices far below their fundamental quantitative fair values. A technical analyst observes heavy volume during this downward trend. How do fundamental and technical perspectives diverge in interpreting this event?", "o": ["Fundamental analysts see a long-term buying opportunity based on asset value; technical analysts focus on the ongoing downward price trend and market psychology until a reversal signal appears", "Both analysts immediately exit the market forever", "Fundamental analysts switch to charting candlesticks", "Technical analysts audit the balance sheet assets"], "a": 0, "e": "Fundamentals view it through fair value and long-term adjustment, while technicals focus on price trends, volume, and market psychology.", "type": "MCQ."},
+            {"q": "[HIGH-LEVEL] If a company reports stellar quantitative financial results (high ROE, strong asset growth, surging EPS), but qualitative fundamental analysis reveals corrupt corporate governance and a flawed business model, what does the fundamental framework imply for the investor?", "o": ["Ignore qualitative factors completely as numbers are all that matters", "Exercise caution or reject the investment, because qualitative factors like governance and business models are critical pillars of fundamental evaluation alongside quantitative data", "Immediately adopt technical chart indicators", "Assume short-term price trends will repeat history"], "a": 1, "e": "Fundamental analysis requires examining both quantitative (financial statements) and qualitative (governance, business model, management) data for a complete picture.", "type": "MCQ."}
+        ];
+
+        const P2_SOURCE = [
+            // Standard Questions (1-45)
+            {"q": "Fundamental analysis and technical analysis are the two primary approaches to security analysis.", "o": ["True", "False"], "a": 0, "e": "True: Security analysis divides into fundamental and technical approaches.", "type": "TF"},
+            {"q": "Fundamental analysis measures a security's fair value by analyzing related economic, market, and financial factors.", "o": ["True", "False"], "a": 0, "e": "True: FA measures fair value using economic, market, and financial factors.", "type": "TF"},
+            {"q": "Fair value is determined solely by the current second-by-second market tick price.", "o": ["True", "False"], "a": 1, "e": "False: Fair value is based on financial situation, industry, and economic conditions, not just current tick price.", "type": "TF"},
+            {"q": "Fundamental analysts study macroeconomic factors as well as microeconomic factors like management effectiveness.", "o": ["True", "False"], "a": 0, "e": "True: Analysts study everything from macro economy to micro management.", "type": "TF"},
+            {"q": "The end goal of fundamental analysis is to determine whether a security is undervalued or overvalued.", "o": ["True", "False"], "a": 0, "e": "True: Comparing calculated value with current price identifies undervaluation or overvaluation.", "type": "TF"},
+            {"q": "The Top-Down approach starts with individual company analysis and moves up to the economy.", "o": ["True", "False"], "a": 1, "e": "False: Top-down moves from Economy -> Sectors -> Companies.", "type": "TF"},
+            {"q": "The Bottom-Up approach starts from the company level and works up to sectors and the economy.", "o": ["True", "False"], "a": 0, "e": "True: Bottom-up moves from Company -> Sectors -> Economy.", "type": "TF"},
+            {"q": "Fundamental analysis divides into quantitative and qualitative analysis.", "o": ["True", "False"], "a": 0, "e": "True: Fundamental analysis has quantitative and qualitative types.", "type": "TF"},
+            {"q": "Financial statements, income statements, and balance sheets are part of quantitative fundamental analysis.", "o": ["True", "False"], "a": 0, "e": "True: Financial statements are quantitative fundamental analysis.", "type": "TF"},
+            {"q": "Business models, competitive advantage, management, and corporate governance are qualitative fundamental analysis.", "o": ["True", "False"], "a": 0, "e": "True: These are qualitative fundamental factors.", "type": "TF"},
+            {"q": "The three phases of fundamental analysis are Economic analysis, Industry analysis, and Company analysis.", "o": ["True", "False"], "a": 0, "e": "True: These three are the fundamental analysis levels.", "type": "TF"},
+            {"q": "Fundamental analysis assumes stock prices always match their true value instantly in the short term.", "o": ["True", "False"], "a": 1, "e": "False: It assumes short-term prices don't match value, but adjust in the long term.", "type": "TF"},
+            {"q": "Economic analysis examines the general economic status and condition of the country using economic indicators.", "o": ["True", "False"], "a": 0, "e": "True: Economic analysis evaluates national economic status via indicators.", "type": "TF"},
+            {"q": "Industry analysis uses competitive analysis and industry life cycle analysis.", "o": ["True", "False"], "a": 0, "e": "True: Industry analysis uses competitive and life cycle analysis.", "type": "TF"},
+            {"q": "Company analysis determines whether to buy, sell, or hold shares by examining sales, profitability, EPS, and management.", "o": ["True", "False"], "a": 0, "e": "True: Company analysis examines these characteristics for buy/sell/hold decisions.", "type": "TF"},
+            {"q": "Fundamental analysis principles state that asset prices do not necessarily reflect their real value.", "o": ["True", "False"], "a": 0, "e": "True: Principle 1 states asset prices may be underpriced or overpriced relative to real value.", "type": "TF"},
+            {"q": "Technical analysis studies the movement of the market using charts and historical trading info.", "o": ["True", "False"], "a": 0, "e": "True: Technical analysis studies market movement through charts and trading records.", "type": "TF"},
+            {"q": "Technical analysis focuses on trading date, price, and volume.", "o": ["True", "False"], "a": 0, "e": "True: Technical analysis records trading date, price, and volume in charts.", "type": "TF"},
+            {"q": "One of the 3 key principles of technical analysis is that all relevant information is already reflected in the stock price.", "o": ["True", "False"], "a": 0, "e": "True: This is the first key technical principle.", "type": "TF"},
+            {"q": "Technical analysis principles state that stock prices move in trends and history tends to repeat itself.", "o": ["True", "False"], "a": 0, "e": "True: These comprise principles 2 and 3 of technical analysis.", "type": "TF"},
+            {"q": "Price charts, indicators, and oscillators are tools used for technical analysis.", "o": ["True", "False"], "a": 0, "e": "True: These are technical analysis tools.", "type": "TF"},
+            {"q": "In technical analysis, price changes represent changes in investor attitude and demand/supply.", "o": ["True", "False"], "a": 0, "e": "True: Price changes reflect shifts in investor attitude and supply/demand.", "type": "TF"},
+            {"q": "There is an inverse relationship between trading volume and market prices in technical analysis.", "o": ["True", "False"], "a": 0, "e": "True: Volume increases when prices decline (bottom) and decreases when prices rise (top).", "type": "TF"},
+            {"q": "Fundamental analysis is used for investment-related functions, while technical analysis is for trading-related functions.", "o": ["True", "False"], "a": 0, "e": "True: Fundamental is investment-focused; technical is trading-focused.", "type": "TF"},
+            {"q": "Fundamental analysis is relevant for short-term investments, while technical analysis is for long-term investments.", "o": ["True", "False"], "a": 1, "e": "False: Fundamental is long-term; technical is short-term.", "type": "TF"},
+            {"q": "Fundamental analysis focuses on historical and present data, whereas technical analysis focuses only on historical data.", "o": ["True", "False"], "a": 0, "e": "True: Fundamental uses historical and present data; technical uses only historical data.", "type": "TF"},
+            {"q": "The primary aim of technical analysis is to identify the perfect time to invest or withdraw from the market.", "o": ["True", "False"], "a": 0, "e": "True: Technical analysis identifies market entry and exit timing.", "type": "TF"},
+            {"q": "Market prices and trends are the basis of decision-making in technical analysis.", "o": ["True", "False"], "a": 0, "e": "True: Technical decisions rely on market prices and trends.", "type": "TF"},
+            {"q": "Technical analysis examines market psychology and price movements.", "o": ["True", "False"], "a": 0, "e": "True: Technical methodology examines market psychology and price movements.", "type": "TF"},
+            {"q": "In technical analysis, data is sourced from chart analysis.", "o": ["True", "False"], "a": 0, "e": "True: Technical data source is chart analysis.", "type": "TF"},
+            {"q": "Fundamental analysis sources data from economic reports, industry statistics, financial statements, and news.", "o": ["True", "False"], "a": 0, "e": "True: Fundamental data comes from economic reports, statements, news, etc..", "type": "TF"},
+            {"q": "Fundamental analysis utilizes concepts like ROA and ROE.", "o": ["True", "False"], "a": 0, "e": "True: ROA and ROE are fundamental analysis concepts.", "type": "TF"},
+            {"q": "Technical analysis utilizes concepts like price data, time, and volume.", "o": ["True", "False"], "a": 0, "e": "True: Technical concepts include price, time, and volume.", "type": "TF"},
+            {"q": "Long-term position traders prefer fundamental analysis, whereas short-term traders prefer technical analysis.", "o": ["True", "False"], "a": 0, "e": "True: Position traders use fundamental; short-term traders use technical.", "type": "TF"},
+            {"q": "Fundamental analysis remains un-impacted by external news.", "o": ["True", "False"], "a": 0, "e": "True: Fundamental analysis remains un-impacted with external news.", "type": "TF"},
+            {"q": "Technical analysis can get impacted due to external news.", "o": ["True", "False"], "a": 0, "e": "True: Technical analysis can be impacted by external news.", "type": "TF"},
+            {"q": "Fundamental analysis studies expenses, revenues, assets, liabilities, and debt-equity ratio.", "o": ["True", "False"], "a": 0, "e": "True: These financial analysis metrics belong to fundamental analysis.", "type": "TF"},
+            {"q": "Technical analysis makes use of charts, patterns, and waves.", "o": ["True", "False"], "a": 0, "e": "True: Technical analysis uses charts, patterns, and waves.", "type": "TF"},
+            {"q": "The degree of price movement in technical analysis is a function of time.", "o": ["True", "False"], "a": 0, "e": "True: Price movement degree is a function of time.", "type": "TF"},
+            {"q": "Fundamental analysis is exclusively concerned with charting intraday stock price wicks.", "o": ["True", "False"], "a": 1, "e": "False: Fundamental analysis evaluates economic, industry, and financial factors, not intraday wicks.", "type": "TF"},
+            {"q": "Technical analysis evaluates a company's corporate governance and board effectiveness.", "o": ["True", "False"], "a": 1, "e": "False: Governance evaluation belongs to qualitative fundamental analysis, not technical analysis.", "type": "TF"},
+            {"q": "An inverse relationship exists where trading volume increases when prices decline towards the bottom.", "o": ["True", "False"], "a": 0, "e": "True: Volume increases during downward price movements toward the bottom.", "type": "TF"},
+            {"q": "The primary aim of fundamental analysis is identifying the exact second to enter a short-term trade.", "o": ["True", "False"], "a": 1, "e": "False: Identifying exact entry seconds is the aim of technical trading, whereas fundamental analysis finds fair value for long-term investing.", "type": "TF"},
+            {"q": "Industry analysis evaluates industry classifications using industry life cycle analysis.", "o": ["True", "False"], "a": 0, "e": "True: Industry analysis uses industry life cycle analysis.", "type": "TF"},
+            {"q": "Company analysis examines sales, profitability, and EPS to decide whether to buy, sell, or hold shares.", "o": ["True", "False"], "a": 0, "e": "True: Company analysis examines sales, profitability, and EPS for share decisions.", "type": "TF"},
+
+            // High-Level Questions (46-50)
+            {"q": "[HIGH-LEVEL] If a fundamental analyst determines that a stock's intrinsic fair value is EP 100 based on robust financial statements and economic forecasts, but the stock trades at EP 60 due to a temporary market panic, the fundamental framework suggests the stock is undervalued and presents a compelling long-term investment opportunity.", "o": ["True", "False"], "a": 0, "e": "True: Fundamental analysis identifies undervalued assets when current price sits below calculated fair value with long-term adjustment expectation.", "type": "TF"},
+            {"q": "[HIGH-LEVEL] A technical trader relying solely on historical price charts and volume indicators is fully insulated from external news events and will never experience price shocks from breaking geopolitical headlines.", "o": ["True", "False"], "a": 1, "e": "False: Technical analysis can get heavily impacted due to external news, whereas fundamental analysis remains un-impacted.", "type": "TF"},
+            {"q": "[HIGH-LEVEL] In a top-down fundamental analysis framework, analyzing company-level management before examining national economic indicators and industry sector trends follows the correct prescribed hierarchical sequence.", "o": ["True", "False"], "a": 1, "e": "False: Top-down analysis moves hierarchically from Economy -> Sectors -> Companies, not company first.", "type": "TF"},
+            {"q": "[HIGH-LEVEL] If trading volume decreases while stock prices rise toward a peak (top), it contradicts the technical analysis principle of inverse volume-price relationships where volume increases during price declines and decreases during price rises.", "o": ["True", "False"], "a": 1, "e": "False: Volume decreasing during rising prices and increasing during declining prices actually conforms perfectly to the stated inverse volume-price relationship rule.", "type": "TF"},
+            {"q": "[HIGH-LEVEL] A long-term position investor who evaluates a company's balance sheet, income statement, ROE, business model, and corporate governance is utilizing quantitative and qualitative fundamental analysis rather than technical chart oscillators.", "o": ["True", "False"], "a": 0, "e": "True: Evaluating financial statements (ROA/ROE) and qualitative factors (governance, business model) defines fundamental analysis utilized by long-term position investors.", "type": "TF"}
+        ];
+
+        const getQuestionType = question => question.type.replace(/[.!?]+$/, "");
+
+        const P1_DATA = [
+            ...P1_SOURCE.filter(question => getQuestionType(question) === "MCQ"),
+            ...P2_SOURCE.filter(question => getQuestionType(question) === "MCQ")
+        ];
+        const P2_DATA = [
+            ...P1_SOURCE.filter(question => getQuestionType(question) === "TF"),
+            ...P2_SOURCE.filter(question => getQuestionType(question) === "TF")
+        ];
+
+        let activePart = 1;
+        let qData = P1_DATA;
+        let cIdx = 0;
+        let score = 0;
+        let wrongList = [];
+
+        const $ = id => document.getElementById(id);
+
+        function switchPart(part) {
+            activePart = part;
+            $("tab1").className = "tab-btn " + (part === 1 ? "active" : "");
+            $("tab2").className = "tab-btn " + (part === 2 ? "active" : "");
+            qData = part === 1 ? P1_DATA : P2_DATA;
+            resetQuiz();
+        }
+
+        function resetQuiz() {
+            cIdx = 0;
+            score = 0;
+            wrongList = [];
+            renderQuestion();
+        }
+
+        function renderQuestion() {
+            const q = qData[cIdx];
+            $("n").textContent = `Question ${cIdx + 1} of ${qData.length}`;
+            $("s").textContent = `Score: ${score}`;
+            $("bar").style.width = `${(cIdx / qData.length) * 100}%`;
+
+            const isHighLevel = cIdx >= 45;
+            const badgeClass = isHighLevel ? "q-badge high-level" : "q-badge";
+            const badgeText = isHighLevel 
+                ? (getQuestionType(q) === 'TF' ? 'True / False — High Level' : 'Multiple Choice — High Level')
+                : (getQuestionType(q) === 'TF' ? 'True / False' : 'Multiple Choice');
+
+            let diagHtml = q.diagram ? `<div class="diagram-container">${q.diagram}</div>` : '';
+            
+            $("card").innerHTML = `
+                <span class="${badgeClass}">${badgeText}</span>
+                <p class="q">${q.q}</p>
+                ${diagHtml}
+                <div id="opts"></div>
+                <div id="fb"></div>
+            `;
+
+            q.o.forEach((optText, i) => {
+                const b = document.createElement("button");
+                b.className = "opt";
+                b.innerHTML = `<b>${getQuestionType(q) === 'TF' ? (i===0?'T':'F') : "ABCD"[i] + ")"}</b><span></span>`;
+                b.querySelector("span").textContent = optText;
+                b.onclick = () => handleAnswer(i);
+                $("opts").appendChild(b);
+            });
+        }
+
+        function handleAnswer(selected) {
+            const q = qData[cIdx];
+            const isCorrect = selected === q.a;
+            const buttons = document.querySelectorAll(".opt");
+
+            buttons.forEach((btn, idx) => {
+                btn.disabled = true;
+                if (idx === q.a) btn.classList.add("ok");
+                else if (idx === selected) btn.classList.add("no");
+            });
+
+            if (isCorrect) score++;
+            else wrongList.push(cIdx);
+
+            $("s").textContent = `Score: ${score}`;
+
+            $("fb").innerHTML = `
+                <div class="ex ${isCorrect ? 'ok' : 'no'}">
+                    <strong>${isCorrect ? 'Correct answer ✓' : 'Incorrect answer ✗'}</strong>
+                    <span>${q.e}</span>
+                </div>
+                <button class="btn" id="nxtBtn">${cIdx < qData.length - 1 ? 'Next question' : 'Show final results'}</button>
+            `;
+
+            $("nxtBtn").onclick = () => {
+                cIdx++;
+                if (cIdx < qData.length) renderQuestion();
+                else finishQuiz();
+            };
+            $("nxtBtn").focus();
+        }
+
+        function finishQuiz() {
+            $("bar").style.width = "100%";
+            $("n").textContent = "Quiz complete";
+            const pct = Math.round((score / qData.length) * 100);
+            
+            let html = `
+                <div class="score">${score} / ${qData.length}</div>
+                <p style="text-align:center;font-size:1.2rem;margin:0 0 16px;">Percentage: <b>${pct}%</b></p>
+            `;
+
+            if (wrongList.length > 0) {
+                html += `<p style="margin:16px 0 8px;"><b>Questions to review:</b></p><ul class="rev">`;
+                wrongList.forEach(w => {
+                    html += `<li><b>Question ${w + 1}:</b> ${qData[w].q}</li>`;
+                });
+                html += `</ul>`;
+            } else {
+                html += `<p style="text-align:center;color:var(--ok);">Excellent! All answers are correct (100%).</p>`;
+            }
+
+            html += `<button class="btn" onclick="resetQuiz()">Restart quiz</button>`;
+            $("card").innerHTML = html;
+        }
+
+        renderQuestion();
+    </script>
+</body>
+</html>

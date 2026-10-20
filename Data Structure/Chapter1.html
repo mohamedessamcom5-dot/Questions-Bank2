@@ -1,0 +1,442 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Data Structures</title>
+    <style>
+        :root {
+            --bg: #0f172a;
+            --c: #1e293b;
+            --t: #f8fafc;
+            --m: #94a3b8;
+            --b: #334155;
+            --ac: #38bdf8;
+            --ok: #22c55e;
+            --okb: #052e16;
+            --no: #ef4444;
+            --nob: #450a0a;
+            box-sizing: border-box;
+        }
+
+        @media(prefers-color-scheme: light) {
+            :root[data-theme=light] {
+                --bg: #f8fafc;
+                --c: #ffffff;
+                --t: #0f172a;
+                --m: #64748b;
+                --b: #e2e8f0;
+                --ac: #0284c7;
+                --okb: #dcfce7;
+                --nob: #fee2e2;
+                --ok: #16a34a;
+                --no: #dc2626;
+            }
+        }
+
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--t);
+            font-family: 'Segoe UI', Tahoma, system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+        }
+        main {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 24px 16px 60px;
+        }
+        .header-panel {
+            text-align: center;
+            margin-bottom: 24px;
+            border-bottom: 8px solid var(--b);
+            padding-bottom: 30px;
+        }
+        h1 { font-size: 1.5rem; margin: 0 0 8px; color: var(--ac); }
+        .sub { color: var(--m); font-size: 0.95rem; margin: 0; }
+        
+        .nav-tabs {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .tab-btn {
+            flex: 1;
+            padding: 12px;
+            background: var(--c);
+            border: 1px solid var(--b);
+            color: var(--t);
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .tab-btn.active {
+            background: var(--ac);
+            color: #000;
+            border-color: var(--ac);
+        }
+
+        .bar {
+            height: 8px;
+            background: var(--b);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+        .bar i {
+            display: block;
+            height: 100%;
+            background: var(--ac);
+            width: 0;
+            transition: width 0.3s;
+        }
+        .meta {
+            display: flex;
+            justify-content: space-between;
+            color: var(--m);
+            font-size: 0.9rem;
+            margin-bottom: 16px;
+        }
+        .card {
+            background: var(--c);
+            border: 1px solid var(--b);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+        .q-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            background: var(--b);
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+            color: var(--ac);
+        }
+        .q {
+            font-size: 1.1rem;
+            font-weight: 600;
+            direction: ltr;
+            text-align: left;
+            margin: 0 0 16px;
+        }
+        .diagram-container {
+            direction: ltr;
+            background: rgba(0,0,0,0.2);
+            border: 1px dashed var(--b);
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+        .opt {
+            display: flex;
+            gap: 12px;
+            direction: ltr;
+            text-align: left;
+            width: 100%;
+            background: var(--c);
+            color: var(--t);
+            border: 1.5px solid var(--b);
+            border-radius: 8px;
+            padding: 12px 14px;
+            margin-bottom: 10px;
+            font: inherit;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+        .opt:hover:not(:disabled) { border-color: var(--ac); }
+        .opt b { min-width: 1.5em; color: var(--ac); }
+        .opt.ok { background: var(--okb); border-color: var(--ok); }
+        .opt.no { background: var(--nob); border-color: var(--no); }
+        .opt:disabled { cursor: default; }
+
+        .ex {
+            margin-top: 16px;
+            padding: 14px;
+            border-radius: 8px;
+            direction: ltr;
+            text-align: left;
+            font-size: 0.95rem;
+        }
+        .ex.ok { background: var(--okb); border: 1px solid var(--ok); }
+        .ex.no { background: var(--nob); border: 1px solid var(--no); }
+        .ex strong { display: block; margin-bottom: 4px; }
+
+        .btn {
+            margin-top: 16px;
+            background: var(--ac);
+            color: #000;
+            border: 0;
+            border-radius: 8px;
+            padding: 12px 24px;
+            font: inherit;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+        }
+        .score { text-align: center; font-size: 3rem; font-weight: 800; margin: 12px 0; color: var(--ac); }
+        .rev { margin: 16px 0 0; padding: 0; list-style: none; direction: ltr; text-align: left; font-size: 0.9rem; }
+        .rev li { padding: 8px 0; border-top: 1px solid var(--b); }
+    </style>
+    <link rel="stylesheet" href="../site-theme.css">
+</head>
+<body>
+    <main>
+        <div class="header-panel">
+            <h1>Data Structures — Chapter 1</h1>
+               <p class="sub">Introduction to Data Structures</p>
+            <p class="sub"></p>
+        </div>
+
+        <div class="nav-tabs">
+            <button class="tab-btn active" id="tab1" onclick="switchPart(1)">Multiple Choice</button>
+            <button class="tab-btn" id="tab2" onclick="switchPart(2)">True/False</button>
+        </div>
+
+        <div class="bar"><i id="bar"></i></div>
+        <div class="meta">
+            <span id="n"></span>
+            <span id="s"></span>
+        </div>
+        <div class="card" id="card"></div>
+    </main>
+      
+    <script>
+        const P1_SOURCE = [
+            // --- Part 1: MCQ Question bank For BIDT Level Three For BIDT Level Three ---
+            {"q": "what defines the relationship between data items in computer science?", "o": ["The compiler settings", "The data structure design", "The hardware clock speed", "The bus bandwidth"], "a": 1, "e": "Data structures logically define relationships, storage organization, and usable operations.", "type": "MCQ"},
+            {"q": "Which criteria is NOT listed as a core course learning outcome for Data Structures?", "o": ["Evaluate performance in time and space complexity", "Implement basic structures in code", "Build physical computer memory hardware", "Develop and test real-world algorithms"], "a": 2, "e": "Building physical hardware is not a learning outcome of this software course.", "type": "MCQ"},
+            {"q": "Non-Primitive structures are broadly subdivided into:", "o": ["Static and Dynamic", "Linear and Non-Linear", "Primitive and Complex", "Sequential and Binary"], "a": 1, "e": "Non-Primitive structures break down into Linear and Non-Linear branches.", "type": "MCQ"},
+            {"q": "Which statement correctly describes Array memory alignment?", "o": ["Nodes connected via dynamic references", "Continuous sequential byte blocks", "Randomly assigned heap blocks", "Hierarchical tree branches"], "a": 1, "e": "Arrays occupy contiguous memory blocks.", "type": "MCQ"},
+            {"q": "If array standard address starts at 1000 and each integer takes 4 bytes, index 3 sits at address:", "o": ["1003", "1008", "1012", "1016"], "a": 2, "e": "Base + (Index * Size) = 1000 + (3 * 4) = 1012.", "type": "MCQ"},
+            {"q": "In a Linked List, what does each node contain?", "o": ["Data and a pointer to the next node", "Data and array index", "Only primitive integer keys", "Left and Right child pointers"], "a": 0, "e": "Standard singly linked list nodes store Data and a Next pointer.", "type": "MCQ"},
+            {"q": "What happens when you attempt to pop from an empty Stack?", "o": ["Stack Overflow", "Stack Underflow", "Memory Fragmentation", "Garbage Collection"], "a": 1, "e": "Removing an element from an empty collection results in Underflow.", "type": "MCQ"},
+            {"q": "The Queue operates on which real-world behavioral model?", "o": ["A stack of dinner plates", "A line of customers waiting at a ticket box", "An undo history in text editor", "A nested function call stack"], "a": 1, "e": "A customer queue operates strictly on First-Come First-Served (FIFO).", "type": "MCQ"},
+            {"q": "In a Complete Binary Tree with N internal nodes, each node can have at most how many children?", "o": ["1", "2", "3", "N"], "a": 1, "e": "Binary trees constrain each node to at most two children (left and right).", "type": "MCQ"},
+            {"q": "Which Heap type maintains the property that any parent node is less than or equal to its children?", "o": ["Max-Heap", "Min-Heap", "Binary Search Tree", "Balanced Heap"], "a": 1, "e": "In a Min-Heap, the parent key is always smaller or equal to child keys.", "type": "MCQ"},
+            {"q": "Graphs consist of a set of Vertices (Nodes) connected by:", "o": ["Pointers only", "Edges", "Gutters", "Registers"], "a": 1, "e": "Graphs are mathematically structured as G = (V, E), where E represents Edges.", "type": "MCQ"},
+            {"q": "Which fundamental operation rearranges items in ascending or descending sequence?", "o": ["Searching", "Traversal", "Sorting", "Insertion"], "a": 2, "e": "Sorting organizes elements in order.", "type": "MCQ"},
+            {"q": "Stack memory lifetime is explicitly tied to:", "o": ["Manual free() statements", "Function execution scope", "Application exit", "Garbage Collector cycles"], "a": 1, "e": "Stack frames are allocated on call and destroyed automatically upon function return.", "type": "MCQ"},
+            {"q": "In C, which library function is used to allocate dynamic memory on the Heap?", "o": ["alloc_stack()", "malloc()", "push()", "create()"], "a": 1, "e": "malloc() (memory allocate) reserves continuous bytes on the heap.", "type": "MCQ"},
+            {"q": "What risk increases when Heap memory is repeatedly allocated and deallocated haphazardly?", "o": ["Stack Overflow", "External/Internal Fragmentation", "Compilation Error", "Zero Division"], "a": 1, "e": "Arbitrary heap operations leave scattered gaps known as memory fragmentation.", "type": "MCQ"},
+            {"q": "Which data structure is ideal for tracking recursive function execution backtraces?", "o": ["Queue", "Stack", "Graph", "Array"], "a": 1, "e": "The system call stack relies on Stack data structures to manage recursive frames.", "type": "MCQ"},
+            {"q": "A queue has Enqueue operations: 10, 20, 30. One Dequeue is called. What is returned?", "o": ["30", "20", "10", "None"], "a": 2, "e": "First-In First-Out: 10 was enqueued first, so 10 is dequeued first.", "type": "MCQ"},
+            {"q": "A stack has Push operations: 10, 20, 30. One Pop is called. What is returned?", "o": ["10", "20", "30", "None"], "a": 2, "e": "Last-In First-Out: 30 was pushed last, so 30 is popped first.", "type": "MCQ"},
+            {"q": "Which component in a Linked List signals the end of the chain?", "o": ["A node pointing to NULL", "A node pointing back to Head", "A special -1 integer key", "A stack frame"], "a": 0, "e": "The final node's Next pointer points to NULL.", "type": "MCQ"},
+            {"q": "What structural role does an Edge perform in a Graph?", "o": ["Stores string payloads", "Establishes a connection between two nodes", "Tracks stack depth", "Deallocates heap memory"], "a": 1, "e": "Edges define the connections between vertices.", "type": "MCQ"},
+            {"q": "Heap allocation is slower than Stack allocation because:", "o": ["Stack requires operating system context switching", "Heap requires searching suitable free memory blocks and tracking metadata", "Heap is located in external hard drive storage", "Stack uses non-linear search algorithms"], "a": 1, "e": "Heap allocation requires complex memory bookkeeping and block searching.", "type": "MCQ"},
+            {"q": "Which data structure is strictly mandatory for implementing Breadth-First Search (BFS)?", "o": ["Stack", "Queue", "Heap", "Array"], "a": 1, "e": "BFS systematically uses a Queue to process vertices level by level.", "type": "MCQ"},
+            {"q": "Which data structure is naturally used by Depth-First Search (DFS)?", "o": ["Queue", "Stack (or Recursion)", "Min-Heap", "Dynamic Array"], "a": 1, "e": "DFS utilizes a Stack (either explicit or system call stack via recursion).", "type": "MCQ"},
+            {"q": "The top-most node of a Tree hierarchy is called the:", "o": ["Leaf", "Branch", "Root", "Parent"], "a": 2, "e": "The root node is the top entry point of a tree structure.", "type": "MCQ"},
+            {"q": "Nodes in a Tree that have zero children are designated as:", "o": ["Root nodes", "Leaf nodes", "Internal nodes", "Ancestor nodes"], "a": 1, "e": "Leaf nodes reside at the boundaries and have no children.", "type": "MCQ"},
+            {"q": "Which structure maintains elements in strict key order where left child < root < right child?", "o": ["Max-Heap", "Binary Search Tree (BST)", "Queue", "Singly Linked List"], "a": 1, "e": "Binary Search Trees fulfill the ordered BST invariant property.", "type": "MCQ"},
+            {"q": "Re-assigning a pointer without freeing its original dynamically allocated memory causes:", "o": ["Dangling Pointer", "Memory Leak", "Buffer Overflow", "Null Reference"], "a": 1, "e": "Losing the address of heap memory without freeing it causes a Memory Leak.", "type": "MCQ"},
+            {"q": "What is a Dangling Pointer?", "o": ["A pointer set to NULL", "A pointer referencing a memory address that has been freed", "A pointer pointing to global segment", "An uninitialized integer"], "a": 1, "e": "A dangling pointer points to memory that has already been deallocated.", "type": "MCQ"},
+            {"q": "Which data structure type stores memory contiguous to each element, allowing offset mathematical calculations for indexing?", "o": ["Linked List", "Graph", "Array", "Binary Tree"], "a": 2, "e": "Arrays store elements in contiguous memory locations, making index calculation simple base offset arithmetic.", "type": "MCQ", "diagram": `<svg width="240" height="50" viewBox="0 0 240 50"><rect x="10" y="10" width="40" height="30" fill="none" stroke="#38bdf8" stroke-width="2"/><rect x="50" y="10" width="40" height="30" fill="none" stroke="#38bdf8" stroke-width="2"/><rect x="90" y="10" width="40" height="30" fill="none" stroke="#38bdf8" stroke-width="2"/><text x="30" y="30" fill="#fff" text-anchor="middle">0x01</text><text x="70" y="30" fill="#fff" text-anchor="middle">0x05</text><text x="110" y="30" fill="#fff" text-anchor="middle">0x09</text></svg>`},
+        ];
+
+        const P2_SOURCE = [
+            // --- Part 2: mixed Question bank For BIDT Level Three For BIDT Level Three ---
+            {"q": "According to Chapter 1, what defines the relationship between data items in computer science?", "o": ["The compiler settings", "The data structure design", "The hardware clock speed", "The bus bandwidth"], "a": 1, "e": "Data structures logically define relationships, storage organization, and usable operations.", "type": "MCQ"},
+            {"q": "Which criteria is NOT listed as a core course learning outcome for Data Structures?", "o": ["Evaluate performance in time and space complexity", "Implement basic structures in code", "Build physical computer memory hardware", "Develop and test real-world algorithms"], "a": 2, "e": "Building physical hardware is not a learning outcome of this software course.", "type": "MCQ"},
+            // {"q": "How many total marks are assigned to attendance, assignments, and section work combined?", "o": ["10 Marks", "20 Marks", "30 Marks", "40 Marks"], "a": 2, "e": "Attendance (10) + Assignment (10) + Section (10) = 30 Marks total.", "type": "MCQ"},
+            {"q": "Non-Primitive structures are broadly subdivided into:", "o": ["Static and Dynamic", "Linear and Non-Linear", "Primitive and Complex", "Sequential and Binary"], "a": 1, "e": "Non-Primitive structures break down into Linear and Non-Linear branches.", "type": "MCQ"},
+            {"q": "Which statement correctly describes Array memory alignment?", "o": ["Nodes connected via dynamic references", "Continuous sequential byte blocks", "Randomly assigned heap blocks", "Hierarchical tree branches"], "a": 1, "e": "Arrays occupy contiguous memory blocks.", "type": "MCQ"},
+            {"q": "If array standard address starts at 1000 and each integer takes 4 bytes, index 3 sits at address:", "o": ["1003", "1008", "1012", "1016"], "a": 2, "e": "Base + (Index * Size) = 1000 + (3 * 4) = 1012.", "type": "MCQ"},
+            {"q": "In a Linked List, what does each node contain?", "o": ["Data and a pointer to the next node", "Data and array index", "Only primitive integer keys", "Left and Right child pointers"], "a": 0, "e": "Standard singly linked list nodes store Data and a Next pointer.", "type": "MCQ"},
+            {"q": "What happens when you attempt to pop from an empty Stack?", "o": ["Stack Overflow", "Stack Underflow", "Memory Fragmentation", "Garbage Collection"], "a": 1, "e": "Removing an element from an empty collection results in Underflow.", "type": "MCQ"},
+            {"q": "The Queue operates on which real-world behavioral model?", "o": ["A stack of dinner plates", "A line of customers waiting at a ticket box", "An undo history in text editor", "A nested function call stack"], "a": 1, "e": "A customer queue operates strictly on First-Come First-Served (FIFO).", "type": "MCQ"},
+            {"q": "In a Complete Binary Tree with N internal nodes, each node can have at most how many children?", "o": ["1", "2", "3", "N"], "a": 1, "e": "Binary trees constrain each node to at most two children (left and right).", "type": "MCQ"},
+            {"q": "Which Heap type maintains the property that any parent node is less than or equal to its children?", "o": ["Max-Heap", "Min-Heap", "Binary Search Tree", "Balanced Heap"], "a": 1, "e": "In a Min-Heap, the parent key is always smaller or equal to child keys.", "type": "MCQ"},
+            {"q": "Graphs consist of a set of Vertices (Nodes) connected by:", "o": ["Pointers only", "Edges", "Gutters", "Registers"], "a": 1, "e": "Graphs are mathematically structured as G = (V, E), where E represents Edges.", "type": "MCQ"},
+            {"q": "Which fundamental operation rearranges items in ascending or descending sequence?", "o": ["Searching", "Traversal", "Sorting", "Insertion"], "a": 2, "e": "Sorting organizes elements in order.", "type": "MCQ"},
+            {"q": "Stack memory lifetime is explicitly tied to:", "o": ["Manual free() statements", "Function execution scope", "Application exit", "Garbage Collector cycles"], "a": 1, "e": "Stack frames are allocated on call and destroyed automatically upon function return.", "type": "MCQ"},
+            {"q": "In C, which library function is used to allocate dynamic memory on the Heap?", "o": ["alloc_stack()", "malloc()", "push()", "create()"], "a": 1, "e": "malloc() (memory allocate) reserves continuous bytes on the heap.", "type": "MCQ"},
+            {"q": "What risk increases when Heap memory is repeatedly allocated and deallocated haphazardly?", "o": ["Stack Overflow", "External/Internal Fragmentation", "Compilation Error", "Zero Division"], "a": 1, "e": "Arbitrary heap operations leave scattered gaps known as memory fragmentation.", "type": "MCQ"},
+            {"q": "Which data structure is ideal for tracking recursive function execution backtraces?", "o": ["Queue", "Stack", "Graph", "Array"], "a": 1, "e": "The system call stack relies on Stack data structures to manage recursive frames.", "type": "MCQ"},
+            {"q": "A queue has Enqueue operations: 10, 20, 30. One Dequeue is called. What is returned?", "o": ["30", "20", "10", "None"], "a": 2, "e": "First-In First-Out: 10 was enqueued first, so 10 is dequeued first.", "type": "MCQ"},
+            {"q": "A stack has Push operations: 10, 20, 30. One Pop is called. What is returned?", "o": ["10", "20", "30", "None"], "a": 2, "e": "Last-In First-Out: 30 was pushed last, so 30 is popped first.", "type": "MCQ"},
+            {"q": "Which component in a Linked List signals the end of the chain?", "o": ["A node pointing to NULL", "A node pointing back to Head", "A special -1 integer key", "A stack frame"], "a": 0, "e": "The final node's Next pointer points to NULL.", "type": "MCQ"},
+            {"q": "What structural role does an Edge perform in a Graph?", "o": ["Stores string payloads", "Establishes a connection between two nodes", "Tracks stack depth", "Deallocates heap memory"], "a": 1, "e": "Edges define the connections between vertices.", "type": "MCQ"},
+            {"q": "Heap allocation is slower than Stack allocation because:", "o": ["Stack requires operating system context switching", "Heap requires searching suitable free memory blocks and tracking metadata", "Heap is located in external hard drive storage", "Stack uses non-linear search algorithms"], "a": 1, "e": "Heap allocation requires complex memory bookkeeping and block searching.", "type": "MCQ"},
+            {"q": "Which data structure is strictly mandatory for implementing Breadth-First Search (BFS)?", "o": ["Stack", "Queue", "Heap", "Array"], "a": 1, "e": "BFS systematically uses a Queue to process vertices level by level.", "type": "MCQ"},
+            {"q": "Which data structure is naturally used by Depth-First Search (DFS)?", "o": ["Queue", "Stack (or Recursion)", "Min-Heap", "Dynamic Array"], "a": 1, "e": "DFS utilizes a Stack (either explicit or system call stack via recursion).", "type": "MCQ"},
+            {"q": "The top-most node of a Tree hierarchy is called the:", "o": ["Leaf", "Branch", "Root", "Parent"], "a": 2, "e": "The root node is the top entry point of a tree structure.", "type": "MCQ"},
+            {"q": "Nodes in a Tree that have zero children are designated as:", "o": ["Root nodes", "Leaf nodes", "Internal nodes", "Ancestor nodes"], "a": 1, "e": "Leaf nodes reside at the boundaries and have no children.", "type": "MCQ"},
+            {"q": "Which structure maintains elements in strict key order where left child < root < right child?", "o": ["Max-Heap", "Binary Search Tree (BST)", "Queue", "Singly Linked List"], "a": 1, "e": "Binary Search Trees fulfill the ordered BST invariant property.", "type": "MCQ"},
+            {"q": "Re-assigning a pointer without freeing its original dynamically allocated memory causes:", "o": ["Dangling Pointer", "Memory Leak", "Buffer Overflow", "Null Reference"], "a": 1, "e": "Losing the address of heap memory without freeing it causes a Memory Leak.", "type": "MCQ"},
+            {"q": "What is a Dangling Pointer?", "o": ["A pointer set to NULL", "A pointer referencing a memory address that has been freed", "A pointer pointing to global segment", "An uninitialized integer"], "a": 1, "e": "A dangling pointer points to memory that has already been deallocated.", "type": "MCQ"},
+            // True / False (20 Questions)
+            {"q": "A Data Structure is strictly defined as a physical hardware memory module designed for raw binary storage.", "o": ["True", "False"], "a": 1, "e": "False: A Data Structure is a logical/algorithmic way of organizing and storing data in computer software for efficient access and manipulation.", "type": "TF"},
+            {"q": "A Primitive Data Structure includes complex entities such as Trees, Graphs, and Heaps.", "o": ["True", "False"], "a": 1, "e": "False: Primitive structures are basic types like Int, Char, Bool, Float, Pointer. Trees and Graphs are Non-Primitive Non-Linear structures.", "type": "TF"},
+            {"q": "In a Queue data structure, insertion takes place at the Front/Head and deletion occurs at the Rear/Tail.", "o": ["True", "False"], "a": 1, "e": "False: Insertion (Enqueue) occurs at the Rear/Tail, and deletion (Dequeue) occurs at the Front/Head.", "type": "TF"},
+            {"q": "In a Max-Heap data structure, the key at the root node must be minimum among all its children.", "o": ["True", "False"], "a": 1, "e": "False: In a Max-Heap, the root key must be the GREATEST among all keys in its sub-tree. Min-Heap holds the minimum at root.", "type": "TF"},
+            {"q": "Stack memory allocation is managed manually by the programmer using malloc() or free().", "o": ["True", "False"], "a": 1, "e": "False: Stack allocation is managed AUTOMATICALLY by system execution. Heap memory requires manual allocation/deallocation in C/C++.", "type": "TF"},
+            {"q": "Pointers store direct memory addresses of other variables or hardware registers.", "o": ["True", "False"], "a": 0, "e": "True: A pointer is a variable whose value is the physical memory address of another variable.", "type": "TF"},
+            {"q": "Linear Data Structures are characterized by hierarchical multi-dimensional traversal pathways.", "o": ["True", "False"], "a": 1, "e": "False: Linear data structures have sequential, one-dimensional organization and simple traversal.", "type": "TF"},
+            {"q": "Unlike Arrays, elements in Linked Lists are stored in contiguous memory blocks.", "o": ["True", "False"], "a": 1, "e": "False: Linked list elements are scattered across memory and linked together sequentially using pointers.", "type": "TF"},
+            {"q": "Graphs are classified under Linear Data Structures.", "o": ["True", "False"], "a": 1, "e": "False: Graphs and Trees are Non-Linear Data Structures.", "type": "TF"},
+            {"q": "Heap data memory shares the same exact internal properties as a Min-Heap tree structure.", "o": ["True", "False"], "a": 1, "e": "False: Slide 27 states 'The name heap has no relation to the heap data structure; it simply refers to a large pool of memory'.", "type": "TF"},
+            {"q": "Pointer variables themselves are classified as Primitive Data Types.", "o": ["True", "False"], "a": 0, "e": "True: Pointers are listed under Primitive Data Structures alongside Int, Char, Float, and Bool.", "type": "TF"},
+            {"q": "Tree structures allow direct O(1) random index accessing like arrays.", "o": ["True", "False"], "a": 1, "e": "False: Trees require pointer traversal across nodes, rendering direct index offsets impossible.", "type": "TF"},
+            {"q": "In C++, memory allocated via new or malloc() is cleared automatically when the enclosing function terminates.", "o": ["True", "False"], "a": 1, "e": "False: Heap allocations persist across function calls until explicitly freed with delete/free() or collected by a GC.", "type": "TF"},
+            {"q": "A Binary Search Tree guarantees O(log N) operations even if elements are inserted in strictly sorted ascending order.", "o": ["True", "False"], "a": 1, "e": "False: Inserting sorted elements into an unbalanced BST degenerates the tree into a linked list with O(N) performance.", "type": "TF"},
+            {"q": "In a circular queue, the rear pointer can wrap around to index 0 using modulo arithmetic.", "o": ["True", "False"], "a": 0, "e": "True: Circular queues use index = (index + 1) % capacity to reuse empty slots created by dequeues.", "type": "TF"},
+            {"q": "Stack memory size is typically unlimited and governed only by system virtual memory limits.", "o": ["True", "False"], "a": 1, "e": "False: Stack space is small and rigidly constrained by the operating system (e.g., 1MB to 8MB).", "type": "TF"},
+            {"q": "Traversal of a Graph requires tracking visited nodes to prevent getting trapped in infinite loops caused by cycles.", "o": ["True", "False"], "a": 0, "e": "True: Cyclic graphs can cause infinite recursion/loops during DFS/BFS unless a 'visited' set is maintained.", "type": "TF"},
+            {"q": "An Array initialized with 5 elements occupies a variable amount of memory depending on stored numerical values.", "o": ["True", "False"], "a": 1, "e": "False: Arrays allocate fixed memory based on element data type size multiplied by fixed capacity.", "type": "TF"},
+            {"q": "A pointer holding address 0x00000000 (NULL) occupies 0 bytes of memory on a 64-bit architecture.", "o": ["True", "False"], "a": 1, "e": "False: A pointer variable itself always occupies 8 bytes on a 64-bit machine, regardless of whether its value is NULL or points to memory.", "type": "TF"},
+            {"q": "In virtual memory systems, stack memory addresses typically grow downwards towards lower memory addresses, while heap addresses grow upwards.", "o": ["True", "False"], "a": 0, "e": "True: On standard architectures (like x86/x64), the call stack expands toward lower memory addresses while the heap expands upward.", "type": "TF"},
+            // True / False (29 Questions)
+            {"q": "Heap memory exhibits dynamic size flexibility at runtime.", "o": ["True", "False"], "a": 0, "e": "True: Heap memory can scale dynamically based on runtime program requirements.", "type": "TF"},
+            {"q": "Primitive types are basic building blocks provided directly by programming languages.", "o": ["True", "False"], "a": 0, "e": "True: Int, Float, Char, Bool, Pointer are language-native primitives.", "type": "TF"},
+            {"q": "Searching in an unsorted Array of size N requires examining up to N elements.", "o": ["True", "False"], "a": 0, "e": "True: Unsorted array linear search has O(N) worst-case time complexity.", "type": "TF"},
+            {"q": "Non-linear data structures allow traversing items in a single straight path.", "o": ["True", "False"], "a": 1, "e": "False: Non-linear structures (trees/graphs) have complex multi-path branching.", "type": "TF"},
+            {"q": "Accessing an element in an Array by its valid index takes O(1) constant time.", "o": ["True", "False"], "a": 0, "e": "True: Direct index calculation grants O(1) random access.", "type": "TF"},
+            {"q": "Deletion in a Stack can occur from any arbitrary index position.", "o": ["True", "False"], "a": 1, "e": "False: Stack operations (push and pop) are strictly restricted to the Top.", "type": "TF"},
+            {"q": "Global variables in C programs are stored directly inside the Call Stack.", "o": ["True", "False"], "a": 1, "e": "False: Global variables sit in the Data/BSS (Global Segment), separate from the call stack.", "type": "TF"},
+            {"q": "The process of visiting every vertex in a Graph is called Graph Traversal.", "o": ["True", "False"], "a": 0, "e": "True: Methods like BFS and DFS systematically traverse graph vertices.", "type": "TF"},
+            {"q": "Array bounds overflow errors occur when attempting to access an index outside defined allocation.", "o": ["True", "False"], "a": 0, "e": "True: Accessing out-of-bounds indices leads to undefined behavior or crash.", "type": "TF"},
+            {"q": "In C++, calling 'delete' or 'free()' returns allocated heap space to the unallocated memory pool.", "o": ["True", "False"], "a": 0, "e": "True: explicit deallocation frees heap memory for reuse.", "type": "TF"},
+            {"q": "Stack memory size is typically much larger than Heap memory size.", "o": ["True", "False"], "a": 1, "e": "False: Stack memory is small and restricted (e.g., a few megabytes), whereas Heap is vast.", "type": "TF"},
+            {"q": "Dynamic memory allocation occurs at Compile Time.", "o": ["True", "False"], "a": 1, "e": "False: Dynamic allocation happens strictly at Runtime.", "type": "TF"},
+            {"q": "Static memory allocation size is determined at Compile Time.", "o": ["True", "False"], "a": 0, "e": "True: Static structures like primitive arrays have fixed sizes determined before execution.", "type": "TF"},
+            {"q": "Because Linked List nodes are scattered in memory, they exhibit excellent CPU cache locality.", "o": ["True", "False"], "a": 1, "e": "False: Non-contiguous pointer-chasing degrades CPU cache performance relative to arrays.", "type": "TF"},
+            {"q": "An empty Queue condition is met when Front index equals Rear + 1 (in static implementation).", "o": ["True", "False"], "a": 0, "e": "True: Indicates no valid items exist between front and rear.", "type": "TF"},
+            {"q": "An array index in C/C++/Python is 0-based.", "o": ["True", "False"], "a": 0, "e": "True: Zero-based indexing is standard in C, C++, and Python.", "type": "TF"},
+            {"q": "In a Queue with elements [10, 20, 30], calling top() will return 10.", "o": ["True", "False"], "a": 1, "e": "False: Queues do not use top(); they inspect front() (10) or rear() (30). Top belongs to Stacks.", "type": "TF"},
+            {"q": "Stack memory overflow can be triggered by infinite un-base-cased recursion.", "o": ["True", "False"], "a": 0, "e": "True: Unbounded recursive calls continuously stack frames until overflow occurs.", "type": "TF"},
+            {"q": "In Max-Heaps, the smallest element is guaranteed to sit at the root node.", "o": ["True", "False"], "a": 1, "e": "False: The LARGEST element sits at the root in a Max-Heap.", "type": "TF"},
+            {"q": "A Graph without cycles is known as an Acyclic Graph.", "o": ["True", "False"], "a": 0, "e": "True: A graph free of cyclic pathways is designated as an acyclic graph (e.g., DAG).", "type": "TF"},
+            {"q": "A Binary Tree with N nodes contains exactly N - 1 edges.", "o": ["True", "False"], "a": 0, "e": "True: Every non-root node in a tree has exactly one incoming edge from its parent, totaling N-1 edges.", "type": "TF"},
+            {"q": "Sorting algorithms like QuickSort rely heavily on recursion stack frames during execution.", "o": ["True", "False"], "a": 0, "e": "True: Recursive call stack space contributes to QuickSort's O(log N) auxiliary space complexity.", "type": "TF"},
+            {"q": "A Hash Table resolves key collisions strictly by doubling its primary memory size.", "o": ["True", "False"], "a": 1, "e": "False: Collisions are resolved via techniques such as Chaining (Linked Lists) or Open Addressing (Probing).", "type": "TF"},
+            {"q": "In a Max-Heap, every parent node key is greater than or equal to its children's keys.", "o": ["True", "False"], "a": 0, "e": "True: This structural invariant defines the heap property for Max-Heaps.", "type": "TF"},
+            {"q": "The Space Complexity of an algorithm evaluates its CPU execution timing.", "o": ["True", "False"], "a": 1, "e": "False: Space Complexity evaluates memory consumption, whereas Time Complexity measures CPU time.", "type": "TF"},
+            {"q": "A Linked List requires pre-allocating a continuous block of memory before inserting elements.", "o": ["True", "False"], "a": 1, "e": "False: Nodes are allocated dynamically in heap space individually as needed.", "type": "TF"},
+            {"q": "In C++, calling free() on an already freed pointer causes undefined behavior or crashes.", "o": ["True", "False"], "a": 0, "e": "True: Double-freeing heap memory corrupts memory manager metadata.", "type": "TF"},
+            {"q": "A Stack is a suitable data structure for evaluating postfix mathematical expressions.", "o": ["True", "False"], "a": 0, "e": "True: Operators pop operands from the stack, evaluate them, and push results back.", "type": "TF"},
+            {"q": "Data Structures + Algorithms = Programs.", "o": ["True", "False"], "a": 0, "e": "True: Niklaus Wirth's classic computer science identity.", "type": "TF"}
+        ];
+
+        const P1_DATA = [
+            ...P1_SOURCE.filter(question => question.type === "MCQ"),
+            ...P2_SOURCE.filter(question => question.type === "MCQ")
+        ];
+        const P2_DATA = [
+            ...P1_SOURCE.filter(question => question.type === "TF"),
+            ...P2_SOURCE.filter(question => question.type === "TF")
+        ];
+
+        let activePart = 1;
+        let qData = P1_DATA;
+        let cIdx = 0;
+        let score = 0;
+        let wrongList = [];
+
+        const $ = id => document.getElementById(id);
+
+        function switchPart(part) {
+            activePart = part;
+            $("tab1").className = "tab-btn " + (part === 1 ? "active" : "");
+            $("tab2").className = "tab-btn " + (part === 2 ? "active" : "");
+            qData = part === 1 ? P1_DATA : P2_DATA;
+            resetQuiz();
+        }
+
+        function resetQuiz() {
+            cIdx = 0;
+            score = 0;
+            wrongList = [];
+            renderQuestion();
+        }
+
+        function renderQuestion() {
+            const q = qData[cIdx];
+            $("n").textContent = `Question ${cIdx + 1} of ${qData.length}`;
+            $("s").textContent = `Score: ${score}`;
+            $("bar").style.width = `${(cIdx / qData.length) * 100}%`;
+
+            let diagHtml = q.diagram ? `<div class="diagram-container">${q.diagram}</div>` : '';
+            
+            $("card").innerHTML = `
+                <span class="q-badge">${q.type === 'TF' ? 'True / False' : 'Multiple Choice'}</span>
+                <p class="q">${q.q}</p>
+                ${diagHtml}
+                <div id="opts"></div>
+                <div id="fb"></div>
+            `;
+
+            q.o.forEach((optText, i) => {
+                const b = document.createElement("button");
+                b.className = "opt";
+                b.innerHTML = `<b>${q.type === 'TF' ? (i===0?'T':'F') : "ABCD"[i] + ")"}</b><span></span>`;
+                b.querySelector("span").textContent = optText;
+                b.onclick = () => handleAnswer(i);
+                $("opts").appendChild(b);
+            });
+        }
+
+        function handleAnswer(selected) {
+            const q = qData[cIdx];
+            const isCorrect = selected === q.a;
+            const buttons = document.querySelectorAll(".opt");
+
+            buttons.forEach((btn, idx) => {
+                btn.disabled = true;
+                if (idx === q.a) btn.classList.add("ok");
+                else if (idx === selected) btn.classList.add("no");
+            });
+
+            if (isCorrect) score++;
+            else wrongList.push(cIdx);
+
+            $("s").textContent = `Score: ${score}`;
+
+            $("fb").innerHTML = `
+                <div class="ex ${isCorrect ? 'ok' : 'no'}">
+                    <strong>${isCorrect ? 'Correct answer ✓' : 'Incorrect answer ✗'}</strong>
+                    <span>${q.e}</span>
+                </div>
+                <button class="btn" id="nxtBtn">${cIdx < qData.length - 1 ? 'Next question' : 'Show final results'}</button>
+            `;
+
+            $("nxtBtn").onclick = () => {
+                cIdx++;
+                if (cIdx < qData.length) renderQuestion();
+                else finishQuiz();
+            };
+            $("nxtBtn").focus();
+        }
+
+        function finishQuiz() {
+            $("bar").style.width = "100%";
+            $("n").textContent = "Quiz complete";
+            const pct = Math.round((score / qData.length) * 100);
+            
+            let html = `
+                <div class="score">${score} / ${qData.length}</div>
+                <p style="text-align:center;font-size:1.2rem;margin:0 0 16px;">Percentage: <b>${pct}%</b></p>
+            `;
+
+            if (wrongList.length > 0) {
+                html += `<p style="margin:16px 0 8px;"><b>Questions to review:</b></p><ul class="rev">`;
+                wrongList.forEach(w => {
+                    html += `<li><b>Question ${w + 1}:</b> ${qData[w].q}</li>`;
+                });
+                html += `</ul>`;
+            } else {
+                html += `<p style="text-align:center;color:var(--ok);">Excellent! All answers are correct (100%).</p>`;
+            }
+
+            html += `<button class="btn" onclick="resetQuiz()">Restart quiz</button>`;
+            $("card").innerHTML = html;
+        }
+
+        renderQuestion();
+    </script>
+</body>
+</html>

@@ -1,0 +1,427 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Finance — Chapter 1: Introduction to Financial Management</title>
+    <style>
+        :root {
+            --bg: #0f172a;
+            --c: #1e293b;
+            --t: #f8fafc;
+            --m: #94a3b8;
+            --b: #334155;
+            --ac: #38bdf8;
+            --ok: #22c55e;
+            --okb: #052e16;
+            --no: #ef4444;
+            --nob: #450a0a;
+            box-sizing: border-box;
+        }
+
+        @media(prefers-color-scheme: light) {
+            :root[data-theme=light] {
+                --bg: #f8fafc;
+                --c: #ffffff;
+                --t: #0f172a;
+                --m: #64748b;
+                --b: #e2e8f0;
+                --ac: #0284c7;
+                --okb: #dcfce7;
+                --nob: #fee2e2;
+                --ok: #16a34a;
+                --no: #dc2626;
+            }
+        }
+
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--t);
+            font-family: 'Segoe UI', Tahoma, system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+        }
+        main {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 24px 16px 60px;
+        }
+        .header-panel {
+            text-align: center;
+            margin-bottom: 24px;
+            border-bottom: 8px solid var(--b);
+            padding-bottom: 30px;
+        }
+        h1 { font-size: 1.5rem; margin: 0 0 8px; color: var(--ac); }
+        .sub { color: var(--m); font-size: 0.95rem; margin: 0; }
+        
+        .nav-tabs {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .tab-btn {
+            flex: 1;
+            padding: 12px;
+            background: var(--c);
+            border: 1px solid var(--b);
+            color: var(--t);
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .tab-btn.active {
+            background: var(--ac);
+            color: #000;
+            border-color: var(--ac);
+        }
+
+        .bar {
+            height: 8px;
+            background: var(--b);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+        .bar i {
+            display: block;
+            height: 100%;
+            background: var(--ac);
+            width: 0;
+            transition: width 0.3s;
+        }
+        .meta {
+            display: flex;
+            justify-content: space-between;
+            color: var(--m);
+            font-size: 0.9rem;
+            margin-bottom: 16px;
+        }
+        .card {
+            background: var(--c);
+            border: 1px solid var(--b);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+        .q-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            background: var(--b);
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+            color: var(--ac);
+        }
+        .q {
+            font-size: 1.1rem;
+            font-weight: 600;
+            direction: ltr;
+            text-align: left;
+            margin: 0 0 16px;
+        }
+        .diagram-container {
+            direction: ltr;
+            background: rgba(0,0,0,0.2);
+            border: 1px dashed var(--b);
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+        .opt {
+            display: flex;
+            gap: 12px;
+            direction: ltr;
+            text-align: left;
+            width: 100%;
+            background: var(--c);
+            color: var(--t);
+            border: 1.5px solid var(--b);
+            border-radius: 8px;
+            padding: 12px 14px;
+            margin-bottom: 10px;
+            font: inherit;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+        .opt:hover:not(:disabled) { border-color: var(--ac); }
+        .opt b { min-width: 1.5em; color: var(--ac); }
+        .opt.ok { background: var(--okb); border-color: var(--ok); }
+        .opt.no { background: var(--nob); border-color: var(--no); }
+        .opt:disabled { cursor: default; }
+
+        .ex {
+            margin-top: 16px;
+            padding: 14px;
+            border-radius: 8px;
+            direction: ltr;
+            text-align: left;
+            font-size: 0.95rem;
+        }
+        .ex.ok { background: var(--okb); border: 1px solid var(--ok); }
+        .ex.no { background: var(--nob); border: 1px solid var(--no); }
+        .ex strong { display: block; margin-bottom: 4px; }
+
+        .btn {
+            margin-top: 16px;
+            background: var(--ac);
+            color: #000;
+            border: 0;
+            border-radius: 8px;
+            padding: 12px 24px;
+            font: inherit;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+        }
+        .score { text-align: center; font-size: 3rem; font-weight: 800; margin: 12px 0; color: var(--ac); }
+        .rev { margin: 16px 0 0; padding: 0; list-style: none; direction: ltr; text-align: left; font-size: 0.9rem; }
+        .rev li { padding: 8px 0; border-top: 1px solid var(--b); }
+    </style>
+    <link rel="stylesheet" href="../site-theme.css">
+</head>
+<body>
+    <main>
+        <div class="header-panel">
+            <h1>Finance — Chapter 1</h1>
+            <p class="sub">Introduction to Financial Management</p>
+        </div>
+
+        <div class="nav-tabs">
+            <button class="tab-btn active" id="tab1" onclick="switchPart(1)">Multiple Choice</button>
+            <button class="tab-btn" id="tab2" onclick="switchPart(2)">True/False</button>
+        </div>
+
+        <div class="bar"><i id="bar"></i></div>
+        <div class="meta">
+            <span id="n"></span>
+            <span id="s"></span>
+        </div>
+        <div class="card" id="card"></div>
+    </main>
+      
+    <script>
+        const P1_DATA = [
+            // Standard Questions (1-45)
+            {"q": "How is 'Finance' defined in Chapter 1?", "o": ["The art and science of managing money", "The process of manufacturing physical goods", "The study of macroeconomic labor markets", "The regulation of government taxes"], "a": 0, "e": "Finance is defined as the art and science of managing money, and the provision of funds at the right time.", "type": "MCQ"},
+            {"q": "Finance is also referred to as:", "o": ["The elimination of operational risk", "The provision of funds at the right time", "The auditing of accounting records", "The maximization of short-term inventory"], "a": 1, "e": "Finance also is referred as the provision of funds at the right time.", "type": "MCQ"},
+            {"q": "What are the two primary sources of funds a company depends on to finance its capital?", "o": ["Short-term loans and credit cards", "Debt (External finance) and Equity (Internal finance)", "Retained earnings and government subsidies", "Bonds and physical inventory"], "a": 1, "e": "A company depends on two sources: debt (external finance) and equity (internal finance).", "type": "MCQ"},
+            {"q": "Debt financing is classified as:", "o": ["Internal finance", "External finance", "Equity finance", "Working capital"], "a": 1, "e": "Debt is external finance.", "type": "MCQ"},
+            {"q": "Equity financing is classified as:", "o": ["External finance", "Internal finance", "Debt obligation", "Public liability"], "a": 1, "e": "Equity is internal finance.", "type": "MCQ"},
+            {"q": "How is Finance broadly classified into two main categories?", "o": ["Corporate and Personal Finance", "Private Finance and Public Finance", "Domestic and International Finance", "Short-term and Long-term Finance"], "a": 1, "e": "Finance branches into Private Finance and Public Finance.", "type": "MCQ"},
+            {"q": "Which of the following falls under Private Finance?", "o": ["Central Government", "State Government", "Individual, Partnership, and Business Finance", "Semi-Government"], "a": 2, "e": "Private finance includes individual finance, partnership finance, and business finance.", "type": "MCQ"},
+            {"q": "Which of the following falls under Public Finance?", "o": ["Individual Finance", "Partnership Finance", "Business Finance", "Central Government, State Government, and Semi-Government"], "a": 3, "e": "Public finance includes central government, state government, and semi-government.", "type": "MCQ"},
+            {"q": "What are the two main goals of Financial Management discussed in Chapter 1?", "o": ["Revenue maximization and cost minimization", "Profit maximization and Wealth maximization", "Debt reduction and asset liquidation", "Tax avoidance and dividend payout"], "a": 1, "e": "The goals are profit maximization and wealth maximization.", "type": "MCQ"},
+            {"q": "Profit maximization refers specifically to the maximization of:", "o": ["Earnings Per Share (EPS)", "Total cash inflows", "Market share percentage", "Net present value"], "a": 0, "e": "Profit maximization refers to EPS maximization.", "type": "MCQ"},
+            {"q": "Which goal serves as a parameter of measuring the efficiency of a business concern?", "o": ["Wealth maximization", "Profit maximization", "Agency cost minimization", "Foreign exchange hedging"], "a": 1, "e": "Profit is the parameter of measuring the efficiency of the business concern.", "type": "MCQ"},
+            {"q": "Profit maximization is generally considered a:", "o": ["Long-term goal", "Short-term goal", "Permanent structural goal", "Global macroeconomic policy"], "a": 1, "e": "Profit maximization goal is a short-term goal.", "type": "MCQ"},
+            {"q": "Profit measurement depends heavily on:", "o": ["Present value of future cash flows", "Accounting policies and techniques", "Stock market investor sentiment", "International exchange rate fluctuations"], "a": 1, "e": "Profit measurement depends on accounting policies and techniques.", "type": "MCQ"},
+            {"q": "Wealth maximization is also known as:", "o": ["EPS maximization", "Value maximization or net present value maximization", "Short-term profit boosting", "Working capital minimization"], "a": 1, "e": "Wealth maximization is known as value maximization or net present value maximization.", "type": "MCQ"},
+            {"q": "Wealth maximization is based on which principal?", "o": ["Accounting accrual principle", "Cash flows principal", "Historical cost principle", "Tax deduction principle"], "a": 1, "e": "Wealth maximization is based on cash flows principal and present value of future cash flows.", "type": "MCQ"},
+            {"q": "Which financial goal explicitly takes the time value of money into account?", "o": ["Profit maximization", "Wealth maximization", "Cost minimization", "Revenue generation"], "a": 1, "e": "Wealth maximization takes the time value of money.", "type": "MCQ"},
+            {"q": "Wealth maximization is considered a:", "o": ["Short-term goal", "Long-term goal", "Daily operational target", "Seasonal budget target"], "a": 1, "e": "Wealth maximization goal is a long-term goal.", "type": "MCQ"},
+            {"q": "What should be the primary goal of the firm according to Chapter 1?", "o": ["Profit maximization", "Wealth maximization", "Minimization of debt", "Maximization of accounting revenue"], "a": 1, "e": "The goal of the firm should be wealth maximization not profit maximization.", "type": "MCQ"},
+            {"q": "Why is profit maximization rejected as the primary goal? (Select the matching disadvantage)", "o": ["It considers the time value of money", "It ignores the time value of money concept", "It focuses strictly on future cash flows", "It eliminates all business risk"], "a": 1, "e": "Profit maximization objective ignores the time value of money concept.", "type": "MCQ"},
+            {"q": "Another major disadvantage of profit maximization is that it:", "o": ["Focuses too much on stockholders' actual cash", "Ignores the risk associated with any investment opportunity", "Relies on net present value calculations", "Reduces agency conflicts"], "a": 1, "e": "Profit maximization ignores the risk associated with any investment opportunity.", "type": "MCQ"},
+            {"q": "Profit maximization objectives ignore:", "o": ["Accounting policies", "The actual figure of cash flow received by stockholders/owners", "Short-term efficiency", "Earnings per share"], "a": 1, "e": "Profit maximization ignores the actual figure of cash flow received by stockholders/owners.", "type": "MCQ"},
+            {"q": "What measurement issue plagues profit maximization?", "o": ["It has a problem of measurement due to varying accounting policies", "It is impossible to calculate EPS", "Cash flows cannot be quantified", "Stock prices are completely static"], "a": 0, "e": "Profit maximization objective has a problem of measurement.", "type": "MCQ"},
+            {"q": "Financial management is concerned with:", "o": ["Designing bank accounts for individuals", "The tasks and activities of a financial manager working in a business", "Trading national government bonds", "Macroeconomic central banking"], "a": 1, "e": "Financial management is concerned with the tasks and activities of a financial manager working in a business.", "type": "MCQ"},
+            {"q": "Financial services are defined as:", "o": ["The internal accounting bookkeeping of a single firm", "The area of finance concerned with the design and delivery of financial advice and products", "The physical storage of cash reserves", "The calculation of corporate tax liabilities"], "a": 1, "e": "Financial services is the area of finance concerned with the design and delivery of financial advice and products for different economic sectors.", "type": "MCQ"},
+            {"q": "How do financial management and financial services relate?", "o": ["Financial services are the output of financial management activities", "Financial management is a subset of retail banking", "They are completely unrelated fields", "Financial management replaces financial services"], "a": 0, "e": "Financial services are the output of financial management activities.", "type": "MCQ"},
+            {"q": "Which of the following is a key financial activity (role of the financial manager)?", "o": ["Developing strategic and tactical financial plans", "Managing factory machinery maintenance", "Hiring human resources staff", "Designing product packaging"], "a": 0, "e": "Developing strategic and tactical financial plans is a financial manager's role.", "type": "MCQ"},
+            {"q": "Looking for the most efficient short/long sources of funds is the responsibility of:", "o": ["The marketing manager", "The financial manager", "The production supervisor", "The external auditor"], "a": 1, "e": "Looking for efficient short/long sources of funds is a financial activity.", "type": "MCQ"},
+            {"q": "Managing working capital is classified under:", "o": ["Marketing activities", "Financial activities (role of the financial manager)", "Production scheduling", "Legal compliance"], "a": 1, "e": "Managing working capital is a financial activity.", "type": "MCQ"},
+            {"q": "Which activity deals with managing foreign exchange and risk?", "o": ["Financial activities / role of the financial manager", "Human resource management", "Supply chain logistics", "Customer service"], "a": 0, "e": "Managing risk and managing foreign exchange are financial activities.", "type": "MCQ"},
+            {"q": "Financial decisions can be broadly classified into how many groups?", "o": ["One group", "Two groups", "Three groups", "Four groups"], "a": 1, "e": "Financial decisions can be classified into two groups: investment decisions and financing decisions.", "type": "MCQ"},
+            {"q": "Investment decisions are related to which side of the balance sheet?", "o": ["Right-hand side (liabilities and stockholders equity)", "Left-hand side (assets)", "Off-balance sheet items", "Tax footnote disclosures"], "a": 1, "e": "Investment decisions are related to the left-hand side of the balance sheet (assets).", "type": "MCQ"},
+            {"q": "Financing decisions are related to which side of the balance sheet?", "o": ["Left-hand side (assets)", "Right-hand side (liabilities and stockholders equity)", "Income statement revenue", "Cash flow operating activities"], "a": 1, "e": "Financing decisions are related to the right-hand side of the balance sheet (liabilities and stockholders equity).", "type": "MCQ"},
+            {"q": "Short-term investment decisions involve:", "o": ["Managing current assets", "Managing long-term liabilities", "Issuing common stock", "Retirement of bonds"], "a": 0, "e": "Short-term investment decisions involve managing current assets.", "type": "MCQ"},
+            {"q": "Long-term investment decisions involve:", "o": ["Managing current liabilities", "Managing long-term assets", "Managing accounts payable", "Short-term bank loans"], "a": 1, "e": "Long-term investment decisions involve managing long-term assets.", "type": "MCQ"},
+            {"q": "Short-term financing decisions involve:", "o": ["Managing current liabilities", "Managing long-term capital structure", "Purchasing fixed plant equipment", "Issuing preferred stock"], "a": 0, "e": "Short-term financing decisions involve managing current liabilities.", "type": "MCQ"},
+            {"q": "Long-term financing decisions involve:", "o": ["Managing current liabilities only", "Managing long-term liabilities and stockholders equity", "Managing daily cash register receipts", "Short-term trade credit"], "a": 1, "e": "Long-term financing decisions involve managing long term liabilities and stockholders equity.", "type": "MCQ"},
+            {"q": "The principle stating that any unit of currency today does not worth the same unit in the future is called:", "o": ["Risk-return tradeoff", "Money has a time value", "Market efficiency", "Cash flow equivalence"], "a": 1, "e": "Money has a time value means currency today is not worth the same in the future.", "type": "MCQ"},
+            {"q": "The risk-return tradeoff principle implies that:", "o": ["Individuals take high risks without expecting extra return", "Individuals will not take additional risk unless expected to be compensated with additional return", "Higher risk always guarantees lower return", "Risk and return are completely independent"], "a": 1, "e": "Risk-return tradeoff means individuals expect extra return to compensate for additional risk.", "type": "MCQ"},
+            {"q": "According to the principles of finance, what is the true source of value?", "o": ["Accounting net profit", "Cash flows", "Historical cost", "Book value"], "a": 1, "e": "Cash flows are the source of value.", "type": "MCQ"},
+            {"q": "How does cash flow differ from accounting profit?", "o": ["Profit measures firm performance over a period, while cash flow is the actual cash taken in or out", "Profit is actual cash, profit is fake", "There is no difference", "Cash flow ignores actual money movements"], "a": 0, "e": "Profit is an accounting concept measuring performance; cash flow is the amount of cash taken in or out over the period.", "type": "MCQ"},
+            {"q": "The principle that 'market prices reflect information' means:", "o": ["Investors ignore financial statements", "Investors react to new information through buying and selling securities", "Stock prices never change", "Prices are completely random"], "a": 1, "e": "Market prices reflect information means investors react to new info through buying and selling securities.", "type": "MCQ"},
+            {"q": "What is the 'Agency Problem'?", "o": ["A conflict between government tax authorities and corporations", "The conflict of interest between shareholders and the managers of the firm", "A disagreement between suppliers and customers", "An issue with bank loan interest rates"], "a": 1, "e": "Agency problem refers to the conflict of interest between shareholders and managers.", "type": "MCQ"},
+            {"q": "Why does the agency problem occur?", "o": ["Because management and ownership of the firm are separated", "Because managers own 100% of the firm", "Because shareholders make all daily operational decisions", "Because debt financing replaces equity"], "a": 0, "e": "Such conflict appears because of the separation between management and ownership of the firm.", "type": "MCQ"},
+            {"q": "In the agency relationship, managers act as:", "o": ["The ultimate owners", "The agents of the owner or owners of the firm", "External auditors", "Independent regulators"], "a": 1, "e": "The managers act as the agents of the owner or owners of the firm.", "type": "MCQ"},
+            {"q": "When managers have less than 100% ownership in the firm, they may:", "o": ["Act on their own benefits rather than the owners' interest", "Work entirely for free", "Eliminate all operational costs", "Refuse to make any financial decisions"], "a": 0, "e": "When managers have less than 100% ownership, they may act on their own benefits rather than the owners' interest.", "type": "MCQ"},
+
+            // High-Level Questions (46-50)
+            {"q": "[HIGH-LEVEL] A corporate manager chooses an accounting method that inflates annual net income (EPS) by deferring expenses, despite negative operating cash flows. Stockholders are thrilled in the short term, but long-term value stagnates. Which financial management conflict does this illustrate?", "o": ["Debt vs. Equity balancing", "The fatal flaw of Profit Maximization over Wealth Maximization due to accounting policy reliance and ignoring cash flows", "An issue in public finance state governance", "A short-term working capital surplus"], "a": 1, "e": "Profit maximization relies on accounting policies and ignores actual cash flows, illustrating why wealth maximization is superior.", "type": "MCQ"},
+            {"q": "[HIGH-LEVEL] A CFO decides to invest $10 million in a project returning $12 million in exactly 10 years, ignoring prevailing market interest rates and inflation. From a corporate finance principles perspective, what core principle was violated?", "o": ["Risk-return tradeoff", "Money has a time value (Time Value of Money)", "Market prices reflect information", "Cash flows as the source of value"], "a": 1, "e": "Ignoring currency value differences over a 10-year horizon violates the time value of money principle.", "type": "MCQ"},
+            {"q": "[HIGH-LEVEL] The board of directors discovers that the CEO is prioritizing lavish corporate perks and low-risk, stagnant operations rather than taking profitable high-growth risks that benefit shareholders, simply to protect their own executive job security. This is a classic textbook example of:", "o": ["The Agency Problem arising from separation of ownership and management", "A public finance central government policy failure", "A short-term financing decision on the right-hand side of the balance sheet", "A financial services delivery failure"], "a": 0, "e": "When managers act for their own benefit due to separation of ownership and management, it is the agency problem.", "type": "MCQ"},
+            {"q": "[HIGH-LEVEL] A company needs to classify its transactions: issuing new long-term bonds falls under right-hand side financing decisions, while purchasing new manufacturing machinery falls under left-hand side investment decisions. Which balance sheet classification rule is this?", "o": ["Asset investment on left, liabilities/equity financing on right", "Public finance vs. private finance", "Debt external vs. equity internal", "Profit vs. wealth maximization"], "a": 0, "e": "Investment decisions relate to asset side (left), while financing decisions relate to liabilities and equity (right).", "type": "MCQ"},
+            {"q": "[HIGH-LEVEL] An investor analyzes two firms: Firm A reports high accounting profits but declining cash reserves; Firm B reports moderate profits with massive, growing free cash inflows. Based on Chapter 1 principles, why is Firm B valued higher by rational investors?", "o": ["Because cash flows are the true source of value and accounting profit can be manipulated", "Because Firm B is a public government agency", "Because Firm B ignores the time value of money", "Because accounting profit is always superior to cash flow"], "a": 0, "e": "Cash flows are the source of value, whereas profit is merely an accounting performance measure.", "type": "MCQ"}
+        ];
+
+        const P2_DATA = [
+            // Standard Questions (1-45)
+            {"q": "Finance is defined as the art and science of managing money.", "o": ["True", "False"], "a": 0, "e": "True: Finance is the art and science of managing money.", "type": "TF"},
+            {"q": "Finance is also referred to as the provision of funds at the right time.", "o": ["True", "False"], "a": 0, "e": "True: Finance is referred to as providing funds at the right time.", "type": "TF"},
+            {"q": "Companies depend on debt (internal finance) and equity (external finance) for capital.", "o": ["True", "False"], "a": 1, "e": "False: Debt is external finance, and equity is internal finance.", "type": "TF"},
+            {"q": "Debt represents external finance for a company.", "o": ["True", "False"], "a": 0, "e": "True: Debt is external finance.", "type": "TF"},
+            {"q": "Equity represents internal finance for a company.", "o": ["True", "False"], "a": 0, "e": "True: Equity is internal finance.", "type": "TF"},
+            {"q": "Private finance includes individual finance, partnership finance, and business finance.", "o": ["True", "False"], "a": 0, "e": "True: These are subcategories of private finance.", "type": "TF"},
+            {"q": "Public finance includes central government, state government, and semi-government.", "o": ["True", "False"], "a": 0, "e": "True: Public finance includes these government tiers.", "type": "TF"},
+            {"q": "Profit maximization and wealth maximization are the two goals of financial management.", "o": ["True", "False"], "a": 0, "e": "True: These are the two financial management goals listed in Chapter 1.", "type": "TF"},
+            {"q": "Profit maximization refers to EPS (Earnings Per Share) maximization.", "o": ["True", "False"], "a": 0, "e": "True: Profit maximization refers to EPS maximization.", "type": "TF"},
+            {"q": "Profit is used as a parameter for measuring the efficiency of a business concern.", "o": ["True", "False"], "a": 0, "e": "True: Profit measures business efficiency.", "type": "TF"},
+            {"q": "Profit maximization is considered a long-term goal of the firm.", "o": ["True", "False"], "a": 1, "e": "False: Profit maximization goal is a short-term goal.", "type": "TF"},
+            {"q": "Profit measurement is independent of accounting policies and techniques.", "o": ["True", "False"], "a": 1, "e": "False: Profit measurement depends on accounting policies and techniques.", "type": "TF"},
+            {"q": "Wealth maximization is also known as value maximization or net present value maximization.", "o": ["True", "False"], "a": 0, "e": "True: Wealth maximization is value or NPV maximization.", "type": "TF"},
+            {"q": "Wealth maximization is based on the cash flows principal.", "o": ["True", "False"], "a": 0, "e": "True: It is based on cash flows principal and present value of future cash flows.", "type": "TF"},
+            {"q": "Wealth maximization ignores the time value of money.", "o": ["True", "False"], "a": 1, "e": "False: Wealth maximization takes the time value of money into account.", "type": "TF"},
+            {"q": "Wealth maximization is a long-term goal.", "o": ["True", "False"], "a": 0, "e": "True: Wealth maximization goal is a long-term goal.", "type": "TF"},
+            {"q": "The goal of the firm should be profit maximization rather than wealth maximization.", "o": ["True", "False"], "a": 1, "e": "False: The goal of the firm should be wealth maximization not profit maximization.", "type": "TF"},
+            {"q": "Profit maximization objective ignores the time value of money concept.", "o": ["True", "False"], "a": 0, "e": "True: Profit maximization ignores time value of money.", "type": "TF"},
+            {"q": "Profit maximization objective takes investment risk fully into account.", "o": ["True", "False"], "a": 1, "e": "False: Profit maximization objective ignores the risk associated with investment opportunities.", "type": "TF"},
+            {"q": "Profit maximization ignores the actual figure of cash flow received by stockholders.", "o": ["True", "False"], "a": 0, "e": "True: Profit maximization ignores actual cash flow figures.", "type": "TF"},
+            {"q": "Profit maximization has no issues or problems regarding measurement.", "o": ["True", "False"], "a": 1, "e": "False: Profit maximization objective has a problem of measurement.", "type": "TF"},
+            {"q": "Financial management is concerned with the tasks and activities of a financial manager working in a business.", "o": ["True", "False"], "a": 0, "e": "True: Financial management deals with financial manager tasks in a business.", "type": "TF"},
+            {"q": "Financial services are the output of financial management activities.", "o": ["True", "False"], "a": 0, "e": "True: Financial services are the output of financial management activities.", "type": "TF"},
+            {"q": "Financial services are concerned with designing financial advice and products for individuals, businesses, and government.", "o": ["True", "False"], "a": 0, "e": "True: Financial services design delivery of advice and products for economic sectors.", "type": "TF"},
+            {"q": "Developing strategic and tactical financial plans is a role of the financial manager.", "o": ["True", "False"], "a": 0, "e": "True: Developing financial plans is a key financial activity.", "type": "TF"},
+            {"q": "Managing working capital is outside the scope of financial management activities.", "o": ["True", "False"], "a": 1, "e": "False: Managing working capital is one of the primary financial activities.", "type": "TF"},
+            {"q": "Financial decisions are classified into investment decisions and financing decisions.", "o": ["True", "False"], "a": 0, "e": "True: Financial decisions are classified into these two groups.", "type": "TF"},
+            {"q": "Investment decisions relate to the right-hand side of the balance sheet.", "o": ["True", "False"], "a": 1, "e": "False: Investment decisions relate to the left-hand side of the balance sheet (assets).", "type": "TF"},
+            {"q": "Financing decisions relate to the right-hand side of the balance sheet (liabilities and stockholders equity).", "o": ["True", "False"], "a": 0, "e": "True: Financing decisions relate to the right-hand side.", "type": "TF"},
+            {"q": "Short-term investment decisions involve managing current assets.", "o": ["True", "False"], "a": 0, "e": "True: Short-term investment decisions involve managing current assets.", "type": "TF"},
+            {"q": "Long-term investment decisions involve managing long-term assets.", "o": ["True", "False"], "a": 0, "e": "True: Long-term investment decisions involve managing long-term assets.", "type": "TF"},
+            {"q": "Short-term financing decisions involve managing current liabilities.", "o": ["True", "False"], "a": 0, "e": "True: Short-term financing decisions involve managing current liabilities.", "type": "TF"},
+            {"q": "Long-term financing decisions involve managing long-term liabilities and stockholders equity.", "o": ["True", "False"], "a": 0, "e": "True: Long-term financing decisions involve managing long-term liabilities and stockholders equity.", "type": "TF"},
+            {"q": "Money having a time value means a unit of currency today is worth the exact same in the future.", "o": ["True", "False"], "a": 1, "e": "False: Time value means currency today does not equal the same unit in the future.", "type": "TF"},
+            {"q": "The risk-return tradeoff means individuals will not take extra risk unless compensated with additional return.", "o": ["True", "False"], "a": 0, "e": "True: Risk-return tradeoff requires compensation for added risk.", "type": "TF"},
+            {"q": "Accounting profit and cash flow are identical economic concepts.", "o": ["True", "False"], "a": 1, "e": "False: Profit is an accounting performance measure, while cash flow measures actual cash in/out.", "type": "TF"},
+            {"q": "Market prices reflect information when investors react through buying and selling securities.", "o": ["True", "False"], "a": 0, "e": "True: Market prices reflect information via investor trading.", "type": "TF"},
+            {"q": "The agency problem refers to the conflict of interest between shareholders and managers.", "o": ["True", "False"], "a": 0, "e": "True: Agency problem is the conflict between shareholders and managers.", "type": "TF"},
+            {"q": "The agency problem occurs because management and ownership of the firm are united.", "o": ["True", "False"], "a": 1, "e": "False: The conflict appears because of the separation between management and ownership.", "type": "TF"},
+            {"q": "Managers act as the agents of the owner or owners of the firm.", "o": ["True", "False"], "a": 0, "e": "True: Managers act as agents for owners.", "type": "TF"},
+            {"q": "When managers own less than 100% of the firm, they always prioritize owners over themselves.", "o": ["True", "False"], "a": 1, "e": "False: They may act on their own benefits rather than owners' interests.", "type": "TF"},
+            {"q": "Managing foreign exchange is considered a financial activity for a financial manager.", "o": ["True", "False"], "a": 0, "e": "True: Managing foreign exchange is listed as a financial activity.", "type": "TF"},
+            {"q": "Business finance is a branch of public finance.", "o": ["True", "False"], "a": 1, "e": "False: Business finance is a branch of private finance.", "type": "TF"},
+            {"q": "Central government finance is a branch of private finance.", "o": ["True", "False"], "a": 1, "e": "False: Central government finance belongs to public finance.", "type": "TF"},
+            {"q": "Financial analysis for performance is a key duty of the financial manager.", "o": ["True", "False"], "a": 0, "e": "True: Financial analysis for performance is a financial activity.", "type": "TF"},
+
+            // High-Level Questions (46-50)
+            {"q": "[HIGH-LEVEL] If a firm focuses strictly on short-term EPS (profit maximization) by cutting essential R&D expenditures, it may temporarily boost stock prices while destroying long-term shareholder value and ignoring the time value of money.", "o": ["True", "False"], "a": 0, "e": "True: Profit maximization is short-term, ignores time value of money, and can sacrifice long-term wealth maximization.", "type": "TF"},
+            {"q": "[HIGH-LEVEL] A financing decision involving the issuance of short-term bank debt affects the left-hand side (assets) of the balance sheet.", "o": ["True", "False"], "a": 1, "e": "False: Financing decisions relate to the right-hand side (liabilities and equity), whereas investment decisions relate to assets on the left.", "type": "TF"},
+            {"q": "[HIGH-LEVEL] The separation of ownership and management in modern corporations completely eliminates the agency problem by ensuring shareholders manage daily operations.", "o": ["True", "False"], "a": 1, "e": "False: Separation of ownership and management is precisely what creates the agency problem and potential conflicts of interest.", "type": "TF"},
+            {"q": "[HIGH-LEVEL] In accordance with the risk-return tradeoff principle, a rational investor would accept a lower expected return for a substantially higher level of investment risk.", "o": ["True", "False"], "a": 1, "e": "False: Investors require higher returns to compensate for higher risks, not lower returns.", "type": "TF"},
+            {"q": "[HIGH-LEVEL] An investor who assumes that reported accounting net income is identical to net cash generated during the same period violates the core finance principle that cash flows (not accounting profit) are the true source of value.", "o": ["True", "False"], "a": 0, "e": "True: Profit is an accounting performance measure over a period, while cash flows represent actual cash movements and are the true source of value.", "type": "TF"}
+        ];
+
+        let activePart = 1;
+        let qData = P1_DATA;
+        let cIdx = 0;
+        let score = 0;
+        let wrongList = [];
+
+        const $ = id => document.getElementById(id);
+
+        function switchPart(part) {
+            activePart = part;
+            $("tab1").className = "tab-btn " + (part === 1 ? "active" : "");
+            $("tab2").className = "tab-btn " + (part === 2 ? "active" : "");
+            qData = part === 1 ? P1_DATA : P2_DATA;
+            resetQuiz();
+        }
+
+        function resetQuiz() {
+            cIdx = 0;
+            score = 0;
+            wrongList = [];
+            renderQuestion();
+        }
+
+        function renderQuestion() {
+            const q = qData[cIdx];
+            $("n").textContent = `Question ${cIdx + 1} of ${qData.length}`;
+            $("s").textContent = `Score: ${score}`;
+            $("bar").style.width = `${(cIdx / qData.length) * 100}%`;
+
+            let diagHtml = q.diagram ? `<div class="diagram-container">${q.diagram}</div>` : '';
+            
+            $("card").innerHTML = `
+                <span class="q-badge">${q.type === 'TF' ? 'True / False' : 'Multiple Choice'}</span>
+                <p class="q">${q.q}</p>
+                ${diagHtml}
+                <div id="opts"></div>
+                <div id="fb"></div>
+            `;
+
+            q.o.forEach((optText, i) => {
+                const b = document.createElement("button");
+                b.className = "opt";
+                b.innerHTML = `<b>${q.type === 'TF' ? (i===0?'T':'F') : "ABCD"[i] + ")"}</b><span></span>`;
+                b.querySelector("span").textContent = optText;
+                b.onclick = () => handleAnswer(i);
+                $("opts").appendChild(b);
+            });
+        }
+
+        function handleAnswer(selected) {
+            const q = qData[cIdx];
+            const isCorrect = selected === q.a;
+            const buttons = document.querySelectorAll(".opt");
+
+            buttons.forEach((btn, idx) => {
+                btn.disabled = true;
+                if (idx === q.a) btn.classList.add("ok");
+                else if (idx === selected) btn.classList.add("no");
+            });
+
+            if (isCorrect) score++;
+            else wrongList.push(cIdx);
+
+            $("s").textContent = `Score: ${score}`;
+
+            $("fb").innerHTML = `
+                <div class="ex ${isCorrect ? 'ok' : 'no'}">
+                    <strong>${isCorrect ? 'Correct answer ✓' : 'Incorrect answer ✗'}</strong>
+                    <span>${q.e}</span>
+                </div>
+                <button class="btn" id="nxtBtn">${cIdx < qData.length - 1 ? 'Next question' : 'Show final results'}</button>
+            `;
+
+            $("nxtBtn").onclick = () => {
+                cIdx++;
+                if (cIdx < qData.length) renderQuestion();
+                else finishQuiz();
+            };
+            $("nxtBtn").focus();
+        }
+
+        function finishQuiz() {
+            $("bar").style.width = "100%";
+            $("n").textContent = "Quiz complete";
+            const pct = Math.round((score / qData.length) * 100);
+            
+            let html = `
+                <div class="score">${score} / ${qData.length}</div>
+                <p style="text-align:center;font-size:1.2rem;margin:0 0 16px;">Percentage: <b>${pct}%</b></p>
+            `;
+
+            if (wrongList.length > 0) {
+                html += `<p style="margin:16px 0 8px;"><b>Questions to review:</b></p><ul class="rev">`;
+                wrongList.forEach(w => {
+                    html += `<li><b>Question ${w + 1}:</b> ${qData[w].q}</li>`;
+                });
+                html += `</ul>`;
+            } else {
+                html += `<p style="text-align:center;color:var(--ok);">Excellent! All answers are correct (100%).</p>`;
+            }
+
+            html += `<button class="btn" onclick="resetQuiz()">Restart quiz</button>`;
+            $("card").innerHTML = html;
+        }
+
+        renderQuestion();
+    </script>
+</body>
+</html>

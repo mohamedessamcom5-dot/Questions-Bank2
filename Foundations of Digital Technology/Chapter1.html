@@ -1,0 +1,436 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Foundation of Digital Technology — Chapter 1: Introduction to Digital Technology</title>
+    <style>
+        :root {
+            --bg: #0f172a;
+            --c: #1e293b;
+            --t: #f8fafc;
+            --m: #94a3b8;
+            --b: #334155;
+            --ac: #38bdf8;
+            --ok: #22c55e;
+            --okb: #052e16;
+            --no: #ef4444;
+            --nob: #450a0a;
+            box-sizing: border-box;
+        }
+
+        @media(prefers-color-scheme: light) {
+            :root[data-theme=light] {
+                --bg: #f8fafc;
+                --c: #ffffff;
+                --t: #0f172a;
+                --m: #64748b;
+                --b: #e2e8f0;
+                --ac: #0284c7;
+                --okb: #dcfce7;
+                --nob: #fee2e2;
+                --ok: #16a34a;
+                --no: #dc2626;
+            }
+        }
+
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--t);
+            font-family: 'Segoe UI', Tahoma, system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+        }
+        main {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 24px 16px 60px;
+        }
+        .header-panel {
+            text-align: center;
+            margin-bottom: 24px;
+            border-bottom: 8px solid var(--b);
+            padding-bottom: 30px;
+        }
+        h1 { font-size: 1.5rem; margin: 0 0 8px; color: var(--ac); }
+        .sub { color: var(--m); font-size: 0.95rem; margin: 0; }
+        
+        .nav-tabs {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .tab-btn {
+            flex: 1;
+            padding: 12px;
+            background: var(--c);
+            border: 1px solid var(--b);
+            color: var(--t);
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .tab-btn.active {
+            background: var(--ac);
+            color: #000;
+            border-color: var(--ac);
+        }
+
+        .bar {
+            height: 8px;
+            background: var(--b);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+        .bar i {
+            display: block;
+            height: 100%;
+            background: var(--ac);
+            width: 0;
+            transition: width 0.3s;
+        }
+        .meta {
+            display: flex;
+            justify-content: space-between;
+            color: var(--m);
+            font-size: 0.9rem;
+            margin-bottom: 16px;
+        }
+        .card {
+            background: var(--c);
+            border: 1px solid var(--b);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+        .q-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            background: var(--b);
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+            color: var(--ac);
+        }
+        .q-badge.high-level {
+            background: #f59e0b;
+            color: #000;
+            font-weight: bold;
+        }
+        .q {
+            font-size: 1.1rem;
+            font-weight: 600;
+            direction: ltr;
+            text-align: left;
+            margin: 0 0 16px;
+        }
+        .opt {
+            display: flex;
+            gap: 12px;
+            direction: ltr;
+            text-align: left;
+            width: 100%;
+            background: var(--c);
+            color: var(--t);
+            border: 1.5px solid var(--b);
+            border-radius: 8px;
+            padding: 12px 14px;
+            margin-bottom: 10px;
+            font: inherit;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+        .opt:hover:not(:disabled) { border-color: var(--ac); }
+        .opt b { min-width: 1.5em; color: var(--ac); }
+        .opt.ok { background: var(--okb); border-color: var(--ok); }
+        .opt.no { background: var(--nob); border-color: var(--no); }
+        .opt:disabled { cursor: default; }
+
+        .ex {
+            margin-top: 16px;
+            padding: 14px;
+            border-radius: 8px;
+            direction: ltr;
+            text-align: left;
+            font-size: 0.95rem;
+        }
+        .ex.ok { background: var(--okb); border: 1px solid var(--ok); }
+        .ex.no { background: var(--nob); border: 1px solid var(--no); }
+        .ex strong { display: block; margin-bottom: 4px; }
+
+        .btn {
+            margin-top: 16px;
+            background: var(--ac);
+            color: #000;
+            border: 0;
+            border-radius: 8px;
+            padding: 12px 24px;
+            font: inherit;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+        }
+        .score { text-align: center; font-size: 3rem; font-weight: 800; margin: 12px 0; color: var(--ac); }
+        .rev { margin: 16px 0 0; padding: 0; list-style: none; direction: ltr; text-align: left; font-size: 0.9rem; }
+        .rev li { padding: 8px 0; border-top: 1px solid var(--b); }
+    </style>
+</head>
+<body>
+    <main>
+        <div class="header-panel">
+            <h1>Foundation of Digital Technology — Chapter 1</h1>
+            <p class="sub">Introduction to Digital Technology</p>
+        </div>
+        
+        <div class="nav-tabs">
+            <button class="tab-btn active" id="tab1" onclick="switchPart(1)">Multiple Choice</button>
+            <button class="tab-btn" id="tab2" onclick="switchPart(2)">True/False</button>
+        </div>
+
+        <div class="bar"><i id="bar"></i></div>
+        <div class="meta">
+            <span id="n"></span>
+            <span id="s"></span>
+        </div>
+        <div class="card" id="card"></div>
+    </main>
+      
+    <script>
+       const P1_SOURCE = [
+            // Standard MCQs (1-45)
+            {"q": "What does the term 'digital' strictly refer to in the context of data processing?", "o": ["A method of continuous analog signal transmission", "A method of representing data or information using discrete symbols or digits, typically in binary form (0s and 1s)", "The physical storage of paper-based accounting books", "The mechanical operation of analog gears"], "a": 1, "e": "Digital refers specifically to representing data using discrete symbols or binary digits (0s and 1s).", "type": "MCQ"},
+            {"q": "Which of the following best defines Information Technology (IT)?", "o": ["The exclusive manufacturing of hardware microchips without software", "The use of computers, software, networks, and other electronic devices to manage, process, store, and secure information on a large scale", "The manual recording of business transactions on paper ledgers", "The transmission of analog radio waves across local telephone lines"], "a": 1, "e": "IT involves computers, software, networks, and electronic devices to manage and process data for large-scale problem solving.", "type": "MCQ"},
+            {"q": "What is considered the foundational milestone that officially kicked off the Digital Revolution timeline?", "o": ["The invention of the transistor in 1947", "The creation of the World Wide Web in 1989", "The launch of the first smartphone in 2007", "The founding of ARPANET in 1969"], "a": 0, "e": "The introduction of the transistor in 1947 launched the way for advanced digital computers and began the digital revolution timeline.", "type": "MCQ"},
+            {"q": "The Digital Revolution is frequently referred to by which historical designation?", "o": ["The First Industrial Revolution", "The Agricultural Age", "The Third Industrial Revolution", "The Mechanical Age"], "a": 2, "e": "The digital revolution is widely known as the Third Industrial Revolution.", "type": "MCQ"},
+            {"q": "What was the primary significance of ARPANET, established in 1969?", "o": ["It was the first commercial social media platform", "When a message was sent over ARPANET in 1969, the public was introduced to concepts that led to the internet", "It served exclusively as a military weapons guidance system with no networking applications", "It replaced all telephone landlines globally"], "a": 1, "e": "ARPANET introduced public concepts leading to the internet in 1969.", "type": "MCQ"},
+            {"q": "Who is credited with designing the communication rules and starting the development of the World Wide Web in 1989?", "o": ["Tim Berners-Lee", "Alan Turing", "Bill Gates", "Steve Jobs"], "a": 0, "e": "Tim Berners-Lee designed a standard set of rules for communication forming the World Wide Web starting in 1989.", "type": "MCQ"},
+            {"q": "What role did the 'discrete cosine transform' play in the digital revolution?", "o": ["It served as a physical cooling mechanism for mainframe servers", "It became a fundamental item as the basis for most digital media compression standards from the late 1980s onwards", "It acted as the primary operating system for early mobile phones", "It was an encryption protocol exclusively used for military intelligence"], "a": 1, "e": "Discrete cosine transform became fundamental to digital media compression standards.", "type": "MCQ"},
+            {"q": "By what year had the internet expanded sufficiently to become part of mass culture, with numerous businesses establishing official websites?", "o": ["1947", "1969", "1996", "2020"], "a": 2, "e": "By 1996, the internet was part of mass culture, and many businesses had websites.", "type": "MCQ"},
+            {"q": "In what year did global internet connectivity reach the milestone where almost every country in the world had an active internet connection?", "o": ["1983", "1999", "2005", "1947"], "a": 1, "e": "In 1999, almost every country had an internet connection, making the impact global.", "type": "MCQ"},
+            {"q": "Approximately when did global internet users reach the monumental milestone of one billion people?", "o": ["Late 2005", "1991", "1969", "2015"], "a": 0, "e": "By late 2005, internet users reached one billion.", "type": "MCQ"},
+            {"q": "What proportion of the world's active population was using the internet by the year 2020?", "o": ["Less than 10 percent", "Exactly 25 percent", "More than half of the world's population", "99.9 percent"], "a": 2, "e": "By 2020, more than half of the world's population actively used the internet.", "type": "MCQ"},
+            {"q": "During the earlier Industrial Revolution, which specific industry heavily demanded cheaper labor through early mechanization?", "o": ["The software development industry", "The textile industry", "The smartphone manufacturing industry", "The cloud computing industry"], "a": 1, "e": "Among different industries during the Industrial Revolution, the textile industry was much demanding cheaper labor.", "type": "MCQ"},
+            {"q": "In what year was the very first mobile phone constructed, preceding commercial digital cell phone sales?", "o": ["1947", "1969", "1983", "1999"], "a": 2, "e": "The first mobile phone was made in 1983, though digital cell phones were not sold commercially until 1991.", "type": "MCQ"},
+            {"q": "When was the first digital camera created as part of the digital media evolution?", "o": ["1988", "1996", "2005", "1947"], "a": 0, "e": "The first digital camera was created in 1988.", "type": "MCQ"},
+            {"q": "How did television technology primarily evolve during the decade of the 2000s?", "o": ["It transitioned entirely from digital signals back to analog vacuum tubes", "It started to transition from using analog to digital signals", "It was completely banned and replaced by radio broadcasts", "It eliminated color displays in favor of black-and-white screens"], "a": 1, "e": "During the 2000s, television started to transition from using analog to digital signals.", "type": "MCQ"},
+            {"q": "Which of the following professionals is considered a core part of Information Technology (IT) workforce roles?", "o": ["Textile weaving machine operator", "Network administrator, cybersecurity expert, and software developer", "Traditional postal mail delivery courier", "Mechanical steam engine mechanic"], "a": 1, "e": "IT professionals include network administrators, cybersecurity experts, software developers, and support specialists.", "type": "MCQ"},
+            {"q": "What is a notable positive global trend observed over the past decade concerning transport and logistics?", "o": ["Complete elimination of fuel-powered vehicles worldwide", "Improvements in logistics performance and fuel economy, reducing aggregate costs and fossil fuel energy consumption", "Mandatory reliance on handwritten paper shipping waybills", "Doubling of shipping times across international borders"], "a": 1, "e": "Positive global trends include improvements in logistics performance and fuel economy, reducing aggregate costs and fossil fuel consumption.", "type": "MCQ"},
+            {"q": "What is expected to be the most profound impact of the digital revolution on low- and middle-income countries?", "o": ["Through new manufacturing process technologies affecting the production of traditional manufactured goods", "Through the complete replacement of agriculture with virtual reality farming", "Through the elimination of all digital infrastructure requirements", "Through mandatory migration of entire populations"], "a": 0, "e": "The biggest impact of the digital revolution on low- and middle-income countries will likely be through new manufacturing process technologies affecting traditional goods.", "type": "MCQ"},
+            {"q": "Which emerging technology category is NOT typically highlighted among next-gen technologies in Chapter 1?", "o": ["Artificial Intelligence and Machine Learning", "Blockchain and Big Data", "Mechanical manual typewriter assembly", "Quantum Computing and 5G networks"], "a": 2, "e": "Next-generation technologies include AI, Big Data, Blockchain, IoT, Quantum Computing, AR/VR, and 5G.", "type": "MCQ"},
+            {"q": "Why are 5G networks considered vital for next-generation technological applications?", "o": ["They rely exclusively on copper telephone wire connections", "They enable advancements in IoT, autonomous vehicles, augmented reality (AR), and virtual reality (VR)", "They slow down data transmission to preserve battery life", "They restrict internet access to a single desktop computer per household"], "a": 1, "e": "5G enables advancements in IoT, autonomous vehicles, AR, and VR.", "type": "MCQ"},
+            {"q": "What distinguishes Information Technology (IT) from basic computer usage?", "o": ["IT focuses strictly on recreational video gaming", "IT uses computers, software, networks, and electronic devices to solve business or organizational problems on a large scale", "IT avoids using software systems entirely", "IT is limited to repairing physical plastic keyboards"], "a": 1, "e": "IT involves using technology to solve business or organizational problems on a large scale.", "type": "MCQ"},
+            {"q": "Which historical event is strictly associated with the birth of commercial digital cellular phones?", "o": ["Their commercial sale beginning in 1991", "Their invention in 1947 alongside the transistor", "Their widespread adoption during the 1960s space race", "Their introduction in 2020 alongside 5G networks"], "a": 0, "e": "Digital cell phones were sold commercially starting in 1991.", "type": "MCQ"},
+            {"q": "What primary function do microprocesses perform within digital technology devices?", "o": ["Generating physical mechanical heat for warming offices", "Enabling the data processing and logic capabilities of digital technologies", "Replacing electrical power sources with steam pressure", "Converting digital files permanently back into physical paper"], "a": 1, "e": "Data processing and logic capabilities are enabled through microprocesses programmed to perform various functions.", "type": "MCQ"},
+            {"q": "How did tablet computers alter human interaction with digital technology?", "o": ["They made it much easier to use the internet everywhere, allowing users to consume media and use business applications anytime", "They restricted internet browsing strictly to stationary mainframe rooms", "They eliminated the need for operating systems and software", "They forced users to rely exclusively on punch cards"], "a": 0, "e": "Tablet computers made it much easier to use the internet everywhere and consume media/business apps anytime.", "type": "MCQ"},
+            {"q": "Which sector experienced the earliest large-scale mechanization drivers during the Industrial Revolution?", "o": ["The textile manufacturing sector", "The quantum computing sector", "The artificial intelligence research sector", "The social media advertising sector"], "a": 0, "e": "Among different industries, the textile industry was much demanding cheaper labor during early mechanization.", "type": "MCQ"},
+            {"q": "What was the significance of the year 1996 in internet history?", "o": ["The internet was part of mass culture, and many businesses had websites", "The internet was completely shut down globally for upgrades", "The first transistor was invented", "ARPANET was initially launched"], "a": 0, "e": "By 1996, the internet was part of mass culture, and many businesses had websites.", "type": "MCQ"},
+            {"q": "Which agency or organization was originally connected to the creation of ARPANET?", "o": ["Advanced Research Projects Agency (ARPA)", "The United Nations Postal Service", "Commercial International Bank (CIB)", "International Textile Manufacturers Federation"], "a": 0, "e": "ARPANET stands for Advanced Research Projects Agency Network.", "type": "MCQ"},
+            {"q": "What is the primary characteristic of binary representation in digital systems?", "o": ["Continuous wave frequencies ranging from negative to positive infinity", "Using discrete symbols or digits, typically in binary form (0s and 1s)", "Physical storage of ink droplets on parchment paper", "Analog voltage fluctuations measured in acoustic decibels"], "a": 1, "e": "Digital refers to representing data using discrete symbols or digits, typically in binary form (0s and 1s).", "type": "MCQ"},
+            {"q": "Which of the following best describes the evolution of digital technology components?", "o": ["Subsequent technological advancements made computer system components more energy-efficient and less costly", "Reverting exclusively to magnetic punch cards for all modern databases", "Eliminating data storage entirely in favor of real-time forgetting", "Staging all corporate data on physical cassette tapes only"], "a": 0, "e": "Subsequent technological advancements made computer system components more energy-efficient and less costly.", "type": "MCQ"},
+            {"q": "In the context of IT infrastructure, what is the primary role of a network administrator?", "o": ["Weaving cotton fabrics in industrial mills", "Managing and administering computer networks as a core IT professional role", "Delivering postal packages to residential addresses", "Writing fictional screenplays for Hollywood movies"], "a": 1, "e": "Network administrators are part of the core IT professionals managing networks.", "type": "MCQ"},
+            {"q": "Why is the transistor (1947) viewed as a monumental turning point?", "o": ["It launched the way for the development of advanced digital computers", "It allowed mechanical clocks to keep precise time without springs", "It was the first software program ever written in Python", "It established global satellite navigation"], "a": 0, "e": "The transistor introduced in 1947 launched the way for advanced digital computers.", "type": "MCQ"},
+            {"q": "What does 'Industry 4.0' heavily integrate into manufacturing processes?", "o": ["Manual hand tools and oil lamps", "IoT, AI, and automation in manufacturing processes", "Complete elimination of electricity and computers", "Exclusive reliance on paper blueprints"], "a": 1, "e": "Industry 4.0 is the integration of IoT, AI, and automation in manufacturing processes.", "type": "MCQ"},
+            {"q": "How do low- and middle-income countries primarily experience the digital revolution's spread?", "o": ["By ignoring global technological standards entirely", "Digital technologies spread to the developing world in the 2000s, impacting them through manufacturing process technologies", "By relying solely on 19th-century steam machinery", "By banning foreign software imports"], "a": 1, "e": "Digital technologies spread to the developing world in the 2000s.", "type": "MCQ"},
+            {"q": "What distinguishes a software developer's role from an IT support specialist?", "o": ["Developers build software applications, while support specialists and other IT pros handle support and administration", "Developers only deliver physical mail, while support specialists manage corporate finances", "There is no functional difference between the two titles", "Developers are strictly hardware technicians"], "a": 0, "e": "Software developers and IT support specialists are distinct professional roles within IT.", "type": "MCQ"},
+            {"q": "What is the primary impact of digital media compression standards like discrete cosine transform?", "o": ["They make image and video files impossibly large to store", "They became the basis for most digital media compression standards from the late 1980s onwards", "They convert digital files into analog vinyl records", "They encrypt data so securely that no one can ever open it"], "a": 1, "e": "Discrete cosine transform became the basis for most digital media compression standards.", "type": "MCQ"},
+            {"q": "When did mobile communication become very important globally, with nearly 70 percent of the world's population owning a mobile phone?", "o": ["1950s", "1970s", "The 2010s and beyond", "1920s"], "a": 2, "e": "In the 2010s and beyond, mobile communication became very important, as nearly 70 percent of the world's population owns a mobile phone.", "type": "MCQ"},
+            {"q": "What is a core characteristic of a 'digitally literate society'?", "o": ["Individuals nowadays becoming more digitally literate at all levels as technology becomes more user-friendly", "Citizens who refuse to use computers or mobile phones", "Citizens who only know how to turn a television on and off", "Citizens trained exclusively in calligraphy"], "a": 0, "e": "As technology became more user-friendly, individuals became more digitally literate at all levels.", "type": "MCQ"},
+            {"q": "Why did the transition from analog to digital television in the 2000s matter?", "o": ["It reduced picture quality and increased static interference", "It marked the transition of television broadcasting from analog to digital signals", "It required viewers to install rooftop analog antennas of massive size", "It restricted broadcasting to two hours per day"], "a": 1, "e": "Television started to transition from using analog to digital signals during the 2000s.", "type": "MCQ"},
+            {"q": "What is the role of cybersecurity experts within IT organizations?", "o": ["Designing aesthetic user interfaces for online clothing stores", "Securing information and systems as part of IT roles", "Managing employee cafeteria menus", "Assembling physical computer monitor casings"], "a": 1, "e": "IT encompasses securing information, with cybersecurity experts among the roles.", "type": "MCQ"},
+            {"q": "How does the digital revolution differ from the original Industrial Revolution?", "o": ["The Industrial Revolution brought abundant mechanization of physical tasks, whereas the digital revolution began the Information Era through digital electronics and computing", "The digital revolution occurred two centuries before the Industrial Revolution", "The digital revolution relied exclusively on wooden gears", "There are no technological differences between the two eras"], "a": 0, "e": "Industrial revolution brought mechanization; digital revolution started the Information Era via digital electronics.", "type": "MCQ"},
+            {"q": "What role do cloud and internet resources play in modern digital infrastructure?", "o": ["They require every company to own physical data centers in their basement", "They allow users to share resources and apply the principle of economy of scale", "They slow down application deployment significantly", "They operate offline without any internet connection"], "a": 1, "e": "New technologies allowed users to share resources and apply the principle of economy of scale.", "type": "MCQ"},
+            {"q": "Which milestone occurred chronologically *first* among the following?", "o": ["Invention of the World Wide Web (1989)", "Invention of the Transistor (1947)", "One billion internet users (2005)", "Commercial digital cell phone sales (1991)"], "a": 1, "e": "Transistor (1947) preceded WWW (1989), cell phone sales (1991), and 1 billion users (2005).", "type": "MCQ"},
+            {"q": "What is the primary purpose of Information Technology in organizations?", "o": ["Using technology to solve business or organizational problems on a large scale", "Ensuring that employees spend work hours playing mobile video games", "Eliminating all software updates across company laptops", "Preventing the purchase of any modern computer hardware"], "a": 0, "e": "IT involves the use of technology to solve business or organizational problems on a large scale.", "type": "MCQ"},
+            {"q": "Why did the creation of the first digital camera in 1988 represent a milestone?", "o": ["It marked the creation of the first digital camera as part of digital revolution inventions", "It made photography completely illegal for civilians", "It required massive glass plate negatives weighing 50 kilograms", "It could only take pictures in black and white with zero resolution"], "a": 0, "e": "The first digital camera was created in 1988.", "type": "MCQ"},
+            {"q": "What is the ultimate objective of businesses adopting digital technology today?", "o": ["To increase operational inefficiencies and paperwork", "To streamline operations, optimize processes, and enhance the overall customer experience", "To make products more expensive and harder for customers to buy", "To eliminate human workers without replacing their functions"], "a": 1, "e": "Most businesses employ digital technology to streamline operations, optimize processes, and enhance the overall customer experience.", "type": "MCQ"},
+            
+            // High-Level MCQs (46-50)
+            {"q": "[HIGH-LEVEL] An enterprise invests heavily in deploying state-of-the-art 5G networks and next-gen IoT devices, but neglects digital literacy training for its workforce and fails to adapt its business processes. Based on Chapter 1 principles, why is this initiative at high risk?", "o": ["Because 5G networks are physically incompatible with IoT devices manufactured after 2020", "Because digital technology adoption requires both technological infrastructure and a digitally literate society where individuals utilize technology effectively across all areas of life", "Because digital literacy is strictly required in agricultural economies, not digital enterprises", "Because the digital revolution timeline prohibits wireless sensors in corporate logistics"], "a": 1, "e": "[HIGH-LEVEL] Technological innovation must be matched by a digitally literate society and effective utilization across organizational levels.", "type": "MCQ"},
+            {"q": "[HIGH-LEVEL] A traditional firm assumes that 'Digital Technology' is merely a synonym for owning personal computers and tablets, completely ignoring software systems, networks, and microprocess logic. According to Chapter 1, why is this definition incomplete?", "o": ["Because desktop computers are banned in modern corporate environments", "Because digital technology encompasses electronic devices, software systems, and resources enabled by microprocesses, while IT involves networks and large-scale problem solving", "Because binary code (0s and 1s) was permanently replaced by analog voltage in 1999", "Because tablets and PCs have zero role in information technology"], "a": 1, "e": "[HIGH-LEVEL] Digital technology encompasses electronic devices, software systems, and data resources powered by microprocess logic and IT networks.", "type": "MCQ"},
+            {"q": "[HIGH-LEVEL] If an analyst claims that the Digital Revolution began in the 1980s with the personal computer boom, while ignoring the 1947 transistor and 1969 ARPANET milestones, what fundamental error have they made in historical timeline analysis?", "o": ["They confused the mainstream 1980s computer familiarity/Information Era start with the foundational transistor breakthrough in 1947 that initiated the digital revolution timeline", "They correctly identified the exact year the internet was invented", "They proved that transistors were actually invented after the World Wide Web", "They demonstrated that ARPANET relied on mechanical punch cards"], "a": 0, "e": "[HIGH-LEVEL] The transistor in 1947 started the digital revolution timeline, whereas the 1980s marked personal computers becoming familiar machines.", "type": "MCQ"},
+            {"q": "[HIGH-LEVEL] How do the anticipated impacts of the Digital Revolution on low- and middle-income countries relate to traditional economic sectors according to Chapter 1?", "o": ["Through new manufacturing process technologies that affect the production of traditional manufactured goods, alongside the spread of digital technologies to the developing world", "Developing nations were completely unaffected by either revolution", "The digital revolution relies exclusively on manual labor in developing countries", "The original Industrial Revolution was driven entirely by cloud computing and artificial intelligence"], "a": 0, "e": "[HIGH-LEVEL] Developing countries experience digital revolution impacts through new manufacturing process technologies affecting traditional goods.", "type": "MCQ"},
+            {"q": "[HIGH-LEVEL] An IT manager argues that because internet penetration reached over half the global population by 2020, specialized IT professional roles (such as cybersecurity experts, network administrators, and developers) are now totally obsolete. Why does Chapter 1 refute this?", "o": ["Because IT infrastructure requires dedicated professionals across hardware, software development, networking, cybersecurity, and database management to support evolving societal needs", "Because the internet was actually disconnected globally in 2021", "Because IT professionals were replaced by mechanical textile workers in 1983", "Because digital technology no longer uses electronic devices or software systems"], "a": 0, "e": "[HIGH-LEVEL] IT fields require ongoing professional roles like support specialists, network admins, developers, and cybersecurity experts.", "type": "MCQ"}
+        ];
+
+        const P2_SOURCE = [
+            // Standard TFs (1-45)
+            {"q": "The term 'digital' refers to a method of representing data using discrete symbols or digits, typically in binary form (0s and 1s).", "o": ["True", "False"], "a": 0, "e": "True: Digital refers to representing data using discrete symbols or binary digits (0s and 1s).", "type": "TF"},
+            {"q": "Information Technology (IT) strictly involves manual bookkeeping and has nothing to do with computers.", "o": ["True", "False"], "a": 1, "e": "False: IT involves computers, software, and networks to process information.", "type": "TF"},
+            {"q": "The invention of the transistor in 1947 is considered the beginning of the digital revolution timeline.", "o": ["True", "False"], "a": 0, "e": "True: The transistor introduced in 1947 began the digital revolution timeline.", "type": "TF"},
+            {"q": "The digital revolution is frequently called the Third Industrial Revolution.", "o": ["True", "False"], "a": 0, "e": "True: It is sometimes called the Third Industrial Revolution.", "type": "TF"},
+            {"q": "ARPANET was established in 1969 and introduced public concepts leading to the internet.", "o": ["True", "False"], "a": 0, "e": "True: A message sent over ARPANET in 1969 introduced concepts leading to the internet.", "type": "TF"},
+            {"q": "Tim Berners-Lee designed communication rules starting in 1989 that formed the World Wide Web.", "o": ["True", "False"], "a": 0, "e": "True: Tim Berners-Lee designed rules starting the World Wide Web in 1989.", "type": "TF"},
+            {"q": "Discrete cosine transform became a fundamental basis for most digital media compression standards from the late 1980s onwards.", "o": ["True", "False"], "a": 0, "e": "True: Discrete cosine transform became fundamental to digital media compression standards.", "type": "TF"},
+            {"q": "By the year 1996, the internet had expanded to become part of mass culture, with many businesses operating websites.", "o": ["True", "False"], "a": 0, "e": "True: By 1996, the internet was part of mass culture and businesses had websites.", "type": "TF"},
+            {"q": "In 1999, almost every country in the world had an active internet connection.", "o": ["True", "False"], "a": 0, "e": "True: In 1999, almost every country had an internet connection.", "type": "TF"},
+            {"q": "By late 2005, the total number of global internet users reached one billion.", "o": ["True", "False"], "a": 0, "e": "True: By late 2005, internet users reached one billion.", "type": "TF"},
+            {"q": "By 2020, less than 10 percent of the world's population actively used the internet.", "o": ["True", "False"], "a": 1, "e": "False: By 2020, more than half of the world's population actively used the internet.", "type": "TF"},
+            {"q": "Digital technology encompasses electronic devices, software systems, and resources that facilitate data creation and storage.", "o": ["True", "False"], "a": 0, "e": "True: Digital technology encompasses electronic devices, software systems, and resources.", "type": "TF"},
+            {"q": "The very first mobile phone was constructed in 1983, preceding commercial digital cell phone sales in 1991.", "o": ["True", "False"], "a": 0, "e": "True: The first mobile phone was made in 1983, and commercial cell phones started in 1991.", "type": "TF"},
+            {"q": "The first digital camera was created in the year 1988.", "o": ["True", "False"], "a": 0, "e": "True: The first digital camera was created in 1988.", "type": "TF"},
+            {"q": "Television broadcasting began transitioning from analog to digital signals during the 2000s decade.", "o": ["True", "False"], "a": 0, "e": "True: Television started to transition from analog to digital signals in the 2000s.", "type": "TF"},
+            {"q": "IT professionals include specialized roles such as cybersecurity experts, network administrators, and software developers.", "o": ["True", "False"], "a": 0, "e": "True: IT professionals work as support specialists, network administrators, developers, and cybersecurity experts.", "type": "TF"},
+            {"q": "Improvements in logistics performance and fuel economy over the past decade reduced aggregate costs and fossil fuel consumption.", "o": ["True", "False"], "a": 0, "e": "True: Improvements in logistics and fuel economy contributed to reducing costs and fossil fuel energy consumption.", "type": "TF"},
+            {"q": "The biggest impact of the digital revolution on low- and middle-income countries occurs through manufacturing process technologies affecting traditional goods.", "o": ["True", "False"], "a": 0, "e": "True: The biggest impact on low- and middle-income countries is through new manufacturing process technologies.", "type": "TF"},
+            {"q": "Artificial Intelligence, Big Data, Blockchain, IoT, and Quantum Computing are classified as next-generation technologies.", "o": ["True", "False"], "a": 0, "e": "True: These are emerging next-generation technologies discussed in the course.", "type": "TF"},
+            {"q": "5G networks enable critical advancements in IoT, autonomous vehicles, AR, and VR.", "o": ["True", "False"], "a": 0, "e": "True: 5G enables advancements in IoT, autonomous vehicles, AR, and VR.", "type": "TF"},
+            {"q": "Tablet computers made accessing the internet and digital resources significantly more difficult and stationary.", "o": ["True", "False"], "a": 1, "e": "False: Tablets made it much easier to use the internet everywhere.", "type": "TF"},
+            {"q": "Information technology solves business or organizational problems on a large scale.", "o": ["True", "False"], "a": 0, "e": "True: IT involves using technology to solve business or organizational problems on a large scale.", "type": "TF"},
+            {"q": "The textile industry demanded cheaper labor through early mechanization during the Industrial Revolution.", "o": ["True", "False"], "a": 0, "e": "True: The textile industry was much demanding cheaper labor during mechanization.", "type": "TF"},
+            {"q": "Digital technology is continually changing and boosting productivity across a wide range of sectors and industries.", "o": ["True", "False"], "a": 0, "e": "True: Digital technology is continually changing and boosting productivity across industries.", "type": "TF"},
+            {"q": "Commercial digital cell phones were first sold starting in 1991.", "o": ["True", "False"], "a": 0, "e": "True: Digital cell phones were sold commercially starting in 1991.", "type": "TF"},
+            {"q": "ARPANET was initially developed in 1947 alongside the transistor.", "o": ["True", "False"], "a": 1, "e": "False: Transistor was 1947; ARPANET was 1969.", "type": "TF"},
+            {"q": "Microprocesses enable the data processing and logic capabilities of digital technologies.", "o": ["True", "False"], "a": 0, "e": "True: Data processing and logic capabilities are enabled through microprocesses.", "type": "TF"},
+            {"q": "Software developers are primarily responsible for delivering physical mail packages to corporate offices.", "o": ["True", "False"], "a": 1, "e": "False: Software developers write code and build applications, not deliver postal mail.", "type": "TF"},
+            {"q": "Network administrators focus on configuring, managing, and securing organizational computer networks.", "o": ["True", "False"], "a": 0, "e": "True: Network administrators are core IT professionals managing networks.", "type": "TF"},
+            {"q": "Cybersecurity experts protect organizational information systems and networks from digital threats.", "o": ["True", "False"], "a": 0, "e": "True: Cybersecurity is a core area of IT ensuring security.", "type": "TF"},
+            {"q": "The digital revolution relies strictly on mechanical gears and analog waterwheels for information processing.", "o": ["True", "False"], "a": 1, "e": "False: The digital revolution represents a shift to digital electronics.", "type": "TF"},
+            {"q": "Industry 4.0 integrates digital technologies like IoT, AI, and automation into manufacturing processes.", "o": ["True", "False"], "a": 0, "e": "True: Industry 4.0 integrates IoT, AI, and automation in manufacturing.", "type": "TF"},
+            {"q": "Cloud computing eliminates the need for any physical servers or data transmission networks anywhere on Earth.", "o": ["True", "False"], "a": 1, "e": "False: Cloud computing relies on massive hyperscale data centers and network transmission.", "type": "TF"},
+            {"q": "Most businesses employ digital technology to streamline operations, optimize processes, and enhance customer experience.", "o": ["True", "False"], "a": 0, "e": "True: Businesses employ digital technology to streamline operations and enhance customer experience.", "type": "TF"},
+            {"q": "The invention of the World Wide Web by Tim Berners-Lee took place in 1989.", "o": ["True", "False"], "a": 0, "e": "True: WWW started in 1989 by Tim Berners-Lee.", "type": "TF"},
+            {"q": "Digital literacy across society is an optional luxury with zero impact on digital transformation success.", "o": ["True", "False"], "a": 1, "e": "False: Individuals have become more digitally literate at all levels as technology usage expands.", "type": "TF"},
+            {"q": "Mobile phone technology originated with the first device made in 1983.", "o": ["True", "False"], "a": 0, "e": "True: The first mobile phone was constructed in 1983.", "type": "TF"},
+            {"q": "Analog television broadcasting completely replaced digital television signals during the 2000s.", "o": ["True", "False"], "a": 1, "e": "False: Television transitioned *from* analog *to* digital signals in the 2000s.", "type": "TF"},
+            {"q": "The digital divide between developed and developing nations is untouched by mobile digital platforms.", "o": ["True", "False"], "a": 1, "e": "False: Mobile communication and digital technologies spread globally to developing countries.", "type": "TF"},
+            {"q": "Binary data representation utilizes discrete symbols (0s and 1s) rather than continuous waveforms.", "o": ["True", "False"], "a": 0, "e": "True: Digital refers to representing data using discrete symbols or binary digits (0s and 1s).", "type": "TF"},
+            {"q": "IT support specialists troubleshoot hardware and software problems for end-users.", "o": ["True", "False"], "a": 0, "e": "True: IT support specialists are core IT professionals.", "type": "TF"},
+            {"q": "The milestone of one billion internet users was achieved around late 2005.", "o": ["True", "False"], "a": 0, "e": "True: By late 2005, internet users reached one billion.", "type": "TF"},
+            {"q": "By 2020, over half of the global human population actively utilized the internet.", "o": ["True", "False"], "a": 0, "e": "True: By 2020, more than half of the world's population actively used the internet.", "type": "TF"},
+            {"q": "The discrete cosine transform is an irrelevant mathematical concept with no application in digital media.", "o": ["True", "False"], "a": 1, "e": "False: Discrete cosine transform is fundamental to digital media compression standards.", "type": "TF"},
+            {"q": "Emerging technologies discussed in foundational overviews include quantum computing, AI, blockchain, and Big Data.", "o": ["True", "False"], "a": 0, "e": "True: These are key next-generation technologies.", "type": "TF"},
+            
+            // High-Level TFs (46-50)
+            {"q": "[HIGH-LEVEL] Digital literacy and user-friendly technology design played absolutely zero role in the rapid mass adoption of internet and mobile technologies during the digital revolution.", "o": ["True", "False"], "a": 1, "e": "[HIGH-LEVEL] As technology became more user-friendly, society experienced increased digital literacy and mass adoption.", "type": "TF"},
+            {"q": "[HIGH-LEVEL] The transition from analog to digital television signals occurred in the 1940s before the invention of the transistor.", "o": ["True", "False"], "a": 1, "e": "[HIGH-LEVEL] The digital television transition occurred during the 2000s, long after the 1947 transistor.", "type": "TF"},
+            {"q": "[HIGH-LEVEL] An organization can achieve complete digital transformation security solely by purchasing advanced 5G hardware, rendering cybersecurity governance and IT professionals entirely unnecessary.", "o": ["True", "False"], "a": 1, "e": "[HIGH-LEVEL] Hardware connectivity alone cannot replace skilled IT professionals, cybersecurity experts, and governance.", "type": "TF"},
+            {"q": "[HIGH-LEVEL] The impact of the digital revolution on low- and middle-income countries is restricted entirely to agricultural crop rotation methods without affecting traditional manufactured goods.", "o": ["True", "False"], "a": 1, "e": "[HIGH-LEVEL] The biggest impact on low- and middle-income countries occurs through new manufacturing process technologies affecting traditional goods.", "type": "TF"},
+            {"q": "[HIGH-LEVEL] The foundational shift from mechanical and analog devices to digital electronics since the 1940s has driven continuous productivity enhancements and structural efficiency across industry sectors.", "o": ["True", "False"], "a": 0, "e": "[HIGH-LEVEL] Digital technology continually changes and boosts productivity across a wide range of sectors and industries.", "type": "TF"}
+        ];
+
+        const getQuestionType = question => question.type.replace(/[.!?]+$/, "");
+
+        const P1_DATA = [
+            ...P1_SOURCE.filter(question => getQuestionType(question) === "MCQ"),
+            ...P2_SOURCE.filter(question => getQuestionType(question) === "MCQ")
+        ];
+        const P2_DATA = [
+            ...P1_SOURCE.filter(question => getQuestionType(question) === "TF"),
+            ...P2_SOURCE.filter(question => getQuestionType(question) === "TF")
+        ];
+
+        let activePart = 1;
+        let qData = P1_DATA;
+        let cIdx = 0;
+        let score = 0;
+        let wrongList = [];
+
+        const $ = id => document.getElementById(id);
+
+        function switchPart(part) {
+            activePart = part;
+            $("tab1").className = "tab-btn " + (part === 1 ? "active" : "");
+            $("tab2").className = "tab-btn " + (part === 2 ? "active" : "");
+            qData = part === 1 ? P1_DATA : P2_DATA;
+            resetQuiz();
+        }
+
+        function resetQuiz() {
+            cIdx = 0;
+            score = 0;
+            wrongList = [];
+            renderQuestion();
+        }
+
+        function renderQuestion() {
+            const q = qData[cIdx];
+            $("n").textContent = `Question ${cIdx + 1} of ${qData.length}`;
+            $("s").textContent = `Score: ${score}`;
+            $("bar").style.width = `${(cIdx / qData.length) * 100}%`;
+
+            const isHighLevel = q.q.includes("[HIGH-LEVEL]");
+            const badgeClass = isHighLevel ? "q-badge high-level" : "q-badge";
+            const badgeText = isHighLevel 
+                ? (getQuestionType(q) === 'TF' ? 'True / False — High Level' : 'Multiple Choice — High Level')
+                : (getQuestionType(q) === 'TF' ? 'True / False' : 'Multiple Choice');
+            
+            $("card").innerHTML = `
+                <span class="${badgeClass}">${badgeText}</span>
+                <p class="q">${q.q}</p>
+                <div id="opts"></div>
+                <div id="fb"></div>
+            `;
+
+            q.o.forEach((optText, i) => {
+                const b = document.createElement("button");
+                b.className = "opt";
+                b.innerHTML = `<b>${getQuestionType(q) === 'TF' ? (i===0?'T':'F') : "ABCD"[i] + ")"}</b><span></span>`;
+                b.querySelector("span").textContent = optText;
+                b.onclick = () => handleAnswer(i);
+                $("opts").appendChild(b);
+            });
+        }
+
+        function handleAnswer(selected) {
+            const q = qData[cIdx];
+            const isCorrect = selected === q.a;
+            const buttons = document.querySelectorAll(".opt");
+
+            buttons.forEach((btn, idx) => {
+                btn.disabled = true;
+                if (idx === q.a) btn.classList.add("ok");
+                else if (idx === selected) btn.classList.add("no");
+            });
+
+            if (isCorrect) score++;
+            else wrongList.push(cIdx);
+
+            $("s").textContent = `Score: ${score}`;
+
+            $("fb").innerHTML = `
+                <div class="ex ${isCorrect ? 'ok' : 'no'}">
+                    <strong>${isCorrect ? 'Correct answer ✓' : 'Incorrect answer ✗'}</strong>
+                    <span>${q.e}</span>
+                </div>
+                <button class="btn" id="nxtBtn">${cIdx < qData.length - 1 ? 'Next question' : 'Show final results'}</button>
+            `;
+
+            $("nxtBtn").onclick = () => {
+                cIdx++;
+                if (cIdx < qData.length) renderQuestion();
+                else finishQuiz();
+            };
+            $("nxtBtn").focus();
+        }
+
+        function finishQuiz() {
+            $("bar").style.width = "100%";
+            $("n").textContent = "Quiz complete";
+            const pct = Math.round((score / qData.length) * 100);
+            
+            let html = `
+                <div class="score">${score} / ${qData.length}</div>
+                <p style="text-align:center;font-size:1.2rem;margin:0 0 16px;">Percentage: <b>${pct}%</b></p>
+            `;
+
+            if (wrongList.length > 0) {
+                html += `<p style="margin:16px 0 8px;"><b>Questions to review:</b></p><ul class="rev">`;
+                wrongList.reverse().forEach(w => {
+                    html += `<li><b>Question ${w + 1}:</b> ${qData[w].q}</li>`;
+                });
+                html += `</ul>`;
+            } else {
+                html += `<p style="text-align:center;color:var(--ok);">Excellent! All answers are correct (100%).</p>`;
+            }
+
+            html += `<button class="btn" onclick="resetQuiz()">Restart quiz</button>`;
+            $("card").innerHTML = html;
+        }
+
+        renderQuestion();
+    </script>
+</body>
+</html>

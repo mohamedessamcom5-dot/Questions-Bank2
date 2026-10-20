@@ -1,0 +1,436 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>HRM — Chapter 3: Personnel Planning and Recruiting</title>
+    <style>
+        :root {
+            --bg: #0f172a;
+            --c: #1e293b;
+            --t: #f8fafc;
+            --m: #94a3b8;
+            --b: #334155;
+            --ac: #38bdf8;
+            --ok: #22c55e;
+            --okb: #052e16;
+            --no: #ef4444;
+            --nob: #450a0a;
+            box-sizing: border-box;
+        }
+
+        @media(prefers-color-scheme: light) {
+            :root[data-theme=light] {
+                --bg: #f8fafc;
+                --c: #ffffff;
+                --t: #0f172a;
+                --m: #64748b;
+                --b: #e2e8f0;
+                --ac: #0284c7;
+                --okb: #dcfce7;
+                --nob: #fee2e2;
+                --ok: #16a34a;
+                --no: #dc2626;
+            }
+        }
+
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--t);
+            font-family: 'Segoe UI', Tahoma, system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+        }
+        main {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 24px 16px 60px;
+        }
+        .header-panel {
+            text-align: center;
+            margin-bottom: 24px;
+            border-bottom: 8px solid var(--b);
+            padding-bottom: 30px;
+        }
+        h1 { font-size: 1.5rem; margin: 0 0 8px; color: var(--ac); }
+        .sub { color: var(--m); font-size: 0.95rem; margin: 0; }
+        
+        .nav-tabs {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .tab-btn {
+            flex: 1;
+            padding: 12px;
+            background: var(--c);
+            border: 1px solid var(--b);
+            color: var(--t);
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .tab-btn.active {
+            background: var(--ac);
+            color: #000;
+            border-color: var(--ac);
+        }
+
+        .bar {
+            height: 8px;
+            background: var(--b);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+        .bar i {
+            display: block;
+            height: 100%;
+            background: var(--ac);
+            width: 0;
+            transition: width 0.3s;
+        }
+        .meta {
+            display: flex;
+            justify-content: space-between;
+            color: var(--m);
+            font-size: 0.9rem;
+            margin-bottom: 16px;
+        }
+        .card {
+            background: var(--c);
+            border: 1px solid var(--b);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+        .q-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            background: var(--b);
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+            color: var(--ac);
+        }
+        .q-badge.high-level {
+            background: #f59e0b;
+            color: #000;
+            font-weight: bold;
+        }
+        .q {
+            font-size: 1.1rem;
+            font-weight: 600;
+            direction: ltr;
+            text-align: left;
+            margin: 0 0 16px;
+        }
+        .opt {
+            display: flex;
+            gap: 12px;
+            direction: ltr;
+            text-align: left;
+            width: 100%;
+            background: var(--c);
+            color: var(--t);
+            border: 1.5px solid var(--b);
+            border-radius: 8px;
+            padding: 12px 14px;
+            margin-bottom: 10px;
+            font: inherit;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+        .opt:hover:not(:disabled) { border-color: var(--ac); }
+        .opt b { min-width: 1.5em; color: var(--ac); }
+        .opt.ok { background: var(--okb); border-color: var(--ok); }
+        .opt.no { background: var(--nob); border-color: var(--no); }
+        .opt:disabled { cursor: default; }
+
+        .ex {
+            margin-top: 16px;
+            padding: 14px;
+            border-radius: 8px;
+            direction: ltr;
+            text-align: left;
+            font-size: 0.95rem;
+        }
+        .ex.ok { background: var(--okb); border: 1px solid var(--ok); }
+        .ex.no { background: var(--nob); border: 1px solid var(--no); }
+        .ex strong { display: block; margin-bottom: 4px; }
+
+        .btn {
+            margin-top: 16px;
+            background: var(--ac);
+            color: #000;
+            border: 0;
+            border-radius: 8px;
+            padding: 12px 24px;
+            font: inherit;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+        }
+        .score { text-align: center; font-size: 3rem; font-weight: 800; margin: 12px 0; color: var(--ac); }
+        .rev { margin: 16px 0 0; padding: 0; list-style: none; direction: ltr; text-align: left; font-size: 0.9rem; }
+        .rev li { padding: 8px 0; border-top: 1px solid var(--b); }
+    </style>
+</head>
+<body>
+    <main>
+        <div class="header-panel">
+            <h1>Human Resource Management — Chapter 3</h1>
+            <p class="sub">Personnel Planning and Recruiting </p>
+        </div>
+        
+        <div class="nav-tabs">
+            <button class="tab-btn active" id="tab1" onclick="switchPart(1)">Multiple Choice</button>
+            <button class="tab-btn" id="tab2" onclick="switchPart(2)">True/False</button>
+        </div>
+
+        <div class="bar"><i id="bar"></i></div>
+        <div class="meta">
+            <span id="n"></span>
+            <span id="s"></span>
+        </div>
+        <div class="card" id="card"></div>
+    </main>
+      
+    <script>
+       const P1_SOURCE = [
+            // Standard Questions (1-45)
+            {"q": "What is the first step in the personnel planning and selection process outlined in Chapter 3?", "o": ["Decide what positions to fill through personnel planning and forecasting", "Build a pool of candidates by recruiting internal or external applicants", "Have candidates complete application forms and initial screening", "Use selection tools like tests and physical exams"], "a": 0, "e": "Step 1 is deciding what positions to fill through personnel planning and forecasting.", "type": "MCQ"},
+            {"q": "What does forecasting labor demand start with?", "o": ["Estimating what the demand will be for new applicants", "Auditing corporate income tax returns", "Calculating shareholder dividend payouts", "Designing office cafeteria seating charts"], "a": 0, "e": "Forecasting workforce demand starts with estimating what the demand will be for new applicants.", "type": "MCQ"},
+            {"q": "What is Trend Analysis in personnel forecasting?", "o": ["Studying variations in the firm's employment levels over the last few years", "Calculating the exact ratio between sales volume and salespeople", "Plotting sales versus staffing levels on a scatter diagram", "Auditing past union contract negotiations"], "a": 0, "e": "Trend analysis means studying variations in the firm's employment levels over the last few years.", "type": "MCQ"},
+            {"q": "What does Ratio Analysis involve in forecasting?", "o": ["Making forecasts based on the historical ratio between a causal factor (like sales volume) and the number of employees required", "Plotting scatter points on a regression graph", "Conducting unstructured employee interviews", "Auditing employee health insurance benefits"], "a": 0, "e": "Ratio analysis means making forecasts based on the historical ratio between a causal factor (sales volume) and required employees.", "type": "MCQ"},
+            {"q": "How does a Scatter Plot assist in workforce planning?", "o": ["It shows graphically how two variables, such as sales and staffing levels, are related", "It calculates corporate income tax brackets", "It lists internal job posting bulletin board locations", "It details employee disciplinary records"], "a": 0, "e": "A scatter plot shows graphically how two variables such as sales and staffing levels are related.", "type": "MCQ"},
+            {"q": "When forecasting the supply of inside candidates, what do firms examine first?", "o": ["Which current employees might be qualified for the projected openings", "External newspaper advertisements", "Private executive headhunter agencies", "College campus graduating senior lists"], "a": 0, "e": "Most firms start with inside candidates, determining which current employees might be qualified.", "type": "MCQ"},
+            {"q": "How do larger firms track the qualifications of hundreds or thousands of employees efficiently?", "o": ["Using computerized skills inventories (such as Survey Analytics's Skills Inventory Software)", "Maintaining manual paper cards in filing cabinets", "Relying purely on employee memory", "Conducting daily face-to-face interviews"], "a": 0, "e": "Larger employers computerize this information using packaged software systems like Skills Inventory Software.", "type": "MCQ"},
+            {"q": "When do firms turn to outside candidates?", "o": ["If there won't be enough inside candidates to fill anticipated openings", "Before examining any current employees", "When internal morale is extremely high", "To avoid paying any wages"], "a": 0, "e": "If there won't be enough inside candidates, management turns to outside candidates.", "type": "MCQ"},
+            {"q": "What does a Workforce Action Plan lay out?", "o": ["Projected workforce demand-supply gaps, as well as staffing plans for filling necessary positions", "Daily cafeteria menus and parking assignments", "Corporate quarterly financial tax returns", "Employee holiday vacation schedules"], "a": 0, "e": "An action plan lays out projected demand-supply gaps and staffing plans for filling positions.", "type": "MCQ"},
+            {"q": "How is employee recruiting defined?", "o": ["Finding and attracting applicants for the employer's open positions to build an applicant pool", "Firing underperforming employees and downsizing departments", "Auditing employee payroll tax withholdings", "Negotiating commercial real estate lease deeds"], "a": 0, "e": "Employee recruiting means finding and attracting applicants for open positions to build an applicant pool.", "type": "MCQ."},
+            {"q": "Which of the following is a challenge that makes recruiting difficult?", "o": ["Some recruiting methods are superior to others depending on the job, recruitment policies, and employment law", "Recruiting is completely unregulated by federal laws", "All recruiting methods yield identical results regardless of job type", "Paying lower wages always attracts larger applicant pools"], "a": 0, "e": "Challenges include varying method effectiveness, policies (e.g., pay rates), and employment law constraints.", "type": "MCQ."},
+            {"q": "What is an advantage of filling open positions with internal candidates?", "o": ["Knowing a candidate's strengths and weaknesses, higher commitment, morale boost, and less required orientation/training", "Increased recruitment advertising expenses", "Longer orientation and training periods required", "Complete uncertainty regarding employee capabilities"], "a": 0, "e": "Internal candidates offer known strengths/weaknesses, commitment, morale boost, and less training.", "type": "MCQ."},
+            {"q": "What does Job Posting mean in internal recruiting?", "o": ["Publicizing the open job to employees on company intranets or bulletin boards", "Hiring external candidates via LinkedIn", "Publishing help-wanted ads in the local newspaper", "Outsourcing recruitment to overseas agencies"], "a": 0, "e": "Job posting means publicizing the open job to employees via intranets or bulletin boards.", "type": "MCQ."},
+            {"q": "What is Succession Planning?", "o": ["The ongoing process of identifying, assessing, and developing organizational leadership to fill top positions", "Filing weekly payroll tax withholdings", "Repairing office computer hardware", "Conducting factory floor safety inspections"], "a": 0, "e": "Succession planning is the ongoing process of identifying, assessing, and developing leadership for top positions.", "type": "MCQ."},
+            {"q": "Which outside recruiting source is by far the source of choice for most employers and jobs?", "o": ["Internet-based recruiting (company websites and job boards)", "Print newspaper classified ads", "Direct postal mail letters", "Radio broadcast announcements"], "a": 0, "e": "For most employers and jobs, Internet-based recruiting is by far the source of choice.", "type": "MCQ."},
+            {"q": "How do staffing firms utilize social media for recruiting?", "o": ["Using Facebook, LinkedIn, and Twitter pages to announce job openings", "Banned from posting jobs on social networks", "Using social media exclusively for personal entertainment", "Sending physical faxes through social apps"], "a": 1, "e": "Staffing firms and employers use Facebook, LinkedIn, and Twitter to announce job openings.", "type": "MCQ."},
+            {"q": "Which print media is often a good source for local blue-collar and clerical employees?", "o": ["The local newspaper", "The Wall Street Journal international edition", "Global academic research journals", "Corporate tax code handbooks"], "a": 0, "e": "The local newspaper is often a good source for local blue-collar help, clerical, and lower-level administrative employees.", "type": "MCQ."},
+            {"q": "What are the three main types of employment agencies?", "o": ["Public agencies/local government, nonprofit organizations, and privately owned agencies", "Federal courts, police departments, and military bases", "Commercial banks, insurance firms, and stock brokerages", "Manufacturing plants, retail stores, and restaurants"], "a": 0, "e": "The three main types are public/local government, nonprofit, and privately owned agencies.", "type": "MCQ."},
+            {"q": "What is the difference between Outsourcing and Offshoring?", "o": ["Outsourcing has outside vendors supply services, while offshoring bases processes or services overseas for lower costs", "Outsourcing sends jobs overseas, while offshoring brings vendors inside", "There is no difference between the two terms", "Outsourcing applies only to executive recruitment"], "a": 0, "e": "Outsourcing has outside vendors supply services, while offshoring bases processes/services overseas for lower costs.", "type": "MCQ."},
+            {"q": "Who are Executive Recruiters (Headhunters)?", "o": ["Special employment agencies that seek out top-management talent for executive jobs", "Local newspaper delivery personnel", "Entry-level administrative interns", "Hourly retail cashiers"], "a": 0, "e": "Executive recruiters (headhunters) are special employment agencies seeking top-management talent.", "type": "MCQ."},
+            {"q": "What is College Recruiting?", "o": ["Sending an employer's representatives to college campuses to prescreen applicants and build an applicant pool", "Enrolling current employees in night school degree programs", "Auditing college tuition billing records", "Filing university property tax returns"], "a": 0, "e": "College recruiting involves sending representatives to college campuses to prescreen applicants from graduating classes.", "type": "MCQ."},
+            {"q": "How do employee referral campaigns typically operate?", "o": ["Employers post openings and offer prizes or cash awards for referrals leading to hiring", "Employees are legally mandated to find relatives to work", "Management forbids current workers from recommending friends", "Referrals are restricted exclusively to executive board members"], "a": 0, "e": "Employers post openings and often offer prizes or cash awards for successful referrals.", "type": "MCQ."},
+            {"q": "Who are Walk-Ins primarily a big source of applicants for?", "o": ["Hourly workers making direct applications at the office", "Global Chief Executive Officers", "International software engineers", "Corporate legal counsels"], "a": 0, "e": "Walk-ins (direct applications made at the office) are a big source of applicants particularly for hourly workers.", "type": "MCQ."},
+            {"q": "What is Step 3 in the recruitment and selection process after building a candidate pool?", "o": ["Have candidates complete application forms and undergo initial screening interviews", "Issue final employment contracts and executive salaries", "Conduct background medical surgery", "Liquidate the corporate assets"], "a": 0, "e": "Step 3 involves having candidates complete application forms and undergo initial screening.", "type": "MCQ."},
+            {"q": "What is Step 4 in the selection process?", "o": ["Use selection tools like tests, background investigations, and physical exams to identify viable candidates", "Publicize job postings on company bulletin boards", "Conduct trend analysis on sales volume", "Review organizational charts"], "a": 0, "e": "Step 4 uses selection tools like tests, background investigations, and physical exams.", "type": "MCQ."},
+            {"q": "What is Step 5 in the hiring sequence?", "o": ["Decide who to make an offer to, by having the supervisor and perhaps others interview candidates", "Audit corporate income tax returns", "File EEO government compliance reports", "Conduct initial employee orientation"], "a": 0, "e": "Step 5 decides who to make an offer to through supervisor and peer interviews.", "type": "MCQ."},
+            {"q": "Which forecasting tool uses historical employment levels over the last few years?", "o": ["Trend Analysis", "Ratio Analysis", "Scatter Plot", "Computerized Skills Inventory"], "a": 0, "e": "Trend analysis studies variations in firm employment levels over the last few years.", "type": "MCQ."},
+            {"q": "If a restaurant chain gets about a third of its management applicants via the Web, what does this illustrate?", "o": ["The high effectiveness and popularity of Internet-based recruiting", "The complete failure of online job boards", "The obsolescence of digital technology", "The restriction of hiring exclusively to walk-ins"], "a": 0, "e": "The Cheesecake Factory getting a third of management applicants via the Web illustrates Internet recruiting.", "type": "MCQ."},
+            {"q": "Why might an employer pay 10% more than most firms in their locale?", "o": ["To help build a bigger applicant pool faster", "To increase personnel turnover rates", "To violate employment discrimination laws", "To reduce employee morale"], "a": 0, "e": "Paying 10% more than local competitors helps build a bigger applicant pool faster.", "type": "MCQ."},
+            {"q": "What does rehiring former employees depend on according to Chapter 3?", "o": ["Whether they are known and familiar, though it depends on individual circumstances", "Federal legal mandates requiring rehiring everyone who ever resigned", "Absolute prohibition of former staff returning", "Random lottery selection"], "a": 0, "e": "Rehiring depends on whether former employees left on good terms, as they are known and familiar.", "type": "MCQ."},
+            {"q": "What role do employment laws play in recruiting?", "o": ["They prescribe what you can and cannot do when recruiting", "They dictate daily office cafeteria menus", "They set executive bonus percentages", "They eliminate all recruiting costs"], "a": 0, "e": "Employment law prescribes what you can and cannot do when recruiting.", "type": "MCQ."},
+            {"q": "Which software package is mentioned as an example of computerized skills inventory systems?", "o": ["Survey Analytics's Skills Inventory Software", "Adobe Premiere Pro", "Microsoft Excel Ledger", "AutoCAD Drafting Tool"], "a": 0, "e": "Survey Analytics's Skills Inventory Software is cited as an example of packaged computerized systems.", "type": "MCQ."},
+            {"q": "What is a key benefit of succession planning?", "o": ["Enhancing organizational performance by identifying, assessing, and developing leadership for top positions", "Calculating weekly payroll tax withholdings", "Designing office coffee machine schedules", "Ordering manufacturing raw materials"], "a": 0, "e": "Succession planning enhances performance by developing leadership for top positions.", "type": "MCQ."},
+            {"q": "What is the primary focus of Chapter 3?", "o": ["Personnel planning and employee recruiting", "Financial accounting audits", "Supply chain inventory warehousing", "Customer relationship management"], "a": 0, "e": "Chapter 3 focuses on personnel planning and on recruiting employees.", "type": "MCQ."},
+            {"q": "When using help-wanted print ads, what two issues should employers address?", "o": ["The advertising medium and the ad's construction", "The employee's home address and personal hobbies", "The corporate tax bracket and shareholder dividends", "The factory floor square footage"], "a": 0, "e": "Employers should address two issues: the advertising medium and the ad's construction.", "type": "MCQ."},
+            {"q": "What is an alternative staffing example where companies send jobs out rather than bringing people in?", "o": ["Outsourcing and offshoring", "Internal job posting", "Employee referral campaigns", "College campus recruiting"], "a": 0, "e": "Outsourcing and offshoring send jobs out rather than bringing people in.", "type": "MCQ."},
+            {"q": "Why do firms engage in offshoring?", "o": ["To take advantage of lower costs by basing processes or services overseas", "To increase domestic tax liabilities", "To eliminate all customer interactions", "To comply with local union wage mandates"], "a": 0, "e": "Offshoring bases processes or services overseas to take advantage of lower costs.", "type": "MCQ."},
+            {"q": "What type of service might a company outsource?", "o": ["Benefits management, market research, or manufacturing", "Executive board voting rights", "Internal CEO succession decisions", "Direct supervisory performance appraisals"], "a": 0, "e": "Outsourcing means outside vendors supply services such as benefits management, market research, or manufacturing.", "type": "MCQ."},
+            {"q": "What is a primary advantage of building an applicant pool through internal sources?", "o": ["Current employees may be more committed and morale may rise if promotions reward loyalty and competence", "It guarantees zero training costs for any position", "It eliminates the need for job descriptions", "It prevents any employee turnover"], "a": 0, "e": "Internal sources foster commitment and boost morale when promotions reward loyalty and competence.", "type": "MCQ."},
+            {"q": "What does a scatter plot require to estimate personnel needs?", "o": ["Forecasting the business activity (like sales) first, since the two variables are related", "Random guessing without data", "Complete liquidation of assets", "Mandatory retirement of senior staff"], "a": 0, "e": "If variables are related, forecasting business activity (sales) allows estimating personnel needs.", "type": "MCQ."},
+            {"q": "How does ratio analysis forecast personnel requirements?", "o": ["Based on the historical ratio between a causal factor and required employees", "By auditing annual corporate tax returns", "By reviewing employee medical records", "By measuring office square footage"], "a": 0, "e": "Ratio analysis forecasts based on historical ratios between causal factors and employee counts.", "type": "MCQ."},
+            {"q": "What is the main danger of ignoring employment laws during recruiting?", "o": ["Facing legal liabilities and regulatory penalties for unlawful hiring practices", "Receiving excessive government subsidies", "Increasing employee morale instantly", "Lowering recruitment advertising costs"], "a": 0, "e": "Employment law prescribes recruiting rules; violating them leads to legal liabilities.", "type": "MCQ."},
+            {"q": "Why do larger firms find manual skills inventories impractical?", "o": ["They cannot track the qualifications of hundreds or thousands of employees manually", "Computers are illegal in large businesses", "Employees refuse to share their skills", "Manual filing cabinets provide too much security"], "a": 0, "e": "Larger firms can't track qualifications of hundreds or thousands of employees manually, requiring computers.", "type": "MCQ."},
+            {"q": "What is the outcome of matching projected labor supply and labor demand?", "o": ["A workforce action plan detailing gaps and staffing plans", "A mandatory corporate tax audit report", "An executive shareholder dividend payout", "A complete shutdown of operations"], "a": 0, "e": "Workforce planning designs an action plan laying out demand-supply gaps and staffing plans.", "type": "MCQ."},
+            {"q": "What role do supervisors play in Step 5 of the selection process?", "o": ["Interviewing candidates to help decide who to make an employment offer to", "Auditing corporate financial balance sheets", "Filing government safety compliance reports", "Printing newspaper classified ads"], "a": 0, "e": "Step 5 involves the supervisor and perhaps others interviewing candidates to decide on an offer.", "type": "MCQ."},
+
+            // High-Level Questions (46-50)
+            {"q": "[HIGH-LEVEL] An organization experiences a sharp 50% drop in sales volume due to an external economic recession. Management relies exclusively on historical trend analysis (examining past employment levels over 5 years) without incorporating ratio analysis or scatter plots linking sales to staffing. Consequently, they overhire and face severe financial distress. Why is this a forecasting failure?", "o": ["Trend analysis studies past employment variations in isolation, whereas ratio analysis and scatter plots link personnel needs directly to fluctuating business activity like sales volume", "Trend analysis is legally forbidden during recessions", "Trend analysis requires computer software costing millions", "Trend analysis replaces the need for workforce action plans"], "a": 0, "e": "Trend analysis looks at past employment levels, but failing to link staffing to sales via ratio or scatter analysis during volatile market shifts causes forecasting errors.", "type": "MCQ."},
+            {"q": "[HIGH-LEVEL] A multinational firm decides to offshore its customer service call center overseas solely to lower labor costs, but completely neglects local labor laws, cultural communication nuances, and training requirements. As a result, customer satisfaction plummets. According to Chapter 3 principles, what was flawed in this strategy?", "o": ["While offshoring targets lower cost advantages, effective staffing still requires rigorous planning, training, and policy alignment to prevent operational failure", "Offshoring guarantees 100% customer satisfaction automatically", "Offshoring is restricted strictly to domestic local newspapers", "Offshoring eliminates the need for workforce action plans"], "a": 0, "e": "Offshoring provides lower cost advantages, but operational success requires proper planning, training, and execution.", "type": "MCQ."},
+            {"q": "[HIGH-LEVEL] An HR director assumes that because internet recruiting (job boards and social media) is popular, print advertising and employee referrals are entirely obsolete and should be permanently banned. Based on Chapter 3, why is this assumption incorrect?", "o": ["Different recruitment sources suit different jobs; print ads remain popular for local blue-collar/clerical help, and employee referral campaigns are highly effective options", "Print advertising is legally mandated for all executive positions", "Employee referrals yield zero successful hires", "Internet recruiting is banned for hourly workers"], "a": 0, "e": "Print ads remain popular depending on position (local papers for blue-collar/clerical), and employee referrals are an important recruiting option.", "type": "MCQ."},
+            {"q": "[HIGH-LEVEL] A small business owner promotes an unqualified internal employee to a critical leadership role solely based on tenure without succession planning or skills inventory assessment, leading to departmental collapse. Which recruitment and planning failure occurred?", "o": ["Failure to properly assess internal qualifications via skills inventories and succession planning, violating structured talent development principles", "Failure to use overseas offshoring vendors", "Failure to post the job on Twitter", "Failure to conduct scatter plot regression analysis"], "a": 0, "e": "Internal promotion requires assessing qualifications through skills inventories and succession planning rather than arbitrary tenure.", "type": "MCQ."},
+            {"q": "[HIGH-LEVEL] If an organization implements aggressive employee referral cash bonuses and pays 10% above local market rates but completely ignores employment laws and discriminatory screening practices during initial candidate interviews, what will be the ultimate outcome?", "o": ["While the policies will build a bigger applicant pool faster, unlawful screening will expose the company to severe legal liabilities and lawsuits", "The company will be exempt from all employment regulations", "The applicant pool will instantly shrink to zero", "Recruiting challenges will be completely eliminated"], "a": 0, "e": "Higher pay builds larger applicant pools faster, but employment law prescribes what you can and cannot do, and violations create legal liability.", "type": "MCQ."}
+        ];
+
+        const P2_SOURCE = [
+            // Standard Questions (1-45)
+            {"q": "The first step in personnel planning and selection is deciding what positions to fill.", "o": ["True", "False"], "a": 0, "e": "True: Step 1 is deciding what positions to fill through planning and forecasting.", "type": "TF"},
+            {"q": "Forecasting workforce demand starts with estimating demand for new applicants.", "o": ["True", "False"], "a": 0, "e": "True: Forecasting demand starts with estimating new applicant demand.", "type": "TF"},
+            {"q": "Trend analysis studies variations in the firm's employment levels over the last few years.", "o": ["True", "False"], "a": 0, "e": "True: Trend analysis studies employment variations over recent years.", "type": "TF"},
+            {"q": "Ratio analysis makes forecasts based on historical ratios between causal factors and required employees.", "o": ["True", "False"], "a": 0, "e": "True: Ratio analysis uses historical ratios between causal factors and employees.", "type": "TF"},
+            {"q": "A scatter plot graphically shows how two variables like sales and staffing levels are related.", "o": ["True", "False"], "a": 0, "e": "True: Scatter plots show graphical relationships between sales and staffing.", "type": "TF"},
+            {"q": "Firms typically examine outside candidates before checking qualified inside candidates.", "o": ["True", "False"], "a": 1, "e": "False: Most firms start with inside candidates before turning outside.", "type": "TF"},
+            {"q": "Larger firms computerize skills inventories using software packages to track employee qualifications.", "o": ["True", "False"], "a": 0, "e": "True: Larger employers use computerized skills inventory software.", "type": "TF"},
+            {"q": "A workforce action plan lays out projected demand-supply gaps and staffing plans.", "o": ["True", "False"], "a": 0, "e": "True: An action plan details demand-supply gaps and staffing plans.", "type": "TF"},
+            {"q": "Employee recruiting means finding and attracting applicants to build an applicant pool.", "o": ["True", "False"], "a": 0, "e": "True: Recruiting finds and attracts applicants to build a pool.", "type": "TF"},
+            {"q": "Employment law has no impact on what you can and cannot do when recruiting.", "o": ["True", "False"], "a": 1, "e": "False: Employment law prescribes what you can and cannot do when recruiting.", "type": "TF"},
+            {"q": "Internal candidates typically require more orientation and training than outside hires.", "o": ["True", "False"], "a": 1, "e": "False: Internal candidates should require *less* orientation and training than outsiders.", "type": "TF"},
+            {"q": "Job posting involves publicizing open jobs to employees via intranets or bulletin boards.", "o": ["True", "False"], "a": 0, "e": "True: Job posting publicizes openings on intranets or bulletin boards.", "type": "TF"},
+            {"q": "Succession planning is the ongoing process of identifying, assessing, and developing organizational leadership.", "o": ["True", "False"], "a": 0, "e": "True: Succession planning develops organizational leadership for top positions.", "type": "TF"},
+            {"q": "Internet-based recruiting is by far the recruiting source of choice for most employers and jobs.", "o": ["True", "False"], "a": 0, "e": "True: Internet recruiting is the source of choice for most employers.", "type": "TF"},
+            {"q": "Staffing firms are strictly forbidden from using Facebook or LinkedIn to announce job openings.", "o": ["True", "False"], "a": 1, "e": "False: Staffing firms and employers actively use Facebook and LinkedIn to announce openings.", "type": "TF"},
+            {"q": "The local newspaper is often a good source for local blue-collar help and clerical employees.", "o": ["True", "False"], "a": 0, "e": "True: Local newspapers are good sources for blue-collar and clerical staff.", "type": "TF"},
+            {"q": "The three main types of employment agencies are public, nonprofit, and privately owned.", "o": ["True", "False"], "a": 0, "e": "True: Agencies include public, nonprofit, and private types.", "type": "TF"},
+            {"q": "Outsourcing means having outside vendors supply services like benefits management or manufacturing.", "o": ["True", "False"], "a": 0, "e": "True: Outsourcing has outside vendors supply services.", "type": "TF"},
+            {"q": "Offshoring is the practice of basing processes or services overseas to take advantage of lower costs.", "o": ["True", "False"], "a": 0, "e": "True: Offshoring bases processes overseas for lower costs.", "type": "TF"},
+            {"q": "Executive recruiters (headhunters) seek out top-management talent for executive jobs.", "o": ["True", "False"], "a": 0, "e": "True: Executive recruiters seek top-management talent.", "type": "TF"},
+            {"q": "College recruiting involves sending employer representatives to campuses to prescreen applicants.", "o": ["True", "False"], "a": 0, "e": "True: College recruiting sends reps to campuses to prescreen graduates.", "type": "TF"},
+            {"q": "Walk-ins are a major source of applicants particularly for hourly workers making direct office applications.", "o": ["True", "False"], "a": 0, "e": "True: Walk-ins are a big source of applicants for hourly workers.", "type": "TF"},
+            {"q": "Employee referral campaigns often offer cash awards or prizes for successful hires.", "o": ["True", "False"], "a": 0, "e": "True: Referral campaigns often offer prizes or cash awards.", "type": "TF"},
+            {"q": "Step 3 of the hiring process involves application forms and initial screening interviews.", "o": ["True", "False"], "a": 0, "e": "True: Step 3 uses application forms and initial screening.", "type": "TF"},
+            {"q": "Step 4 of selection uses tools like tests, background investigations, and physical exams.", "o": ["True", "False"], "a": 0, "e": "True: Step 4 uses tests, background checks, and physical exams.", "type": "TF"},
+            {"q": "Step 5 of selection involves supervisor and peer interviews to decide on an offer.", "o": ["True", "False"], "a": 0, "e": "True: Step 5 involves supervisor interviews to make an offer.", "type": "TF"},
+            {"q": "Paying 10% more than local competitors helps build a bigger applicant pool faster.", "o": ["True", "False"], "a": 0, "e": "True: Paying 10% more helps build a bigger applicant pool faster.", "type": "TF"},
+            {"q": "Current employees are generally less committed to the company than outside hires.", "o": ["True", "False"], "a": 1, "e": "False: Current employees may be *more* committed and morale may rise.", "type": "TF"},
+            {"q": "Rehiring former employees is never done because they are completely unknown.", "o": ["True", "False"], "a": 1, "e": "False: Former employees are known and already familiar, making rehiring a viable option.", "type": "TF"},
+            {"q": "Print help-wanted ads are completely obsolete and never used in professional magazines.", "o": ["True", "False"], "a": 1, "e": "False: Print ads are still popular and confirmed by business and professional magazines.", "type": "TF"},
+            {"q": "When constructing print ads, employers should address the advertising medium and ad construction.", "o": ["True", "False"], "a": 0, "e": "True: Employers should address media and ad construction.", "type": "TF"},
+            {"q": "Executive recruiters are also known as headhunters.", "o": ["True", "False"], "a": 0, "e": "True: Executive recruiters are also known as headhunters.", "type": "TF"},
+            {"q": "The Cheesecake Factory gets about a third of its management applicants via the Web.", "o": ["True", "False"], "a": 0, "e": "True: The Cheesecake Factory gets about a third of management applicants via the Web.", "type": "TF"},
+            {"q": "Trend analysis requires calculating the exact ratio between sales volume and store square footage.", "o": ["True", "False"], "a": 1, "e": "False: Trend analysis studies employment levels over past years, while ratio analysis uses sales-to-employee ratios.", "type": "TF"},
+            {"q": "Workforce planning aims to design an action plan highlighting supply-demand gaps.", "o": ["True", "False"], "a": 0, "e": "True: Workforce planning designs action plans for demand-supply gaps.", "type": "TF"},
+            {"q": "Inside candidate supply forecasting focuses on identifying qualified current employees.", "o": ["True", "False"], "a": 0, "e": "True: Forecasting inside supply determines which current employees are qualified.", "type": "TF"},
+            {"q": "Outside candidate supply is only examined before checking any internal employees.", "o": ["True", "False"], "a": 1, "e": "False: Outside supply is examined when inside candidates are insufficient.", "type": "TF"},
+            {"q": "Job posting relies on publicizing openings on company intranets or bulletin boards.", "o": ["True", "False"], "a": 0, "e": "True: Job posting publicizes openings on intranets or bulletin boards.", "type": "TF"},
+            {"q": "Succession planning focuses exclusively on entry-level hourly workers.", "o": ["True", "False"], "a": 1, "e": "False: Succession planning involves filling the employer's *top* positions.", "type": "TF"},
+            {"q": "Social media platforms like Twitter can be used to announce job openings to subscribers.", "o": ["True", "False"], "a": 0, "e": "True: Firms use Twitter to announce job openings to subscribers.", "type": "TF"},
+            {"q": "Outsourcing sends internal processes overseas solely to lower manufacturing costs.", "o": ["True", "False"], "a": 1, "e": "False: Outsourcing has outside vendors supply services (like benefits or research), whereas *offshoring* bases processes overseas for lower costs.", "type": "TF"},
+            {"q": "College recruiting involves sending campus representatives to prescreen applicants.", "o": ["True", "False"], "a": 0, "e": "True: College recruiting sends reps to prescreen applicants.", "type": "TF"},
+            {"q": "Employee referral campaigns post announcements and offer rewards for successful hires.", "o": ["True", "False"], "a": 0, "e": "True: Referral campaigns offer prizes or cash awards for hires.", "type": "TF"},
+            {"q": "Walk-ins represent direct job applications made at the employer's office.", "o": ["True", "False"], "a": 0, "e": "True: Walk-ins are direct applications made at the office.", "type": "TF"},
+            {"q": "Personnel planning and forecasting constitute the foundation before building an applicant pool.", "o": ["True", "False"], "a": 0, "e": "True: Planning and forecasting precede building candidate pools.", "type": "TF"},
+
+            // High-Level Questions (46-50)
+            {"q": "[HIGH-LEVEL] If an organization relies exclusively on historical trend analysis without considering ratio analysis or scatter plots during rapid market expansion, it demonstrates perfect forecasting accuracy under Chapter 3 principles.", "o": ["True", "False"], "a": 1, "e": "False: Relying solely on past employment trends without linking staffing needs to business activity (sales volume via ratio or scatter analysis) leads to forecasting errors during market shifts.", "type": "TF"},
+            {"q": "[HIGH-LEVEL] Outsourcing and offshoring represent identical human resource practices with no distinction between using outside vendors and relocating processes overseas.", "o": ["True", "False"], "a": 1, "e": "False: Outsourcing has outside vendors supply services, while offshoring specifically bases processes or services overseas for lower costs.", "type": "TF"},
+            {"q": "[HIGH-LEVEL] Succession planning and job posting are interchangeable terms that both apply exclusively to filling entry-level administrative clerk positions.", "o": ["True", "False"], "a": 1, "e": "False: Job posting publicizes openings to all employees, whereas succession planning specifically involves filling and developing *top* organizational leadership positions.", "type": "TF"},
+            {"q": "[HIGH-LEVEL] Paying 10% above local market wage rates and offering cash referral bonuses eliminates all constraints imposed by employment law on the recruiting process.", "o": ["True", "False"], "a": 1, "e": "False: Financial incentives help build applicant pools faster, but employment law strictly prescribes what you can and cannot do regardless of pay rates.", "type": "TF"},
+            {"q": "[HIGH-LEVEL] A workforce action plan integrates forecasted labor demand and projected labor supply to identify talent gaps and establish structured staffing solutions.", "o": ["True", "False"], "a": 0, "e": "True: An action plan lays out projected workforce demand-supply gaps and staffing plans.", "type": "TF"}
+        ];
+
+        const getQuestionType = question => question.type.replace(/[.!?]+$/, "");
+
+        const P1_DATA = [
+            ...P1_SOURCE.filter(question => getQuestionType(question) === "MCQ"),
+            ...P2_SOURCE.filter(question => getQuestionType(question) === "MCQ")
+        ];
+        const P2_DATA = [
+            ...P1_SOURCE.filter(question => getQuestionType(question) === "TF"),
+            ...P2_SOURCE.filter(question => getQuestionType(question) === "TF")
+        ];
+
+        let activePart = 1;
+        let qData = P1_DATA;
+        let cIdx = 0;
+        let score = 0;
+        let wrongList = [];
+
+        const $ = id => document.getElementById(id);
+
+        function switchPart(part) {
+            activePart = part;
+            $("tab1").className = "tab-btn " + (part === 1 ? "active" : "");
+            $("tab2").className = "tab-btn " + (part === 2 ? "active" : "");
+            qData = part === 1 ? P1_DATA : P2_DATA;
+            resetQuiz();
+        }
+
+        function resetQuiz() {
+            cIdx = 0;
+            score = 0;
+            wrongList = [];
+            renderQuestion();
+        }
+
+        function renderQuestion() {
+            const q = qData[cIdx];
+            $("n").textContent = `Question ${cIdx + 1} of ${qData.length}`;
+            $("s").textContent = `Score: ${score}`;
+            $("bar").style.width = `${(cIdx / qData.length) * 100}%`;
+
+            const isHighLevel = cIdx >= 45;
+            const badgeClass = isHighLevel ? "q-badge high-level" : "q-badge";
+            const badgeText = isHighLevel 
+                ? (getQuestionType(q) === 'TF' ? 'True / False — High Level' : 'Multiple Choice — High Level')
+                : (getQuestionType(q) === 'TF' ? 'True / False' : 'Multiple Choice');
+            
+            $("card").innerHTML = `
+                <span class="${badgeClass}">${badgeText}</span>
+                <p class="q">${q.q}</p>
+                <div id="opts"></div>
+                <div id="fb"></div>
+            `;
+
+            q.o.forEach((optText, i) => {
+                const b = document.createElement("button");
+                b.className = "opt";
+                b.innerHTML = `<b>${getQuestionType(q) === 'TF' ? (i===0?'T':'F') : "ABCD"[i] + ")"}</b><span></span>`;
+                b.querySelector("span").textContent = optText;
+                b.onclick = () => handleAnswer(i);
+                $("opts").appendChild(b);
+            });
+        }
+
+        function handleAnswer(selected) {
+            const q = qData[cIdx];
+            const isCorrect = selected === q.a;
+            const buttons = document.querySelectorAll(".opt");
+
+            buttons.forEach((btn, idx) => {
+                btn.disabled = true;
+                if (idx === q.a) btn.classList.add("ok");
+                else if (idx === selected) btn.classList.add("no");
+            });
+
+            if (isCorrect) score++;
+            else wrongList.push(cIdx);
+
+            $("s").textContent = `Score: ${score}`;
+
+            $("fb").innerHTML = `
+                <div class="ex ${isCorrect ? 'ok' : 'no'}">
+                    <strong>${isCorrect ? 'Correct answer ✓' : 'Incorrect answer ✗'}</strong>
+                    <span>${q.e}</span>
+                </div>
+                <button class="btn" id="nxtBtn">${cIdx < qData.length - 1 ? 'Next question' : 'Show final results'}</button>
+            `;
+
+            $("nxtBtn").onclick = () => {
+                cIdx++;
+                if (cIdx < qData.length) renderQuestion();
+                else finishQuiz();
+            };
+            $("nxtBtn").focus();
+        }
+
+        function finishQuiz() {
+            $("bar").style.width = "100%";
+            $("n").textContent = "Quiz complete";
+            const pct = Math.round((score / qData.length) * 100);
+            
+            let html = `
+                <div class="score">${score} / ${qData.length}</div>
+                <p style="text-align:center;font-size:1.2rem;margin:0 0 16px;">Percentage: <b>${pct}%</b></p>
+            `;
+
+            if (wrongList.length > 0) {
+                html += `<p style="margin:16px 0 8px;"><b>Questions to review:</b></p><ul class="rev">`;
+                wrongList.reverse().forEach(w => {
+                    html += `<li><b>Question ${w + 1}:</b> ${qData[w].q}</li>`;
+                });
+                html += `</ul>`;
+            } else {
+                html += `<p style="text-align:center;color:var(--ok);">Excellent! All answers are correct (100%).</p>`;
+            }
+
+            html += `<button class="btn" onclick="resetQuiz()">Restart quiz</button>`;
+            $("card").innerHTML = html;
+        }
+
+        renderQuestion();
+    </script>
+</body>
+</html>

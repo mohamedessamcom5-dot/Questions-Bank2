@@ -1,0 +1,436 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Strategic Management — Chapter 1: Basic Concepts of Strategic Management</title>
+    <style>
+        :root {
+            --bg: #0f172a;
+            --c: #1e293b;
+            --t: #f8fafc;
+            --m: #94a3b8;
+            --b: #334155;
+            --ac: #38bdf8;
+            --ok: #22c55e;
+            --okb: #052e16;
+            --no: #ef4444;
+            --nob: #450a0a;
+            box-sizing: border-box;
+        }
+
+        @media(prefers-color-scheme: light) {
+            :root[data-theme=light] {
+                --bg: #f8fafc;
+                --c: #ffffff;
+                --t: #0f172a;
+                --m: #64748b;
+                --b: #e2e8f0;
+                --ac: #0284c7;
+                --okb: #dcfce7;
+                --nob: #fee2e2;
+                --ok: #16a34a;
+                --no: #dc2626;
+            }
+        }
+
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--t);
+            font-family: 'Segoe UI', Tahoma, system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+        }
+        main {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 24px 16px 60px;
+        }
+        .header-panel {
+            text-align: center;
+            margin-bottom: 24px;
+            border-bottom: 8px solid var(--b);
+            padding-bottom: 30px;
+        }
+        h1 { font-size: 1.5rem; margin: 0 0 8px; color: var(--ac); }
+        .sub { color: var(--m); font-size: 0.95rem; margin: 0; }
+        
+        .nav-tabs {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .tab-btn {
+            flex: 1;
+            padding: 12px;
+            background: var(--c);
+            border: 1px solid var(--b);
+            color: var(--t);
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .tab-btn.active {
+            background: var(--ac);
+            color: #000;
+            border-color: var(--ac);
+        }
+
+        .bar {
+            height: 8px;
+            background: var(--b);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+        .bar i {
+            display: block;
+            height: 100%;
+            background: var(--ac);
+            width: 0;
+            transition: width 0.3s;
+        }
+        .meta {
+            display: flex;
+            justify-content: space-between;
+            color: var(--m);
+            font-size: 0.9rem;
+            margin-bottom: 16px;
+        }
+        .card {
+            background: var(--c);
+            border: 1px solid var(--b);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+        .q-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            background: var(--b);
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+            color: var(--ac);
+        }
+        .q-badge.high-level {
+            background: #f59e0b;
+            color: #000;
+            font-weight: bold;
+        }
+        .q {
+            font-size: 1.1rem;
+            font-weight: 600;
+            direction: ltr;
+            text-align: left;
+            margin: 0 0 16px;
+        }
+        .opt {
+            display: flex;
+            gap: 12px;
+            direction: ltr;
+            text-align: left;
+            width: 100%;
+            background: var(--c);
+            color: var(--t);
+            border: 1.5px solid var(--b);
+            border-radius: 8px;
+            padding: 12px 14px;
+            margin-bottom: 10px;
+            font: inherit;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+        .opt:hover:not(:disabled) { border-color: var(--ac); }
+        .opt b { min-width: 1.5em; color: var(--ac); }
+        .opt.ok { background: var(--okb); border-color: var(--ok); }
+        .opt.no { background: var(--nob); border-color: var(--no); }
+        .opt:disabled { cursor: default; }
+
+        .ex {
+            margin-top: 16px;
+            padding: 14px;
+            border-radius: 8px;
+            direction: ltr;
+            text-align: left;
+            font-size: 0.95rem;
+        }
+        .ex.ok { background: var(--okb); border: 1px solid var(--ok); }
+        .ex.no { background: var(--nob); border: 1px solid var(--no); }
+        .ex strong { display: block; margin-bottom: 4px; }
+
+        .btn {
+            margin-top: 16px;
+            background: var(--ac);
+            color: #000;
+            border: 0;
+            border-radius: 8px;
+            padding: 12px 24px;
+            font: inherit;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+        }
+        .score { text-align: center; font-size: 3rem; font-weight: 800; margin: 12px 0; color: var(--ac); }
+        .rev { margin: 16px 0 0; padding: 0; list-style: none; direction: ltr; text-align: left; font-size: 0.9rem; }
+        .rev li { padding: 8px 0; border-top: 1px solid var(--b); }
+    </style>
+</head>
+<body>
+    <main>
+        <div class="header-panel">
+            <h1>Strategic Management — Chapter 1</h1>
+            <p class="sub">Basic Concepts of Strategic Management</p>
+        </div>
+        
+        <div class="nav-tabs">
+            <button class="tab-btn active" id="tab1" onclick="switchPart(1)">Multiple Choice</button>
+            <button class="tab-btn" id="tab2" onclick="switchPart(2)">True/False</button>
+        </div>
+
+        <div class="bar"><i id="bar"></i></div>
+        <div class="meta">
+            <span id="n"></span>
+            <span id="s"></span>
+        </div>
+        <div class="card" id="card"></div>
+    </main>
+      
+    <script>
+       const P1_SOURCE = [
+            // Standard Questions (1-45)
+            {"q": "How is Strategic Management defined in Chapter 1?", "o": ["A set of managerial decisions and actions that determine the long-run performance of a corporation—either growth or decline", "A short-term financial budgeting procedure limited to next year's accounts", "A routine sequence of clerical operations and standard operating procedures", "An exclusive marketing campaign for launching new products"], "a": 0, "e": "Strategic management is defined as a set of managerial decisions and actions that determine the long-run performance of a corporation—either growth or decline.", "type": "MCQ"},
+            {"q": "What are the two possible long-term results of strategic management decisions?", "o": ["Lasting growth or irreversible decline", "Immediate bankruptcy or instant monopoly", "Short-term profit surge or tax exemption", "Employee turnover or supplier bankruptcy"], "a": 0, "e": "Strategic decisions lead either to lasting growth or to a decline that cannot be reversed.", "type": "MCQ"},
+            {"q": "Which of the following characterizes Phase I of the historical development of strategic planning (Basic Financial Planning)?", "o": ["Limited to next year's budget with little study of the outside world", "Using 5-year forecasts based on external industry studies", "Cross-functional teamwork across all organizational levels", "Comprehensive 360-degree environmental scanning"], "a": 0, "e": "Phase I is basic financial planning, limited to next year's budget with little study of the outside world.", "type": "MCQ"},
+            {"q": "What is the time horizon and main weakness of Phase II (Forecast-Based Planning)?", "o": ["3-5 years horizon; static projection flaws and ignoring outside changes", "1 year horizon; internal accountant limitations", "5+ years horizon; operational disconnect", "Continuous loop; excessive agility"], "a": 0, "e": "Phase II has a 3-5 years horizon, extending past trends with fixed predictions and static projection flaws.", "type": "MCQ"},
+            {"q": "In which phase of strategic planning development is planning done mainly by a special planning staff, far from lower-level managers and daily operations?", "o": ["Phase III: Externally Oriented", "Phase I: Basic Financial Planning", "Phase IV: Strategic Management", "Phase II: Forecast-Based Planning"], "a": 0, "e": "Phase III is externally oriented, done mainly by a special planning staff far from lower-level managers.", "type": "MCQ"},
+            {"q": "Which strategic planning phase features company-wide teamwork, cross-functional planning teams at many levels, and a continuous feedback loop?", "o": ["Phase IV: Strategic Management", "Phase I: Basic Financial Planning", "Phase II: Forecast-Based Planning", "Phase III: Externally Oriented Planning"], "a": 0, "e": "Phase IV represents strategic management with planning teams at many levels and company-wide teamwork.", "type": "MCQ"},
+            {"q": "Who developed the basic model of strategic management featured in Chapter 1?", "o": ["Thomas L. Wheelen & David J. Hunger", "Salaheldin Ismail & Hanan Mohamed Obayah", "Michael Porter & Henry Mintzberg", "Frederick Taylor & Henri Fayol"], "a": 0, "e": "The basic model of strategic management was developed by Thomas L. Wheelen & David J. Hunger.", "type": "MCQ"},
+            {"q": "What are the four main stages of the Wheelen & Hunger basic strategic model?", "o": ["Environmental Scanning, Strategy Formulation, Strategy Implementation, Evaluation and Control", "Planning, Organizing, Leading, Controlling", "Budgeting, Staffing, Directing, Evaluating", "Analysis, Design, Testing, Deployment"], "a": 0, "e": "The four stages are Environmental Scanning, Strategy Formulation, Strategy Implementation, and Evaluation and Control.", "type": "MCQ"},
+            {"q": "What is the primary purpose of Stage 1: Environmental Scanning in the Wheelen & Hunger model?", "o": ["Collecting information about outside threats/opportunities and inside weaknesses/strengths", "Turning planned strategies into real daily workflows", "Comparing actual performance with planned targets", "Establishing corporate mission statements"], "a": 0, "e": "Environmental scanning involves collecting information about outside threats/opportunities and inside weaknesses/strengths.", "type": "MCQ"},
+            {"q": "What does Stage 2: Strategy Formulation involve?", "o": ["Making long-term plans to deal with the environment well using SWOT findings", "Executing standard operating procedures and budgets", "Monitoring financial ROI and market share", "Recruiting lower-level departmental accountants"], "a": 0, "e": "Strategy formulation involves making long-term plans to manage the environment effectively using SWOT findings.", "type": "MCQ"},
+            {"q": "Which stage of the strategic model involves turning planned strategies into real actions, programs, budgets, and standard operating procedures (SOPs)?", "o": ["Strategy Implementation", "Environmental Scanning", "Strategy Formulation", "Evaluation and Control"], "a": 0, "e": "Strategy implementation turns planned strategies into real actions, programs, budgets, and SOPs.", "type": "MCQ"},
+            {"q": "What occurs during Stage 4: Evaluation and Control?", "o": ["Comparing actual performance with planned targets to take corrective actions", "Scanning natural and societal environments", "Drafting company mission and objectives", "Allocating capital advertising budgets"], "a": 0, "e": "Evaluation and control compares actual performance with planned targets to take corrective actions.", "type": "MCQ"},
+            {"q": "What are the three layers of the external environment in environmental scanning?", "o": ["Natural Environment, Societal Environment, Task Environment", "Structure, Culture, Resources", "Corporate, Business, Functional", "Mission, Objectives, Policies"], "a": 0, "e": "The three layers of external scanning are the Natural Environment, Societal Environment, and Task Environment.", "type": "MCQ"},
+            {"q": "Which external environment layer consists of general economic, technological, social, and legal forces that affect multiple industries?", "o": ["Societal Environment", "Task Environment", "Natural Environment", "Internal Environment"], "a": 0, "e": "The societal environment includes general forces influencing long-run decisions across multiple industries.", "type": "MCQ"},
+            {"q": "Which environment layer specifically includes the industry where the company competes, such as customers, competitors, suppliers, and government?", "o": ["Task Environment", "Societal Environment", "Natural Environment", "Internal Culture"], "a": 0, "e": "The task environment includes the specific industry and stakeholders directly involved with the firm.", "type": "MCQ"},
+            {"q": "What does the internal environment scan evaluate to determine organizational strengths and weaknesses?", "o": ["Structure, Culture, and Resources", "Natural resources, wildlife, and climate", "Customers, competitors, and suppliers", "Programs, budgets, and procedures"], "a": 0, "e": "Internal scanning evaluates structure, culture, and resources to determine strengths and weaknesses.", "type": "MCQ"},
+            {"q": "In the internal environment, what does 'Structure' refer to?", "o": ["The corporation's organizational framework, chain of command, centralization, and department division", "Shared beliefs, expectations, habits, and main values", "Physical assets, patents, employee skills, and technology know-how", "Financial return on investment and ROI targets"], "a": 0, "e": "Structure refers to the organizational framework, chain of command, degree of centralization, and department division.", "type": "MCQ"},
+            {"q": "What does SWOT analysis stand for?", "o": ["Strengths, Weaknesses, Opportunities, Threats", "Strategies, Workers, Objectives, Tactics", "Systems, Workflows, Operations, Technology", "Stakeholders, Wealth, Outputs, Trends"], "a": 0, "e": "SWOT stands for Strengths, Weaknesses, Opportunities, and Threats.", "type": "MCQ"},
+            {"q": "Which elements of SWOT analysis focus on the internal environment of the organization?", "o": ["Strengths and Weaknesses", "Opportunities and Threats", "Societal and Task environments", "Mission and Objectives"], "a": 0, "e": "Strengths and Weaknesses represent the internal focus of SWOT analysis.", "type": "MCQ"},
+            {"q": "Which elements of SWOT analysis focus on the external environment?", "o": ["Opportunities and Threats", "Strengths and Weaknesses", "Structure and Culture", "Programs and Budgets"], "a": 0, "e": "Opportunities and Threats represent the external focus of SWOT analysis.", "type": "MCQ"},
+            {"q": "What are the four connected pillars of Strategy Formulation in Chapter 1?", "o": ["Mission, Objectives, Strategies, Policies", "Programs, Budgets, Procedures, Performance", "Structure, Culture, Resources, SWOT", "Scanning, Formulation, Implementation, Control"], "a": 0, "e": "The four pillars of strategy formulation are Mission, Objectives, Strategies, and Policies.", "type": "MCQ"},
+            {"q": "In strategy formulation, what question does the 'Mission' answer?", "o": ["What business are we in and where do we want to be? (Reason for existence)", "What specific results should be accomplished by when?", "How can we achieve what we want through a master plan?", "What step-by-step procedure should workers follow?"], "a": 0, "e": "The mission defines the reason for existence, answering what business we are in and where we want to be.", "type": "MCQ"},
+            {"q": "What do 'Objectives' represent in strategy formulation?", "o": ["The measurable end results of planned activity (what to achieve by when)", "General guidelines for managerial decision-making", "Step-by-step operational instructions", "Physical assets and patents"], "a": 0, "e": "Objectives represent the end results of planned activity, specifying what to achieve by when.", "type": "MCQ"},
+            {"q": "What is the function of 'Policies' in strategy formulation?", "o": ["Providing broad guidelines for decision making that link formulation to implementation", "Listing one-time activities needed for a single-use plan", "Calculating the financial cost of programs", "Measuring daily stock market returns"], "a": 0, "e": "Policies provide broad guidelines for decision making, linking strategy formulation to implementation.", "type": "MCQ"},
+            {"q": "What are the three components of Strategy Implementation?", "o": ["Programs, Budgets, Procedures", "Mission, Objectives, Strategies", "Structure, Culture, Resources", "Scanning, Formulation, Control"], "a": 0, "e": "Strategy implementation consists of Programs, Budgets, and Procedures.", "type": "MCQ"},
+            {"q": "How are 'Programs' defined in strategy implementation?", "o": ["Statements of activities needed to accomplish a single-use plan", "Official statements of programs in terms of money cost", "Step-by-step detailed descriptions of how a task is done", "Broad guidelines for managerial decisions"], "a": 0, "e": "Programs are statements of activities needed to accomplish a single-use plan.", "type": "MCQ"},
+            {"q": "What is a 'Budget' in the context of strategy implementation?", "o": ["A statement of the firm's programs expressed in terms of money", "A step-by-step operating instruction", "A long-term corporate mission statement", "An external environmental threat report"], "a": 0, "e": "A budget is an official statement of the firm's programs expressed in financial monetary terms.", "type": "MCQ"},
+            {"q": "What do 'Procedures' (Standard Operating Procedures - SOPs) provide during implementation?", "o": ["A step-by-step detailed description of how a particular task is to be done", "Broad financial allocations for advertising", "The overarching corporate mission", "External competitor analysis metrics"], "a": 0, "e": "Procedures provide step-by-step detailed descriptions of how a particular task is to be done.", "type": "MCQ"},
+            {"q": "According to Chapter 1 execution facts, approximately what percentage of strategy failures come from poor implementation rather than bad ideas?", "o": ["Over 70%", "Less than 10%", "Exactly 50%", "100%"], "a": 0, "e": "Over 70% of strategy failures come from poor implementation, not bad ideas.", "type": "MCQ"},
+            {"q": "What is the primary role of Evaluation and Control in the strategic model?", "o": ["Monitoring activities and performance results and taking corrective action", "Generating multiple strategic alternatives", "Establishing corporate board governance", "Conducting initial SWOT analysis"], "a": 0, "e": "Evaluation and control monitors activities and performance results and takes corrective action when gaps occur.", "type": "MCQ"},
+            {"q": "What happens when management detects a gap between actual performance and desired performance during evaluation and control?", "o": ["They quickly change programs, policies, or objectives via the feedback loop", "They ignore the gap and maintain status quo", "They dissolve the corporation immediately", "They rewrite the natural environment"], "a": 0, "e": "If there is a gap, management quickly changes programs, policies, or objectives through the continuous feedback loop.", "type": "MCQ"},
+            {"q": "In the textbook case study of the Higher Institute for Tourism & Hotels, what specific financial target was established?", "o": ["15% Return on Investment (ROI) by the end of 2017", "50% market share dominance", "Zero operating costs", "Double student enrollment in one month"], "a": 0, "e": "The financial target was getting a 15% Return on Investment (ROI) by the end of 2017.", "type": "MCQ"},
+            {"q": "Which core strategies and governing policies were adopted by the Higher Institute for Tourism & Hotels in the textbook case?", "o": ["Increasing student admissions, raising tuition by 10%, reducing operating costs, and excluding technical secondary holders", "Opening international manufacturing plants and issuing public stocks", "Eliminating all dorms and faculty staff", "Outsourcing all teaching to online robots"], "a": 0, "e": "Strategies included increasing admissions and tuition by 10% while reducing costs, with policies requiring excellent services and no technical secondary admissions.", "type": "MCQ"},
+            {"q": "What is Tesla's game-changing corporate mission statement according to the modern case study?", "o": ["To accelerate the world's transition to sustainable energy", "To become the largest fossil fuel distributor", "To manufacture traditional gasoline sports cars", "To monopolize traditional car dealerships"], "a": 0, "e": "Tesla's mission is 'To accelerate the world's transition to sustainable energy'.", "type": "MCQ"},
+            {"q": "Which unusual policy does Tesla implement to support its direct sales model?", "o": ["No spending on traditional advertising and skipping independent dealerships", "Relying entirely on independent franchise dealerships", "Massive spending on billboard and television commercials", "Outsourcing all vehicle delivery to third-party vendors"], "a": 0, "e": "Tesla has no spending on traditional advertising, selling only directly to customers and skipping dealerships.", "type": "MCQ"},
+            {"q": "How does Tesla execute its control loop superior to traditional carmakers?", "o": ["Using Over-The-Air (OTA) software updates overnight to fix vehicle problems without owner intervention", "Requiring customers to bring cars back to physical repair shops for every minor glitch", "Waiting for annual government safety recalls", "Disregarding road performance monitoring"], "a": 0, "e": "Tesla uses Over-The-Air (OTA) updates to monitor road performance and fix braking, battery, or autopilot problems overnight.", "type": "MCQ"},
+            {"q": "How many steps comprise the Strategic Decision-Making Process in Chapter 1?", "o": ["8 steps", "4 steps", "10 steps", "5 steps"], "a": 0, "e": "The strategic decision-making process consists of 8 steps.", "type": "MCQ"},
+            {"q": "What is Step 1 of the 8-Step Strategic Decision-Making Process?", "o": ["Evaluate current performance results (ROI, profitability, current mission/policies)", "Scan external environment opportunities and threats", "Implement selected strategies through budgets", "Generate multiple strategic alternatives"], "a": 0, "e": "Step 1 is evaluating current performance results in terms of ROI, profitability, mission, and policies.", "type": "MCQ"},
+            {"q": "What is evaluated in Step 2 of the decision-making process?", "o": ["Corporate governance (board of directors, top management, and shareholder relations)", "Factory machinery obsolescence", "Daily departmental accounting ledgers", "Advertising program effectiveness"], "a": 0, "e": "Step 2 reviews corporate governance, assessing board and top management performance and stakeholder relations.", "type": "MCQ"},
+            {"q": "At which step in the 8-step process is a careful SWOT analysis conducted to identify problem areas?", "o": ["Step 4: Analyze Strategic Factors", "Step 1: Check Current Results", "Step 6: Evaluate Options", "Step 8: Evaluate & Control"], "a": 0, "e": "Step 4 analyzes strategic factors through a careful SWOT analysis to pinpoint problem areas.", "type": "MCQ"},
+            {"q": "What occurs in Step 6 of the strategic decision-making process?", "o": ["Generating multiple strategic plans, evaluating them, and choosing the best one based on SWOT", "Implementing programs and financial budgets", "Evaluating implemented strategies through feedback", "Reviewing board of directors governance"], "a": 0, "e": "Step 6 generates, evaluates, and selects the best alternative strategy based on SWOT.", "type": "MCQ"},
+            {"q": "What are the three levels of strategy in the strategy hierarchy?", "o": ["Corporate-level, Business-level, and Functional-level strategy", "Financial, Operational, and Marketing strategy", "Tactical, Strategic, and Logistical strategy", "Global, National, and Local strategy"], "a": 0, "e": "The three levels of strategy are corporate-level, business-level, and functional-level strategy.", "type": "MCQ"},
+            {"q": "What does Corporate-level strategy focus on?", "o": ["Overall direction toward growth and the management of its various businesses/product lines", "Improving the competitive position of specific products in an industry", "Maximizing resource productivity within a single functional department", "Executing daily standard operating procedures"], "a": 0, "e": "Corporate-level strategy focuses on overall direction toward growth and management of various businesses/product lines.", "type": "MCQ"},
+            {"q": "Where does Business-level strategy occur and what does it emphasize?", "o": ["At the business unit/product level; emphasizes improving the competitive position of products in the industry", "Across the entire global multi-industry corporation", "Exclusively within accounting and human resource departments", "At the board of directors governance level"], "a": 0, "e": "Business-level strategy occurs at the business unit/product level, emphasizing competitive position improvement.", "type": "MCQ"},
+            {"q": "What is the focus of Functional-level strategy?", "o": ["The approach taken by a functional area to achieve corporate/business objectives by maximizing resource productivity", "Defining the overall corporate mission and vision", "Acquiring international competitor businesses", "Setting long-term return on investment (ROI) targets"], "a": 0, "e": "Functional-level strategy is the approach taken by a functional area to achieve objectives by maximizing resource productivity.", "type": "MCQ"},
+
+            // High-Level Questions (46-50)
+            {"q": "[HIGH-LEVEL] A logistics corporation experiences a sudden surge in shipping costs due to severe climate disruptions in the Suez Canal and new international environmental regulations. Management analyzes these forces as external variables outside their direct control and updates their strategic plan. Which layers of environmental scanning and strategic adjustment are being applied?", "o": ["Scanning the Natural and Societal environments, recognizing uncontrollable external forces, and adapting strategies through the feedback loop", "Internal culture restructuring and basic financial budgeting", "Executing standard operating procedures for factory machinery", "Conducting Phase I financial accounting audits"], "a": 0, "e": "Climate disruptions and regulations belong to the Natural and Societal environments, requiring external scanning and adaptive strategy revision.", "type": "MCQ"},
+            {"q": "[HIGH-LEVEL] An executive team formulates a brilliant master strategy with clear 20% ROI objectives, but fails to allocate specific financial budgets, establish operational programs, or define step-by-step standard operating procedures for frontline workers. Consequently, the strategy fails during execution. According to Chapter 1, what caused this failure?", "o": ["Poor strategy implementation (neglecting programs, budgets, and procedures), which accounts for over 70% of strategy failures", "Inaccurate Phase I financial record keeping", "Lack of external task environment stakeholder negotiations", "Flawed corporate governance board reviews"], "a": 0, "e": "Over 70% of strategy failures stem from poor implementation (failing to translate strategy into programs, budgets, and procedures).", "type": "MCQ"},
+            {"q": "[HIGH-LEVEL] When comparing Phase III (Externally Oriented Planning) and Phase IV (Strategic Management) as outlined in Chapter 1, what is the fundamental difference regarding organizational involvement?", "o": ["Phase III is driven mainly by a specialized planning staff far from lower-level operations, whereas Phase IV involves cross-functional teamwork and participation across multiple levels", "Phase III uses 1-year basic financial budgets, while Phase IV ignores outside scanning", "Phase III relies on frontline workers, while Phase IV relies exclusively on department accountants", "There is no difference in personnel involvement between the two phases"], "a": 0, "e": "Phase III is far from lower-level managers and run by planning staff, whereas Phase IV utilizes cross-functional teams and company-wide participation.", "type": "MCQ"},
+            {"q": "[HIGH-LEVEL] In the 8-step strategic decision-making process, why must management complete Steps 1 and 2 (Evaluating Current Performance and Reviewing Corporate Governance) before proceeding to Steps 3 and 4 (Scanning Environments and Conducting SWOT)?", "o": ["Because understanding current baseline performance and governance effectiveness provides the necessary foundation for identifying strategic problem areas and assessing SWOT factors accurately", "Because governance rules legally forbid environmental scanning", "Because financial budgets must be spent before scanning can begin", "Because SWOT analysis replaces the need for corporate governance"], "a": 0, "e": "Checking current results and governance establishes the baseline required to accurately analyze strategic factors and SWOT.", "type": "MCQ"},
+            {"q": "[HIGH-LEVEL] A multi-product manufacturing corporation establishes a corporate-level growth strategy, which is then translated into competitive positioning goals for its individual product business units, and finally executed through resource productivity approaches in the marketing and manufacturing departments. What concept does this alignment illustrate?", "o": ["The Three Levels of Strategy Hierarchy (Corporate, Business, and Functional) working together with the Fit Rule", "Phase I Basic Financial Planning", "The four pillars of strategy formulation", "The 8-step decision-making review zone"], "a": 0, "e": "This illustrates the hierarchy of strategy (corporate, business, and functional) where lower-level actions support overall corporate goals.", "type": "MCQ"}
+        ];
+
+        const P2_SOURCE = [
+            // Standard Questions (1-45)
+            {"q": "Strategic management is defined as a set of managerial decisions and actions that determine long-run corporate performance.", "o": ["True", "False"], "a": 0, "e": "True: Strategic management determines long-run corporate performance (growth or decline).", "type": "TF"},
+            {"q": "Strategic management decisions result exclusively in short-term quarterly profits without long-term consequences.", "o": ["True", "False"], "a": 1, "e": "False: Strategic management has a long-term focus leading to lasting growth or irreversible decline.", "type": "TF"},
+            {"q": "Phase I of strategic planning evolution is known as Basic Financial Planning and focuses primarily on next year's budget.", "o": ["True", "False"], "a": 0, "e": "True: Phase I is basic financial planning limited to next year's budget.", "type": "TF"},
+            {"q": "Phase II (Forecast-Based Planning) extends today's trends 3-5 years ahead using outside environment data.", "o": ["True", "False"], "a": 0, "e": "True: Phase II uses outside data to extend trends 3-5 years ahead.", "type": "TF"},
+            {"q": "Phase III planning is typically conducted by cross-functional frontline workers rather than a specialized planning staff.", "o": ["True", "False"], "a": 1, "e": "False: Phase III planning is done mainly by specialized planning staff and is far from lower-level managers.", "type": "TF"},
+            {"q": "Phase IV (Strategic Management) involves planning teams at many levels, departmental integration, and control.", "o": ["True", "False"], "a": 0, "e": "True: Phase IV involves company-wide teamwork, multi-level planning teams, and control.", "type": "TF"},
+            {"q": "Thomas L. Wheelen and David J. Hunger developed the basic strategic management model.", "o": ["True", "False"], "a": 0, "e": "True: The basic model was developed by Thomas L. Wheelen & David J. Hunger.", "type": "TF"},
+            {"q": "Environmental scanning is the first stage in the Wheelen & Hunger strategic model.", "o": ["True", "False"], "a": 0, "e": "True: Environmental scanning is Stage 1 of the model.", "type": "TF"},
+            {"q": "Strategy formulation involves turning plans into real daily workflows and standard operating procedures.", "o": ["True", "False"], "a": 1, "e": "False: Turning plans into real daily workflows is strategy *implementation*, whereas formulation makes long-term plans using SWOT.", "type": "TF"},
+            {"q": "Evaluation and control compares actual performance with planned targets to take corrective actions.", "o": ["True", "False"], "a": 0, "e": "True: Evaluation and control monitors performance and takes corrective action.", "type": "TF"},
+            {"q": "The external environment includes the natural environment, societal environment, and task environment.", "o": ["True", "False"], "a": 0, "e": "True: External scanning covers natural, societal, and task environments.", "type": "TF"},
+            {"q": "Managers have direct, immediate control over external societal and natural forces.", "o": ["True", "False"], "a": 1, "e": "False: Outside forces are outside direct control; companies must adapt to them.", "type": "TF"},
+            {"q": "The task environment includes specific industry stakeholders such as customers, competitors, suppliers, and government.", "o": ["True", "False"], "a": 0, "e": "True: The task environment includes customers, competitors, suppliers, government, and unions.", "type": "TF"},
+            {"q": "Internal environment scanning evaluates company structure, culture, and resources.", "o": ["True", "False"], "a": 0, "e": "True: Internal scanning examines structure, culture, and resources.", "type": "TF"},
+            {"q": "Top managers can easily and rapidly change internal cultural and structural factors in the short run.", "o": ["True", "False"], "a": 1, "e": "False: Textbook reality states top managers can rarely change internal factors in the short term.", "type": "TF"},
+            {"q": "Strengths and Weaknesses in SWOT analysis represent internal organizational factors.", "o": ["True", "False"], "a": 0, "e": "True: Strengths and Weaknesses are internal, while Opportunities and Threats are external.", "type": "TF"},
+            {"q": "Opportunities and Threats in SWOT analysis represent external environmental factors.", "o": ["True", "False"], "a": 0, "e": "True: Opportunities and Threats are external factors.", "type": "TF"},
+            {"q": "The four connected pillars of strategy formulation are Mission, Objectives, Strategies, and Policies.", "o": ["True", "False"], "a": 0, "e": "True: Formulation pillars are mission, objectives, strategies, and policies.", "type": "TF"},
+            {"q": "A mission statement answers the question: What business are we in and where do we want to be?", "o": ["True", "False"], "a": 0, "e": "True: The mission defines the reason for existence and what business the company is in.", "type": "TF"},
+            {"q": "Objectives establish measurable end results of planned work with specific time frames.", "o": ["True", "False"], "a": 0, "e": "True: Objectives define what results to accomplish by when.", "type": "TF"},
+            {"q": "Policies provide broad guidelines for decision making that link strategy formulation to implementation.", "o": ["True", "False"], "a": 0, "e": "True: Policies act as broad guidelines linking formulation to implementation.", "type": "TF"},
+            {"q": "Programs, budgets, and procedures are the core components of strategy implementation.", "o": ["True", "False"], "a": 0, "e": "True: Implementation involves programs, budgets, and procedures.", "type": "TF"},
+            {"q": "Programs are statements of activities needed to accomplish a single-use plan.", "o": ["True", "False"], "a": 0, "e": "True: Programs outline activities needed for single-use plans.", "type": "TF"},
+            {"q": "A budget is an official statement of the firm's programs expressed in terms of money.", "o": ["True", "False"], "a": 0, "e": "True: Budgets state programs in terms of money cost.", "type": "TF"},
+            {"q": "Procedures provide step-by-step detailed descriptions of how a particular task is to be done.", "o": ["True", "False"], "a": 0, "e": "True: Procedures provide step-by-step task instructions.", "type": "TF"},
+            {"q": "Less than 5% of strategy failures are caused by poor implementation.", "o": ["True", "False"], "a": 1, "e": "False: Over 70% of strategy failures come from poor implementation.", "type": "TF"},
+            {"q": "Evaluation and control monitors activities and performance results to ensure alignment with objectives.", "o": ["True", "False"], "a": 0, "e": "True: Evaluation and control monitors performance and takes corrective action.", "type": "TF"},
+            {"q": "Strategic management operates as a straight line with a definitive end rather than an ongoing feedback loop.", "o": ["True", "False"], "a": 1, "e": "False: Strategic management is a continuous feedback system that never stops.", "type": "TF"},
+            {"q": "In the Tourism Institute textbook case, the financial target was set at a 15% Return on Investment (ROI).", "o": ["True", "False"], "a": 0, "e": "True: The financial target was 15% ROI by the end of 2017.", "type": "TF"},
+            {"q": "Tesla's mission is to accelerate the world's transition to sustainable energy.", "o": ["True", "False"], "a": 0, "e": "True: Tesla's mission is accelerating transition to sustainable energy.", "type": "TF"},
+            {"q": "Tesla spends heavily on traditional television and billboard advertising.", "o": ["True", "False"], "a": 1, "e": "False: Tesla has no spending on traditional advertising, selling directly and skipping dealerships.", "type": "TF"},
+            {"q": "Tesla utilizes Over-The-Air (OTA) software updates to instantly fix vehicle issues without physical shop visits.", "o": ["True", "False"], "a": 0, "e": "True: Tesla uses OTA updates for immediate control and fixing software problems overnight.", "type": "TF"},
+            {"q": "The strategic decision-making process consists of 8 distinct steps.", "o": ["True", "False"], "a": 0, "e": "True: The process involves 8 steps from performance review to evaluation.", "type": "TF"},
+            {"q": "Step 1 of the decision-making process evaluates current performance results in terms of ROI and profitability.", "o": ["True", "False"], "a": 0, "e": "True: Step 1 evaluates current ROI, profit, mission, and policies.", "type": "TF"},
+            {"q": "Step 2 of the decision-making process reviews corporate governance including the board and top management.", "o": ["True", "False"], "a": 0, "e": "True: Step 2 reviews board and top management performance and stakeholder relations.", "type": "TF"},
+            {"q": "Step 4 of the decision-making process involves conducting a SWOT analysis to pinpoint problem areas.", "o": ["True", "False"], "a": 0, "e": "True: Step 4 analyzes strategic factors through SWOT analysis.", "type": "TF"},
+            {"q": "The final step (Step 8) of the decision-making process goes directly back to Step 1 through a continuous feedback loop.", "o": ["True", "False"], "a": 0, "e": "True: The flow from 1 to 8 never stops, and Step 8 loops directly back to Step 1.", "type": "TF"},
+            {"q": "There are three primary levels of strategy: corporate, business, and functional.", "o": ["True", "False"], "a": 0, "e": "True: The strategy hierarchy consists of corporate, business, and functional levels.", "type": "TF"},
+            {"q": "Corporate-level strategy focuses on overall growth direction and the management of various businesses and product lines.", "o": ["True", "False"], "a": 0, "e": "True: Corporate strategy directs overall growth and business mix.", "type": "TF"},
+            {"q": "Business-level strategy occurs at the business unit level and emphasizes improving competitive product positions.", "o": ["True", "False"], "a": 0, "e": "True: Business-level strategy emphasizes competitive position in the industry.", "type": "TF"},
+            {"q": "Functional-level strategy aims to maximize resource productivity within specific functional areas.", "o": ["True", "False"], "a": 0, "e": "True: Functional strategy maximizes resource productivity to achieve objectives.", "type": "TF"},
+            {"q": "Lower-level functional actions do not need to support the company's overall corporate goals.", "o": ["True", "False"], "a": 1, "e": "False: Under the fit rule, lower-level functional actions must directly support overall goals.", "type": "TF"},
+            {"q": "Strategic management is a static process that occurs only once in a company's lifecycle.", "o": ["True", "False"], "a": 1, "e": "False: Strategic management is a dynamic, continuous feedback system.", "type": "TF"},
+            {"q": "Giga-casting is an advanced manufacturing procedure used by Tesla to replace dozens of underbody parts with single castings.", "o": ["True", "False"], "a": 0, "e": "True: Giga-casting replaces 70 separate underbody parts with one high-pressure casting.", "type": "TF"},
+            {"q": "Economic trends and inflation rates are part of the internal environment rather than the societal environment.", "o": ["True", "False"], "a": 1, "e": "False: General economic and inflation forces belong to the societal environment, not internal.", "type": "TF"},
+
+            // High-Level Questions (46-50)
+            {"q": "[HIGH-LEVEL] If a company formulates a robust strategy but completely neglects implementation programs, financial budgeting, and operating procedures, the high probability of failure stems from poor execution rather than conceptual flaws.", "o": ["True", "False"], "a": 0, "e": "True: Over 70% of strategy failures come from poor implementation rather than bad ideas.", "type": "TF"},
+            {"q": "[HIGH-LEVEL] Reviewing corporate governance and evaluating current financial ROI in Steps 1 and 2 of the decision-making process are entirely unnecessary before conducting SWOT analysis.", "o": ["True", "False"], "a": 1, "e": "False: Evaluating current results and governance is essential to establish baselines before performing SWOT analysis.", "type": "TF"},
+            {"q": "[HIGH-LEVEL] Phase IV strategic management differs from Phase III by engaging cross-functional teams across multiple levels and maintaining continuous feedback, whereas Phase III relies on isolated planning staff.", "o": ["True", "False"], "a": 0, "e": "True: Phase IV features company-wide teamwork and continuous loops, while Phase III is driven by planning staff far from operations.", "type": "TF"},
+            {"q": "[HIGH-LEVEL] The hierarchy of strategy requires that functional-level strategies be misaligned with corporate-level growth directions to ensure maximum departmental autonomy.", "o": ["True", "False"], "a": 1, "e": "False: Under the fit rule, lower-level functional actions must directly support the company's overall goals.", "type": "TF"},
+            {"q": "[HIGH-LEVEL] When actual performance deviates from desired strategic targets, the continuous feedback loop enables management to rapidly revise programs, policies, or objectives.", "o": ["True", "False"], "a": 0, "e": "True: If there is a performance gap, management quickly changes programs, policies, or objectives through the feedback loop.", "type": "TF"}
+        ];
+
+        const getQuestionType = question => question.type.replace(/[.!?]+$/, "");
+
+        const P1_DATA = [
+            ...P1_SOURCE.filter(question => getQuestionType(question) === "MCQ"),
+            ...P2_SOURCE.filter(question => getQuestionType(question) === "MCQ")
+        ];
+        const P2_DATA = [
+            ...P1_SOURCE.filter(question => getQuestionType(question) === "TF"),
+            ...P2_SOURCE.filter(question => getQuestionType(question) === "TF")
+        ];
+
+        let activePart = 1;
+        let qData = P1_DATA;
+        let cIdx = 0;
+        let score = 0;
+        let wrongList = [];
+
+        const $ = id => document.getElementById(id);
+
+        function switchPart(part) {
+            activePart = part;
+            $("tab1").className = "tab-btn " + (part === 1 ? "active" : "");
+            $("tab2").className = "tab-btn " + (part === 2 ? "active" : "");
+            qData = part === 1 ? P1_DATA : P2_DATA;
+            resetQuiz();
+        }
+
+        function resetQuiz() {
+            cIdx = 0;
+            score = 0;
+            wrongList = [];
+            renderQuestion();
+        }
+
+        function renderQuestion() {
+            const q = qData[cIdx];
+            $("n").textContent = `Question ${cIdx + 1} of ${qData.length}`;
+            $("s").textContent = `Score: ${score}`;
+            $("bar").style.width = `${(cIdx / qData.length) * 100}%`;
+
+            const isHighLevel = cIdx >= 45;
+            const badgeClass = isHighLevel ? "q-badge high-level" : "q-badge";
+            const badgeText = isHighLevel 
+                ? (getQuestionType(q) === 'TF' ? 'True / False — High Level' : 'Multiple Choice — High Level')
+                : (getQuestionType(q) === 'TF' ? 'True / False' : 'Multiple Choice');
+            
+            $("card").innerHTML = `
+                <span class="${badgeClass}">${badgeText}</span>
+                <p class="q">${q.q}</p>
+                <div id="opts"></div>
+                <div id="fb"></div>
+            `;
+
+            q.o.forEach((optText, i) => {
+                const b = document.createElement("button");
+                b.className = "opt";
+                b.innerHTML = `<b>${getQuestionType(q) === 'TF' ? (i===0?'T':'F') : "ABCD"[i] + ")"}</b><span></span>`;
+                b.querySelector("span").textContent = optText;
+                b.onclick = () => handleAnswer(i);
+                $("opts").appendChild(b);
+            });
+        }
+
+        function handleAnswer(selected) {
+            const q = qData[cIdx];
+            const isCorrect = selected === q.a;
+            const buttons = document.querySelectorAll(".opt");
+
+            buttons.forEach((btn, idx) => {
+                btn.disabled = true;
+                if (idx === q.a) btn.classList.add("ok");
+                else if (idx === selected) btn.classList.add("no");
+            });
+
+            if (isCorrect) score++;
+            else wrongList.push(cIdx);
+
+            $("s").textContent = `Score: ${score}`;
+
+            $("fb").innerHTML = `
+                <div class="ex ${isCorrect ? 'ok' : 'no'}">
+                    <strong>${isCorrect ? 'Correct answer ✓' : 'Incorrect answer ✗'}</strong>
+                    <span>${q.e}</span>
+                </div>
+                <button class="btn" id="nxtBtn">${cIdx < qData.length - 1 ? 'Next question' : 'Show final results'}</button>
+            `;
+
+            $("nxtBtn").onclick = () => {
+                cIdx++;
+                if (cIdx < qData.length) renderQuestion();
+                else finishQuiz();
+            };
+            $("nxtBtn").focus();
+        }
+
+        function finishQuiz() {
+            $("bar").style.width = "100%";
+            $("n").textContent = "Quiz complete";
+            const pct = Math.round((score / qData.length) * 100);
+            
+            let html = `
+                <div class="score">${score} / ${qData.length}</div>
+                <p style="text-align:center;font-size:1.2rem;margin:0 0 16px;">Percentage: <b>${pct}%</b></p>
+            `;
+
+            if (wrongList.length > 0) {
+                html += `<p style="margin:16px 0 8px;"><b>Questions to review:</b></p><ul class="rev">`;
+                wrongList.reverse().forEach(w => {
+                    html += `<li><b>Question ${w + 1}:</b> ${qData[w].q}</li>`;
+                });
+                html += `</ul>`;
+            } else {
+                html += `<p style="text-align:center;color:var(--ok);">Excellent! All answers are correct (100%).</p>`;
+            }
+
+            html += `<button class="btn" onclick="resetQuiz()">Restart quiz</button>`;
+            $("card").innerHTML = html;
+        }
+
+        renderQuestion();
+    </script>
+</body>
+</html>

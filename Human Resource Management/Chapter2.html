@@ -1,0 +1,436 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>HRM — Chapter 2: Job Analysis</title>
+    <style>
+        :root {
+            --bg: #0f172a;
+            --c: #1e293b;
+            --t: #f8fafc;
+            --m: #94a3b8;
+            --b: #334155;
+            --ac: #38bdf8;
+            --ok: #22c55e;
+            --okb: #052e16;
+            --no: #ef4444;
+            --nob: #450a0a;
+            box-sizing: border-box;
+        }
+
+        @media(prefers-color-scheme: light) {
+            :root[data-theme=light] {
+                --bg: #f8fafc;
+                --c: #ffffff;
+                --t: #0f172a;
+                --m: #64748b;
+                --b: #e2e8f0;
+                --ac: #0284c7;
+                --okb: #dcfce7;
+                --nob: #fee2e2;
+                --ok: #16a34a;
+                --no: #dc2626;
+            }
+        }
+
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--t);
+            font-family: 'Segoe UI', Tahoma, system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+        }
+        main {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 24px 16px 60px;
+        }
+        .header-panel {
+            text-align: center;
+            margin-bottom: 24px;
+            border-bottom: 8px solid var(--b);
+            padding-bottom: 30px;
+        }
+        h1 { font-size: 1.5rem; margin: 0 0 8px; color: var(--ac); }
+        .sub { color: var(--m); font-size: 0.95rem; margin: 0; }
+        
+        .nav-tabs {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .tab-btn {
+            flex: 1;
+            padding: 12px;
+            background: var(--c);
+            border: 1px solid var(--b);
+            color: var(--t);
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .tab-btn.active {
+            background: var(--ac);
+            color: #000;
+            border-color: var(--ac);
+        }
+
+        .bar {
+            height: 8px;
+            background: var(--b);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+        .bar i {
+            display: block;
+            height: 100%;
+            background: var(--ac);
+            width: 0;
+            transition: width 0.3s;
+        }
+        .meta {
+            display: flex;
+            justify-content: space-between;
+            color: var(--m);
+            font-size: 0.9rem;
+            margin-bottom: 16px;
+        }
+        .card {
+            background: var(--c);
+            border: 1px solid var(--b);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+        .q-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            background: var(--b);
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+            color: var(--ac);
+        }
+        .q-badge.high-level {
+            background: #f59e0b;
+            color: #000;
+            font-weight: bold;
+        }
+        .q {
+            font-size: 1.1rem;
+            font-weight: 600;
+            direction: ltr;
+            text-align: left;
+            margin: 0 0 16px;
+        }
+        .opt {
+            display: flex;
+            gap: 12px;
+            direction: ltr;
+            text-align: left;
+            width: 100%;
+            background: var(--c);
+            color: var(--t);
+            border: 1.5px solid var(--b);
+            border-radius: 8px;
+            padding: 12px 14px;
+            margin-bottom: 10px;
+            font: inherit;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+        .opt:hover:not(:disabled) { border-color: var(--ac); }
+        .opt b { min-width: 1.5em; color: var(--ac); }
+        .opt.ok { background: var(--okb); border-color: var(--ok); }
+        .opt.no { background: var(--nob); border-color: var(--no); }
+        .opt:disabled { cursor: default; }
+
+        .ex {
+            margin-top: 16px;
+            padding: 14px;
+            border-radius: 8px;
+            direction: ltr;
+            text-align: left;
+            font-size: 0.95rem;
+        }
+        .ex.ok { background: var(--okb); border: 1px solid var(--ok); }
+        .ex.no { background: var(--nob); border: 1px solid var(--no); }
+        .ex strong { display: block; margin-bottom: 4px; }
+
+        .btn {
+            margin-top: 16px;
+            background: var(--ac);
+            color: #000;
+            border: 0;
+            border-radius: 8px;
+            padding: 12px 24px;
+            font: inherit;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+        }
+        .score { text-align: center; font-size: 3rem; font-weight: 800; margin: 12px 0; color: var(--ac); }
+        .rev { margin: 16px 0 0; padding: 0; list-style: none; direction: ltr; text-align: left; font-size: 0.9rem; }
+        .rev li { padding: 8px 0; border-top: 1px solid var(--b); }
+    </style>
+</head>
+<body>
+    <main>
+        <div class="header-panel">
+            <h1>Human Resource Management — Chapter 2</h1>
+            <p class="sub">Job Analysis</p>
+        </div>
+        
+        <div class="nav-tabs">
+            <button class="tab-btn active" id="tab1" onclick="switchPart(1)">Multiple Choice</button>
+            <button class="tab-btn" id="tab2" onclick="switchPart(2)">True/False</button>
+        </div>
+
+        <div class="bar"><i id="bar"></i></div>
+        <div class="meta">
+            <span id="n"></span>
+            <span id="s"></span>
+        </div>
+        <div class="card" id="card"></div>
+    </main>
+      
+    <script>
+       const P1_SOURCE = [
+            // Standard Questions (1-45)
+            {"q": "How is Job Analysis defined in Chapter 2?", "o": ["The procedure through which you determine the duties of the positions and the characteristics of the people to hire for them", "The process of auditing corporate financial balance sheets and tax returns", "The technique of negotiating collective bargaining contracts with labor unions", "The method of forecasting global sales and supply chain logistics"], "a": 0, "e": "Job analysis is the procedure through which you determine the duties of positions and characteristics of people to hire.", "type": "MCQ"},
+            {"q": "What are the two primary products produced by job analysis?", "o": ["Job descriptions and person specifications", "Financial audits and tax summaries", "Union contracts and payroll ledgers", "Production quotas and sales forecasts"], "a": 0, "e": "Job analysis produces information for writing job descriptions and person specifications.", "type": "MCQ"},
+            {"q": "Which of the following information types is collected during a job analysis?", "o": ["Work activities, human behaviors, machines/tools, performance standards, job context, and human requirements", "Shareholder dividends, stock market tickers, and board meeting minutes", "Commercial bank loan agreements and lease contracts", "Customer credit scores and advertising click-through rates"], "a": 0, "e": "HR specialists collect information on work activities, human behaviors, machines/tools, performance standards, job context, and human requirements.", "type": "MCQ"},
+            {"q": "Information about sensing, communicating, lifting weights, or walking long distances falls under which job analysis category?", "o": ["Human behaviors", "Work activities", "Job context", "Performance standards"], "a": 0, "e": "Human behaviors information includes sensing, communicating, lifting weights, or walking long distances.", "type": "MCQ"},
+            {"q": "Information regarding tools used, materials processed, knowledge dealt with or applied (such as finance or law) is classified as:", "o": ["Machines, tools, equipment, and work aids", "Human requirements", "Job context", "Performance standards"], "a": 0, "e": "This category covers tools used, materials processed, knowledge dealt with, and services rendered.", "type": "MCQ"},
+            {"q": "Physical working conditions, work schedule, incentives, and interaction numbers are part of:", "o": ["Job context", "Human behaviors", "Performance standards", "Human requirements"], "a": 0, "e": "Job context covers physical working conditions, schedule, incentives, and number of people interacted with.", "type": "MCQ."},
+            {"q": "Knowledge, skills, education, training, work experience, aptitudes, and personality attributes belong to:", "o": ["Human requirements", "Work activities", "Machines and tools", "Job context"], "a": 0, "e": "Human requirements include knowledge, skills, education, experience, aptitudes, personality, and interests.", "type": "MCQ."},
+            {"q": "Which of the following is a key use of job analysis information?", "o": ["Recruitment and selection, performance appraisal, compensation, and training", "Auditing corporate income taxes and filing real estate deeds", "Directing global manufacturing supply chain logistics", "Replacing executive board governance"], "a": 0, "e": "Uses of job analysis include recruitment/selection, performance appraisal, compensation, and training.", "type": "MCQ."},
+            {"q": "How does job analysis assist in compensation management?", "o": ["Salary and bonuses depend on skill and education level, safety hazards, and responsibility assessed through job analysis", "Compensation is determined randomly by external auditors", "Salaries are fixed regardless of job duties or skill requirements", "Pay scales are set solely by government tax codes"], "a": 0, "e": "Compensation depends on skill/education, safety hazards, and responsibility assessed via job analysis.", "type": "MCQ."},
+            {"q": "What is Step 1 of the job analysis process?", "o": ["Decide how you will use the information", "Select representative positions", "Develop job descriptions", "Verify information with workers"], "a": 0, "e": "Step 1 is deciding how you will use the information (e.g., interviews for descriptions, questionnaires for compensation ratings).", "type": "MCQ."},
+            {"q": "Which background information is reviewed in Step 2 of the job analysis process?", "o": ["Organization charts, process charts, and job descriptions", "Employee bank statements and tax returns", "Daily cafeteria menus and parking assignments", "Competitor stock portfolios"], "a": 0, "e": "Step 2 reviews relevant background information such as organization charts, process charts, and job descriptions.", "type": "MCQ."},
+            {"q": "What does an organization chart show?", "o": ["The title of each position and reporting lines (who reports to whom)", "Detailed workflows and step-by-step assembly times", "Individual employee salaries and bonus structures", "Customer geographic distribution"], "a": 0, "e": "An organization chart shows the title of each position and, via interconnecting lines, who reports to whom.", "type": "MCQ."},
+            {"q": "What does a process chart provide compared to an organization chart?", "o": ["A more detailed picture of the work flow", "A summary of shareholder dividends", "A list of employee disciplinary records", "A breakdown of corporate tax brackets"], "a": 0, "e": "A process chart provides a more detailed picture of the work flow.", "type": "MCQ."},
+            {"q": "What is the purpose of Step 3 in the job analysis process?", "o": ["Select representative positions (e.g., sampling 10 jobs instead of 200)", "Analyze all 10,000 employees individually", "Draft annual corporate budgets", "Establish company wage rates"], "a": 0, "e": "Step 3 selects representative positions (e.g., sampling 10 assembly workers out of 200).", "type": "MCQ."},
+            {"q": "What occurs during Step 5 of the job analysis process?", "o": ["Verify the job analysis information with the worker and immediate supervisor", "Draft initial corporate mission statements", "Negotiate union labor contracts", "Conduct financial audits"], "a": 0, "e": "Step 5 verifies the information with the worker performing the job and their immediate supervisor.", "type": "MCQ."},
+            {"q": "What is the outcome of Step 6 in the job analysis process?", "o": ["Develop a job description and job specification", "Hire new administrative assistants", "Approve annual marketing budgets", "File government EEO reports"], "a": 0, "e": "Step 6 develops a job description and job specification.", "type": "MCQ."},
+            {"q": "Which of the following methods is used for collecting job analysis information?", "o": ["Interviews, questionnaires, observation, and participant diary/logs", "Financial statement auditing and tax filing", "Computer network penetration testing", "Legal courtroom litigation"], "a": 0, "e": "Methods include interviews, questionnaires, observation, and participant diary/logs.", "type": "MCQ."},
+            {"q": "What are the three common types of job analysis interviews?", "o": ["Individual interviews, group interviews, and supervisor interviews", "Executive interviews, board interviews, and auditor interviews", "Telephone interviews, email interviews, and fax interviews", "Random interviews, structural interviews, and legal interviews"], "a": 0, "e": "Interviews can be individual, group (same job), or supervisor interviews.", "type": "MCQ."},
+            {"q": "What is the main problem associated with interviews and questionnaires in job analysis?", "o": ["Distortion of information, whether due to outright falsification or honest error", "Complete lack of employee participation", "Excessive government taxation", "Automatic computer system crashes"], "a": 0, "e": "Distortion of information, whether due to falsification or honest error, is the main problem.", "type": "MCQ."},
+            {"q": "When is direct observation especially useful as a job analysis method?", "o": ["When jobs consist mainly of observable physical activities", "When the job entails a lot of complex mental activity", "When analyzing long-term financial strategies", "When conducting remote online marketing"], "a": 0, "e": "Direct observation is especially useful when jobs consist mainly of observable physical activities.", "type": "MCQ."},
+            {"q": "When is direct observation NOT appropriate?", "o": ["When the job entails a lot of mental activity", "When the job involves physical assembly", "When workers operate machinery", "When inspecting physical parts"], "a": 0, "e": "Observation is usually not appropriate when the job entails a lot of mental activity.", "type": "MCQ."},
+            {"q": "What does a participant diary/log require workers to do?", "o": ["Record each activity along with the time in a log throughout the day", "Audit company financial balance sheets", "Write annual corporate strategic plans", "Calculate payroll tax withholdings"], "a": 0, "e": "Workers keep a diary/log recording each activity along with the time.", "type": "MCQ."},
+            {"q": "What is considered the most important product of job analysis?", "o": ["The job description", "The corporate tax return", "The shareholder dividend report", "The marketing brochure"], "a": 0, "e": "The most important product of job analysis is the job description.", "type": "MCQ."},
+            {"q": "What does a job description contain?", "o": ["A written statement of what the worker actually does, how, and working conditions", "A list of employee stock options and dividends", "A summary of competitor market shares", "A legal record of tax payments"], "a": 0, "e": "A job description is a written statement of what the worker actually does, how, and working conditions.", "type": "MCQ."},
+            {"q": "Which section is considered the 'heart of the job description'?", "o": ["Responsibilities and duties", "Job identification", "Job summary", "Working conditions"], "a": 0, "e": "Responsibilities and duties is the heart of the job description.", "type": "MCQ."},
+            {"q": "What should the job summary section include?", "o": ["The essence of the job, including only its major functions or activities", "Every minor routine task performed in exhaustive detail", "The employee's exact salary and bank account number", "The home addresses of all department supervisors"], "a": 0, "e": "The job summary summarizes the essence of the job, including only major functions or activities.", "type": "MCQ."},
+            {"q": "What does the relationships section in a job description show?", "o": ["The jobholder's relationships with others inside and outside the organization", "Family lineages and personal friendships", "Shareholder voting blocks", "Competitor alliances"], "a": 0, "e": "Relationships show the jobholder's relationships with others inside and outside the organization.", "type": "MCQ."},
+            {"q": "What does the standards of performance section list?", "o": ["The standards the company expects the employee to achieve for each main duty and responsibility", "The physical weightlifting limits of warehouse machinery", "The corporate income tax rates", "The advertising budget allocations"], "a": 0, "e": "Standards of performance list the standards expected for each of the job description's main duties.", "type": "MCQ."},
+            {"q": "What question does a job specification answer?", "o": ["What human traits and experience are required to do this job effectively?", "How much profit did the company make last year?", "What are the office rent expenses?", "Who is the CEO of the corporation?"], "a": 0, "e": "The job specification answers what human traits and experience are required to do the job effectively.", "type": "MCQ."},
+            {"q": "How do most job specifications originate in practice?", "o": ["From the educated guesses of people like supervisors and human resource managers", "From random computer number generators", "From mandatory government tax decrees", "From external union arbitration panels"], "a": 0, "e": "Most job specifications come from educated guesses of supervisors and HR managers.", "type": "MCQ."},
+            {"q": "Which online databases provide comprehensive job listings, education, and skill requirements?", "o": ["O*NET online and jobdescription.com", "Facebook and Instagram", "YouTube and TikTok", "Wikipedia and IMDb"], "a": 0, "e": "O*NET online and jobdescription.com provide job listings, education, experience, and competencies.", "type": "MCQ."},
+            {"q": "What is competency-based job analysis?", "o": ["Describing the job in terms of measurable, observable, behavioral competencies (knowledge, skills, and/or behaviors)", "Auditing financial assets and liabilities", "Evaluating factory machinery electrical voltage", "Calculating daily manufacturing output quotas"], "a": 0, "e": "Competency-based job analysis describes the job in terms of measurable, observable behavioral competencies.", "type": "MCQ."},
+            {"q": "Competency-based analysis is more:", "o": ["Worker-focused (What must employees be competent at to do this multi-scale job?)", "Machine-focused (What electric power does the motor draw?)", "Finance-focused (What is the quarterly return on investment?)", "Building-focused (What is the office square footage?)"], "a": 0, "e": "Competency-based analysis is more worker-focused.", "type": "MCQ."},
+            {"q": "How do managers sometimes group competencies?", "o": ["General competencies, leadership competencies, and technical competencies", "Primary, secondary, and tertiary tax brackets", "High, medium, and low physical weights", "Internal, external, and global markets"], "a": 0, "e": "Managers group competencies into general, leadership, and technical competencies.", "type": "MCQ."},
+            {"q": "Which of the following is a technical competency for a systems engineer?", "o": ["Design complex software applications, establish protocols, and create prototypes", "Formulate trade recommendations by studying currency models", "Negotiate commercial office lease agreements", "Audit corporate income tax returns"], "a": 0, "e": "Technical competencies for a systems engineer include designing complex software applications and prototypes.", "type": "MCQ."},
+            {"q": "Which technical competency applies to a corporate treasurer?", "o": ["Formulate trade recommendations by studying several computer models for currency trends", "Design complex software applications and protocols", "Repair office plumbing and electrical wiring", "Conduct factory safety inspections"], "a": 0, "e": "Technical competencies for a corporate treasurer include formulating trade recommendations by studying currency models.", "type": "MCQ."},
+            {"q": "Which of the following is an example of an O*NET skill group?", "o": ["Complex problem-solving, mathematics, speaking, and negotiation", "Corporate income tax auditing and ledger balancing", "Factory forklift driving and welding", "Office coffee brewing and cleaning"], "a*": 0, "e": "O*NET skills include mathematics, speaking, complex problem-solving, and negotiation.", "type": "MCQ."},
+            {"q": "What is a primary advantage of questionnaires over interviews?", "o": ["Quick and efficient way to obtain info from a large number of employees at less cost", "Eliminates all human bias and error completely", "Guarantees 100% truthful responses without distortion", "Requires zero time to develop and test"], "a": 0, "e": "Questionnaires are quick, efficient, and less costly for large numbers of workers.", "type": "MCQ."},
+            {"q": "Why is verifying job analysis information (Step 5) critical?", "o": ["To confirm factual correctness and completeness and help gain worker/supervisor acceptance", "To calculate employee income taxes", "To order office stationery supplies", "To schedule annual holiday vacations"], "a": 0, "e": "Verification confirms factual correctness and completeness and helps gain worker and supervisor acceptance.", "type": "MCQ."},
+            {"q": "What does a job specification summarize?", "o": ["The personal qualities, traits, skills, and background required for getting the job done", "The financial balance sheet and net income", "The physical dimensions of the factory building", "The advertising campaign schedule"], "a": 0, "e": "The job specification summarizes personal qualities, traits, skills, and background required.", "type": "MCQ."},
+            {"q": "What is the purpose of using common sense when compiling job specifications?", "o": ["Not to ignore behaviors that apply to almost any job but might not surface through standard analysis", "To replace all O*NET databases with personal opinions", "To eliminate the need for job descriptions", "To reduce employee salary levels"], "a": 0, "e": "Common sense ensures you don't ignore general behaviors that might not surface through standard analysis.", "type": "MCQ."},
+            {"q": "How does job analysis support performance appraisal?", "o": ["Compares actual performance with duties and standards learned through job analysis", "Determines corporate income tax rates", "Sets commercial bank loan interest rates", "Designs office furniture layouts"], "a": 0, "e": "Performance appraisal compares actual performance with duties and standards derived from job analysis.", "type": "MCQ."},
+            {"q": "What does the job identification section typically contain?", "o": ["Job title, department, location, and reporting hierarchy info", "Detailed psychological personality test results", "Exhaustive step-by-step assembly instructions", "Employee medical history records"], "a": 0, "e": "Job identification contains title, location, and supervisory details.", "type": "MCQ."},
+            {"q": "What is a major disadvantage of developing questionnaires?", "o": ["Developing and testing them can be time-consuming", "They are always more expensive than interviewing thousands of workers", "They cannot be distributed in written form", "They are illegal under federal labor laws"], "a": 0, "e": "Developing and testing questionnaires can be time-consuming.", "type": "MCQ."},
+            {"q": "Which method involves an HR specialist asking open-ended or checklist questions directly to employees?", "o": ["The Interview", "Participant Diary/Logs", "Direct Observation", "Financial Auditing"], "a": 0, "e": "Interviews range from unstructured ('Tell me about your job') to highly structured check-off items.", "type": "MCQ."},
+
+            // High-Level Questions (46-50)
+            {"q": "[HIGH-LEVEL] An HR manager uses direct observation as the exclusive method to evaluate the complex cognitive reasoning and strategic risk-assessment duties of a corporate mergers-and-acquisitions analyst. According to Chapter 2, why is this a severe methodological error?", "o": ["Direct observation is inappropriate when a job entails substantial mental activity, as it is only suited for observable physical activities", "Direct observation is too inexpensive for executive positions", "Direct observation violates federal tax laws", "Direct observation requires union approval"], "a": 0, "e": "Observation is not appropriate when the job entails a lot of mental activity; it is useful mainly for observable physical activities.", "type": "MCQ."},
+            {"q": "[HIGH-LEVEL] A firm implements a competency-based job analysis system but structures it entirely around static machine voltages and factory floor dimensions rather than worker-focused behavioral competencies. What core principle from Chapter 2 was violated?", "o": ["Competency-based analysis is inherently worker-focused, describing the job in terms of measurable, observable behavioral competencies and skills required by employees", "Competency-based analysis applies exclusively to real estate accounting", "Competency-based analysis forbids the use of O*NET databases", "Competency-based analysis replaces job descriptions with tax audits"], "a": 0, "e": "Competency-based analysis is more worker-focused ('What must employees be competent at?') rather than machine-focused.", "type": "MCQ."},
+            {"q": "[HIGH-LEVEL] A newly appointed supervisor drafts a job description and places detailed software coding benchmarks and sales quotas under the 'Standards of Performance' section, while listing educational degrees and problem-solving aptitudes under 'Job Specification'. According to Chapter 2 structural rules, is this correct?", "o": ["Yes, because standards of performance list expected results for duties, while job specifications summarize required human traits, skills, and background", "No, because all information must go into the job identification section", "No, because job specifications are illegal", "Yes, but only if approved by external auditors"], "a": 0, "e": "Standards of performance list expected results for duties, while job specifications summarize required traits, skills, and background.", "type": "MCQ."},
+            {"q": "[HIGH-LEVEL] An HR specialist skips Step 1 ('Decide how you will use the information') and administers unstructured narrative interviews across 500 manufacturing jobs. When management attempts to use the resulting data for numerical job evaluation and compensation grading, they fail. Why?", "o": ["Different data collection techniques serve different uses; unstructured interviews yield narrative text unsuitable for numerical compensation ratings, whereas structured questionnaires provide ratings", "Interviews are legally banned for compensation grading", "Unstructured interviews are too short", "Failing to review organization charts invalidated the interviews"], "a": 0, "e": "Data techniques must match intended uses; e.g., questionnaires provide numerical ratings for compensation comparisons, while interviews suit descriptions.", "type": "MCQ."},
+            {"q": "[HIGH-LEVEL] If employees deliberately exaggerate their job duties and physical fatigue levels during interviews and diary logs because they fear job restructuring or wage cuts, which fundamental vulnerability of qualitative job analysis methods is being exploited?", "o": ["Distortion of information, whether due to outright falsification or honest error by employees", "The absolute perfection of direct observation", "The elimination of all background reviews", "The infallibility of O*NET databases"], "a": 0, "e": "Distortion of information (falsification or honest error) is a primary problem in interviews, questionnaires, and self-reports.", "type": "MCQ."}
+        ];
+
+        const P2_SOURCE = [
+            // Standard Questions (1-45)
+            {"q": "Job analysis is the procedure through which you determine job duties and hire characteristics.", "o": ["True", "False"], "a": 0, "e": "True: Job analysis determines position duties and hiring characteristics.", "type": "TF"},
+            {"q": "Job analysis produces information for writing job descriptions and person specifications.", "o": ["True", "False"], "a": 0, "e": "True: It produces job descriptions and person specifications.", "type": "TF"},
+            {"q": "Job analysis only collects corporate income tax records and shareholder dividends.", "o": ["True", "False"], "a": 1, "e": "False: Job analysis collects work activities, behaviors, tools, standards, context, and human requirements.", "type": "TF"},
+            {"q": "Human behaviors information includes sensing, communicating, lifting weights, or walking long distances.", "o": ["True", "False"], "a": 0, "e": "True: Human behaviors cover sensing, communicating, lifting, and walking.", "type": "TF"},
+            {"q": "Job context includes physical working conditions, work schedule, incentives, and interaction numbers.", "o": ["True", "False"], "a": 0, "e": "True: Job context covers working conditions, schedules, incentives, and interactions.", "type": "TF"},
+            {"q": "Job analysis information is used for recruitment, selection, performance appraisal, compensation, and training.", "o": ["True", "False"], "a": 0, "e": "True: These are the primary uses of job analysis info.", "type": "TF"},
+            {"q": "Step 1 of the job analysis process is deciding how you will use the information.", "o": ["True", "False"], "a": 0, "e": "True: Step 1 is deciding how you will use the information.", "type": "TF"},
+            {"q": "An organization chart shows the title of each position and reporting relationships.", "o": ["True", "False"], "a": 0, "e": "True: Organization charts show titles and who reports to whom.", "type": "TF"},
+            {"q": "A process chart provides a less detailed picture of workflow than an organization chart.", "o": ["True", "False"], "a": 1, "e": "False: A process chart provides a *more* detailed picture of the workflow.", "type": "TF"},
+            {"q": "It is always necessary to analyze the jobs of all 200 workers in a department instead of taking a sample of 10.", "o": ["True", "False"], "a": 1, "e": "False: A sample of 10 jobs will do when analyzing representative positions.", "type": "TF"},
+            {"q": "Verifying job analysis information with workers and immediate supervisors confirms accuracy and gains acceptance.", "o": ["True", "False"], "a": 0, "e": "True: Verification confirms factual correctness and gains acceptance.", "type": "TF"},
+            {"q": "The most important product of job analysis is the job description.", "o": ["True", "False"], "a": 0, "e": "True: The job description is the most important product.", "type": "TF"},
+            {"q": "A job description outlines what the worker actually does, how, and working conditions.", "o": ["True", "False"], "a": 0, "e": "True: This is the definition of a job description.", "type": "TF"},
+            {"q": "The responsibilities and duties section is considered the heart of the job description.", "o": ["True", "False"], "a": 0, "e": "True: Responsibilities and duties is the heart of the job description.", "type": "TF"},
+            {"q": "Job specifications answer what human traits and experience are required to do the job effectively.", "o": ["True", "False"], "a": 0, "e": "True: Job specifications answer what traits and experience are required.", "type": "TF"},
+            {"q": "Most job specifications come from automated computer algorithms without human judgment.", "o": ["True", "False"], "a": 1, "e": "False: Most job specifications come from educated guesses of supervisors and HR managers.", "type": "TF"},
+            {"q": "Competency-based job analysis is more worker-focused, describing jobs in terms of behavioral competencies.", "o": ["True", "False"], "a": 0, "e": "True: Competency-based analysis is worker-focused on behavioral competencies.", "type": "TF"},
+            {"q": "Distortion of information is a major problem in interviews and questionnaires.", "o": ["True", "False"], "a": 0, "e": "True: Distortion via falsification or error is a primary problem.", "type": "TF"},
+            {"q": "Direct observation is ideal when jobs consist mainly of observable physical activities.", "o": ["True", "False"], "a": 0, "e": "True: Direct observation is useful for observable physical activities.", "type": "TF"},
+            {"q": "Direct observation is highly appropriate when a job entails a lot of complex mental activity.", "o": ["True", "False"], "a": 1, "e": "False: Observation is usually *not* appropriate when the job entails a lot of mental activity.", "type": "TF"},
+            {"q": "A participant diary/log requires workers to record activities and timestamps throughout the day.", "o": ["True", "False"], "a": 0, "e": "True: Workers record activities along with time in a log.", "type": "TF"},
+            {"q": "Questionnaires are a quick and efficient way to obtain information from a large number of employees at lower cost.", "o": ["True", "False"], "a": 0, "e": "True: Questionnaires are efficient and less costly for large numbers.", "type": "TF"},
+            {"q": "Developing and testing questionnaires can be time-consuming.", "o": ["True", "False"], "a": 0, "e": "True: Developing and testing questionnaires can take time.", "type": "TF"},
+            {"q": "O*NET online is a useful resource for job listings, education, experience, and skills.", "o": ["True", "False"], "a": 0, "e": "True: O*NET online includes complete lists of required education and skills.", "type": "TF"},
+            {"q": "Common sense should be ignored when compiling job specifications.", "o": ["True", "False"], "a": 1, "e": "False: You must use common sense not to miss general behaviors.", "type": "TF"},
+            {"q": "Managers often group competencies into general, leadership, and technical clusters.", "o": ["True", "False"], "a": 0, "e": "True: Competencies are grouped into general, leadership, and technical clusters.", "type": "TF"},
+            {"q": "Technical competencies for a systems engineer include designing complex software applications and prototypes.", "o": ["True", "False"], "a": 0, "e": "True: Systems engineer competencies include designing software and prototypes.", "type": "TF"},
+            {"q": "Technical competencies for a corporate treasurer include formulating trade recommendations by studying currency models.", "o": ["True", "False"], "a": 0, "e": "True: Corporate treasurer competencies include currency trade recommendations.", "type": "TF"},
+            {"q": "Mathematics, speaking, complex problem-solving, and negotiation are examples of O*NET skills.", "o": ["True", "False"], "a": 0, "e": "True: O*NET lists mathematics, speaking, problem-solving, and negotiation.", "type": "TF"},
+            {"q": "Reviewing relevant background information is Step 2 of the job analysis process.", "o": ["True", "False"], "a": 0, "e": "True: Background review is Step 2.", "type": "TF"},
+            {"q": "Selecting representative positions is Step 3 of the job analysis process.", "o": ["True", "False"], "a": 0, "e": "True: Selecting representative positions is Step 3.", "type": "TF"},
+            {"q": "Analyzing the job by collecting data is Step 4 of the job analysis process.", "o": ["True", "False"], "a": 0, "e": "True: Data collection is Step 4.", "type": "TF"},
+            {"q": "Developing job descriptions and specifications is Step 6 of the job analysis process.", "o": ["True", "False"], "a": 0, "e": "True: Developing descriptions/specifications is Step 6.", "type": "TF"},
+            {"q": "Job analysis information has no connection to compensation or salary levels.", "o": ["True", "False"], "a": 1, "e": "False: Compensation depends on skill, education, and responsibility assessed through job analysis.", "type": "TF"},
+            {"q": "Unstructured interviews contain hundreds of rigid check-off items without open-ended questions.", "o": ["True", "False"], "a": 1, "e": "False: Structured interviews contain check-off items, while unstructured interviews are open-ended ('Tell me about your job').", "type": "TF"},
+            {"q": "Group interviews involve interviewing multiple employees who all hold the same job.", "o": ["True", "False"], "a": 0, "e": "True: Group interviews involve groups of employees with the same job.", "type": "TF"},
+            {"q": "Supervisor interviews involve interviewing one or more supervisors who know the job.", "o": ["True", "False"], "a": 0, "e": "True: Supervisor interviews involve supervisors knowing the job.", "type": "TF"},
+            {"q": "The job summary section should list every single minor routine task in exhaustive detail.", "o": ["True", "False"], "a": 1, "e": "False: The job summary should include *only* major functions or activities.", "type": "TF"},
+            {"q": "Relationships in a job description show interactions with others inside and outside the organization.", "o": ["True", "False"], "a": 0, "e": "True: Relationships show interactions inside and outside the organization.", "type": "TF"},
+            {"q": "Standards of performance list the standards expected for each main duty and responsibility.", "o": ["True", "False"], "a": 0, "e": "True: Standards of performance list expected standards for duties.", "type": "TF"},
+            {"q": "Job analysis information is exclusively used for firing employees and has no role in training.", "o": ["True", "False"], "a": 1, "e": "False: Job descriptions list requisite skills and training that the job requires.", "type": "TF"},
+            {"q": "Work activities information includes how, why, and when the worker performs each activity.", "o": ["True", "False"], "a": 0, "e": "True: Work activities include how, why, and when tasks are performed.", "type": "TF"},
+            {"q": "Machines, tools, equipment, and work aids info covers tools used and materials processed.", "o": ["True", "False"], "a": 0, "e": "True: This category covers tools, materials, knowledge, and services.", "type": "TF"},
+            {"q": "Performance standards information is collected during a job analysis.", "o": ["True", "False"], "a": 0, "e": "True: Information about performance standards is part of job analysis.", "type": "TF"},
+            {"q": "Job specifications are used exclusively to determine corporate income tax rates.", "o": ["True", "False"], "a": 1, "e": "False: Job specifications show what human traits and experience are required to do the job.", "type": "TF"},
+
+            // High-Level Questions (46-50)
+            {"q": "[HIGH-LEVEL] If an HR specialist uses direct observation as the sole method to analyze the cognitive decision-making and mental stress of financial risk analysts, this adheres strictly to Chapter 2 methodological guidelines.", "o": ["True", "False"], "a": 1, "e": "False: Direct observation is not appropriate when the job entails a lot of mental activity; it is only suited for observable physical activities.", "type": "TF"},
+            {"q": "[HIGH-LEVEL] In competency-based job analysis, the primary focus is exclusively on static physical machinery rather than measurable, observable behavioral competencies and worker skills.", "o": ["True", "False"], "a": 1, "e": "False: Competency-based analysis is more *worker-focused* on measurable behavioral competencies rather than machine-focused.", "type": "TF"},
+            {"q": "[HIGH-LEVEL] Failing to verify job analysis data with the worker and immediate supervisor (Step 5) has zero impact on whether the final job description will be accepted or factually accurate.", "o": ["True", "False"], "a": 1, "e": "False: Verification confirms factual correctness and completeness and helps gain worker and supervisor acceptance.", "type": "TF"},
+            {"q": "[HIGH-LEVEL] The relationships section of a job description is designed to detail exact financial salary grades and bonus percentages rather than internal and external interactions.", "o": ["True", "False"], "a": 1, "e": "False: Relationships show interactions with others inside and outside the organization, while compensation covers salary.", "type": "TF"},
+            {"q": "[HIGH-LEVEL] Because questionnaires are inexpensive and fast for surveying large groups, they completely eliminate the risk of information distortion or employee misunderstanding.", "o": ["True", "False"], "a": 1, "e": "False: Questionnaires still suffer from information distortion (falsification or error) and require time to develop and test.", "type": "TF"}
+        ];
+
+        const getQuestionType = question => question.type.replace(/[.!?]+$/, "");
+
+        const P1_DATA = [
+            ...P1_SOURCE.filter(question => getQuestionType(question) === "MCQ"),
+            ...P2_SOURCE.filter(question => getQuestionType(question) === "MCQ")
+        ];
+        const P2_DATA = [
+            ...P1_SOURCE.filter(question => getQuestionType(question) === "TF"),
+            ...P2_SOURCE.filter(question => getQuestionType(question) === "TF")
+        ];
+
+        let activePart = 1;
+        let qData = P1_DATA;
+        let cIdx = 0;
+        let score = 0;
+        let wrongList = [];
+
+        const $ = id => document.getElementById(id);
+
+        function switchPart(part) {
+            activePart = part;
+            $("tab1").className = "tab-btn " + (part === 1 ? "active" : "");
+            $("tab2").className = "tab-btn " + (part === 2 ? "active" : "");
+            qData = part === 1 ? P1_DATA : P2_DATA;
+            resetQuiz();
+        }
+
+        function resetQuiz() {
+            cIdx = 0;
+            score = 0;
+            wrongList = [];
+            renderQuestion();
+        }
+
+        function renderQuestion() {
+            const q = qData[cIdx];
+            $("n").textContent = `Question ${cIdx + 1} of ${qData.length}`;
+            $("s").textContent = `Score: ${score}`;
+            $("bar").style.width = `${(cIdx / qData.length) * 100}%`;
+
+            const isHighLevel = cIdx >= 45;
+            const badgeClass = isHighLevel ? "q-badge high-level" : "q-badge";
+            const badgeText = isHighLevel 
+                ? (getQuestionType(q) === 'TF' ? 'True / False — High Level' : 'Multiple Choice — High Level')
+                : (getQuestionType(q) === 'TF' ? 'True / False' : 'Multiple Choice');
+            
+            $("card").innerHTML = `
+                <span class="${badgeClass}">${badgeText}</span>
+                <p class="q">${q.q}</p>
+                <div id="opts"></div>
+                <div id="fb"></div>
+            `;
+
+            q.o.forEach((optText, i) => {
+                const b = document.createElement("button");
+                b.className = "opt";
+                b.innerHTML = `<b>${getQuestionType(q) === 'TF' ? (i===0?'T':'F') : "ABCD"[i] + ")"}</b><span></span>`;
+                b.querySelector("span").textContent = optText;
+                b.onclick = () => handleAnswer(i);
+                $("opts").appendChild(b);
+            });
+        }
+
+        function handleAnswer(selected) {
+            const q = qData[cIdx];
+            const isCorrect = selected === q.a;
+            const buttons = document.querySelectorAll(".opt");
+
+            buttons.forEach((btn, idx) => {
+                btn.disabled = true;
+                if (idx === q.a) btn.classList.add("ok");
+                else if (idx === selected) btn.classList.add("no");
+            });
+
+            if (isCorrect) score++;
+            else wrongList.push(cIdx);
+
+            $("s").textContent = `Score: ${score}`;
+
+            $("fb").innerHTML = `
+                <div class="ex ${isCorrect ? 'ok' : 'no'}">
+                    <strong>${isCorrect ? 'Correct answer ✓' : 'Incorrect answer ✗'}</strong>
+                    <span>${q.e}</span>
+                </div>
+                <button class="btn" id="nxtBtn">${cIdx < qData.length - 1 ? 'Next question' : 'Show final results'}</button>
+            `;
+
+            $("nxtBtn").onclick = () => {
+                cIdx++;
+                if (cIdx < qData.length) renderQuestion();
+                else finishQuiz();
+            };
+            $("nxtBtn").focus();
+        }
+
+        function finishQuiz() {
+            $("bar").style.width = "100%";
+            $("n").textContent = "Quiz complete";
+            const pct = Math.round((score / qData.length) * 100);
+            
+            let html = `
+                <div class="score">${score} / ${qData.length}</div>
+                <p style="text-align:center;font-size:1.2rem;margin:0 0 16px;">Percentage: <b>${pct}%</b></p>
+            `;
+
+            if (wrongList.length > 0) {
+                html += `<p style="margin:16px 0 8px;"><b>Questions to review:</b></p><ul class="rev">`;
+                wrongList.reverse().forEach(w => {
+                    html += `<li><b>Question ${w + 1}:</b> ${qData[w].q}</li>`;
+                });
+                html += `</ul>`;
+            } else {
+                html += `<p style="text-align:center;color:var(--ok);">Excellent! All answers are correct (100%).</p>`;
+            }
+
+            html += `<button class="btn" onclick="resetQuiz()">Restart quiz</button>`;
+            $("card").innerHTML = html;
+        }
+
+        renderQuestion();
+    </script>
+</body>
+</html>

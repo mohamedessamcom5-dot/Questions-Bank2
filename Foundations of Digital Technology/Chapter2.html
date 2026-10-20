@@ -1,0 +1,436 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Foundation of Digital Technology — Chapter 2: Artificial Intelligence (AI)</title>
+    <style>
+        :root {
+            --bg: #0f172a;
+            --c: #1e293b;
+            --t: #f8fafc;
+            --m: #94a3b8;
+            --b: #334155;
+            --ac: #38bdf8;
+            --ok: #22c55e;
+            --okb: #052e16;
+            --no: #ef4444;
+            --nob: #450a0a;
+            box-sizing: border-box;
+        }
+
+        @media(prefers-color-scheme: light) {
+            :root[data-theme=light] {
+                --bg: #f8fafc;
+                --c: #ffffff;
+                --t: #0f172a;
+                --m: #64748b;
+                --b: #e2e8f0;
+                --ac: #0284c7;
+                --okb: #dcfce7;
+                --nob: #fee2e2;
+                --ok: #16a34a;
+                --no: #dc2626;
+            }
+        }
+
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--t);
+            font-family: 'Segoe UI', Tahoma, system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+        }
+        main {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 24px 16px 60px;
+        }
+        .header-panel {
+            text-align: center;
+            margin-bottom: 24px;
+            border-bottom: 8px solid var(--b);
+            padding-bottom: 30px;
+        }
+        h1 { font-size: 1.5rem; margin: 0 0 8px; color: var(--ac); }
+        .sub { color: var(--m); font-size: 0.95rem; margin: 0; }
+        
+        .nav-tabs {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .tab-btn {
+            flex: 1;
+            padding: 12px;
+            background: var(--c);
+            border: 1px solid var(--b);
+            color: var(--t);
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .tab-btn.active {
+            background: var(--ac);
+            color: #000;
+            border-color: var(--ac);
+        }
+
+        .bar {
+            height: 8px;
+            background: var(--b);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+        .bar i {
+            display: block;
+            height: 100%;
+            background: var(--ac);
+            width: 0;
+            transition: width 0.3s;
+        }
+        .meta {
+            display: flex;
+            justify-content: space-between;
+            color: var(--m);
+            font-size: 0.9rem;
+            margin-bottom: 16px;
+        }
+        .card {
+            background: var(--c);
+            border: 1px solid var(--b);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+        .q-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            background: var(--b);
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+            color: var(--ac);
+        }
+        .q-badge.high-level {
+            background: #f59e0b;
+            color: #000;
+            font-weight: bold;
+        }
+        .q {
+            font-size: 1.1rem;
+            font-weight: 600;
+            direction: ltr;
+            text-align: left;
+            margin: 0 0 16px;
+        }
+        .opt {
+            display: flex;
+            gap: 12px;
+            direction: ltr;
+            text-align: left;
+            width: 100%;
+            background: var(--c);
+            color: var(--t);
+            border: 1.5px solid var(--b);
+            border-radius: 8px;
+            padding: 12px 14px;
+            margin-bottom: 10px;
+            font: inherit;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+        .opt:hover:not(:disabled) { border-color: var(--ac); }
+        .opt b { min-width: 1.5em; color: var(--ac); }
+        .opt.ok { background: var(--okb); border-color: var(--ok); }
+        .opt.no { background: var(--nob); border-color: var(--no); }
+        .opt:disabled { cursor: default; }
+
+        .ex {
+            margin-top: 16px;
+            padding: 14px;
+            border-radius: 8px;
+            direction: ltr;
+            text-align: left;
+            font-size: 0.95rem;
+        }
+        .ex.ok { background: var(--okb); border: 1px solid var(--ok); }
+        .ex.no { background: var(--nob); border: 1px solid var(--no); }
+        .ex strong { display: block; margin-bottom: 4px; }
+
+        .btn {
+            margin-top: 16px;
+            background: var(--ac);
+            color: #000;
+            border: 0;
+            border-radius: 8px;
+            padding: 12px 24px;
+            font: inherit;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+        }
+        .score { text-align: center; font-size: 3rem; font-weight: 800; margin: 12px 0; color: var(--ac); }
+        .rev { margin: 16px 0 0; padding: 0; list-style: none; direction: ltr; text-align: left; font-size: 0.9rem; }
+        .rev li { padding: 8px 0; border-top: 1px solid var(--b); }
+    </style>
+</head>
+<body>
+    <main>
+        <div class="header-panel">
+            <h1>Foundation of Digital Technology — Chapter 2</h1>
+            <p class="sub">Artificial Intelligence (AI) & Machine Learning</p>
+        </div>
+        
+        <div class="nav-tabs">
+            <button class="tab-btn active" id="tab1" onclick="switchPart(1)">Multiple Choice</button>
+            <button class="tab-btn" id="tab2" onclick="switchPart(2)">True/False</button>
+        </div>
+
+        <div class="bar"><i id="bar"></i></div>
+        <div class="meta">
+            <span id="n"></span>
+            <span id="s"></span>
+        </div>
+        <div class="card" id="card"></div>
+    </main>
+      
+    <script>
+       const P1_SOURCE = [
+            // Standard MCQs (1-45)
+            {"q": "How is Artificial Intelligence (AI) broadly defined?", "o": ["The simulation of human intelligence processes by machines, especially computer systems", "The physical manufacturing of silicon semiconductor chips", "The manual wiring of telecommunication copper cables", "The creation of analog mechanical clockwork gears"], "a": 0, "e": "AI is defined as the simulation of human intelligence processes by machines and computer systems.", "type": "MCQ"},
+            {"q": "Which subfield of AI focuses on enabling computers to learn from data without being explicitly programmed?", "o": ["Machine Learning (ML)", "HTML Web Design", "Relational Database SQL", "Paper Accounting Ledgers"], "a": 0, "e": "Machine Learning enables computers to learn and improve from experience without explicit programming.", "type": "MCQ"},
+            {"q": "What is the primary characteristic of 'Supervised Learning' in Machine Learning?", "o": ["Training a model on labeled datasets where both input and correct output are provided", "Allowing an algorithm to explore unlabelled data independently to find hidden clusters", "Training an agent through trial and error using rewards and penalties", "Running programs strictly offline without data"], "a": 0, "e": "Supervised learning uses labeled datasets where input data is paired with known correct outputs.", "type": "MCQ"},
+            {"q": "Which type of machine learning algorithm is best suited for customer segmentation where data has no pre-existing labels?", "o": ["Supervised Learning", "Unsupervised Learning", "Relational SQL Querying", "Manual Spreadsheet Entry"], "a": 1, "e": "Unsupervised learning works on unlabelled data to discover hidden patterns or groupings like customer segmentation.", "type": "MCQ"},
+            {"q": "What does Reinforcement Learning rely on to train an agent to make a sequence of decisions?", "o": ["Pre-labeled CSV training files", "Trial and error interactions with an environment using rewards and penalties", "Static HTML web templates", "Manual physical labor"], "a": 1, "e": "Reinforcement learning trains agents via rewards and penalties through trial and error.", "type": "MCQ"},
+            {"q": "What distinguishes Deep Learning from traditional Machine Learning?", "o": ["Deep learning utilizes multi-layered artificial neural networks to automatically extract complex features from raw data", "Deep learning requires zero data and zero computational power", "Deep learning is strictly limited to paper bookkeeping", "Deep learning cannot process images or audio"], "a": 0, "e": "Deep learning uses multi-layered artificial neural networks for automatic feature extraction.", "type": "MCQ"},
+            {"q": "What is an Artificial Neural Network (ANN) inspired by?", "o": ["Biological neural networks in the human brain", "Mechanical steam engine pistons", "Relational database tables", "Fiber optic cable routing"], "a": 0, "e": "ANNs are computing systems inspired by the biological neural networks that constitute animal brains.", "type": "MCQ"},
+            {"q": "Which AI subfield deals with enabling computers to understand, interpret, and generate human language?", "o": ["Natural Language Processing (NLP)", "Computer Vision", "Hardware Circuitry Design", "Database Indexing"], "a": 0, "e": "Natural Language Processing (NLP) enables machines to understand and generate human language.", "type": "MCQ"},
+            {"q": "What is the primary function of Computer Vision in AI systems?", "o": ["Enabling computers to derive meaningful information from digital images, videos, and visual inputs", "Playing audio files through loudspeakers", "Managing enterprise payroll systems", "Printing hardcopy documents"], "a": 0, "e": "Computer Vision allows computers to extract and process information from digital images and videos.", "type": "MCQ"},
+            {"q": "Which of the following is a classic example of Supervised Learning?", "o": ["Spam email classification (filtering emails into spam or not spam using labeled examples)", "Grouping random customer purchase records without labels", "Autonomous robot navigation via trial and error rewards", "Random file compression"], "a": 0, "e": "Email spam classification uses labeled training data, making it a supervised learning task.", "type": "MCQ"},
+            {"q": "What is the role of activation functions within an artificial neural network node?", "o": ["To introduce non-linearity, determining whether the neuron should fire or not based on its input", "To physically cool down the computer processor", "To connect ethernet cables to the router", "To delete redundant database backups"], "a": 0, "e": "Activation functions introduce non-linearity, determining if a neuron passes its signal forward.", "type": "MCQ"},
+            {"q": "What is Generative AI (GenAI)?", "o": ["A branch of AI focused on creating new content—such as text, images, audio, and video—based on training data", "A software tool for formatting computer hard drives", "A physical printer for paper invoices", "A database query optimizer"], "a": 0, "e": "Generative AI creates new original content like text, images, and audio based on learned patterns.", "type": "MCQ"},
+            {"q": "Which of the following models is a prominent example of a Large Language Model (LLM)?", "o": ["GPT (Generative Pre-trained Transformer)", "Microsoft Paint", "Apache Hadoop HDFS", "SQL Server Management Studio"], "a": 0, "e": "GPT models are advanced Large Language Models designed for natural language tasks.", "type": "MCQ"},
+            {"q": "What ethical challenge is frequently associated with biased training data in AI systems?", "o": ["Algorithmic bias leading to unfair, discriminatory decisions against certain demographic groups", "Excessive electrical power consumption by office lights", "Slower typing speeds on mechanical keyboards", "Incompatibility with Wi-Fi routers"], "a": 0, "e": "Biased training data can cause algorithms to perpetuate or amplify social biases and discrimination.", "type": "MCQ"},
+            {"q": "Why is 'Explainable AI' (XAI) becoming increasingly crucial in high-stakes domains like healthcare and finance?", "o": ["To ensure humans can understand, trust, and audit how an AI model arrived at a specific decision", "To make AI models run twice as slow", "To eliminate the need for computer programmers", "To encrypt user passwords"], "a": 0, "e": "Explainable AI provides transparency so humans can understand and trust AI decision rationale.", "type": "MCQ"},
+            {"q": "What is 'Narrow AI' (Weak AI) compared to 'Artificial General Intelligence' (AGI)?", "o": ["Narrow AI is designed to perform a specific narrow task, whereas AGI would possess human-level general intelligence across all domains", "Narrow AI can solve every problem in the universe simultaneously", "Narrow AI only runs on mobile phones with zero internet access", "Narrow AI was invented in the 19th century"], "a": 0, "e": "Narrow AI excels at specific tasks, while AGI represents hypothetical human-equivalent general intelligence.", "type": "MCQ"},
+            {"q": "What is the function of the 'loss function' (or cost function) during machine learning model training?", "o": ["To measure how well the model's predictions match the actual target labels so optimization can minimize errors", "To delete old log files from the hard drive", "To measure internet download speeds", "To adjust screen brightness levels"], "a": 0, "e": "The loss function quantifies prediction error so the model can adjust its parameters during training.", "type": "MCQ"},
+            {"q": "Which optimization algorithm is commonly used in neural networks to update weights by calculating gradients?", "o": ["Gradient Descent", "Bubble Sort", "Binary Search", "DNS Lookup"], "a": 0, "e": "Gradient Descent is the foundational optimization algorithm used to minimize loss by updating weights.", "type": "MCQ"},
+            {"q": "What role does Big Data play in the advancement of modern AI?", "o": ["Massive datasets provide the necessary fuel to train complex machine learning and deep learning models effectively", "Big data slows down AI algorithms", "Big data replaces the need for neural networks", "Big data is only used for paper printing"], "a": 0, "e": "Massive big data volumes are essential for training high-performance machine learning models.", "type": "MCQ"},
+            {"q": "What is Transfer Learning in machine learning?", "o": ["Using a pre-trained model on a new, related task to save training time and data requirements", "Transferring physical computer hardware between offices", "Copying files via USB flash drive", "Migrating relational databases to SQL"], "a": 0, "e": "Transfer learning reuses pre-trained models on new tasks, greatly reducing data and compute needs.", "type": "MCQ"},
+            {"q": "Which application area heavily utilizes Computer Vision and Deep Learning in the automotive industry?", "o": ["Autonomous self-driving vehicles (detecting pedestrians, lanes, and traffic signs)", "Manual car tire inflation", "Washing car windows with water hoses", "Weaving car seat fabrics"], "a": 0, "e": "Self-driving cars rely heavily on computer vision and deep learning for real-time environment perception.", "type": "MCQ"},
+            {"q": "What is sentiment analysis in Natural Language Processing used for?", "o": ["Determining the emotional tone (positive, negative, or neutral) behind a text", "Measuring the electrical voltage of server fans", "Calculating corporate income taxes", "Testing Wi-Fi router signal strength"], "a": 0, "e": "Sentiment analysis evaluates text to determine whether the emotional tone is positive, negative, or neutral.", "type": "MCQ"},
+            {"q": "What is a major security risk associated with AI and machine learning models?", "o": ["Adversarial attacks (subtly modified inputs that fool AI classifiers)", "Physical rusting of computer keyboards", "Running out of paper in laser printers", "Clogged cooling fan dust"], "a": 0, "e": "Adversarial attacks involve crafted inputs designed to trick AI models into making incorrect predictions.", "type": "MCQ"},
+            {"q": "What does 'Overfitting' mean in machine learning?", "o": ["When a model learns the training data too well—including noise and random fluctuations—resulting in poor generalization to new data", "When a model is too simple to learn anything", "When a computer runs out of RAM memory", "When a server overheats from heavy traffic"], "a": 0, "e": "Overfitting happens when a model memorizes training noise and fails to generalize to unseen test data.", "type": "MCQ"},
+            {"q": "How can data scientists combat overfitting in machine learning models?", "o": ["Using regularization techniques, cross-validation, and acquiring more diverse training data", "Deleting all training data", "Turning off the computer overnight", "Removing all activation functions"], "a": 0, "e": "Regularization, cross-validation, and more data help prevent overfitting and improve generalization.", "type": "MCQ"},
+            {"q": "What is 'Underfitting' in machine learning?", "o": ["When a model is too simple to capture the underlying patterns in the training data", "When a model memorizes every single training data point", "When training takes too many days", "When the dataset is too massive"], "a": 0, "e": "Underfitting occurs when a model is too simplistic to learn the data patterns effectively.", "type": "MCQ"},
+            {"q": "What is the purpose of splitting a dataset into training, validation, and test sets?", "o": ["To train the model, tune hyperparameters without bias, and evaluate final unbiased performance on unseen data", "To make dataset file sizes smaller", "To comply with paper filing regulations", "To test keyboard durability"], "a": 0, "e": "Splitting ensures proper training, unbiased hyperparameter tuning, and accurate final evaluation.", "type": "MCQ"},
+            {"q": "Which AI ethics principle emphasizes ensuring AI systems treat all individuals and groups fairly without discrimination?", "o": ["Fairness and Equity", "Hardware Speed", "Network Bandwidth", "Disk Storage Capacity"], "a": 0, "e": "Fairness and equity in AI ethics focus on preventing bias and discriminatory outcomes.", "type": "MCQ"},
+            {"q": "What is the Turing Test used for in the context of Artificial Intelligence?", "o": ["Evaluating a machine's ability to exhibit intelligent behavior equivalent to, or indistinguishable from, that of a human", "Testing computer monitor screen resolution", "Measuring internet ping latency", "Calibrating printer ink cartridges"], "a": 0, "e": "The Turing Test evaluates whether a machine can converse indistinguishably from a human.", "type": "MCQ"},
+            {"q": "What are Convolutional Neural Networks (CNNs) primarily specialized for processing?", "o": ["Image and spatial data recognition in computer vision", "Database SQL query optimization", "Linear regression forecasting", "Plain text email filtering"], "a": 0, "e": "CNNs are specialized deep learning architectures for processing grid-like data such as images.", "type": "MCQ"},
+            {"q": "What are Recurrent Neural Networks (RNNs) or Transformers primarily specialized for processing?", "o": ["Sequential data such as text, speech, and time-series forecasting", "Physical hardware circuit board soldering", "Static image compression", "Computer fan speed control"], "a": 0, "e": "RNNs and Transformers excel at handling sequential data like natural language and time series.", "type": "MCQ"},
+            {"q": "What is Reinforcement Learning's 'reward function' responsible for?", "o": ["Defining what is good or bad for the agent, guiding its learning process toward optimal behavior", "Calculating employee monthly salaries", "Measuring computer power consumption", "Encrypting database passwords"], "a": 0, "e": "The reward function provides feedback to the reinforcement learning agent on the success of its actions.", "type": "MCQ"},
+            {"q": "Which branch of AI focuses on building physical machines capable of executing tasks autonomously in the physical world?", "o": ["Robotics", "Web development", "Database administration", "Text editing"], "a": 0, "e": "Robotics combines AI and mechanical engineering to create autonomous physical agents.", "type": "MCQ"},
+            {"q": "What is the role of data preprocessing in an AI pipeline?", "o": ["Cleaning, normalizing, and transforming raw data into a format suitable for machine learning algorithms", "Printing physical paper reports", "Installing operating system updates", "Designing website color palettes"], "a": 0, "e": "Data preprocessing cleans and prepares raw data for effective machine learning model training.", "type": "MCQ"},
+            {"q": "Why is data normalization important before training many machine learning algorithms?", "o": ["To ensure features with larger numerical ranges do not overpower features with smaller ranges during optimization", "To make computer screens brighter", "To increase internet connection bandwidth", "To reduce hard disk drive temperature"], "a": 0, "e": "Normalization scales features to comparable ranges so gradient descent and distance metrics work properly.", "type": "MCQ"},
+            {"q": "What is the difference between classification and regression in supervised learning?", "o": ["Classification predicts discrete categorical labels, while regression predicts continuous numerical values", "Classification predicts numbers, while regression predicts text categories", "There is no difference between classification and regression", "Classification is unsupervised, while regression is supervised"], "a": 0, "e": "Classification predicts discrete classes (e.g., cat/dog), whereas regression predicts continuous numbers (e.g., price).", "type": "MCQ"},
+            {"q": "Which metric is commonly used to evaluate a binary classification model's performance?", "o": ["Accuracy, Precision, Recall, and F1-Score", "Megabytes per second", "CPU clock speed in GHz", "Disk storage capacity in terabytes"], "a": 0, "e": "Accuracy, precision, recall, and F1-score are standard classification evaluation metrics.", "type": "MCQ"},
+            {"q": "What does 'Recall' measure in classification model evaluation?", "o": ["The proportion of actual positive instances that were correctly identified by the model", "The speed at which the model boots up", "The total number of training epochs", "The physical weight of the server rack"], "a": 0, "e": "Recall measures the model's ability to find all positive instances (true positives / actual positives).", "type": "MCQ"},
+            {"q": "What does 'Precision' measure in classification model evaluation?", "o": ["The proportion of positive predictions that were actually correct", "The internet download speed", "The size of the training dataset", "The screen refresh rate"], "a": 0, "e": "Precision measures the accuracy of positive predictions (true positives / predicted positives).", "type": "MCQ"},
+            {"q": "What is the significance of the 'attention mechanism' in modern transformer neural networks?", "o": ["It allows the model to dynamically focus on relevant parts of the input sequence regardless of their distance", "It forces the computer screen to remain turned on", "It deletes unnecessary database logs", "It compresses image files into JPEG format"], "a": 0, "e": "The attention mechanism enables transformers to weigh the importance of different input tokens dynamically.", "type": "MCQ"},
+            {"q": "What is edge AI?", "o": ["Running AI algorithms directly on local hardware devices (like smartphones or IoT sensors) rather than relying entirely on remote cloud servers", "Running AI code strictly on the outer edge of a physical desk", "Connecting computers with analog telephone wires", "Storing data on paper notebooks"], "a": 0, "e": "Edge AI executes AI models locally on end-user devices for lower latency and offline capability.", "type": "MCQ"},
+            {"q": "How does AI contribute to predictive maintenance in manufacturing industries?", "o": ["By analyzing IoT sensor data to forecast equipment failures before they happen, minimizing unexpected downtime", "By printing paper maintenance schedules", "By turning off factory electricity overnight", "By washing machine parts with water"], "a": 0, "e": "Predictive maintenance uses AI to analyze sensor patterns and forecast equipment failures proactively.", "type": "MCQ"},
+            {"q": "What is an AI expert system?", "o": ["An AI program that mimics the decision-making ability of a human expert in a specific specialized domain using rule-based reasoning", "A social media video streaming app", "A database backup utility", "A web browser plugin"], "a": 0, "e": "Expert systems use rules to emulate human expert decision-making in narrow domains.", "type": "MCQ"},
+            {"q": "What is the primary goal of AI alignment research?", "o": ["Ensuring that AI systems pursue human-compatible goals, values, and intentions safely and reliably", "Aligning computer monitors on office desks", "Aligning text in Microsoft Word documents", "Aligning network cables in server racks"], "a": 0, "e": "AI alignment ensures artificial intelligence systems remain safe and aligned with human values.", "type": "MCQ"},
+            {"q": "What is deep reinforcement learning?", "o": ["The combination of reinforcement learning and deep neural networks, enabling agents to learn complex policies from high-dimensional sensory inputs", "Learning how to repair deep computer hardware", "Memorizing textbook chapters word for word", "Backing up relational databases to tape"], "a": 0, "e": "Deep reinforcement learning combines deep neural networks with reinforcement learning for complex control tasks.", "type": "MCQ"},
+            
+            // High-Level MCQs (46-50)
+            {"q": "[HIGH-LEVEL] An AI medical diagnosis model achieves 99% training accuracy on hospital records, but fails catastrophically when deployed in a new hospital with different patient demographics. Based on AI principles, what phenomenon has occurred?", "o": ["Overfitting, where the model memorized training noise and specific hospital patterns rather than learning generalizable features", "Underfitting, where the model was too simple to function", "Hardware failure of the hospital's Wi-Fi router", "Adversarial text injection by patients"], "a": 0, "e": "[HIGH-LEVEL] Overfitting causes models to memorize training details and fail to generalize to new, unseen domains.", "type": "MCQ"},
+            {"q": "[HIGH-LEVEL] A financial institution deploys a black-box deep learning model to approve loan applications without any explainability features, leading to accusations of algorithmic bias and regulatory non-compliance. According to AI ethics, what crucial requirement was omitted?", "o": ["Explainable AI (XAI) and fairness audits to ensure transparent, auditable, and unbiased decision-making", "Faster CPU clock speed", "Larger hard disk storage capacity", "Higher internet bandwidth"], "a": 0, "e": "[HIGH-LEVEL] High-stakes domains require Explainable AI (XAI) and fairness audits to prevent opacity and discrimination.", "type": "MCQ"},
+            {"q": "[HIGH-LEVEL] An enterprise developer attempts to train a massive Large Language Model from scratch using a tiny dataset of 50 customer feedback sentences. Why is this endeavor bound to fail?", "o": ["Because deep learning and large language models require massive big data volumes and computational resources, which can otherwise be addressed via transfer learning", "Because language models cannot process customer feedback", "Because Python programming prohibits small datasets", "Because SQL databases reject text files"], "a": 0, "e": "[HIGH-LEVEL] Training deep models from scratch requires massive data; small datasets require transfer learning or pre-trained models.", "type": "MCQ"},
+            {"q": "[HIGH-LEVEL] If an autonomous vehicle's computer vision system is tricked by a subtly perturbed road sign sticker into misclassifying a 'Stop' sign as a 'Speed Limit' sign, what type of AI vulnerability does this represent?", "o": ["An adversarial attack exploiting model fragility through crafted input perturbations", "A hardware overheating issue", "A slow internet ping latency", "An unformatted relational database table"], "a": 0, "e": "[HIGH-LEVEL] Adversarial attacks use carefully perturbed inputs to fool AI perception systems into major errors.", "type": "MCQ"},
+            {"q": "[HIGH-LEVEL] Why is the synergy between Big Data and Artificial Intelligence considered foundational to modern digital transformation?", "o": ["Because big data provides the vast training datasets required by machine learning algorithms, enabling organizations to transition from intuition to rigorous predictive intelligence", "Because AI replaces all big data storage requirements", "Because cloud networks eliminate the need for algorithms", "Because relational SQL tables can operate without computers"], "a": 0, "e": "[HIGH-LEVEL] Big data provides the fuel for ML algorithms, driving the shift to rigorous predictive intelligence.", "type": "MCQ"}
+        ];
+
+        const P2_SOURCE = [
+            // Standard TFs (1-45)
+            {"q": "Artificial Intelligence is the simulation of human intelligence processes by computer systems and machines.", "o": ["True", "False"], "a": 0, "e": "True: AI simulates human intelligence processes in machines.", "type": "TF"},
+            {"q": "Machine Learning is a subfield of AI that enables computers to learn from data without explicit programming.", "o": ["True", "False"], "a": 0, "e": "True: ML enables learning from data without explicit programming.", "type": "TF"},
+            {"q": "Supervised learning utilizes labeled datasets where inputs are paired with correct target outputs.", "o": ["True", "False"], "a": 0, "e": "True: Supervised learning trains models on labeled input-output pairs.", "type": "TF"},
+            {"q": "Unsupervised learning algorithms work with pre-labeled training outputs for every single data point.", "o": ["True", "False"], "a": 1, "e": "False: Unsupervised learning deals with unlabelled data to discover hidden patterns.", "type": "TF"},
+            {"q": "Reinforcement learning trains agents through trial and error using rewards and penalties.", "o": ["True", "False"], "a": 0, "e": "True: Reinforcement learning relies on rewards and penalties via trial and error.", "type": "TF"},
+            {"q": "Deep Learning utilizes multi-layered artificial neural networks for automatic feature extraction.", "o": ["True", "False"], "a": 0, "e": "True: Deep learning uses multi-layered neural networks.", "type": "TF"},
+            {"q": "Artificial Neural Networks are computing systems inspired by biological neural networks in animal brains.", "o": ["True", "False"], "a": 0, "e": "True: ANNs are inspired by biological brain networks.", "type": "TF"},
+            {"q": "Natural Language Processing (NLP) enables computers to understand, interpret, and generate human language.", "o": ["True", "False"], "a": 0, "e": "True: NLP handles human language understanding and generation.", "type": "TF"},
+            {"q": "Computer Vision allows computers to extract and process meaningful information from digital images and videos.", "o": ["True", "False"], "a": 0, "e": "True: Computer vision processes images and video data.", "type": "TF"},
+            {"q": "Spam email classification is a classic example of supervised machine learning.", "o": ["True", "False"], "a": 0, "e": "True: Email classification uses labeled examples of spam and non-spam.", "type": "TF"},
+            {"q": "Activation functions in neural networks introduce non-linearity to determine if a neuron fires.", "o": ["True", "False"], "a": 0, "e": "True: Activation functions introduce non-linearity.", "type": "TF"},
+            {"q": "Generative AI focuses on creating new original content such as text, images, and audio.", "o": ["True", "False"], "a": 0, "e": "True: GenAI creates new original content.", "type": "TF"},
+            {"q": "GPT models are prominent examples of Large Language Models (LLMs).", "o": ["True", "False"], "a": 0, "e": "True: GPT models are advanced LLMs.", "type": "TF"},
+            {"q": "Biased training data can cause AI algorithms to produce discriminatory or unfair decisions.", "o": ["True", "False"], "a": 0, "e": "True: Biased data leads to algorithmic bias and discrimination.", "type": "TF"},
+            {"q": "Explainable AI (XAI) provides transparency so humans can understand how AI models make decisions.", "o": ["True", "False"], "a": 0, "e": "True: XAI ensures human interpretability and trust.", "type": "TF"},
+            {"q": "Narrow AI is designed for specific tasks, whereas AGI possesses general human-level intelligence.", "o": ["True", "False"], "a": 0, "e": "True: Narrow AI is task-specific, while AGI is general intelligence.", "type": "TF"},
+            {"q": "A loss function measures prediction error so an optimization algorithm can update model weights.", "o": ["True", "False"], "a": 0, "e": "True: Loss functions quantify errors for model optimization.", "type": "TF"},
+            {"q": "Gradient Descent is a foundational optimization algorithm used to minimize loss in neural networks.", "o": ["True", "False"], "a": 0, "e": "True: Gradient descent minimizes loss by updating weights.", "type": "TF"},
+            {"q": "Massive big data volumes are essential fuel for training high-performance machine learning models.", "o": ["True", "False"], "a": 0, "e": "True: Big data provides the training fuel for modern AI.", "type": "TF"},
+            {"q": "Transfer learning reuses pre-trained models on new tasks to reduce data and compute requirements.", "o": ["True", "False"], "a": 0, "e": "True: Transfer learning saves time and data by reusing models.", "type": "TF"},
+            {"q": "Autonomous self-driving vehicles rely heavily on computer vision and deep learning perception.", "o": ["True", "False"], "a": 0, "e": "True: Self-driving cars use computer vision and deep learning.", "type": "TF"},
+            {"q": "Sentiment analysis evaluates text to determine emotional tone as positive, negative, or neutral.", "o": ["True", "False"], "a": 0, "e": "True: Sentiment analysis determines text emotional tone.", "type": "TF"},
+            {"q": "Adversarial attacks involve subtly crafted inputs designed to trick AI models into making errors.", "o": ["True", "False"], "a": 0, "e": "True: Adversarial inputs can fool AI classifiers.", "type": "TF"},
+            {"q": "Overfitting occurs when a model memorizes training noise and fails to generalize to new data.", "o": ["True", "False"], "a": 0, "e": "True: Overfitting means memorizing training data without generalizability.", "type": "TF"},
+            {"q": "Regularization and cross-validation help prevent overfitting in machine learning models.", "o": ["True", "False"], "a": 0, "e": "True: Regularization and cross-validation combat overfitting.", "type": "TF"},
+            {"q": "Underfitting happens when a model is too simple to capture underlying patterns in the training data.", "o": ["True", "False"], "a": 0, "e": "True: Underfitting occurs with overly simplistic models.", "type": "TF"},
+            {"q": "Datasets are typically split into training, validation, and test sets for robust model evaluation.", "o": ["True", "False"], "a": 0, "e": "True: Train/validation/test splits ensure proper evaluation.", "type": "TF"},
+            {"q": "AI ethics principles emphasize fairness, transparency, accountability, and privacy.", "o": ["True", "False"], "a": 0, "e": "True: Ethical AI principles include fairness, transparency, and accountability.", "type": "TF"},
+            {"q": "The Turing Test evaluates a machine's ability to exhibit behavior indistinguishable from a human.", "o": ["True", "False"], "a": 0, "e": "True: The Turing Test assesses human-like conversational capability.", "type": "TF"},
+            {"q": "Convolutional Neural Networks (CNNs) are specialized for processing image and spatial visual data.", "o": ["True", "False"], "a": 0, "e": "True: CNNs specialize in computer vision and image processing.", "type": "TF"},
+            {"q": "Recurrent Neural Networks and Transformers are specialized for sequential data like text and speech.", "o": ["True", "False"], "a": 0, "e": "True: RNNs and Transformers excel at sequential data.", "type": "TF"},
+            {"q": "Reinforcement learning reward functions guide agents toward optimal behavior.", "o": ["True", "False"], "a": 0, "e": "True: Reward functions guide reinforcement learning agents.", "type": "TF"},
+            {"q": "Robotics combines artificial intelligence and mechanical engineering to create autonomous physical agents.", "o": ["True", "False"], "a": 0, "e": "True: Robotics integrates AI with physical machines.", "type": "TF"},
+            {"q": "Data preprocessing cleans and prepares raw data for effective machine learning training.", "o": ["True", "False"], "a": 0, "e": "True: Preprocessing is essential for cleaning and normalizing data.", "type": "TF"},
+            {"q": "Data normalization ensures features with larger numerical ranges do not overpower smaller ones.", "o": ["True", "False"], "a": 0, "e": "True: Normalization scales features to comparable numerical ranges.", "type": "TF"},
+            {"q": "Classification predicts discrete categorical labels, whereas regression predicts continuous numbers.", "o": ["True", "False"], "a": 0, "e": "True: Classification predicts categories, regression predicts continuous values.", "type": "TF"},
+            {"q": "Accuracy, precision, recall, and F1-score are standard classification evaluation metrics.", "o": ["True", "False"], "a": 0, "e": "True: These metrics evaluate classification model performance.", "type": "TF"},
+            {"q": "Recall measures the proportion of actual positive instances correctly identified by the model.", "o": ["True", "False"], "a": 0, "e": "True: Recall measures true positives over actual positives.", "type": "TF"},
+            {"q": "Precision measures the proportion of positive model predictions that were actually correct.", "o": ["True", "False"], "a": 0, "e": "True: Precision measures true positives over predicted positives.", "type": "TF"},
+            {"q": "The attention mechanism allows transformer models to focus dynamically on relevant input parts.", "o": ["True", "False"], "a": 0, "e": "True: Attention mechanisms dynamic weigh input sequence tokens.", "type": "TF"},
+            {"q": "Edge AI runs AI algorithms locally on hardware devices rather than exclusively on remote cloud servers.", "o": ["True", "False"], "a": 0, "e": "True: Edge AI executes models locally on local devices.", "type": "TF"},
+            {"q": "Predictive maintenance uses AI to forecast equipment failures before they occur based on sensor data.", "o": ["True", "False"], "a": 0, "e": "True: Predictive maintenance anticipates equipment breakdowns using AI.", "type": "TF"},
+            {"q": "AI expert systems use rule-based reasoning to emulate human expertise in specialized domains.", "o": ["True", "False"], "a": 0, "e": "True: Expert systems emulate human domain experts using rules.", "type": "TF"},
+            {"q": "AI alignment research ensures that AI systems pursue human-compatible goals and values safely.", "o": ["True", "False"], "a": 0, "e": "True: AI alignment ensures safe, human-compatible behavior.", "type": "TF"},
+            {"q": "Deep reinforcement learning combines deep neural networks with reinforcement learning control.", "o": ["True", "False"], "a": 0, "e": "True: Deep RL merges neural networks with reinforcement learning.", "type": "TF"},
+            
+            // High-Level TFs (46-50)
+            {"q": "[HIGH-LEVEL] Achieving 99% training accuracy guarantees that a machine learning model will perform perfectly on new unseen real-world data.", "o": ["True", "False"], "a": 1, "e": "[HIGH-LEVEL] High training accuracy often indicates overfitting; models can fail on unseen data if they memorize training noise.", "type": "TF"},
+            {"q": "[HIGH-LEVEL] Explainable AI (XAI) is completely unnecessary in high-stakes sectors like healthcare, finance, and criminal justice.", "o": ["True", "False"], "a": 1, "e": "[HIGH-LEVEL] Explainable AI is vital in high-stakes domains to ensure auditability, trust, and regulatory compliance.", "type": "TF"},
+            {"q": "[HIGH-LEVEL] Training complex deep learning models from scratch is always recommended regardless of dataset size or available computational power.", "o": ["True", "False"], "a": 1, "e": "[HIGH-LEVEL] Training deep models from scratch requires massive data and compute; transfer learning is standard for smaller datasets.", "type": "TF"},
+            {"q": "[HIGH-LEVEL] Adversarial attacks prove that machine learning perception models can be extremely fragile to imperceptible input modifications.", "o": ["True", "False"], "a": 0, "e": "[HIGH-LEVEL] Adversarial examples demonstrate model vulnerability to subtle input perturbations.", "type": "TF"},
+            {"q": "[HIGH-LEVEL] The integration of Big Data and AI empowers modern enterprises to replace guesswork with rigorous predictive intelligence.", "o": ["True", "False"], "a": 0, "e": "[HIGH-LEVEL] Big data and AI together enable organizations to shift from intuition to rigorous data-driven prediction.", "type": "TF"}
+        ];
+
+        const getQuestionType = question => question.type.replace(/[.!?]+$/, "");
+
+        const P1_DATA = [
+            ...P1_SOURCE.filter(question => getQuestionType(question) === "MCQ"),
+            ...P2_SOURCE.filter(question => getQuestionType(question) === "MCQ")
+        ];
+        const P2_DATA = [
+            ...P1_SOURCE.filter(question => getQuestionType(question) === "TF"),
+            ...P2_SOURCE.filter(question => getQuestionType(question) === "TF")
+        ];
+
+        let activePart = 1;
+        let qData = P1_DATA;
+        let cIdx = 0;
+        let score = 0;
+        let wrongList = [];
+
+        const $ = id => document.getElementById(id);
+
+        function switchPart(part) {
+            activePart = part;
+            $("tab1").className = "tab-btn " + (part === 1 ? "active" : "");
+            $("tab2").className = "tab-btn " + (part === 2 ? "active" : "");
+            qData = part === 1 ? P1_DATA : P2_DATA;
+            resetQuiz();
+        }
+
+        function resetQuiz() {
+            cIdx = 0;
+            score = 0;
+            wrongList = [];
+            renderQuestion();
+        }
+
+        function renderQuestion() {
+            const q = qData[cIdx];
+            $("n").textContent = `Question ${cIdx + 1} of ${qData.length}`;
+            $("s").textContent = `Score: ${score}`;
+            $("bar").style.width = `${(cIdx / qData.length) * 100}%`;
+
+            const isHighLevel = q.q.includes("[HIGH-LEVEL]");
+            const badgeClass = isHighLevel ? "q-badge high-level" : "q-badge";
+            const badgeText = isHighLevel 
+                ? (getQuestionType(q) === 'TF' ? 'True / False — High Level' : 'Multiple Choice — High Level')
+                : (getQuestionType(q) === 'TF' ? 'True / False' : 'Multiple Choice');
+            
+            $("card").innerHTML = `
+                <span class="${badgeClass}">${badgeText}</span>
+                <p class="q">${q.q}</p>
+                <div id="opts"></div>
+                <div id="fb"></div>
+            `;
+
+            q.o.forEach((optText, i) => {
+                const b = document.createElement("button");
+                b.className = "opt";
+                b.innerHTML = `<b>${getQuestionType(q) === 'TF' ? (i===0?'T':'F') : "ABCD"[i] + ")"}</b><span></span>`;
+                b.querySelector("span").textContent = optText;
+                b.onclick = () => handleAnswer(i);
+                $("opts").appendChild(b);
+            });
+        }
+
+        function handleAnswer(selected) {
+            const q = qData[cIdx];
+            const isCorrect = selected === q.a;
+            const buttons = document.querySelectorAll(".opt");
+
+            buttons.forEach((btn, idx) => {
+                btn.disabled = true;
+                if (idx === q.a) btn.classList.add("ok");
+                else if (idx === selected) btn.classList.add("no");
+            });
+
+            if (isCorrect) score++;
+            else wrongList.push(cIdx);
+
+            $("s").textContent = `Score: ${score}`;
+
+            $("fb").innerHTML = `
+                <div class="ex ${isCorrect ? 'ok' : 'no'}">
+                    <strong>${isCorrect ? 'Correct answer ✓' : 'Incorrect answer ✗'}</strong>
+                    <span>${q.e}</span>
+                </div>
+                <button class="btn" id="nxtBtn">${cIdx < qData.length - 1 ? 'Next question' : 'Show final results'}</button>
+            `;
+
+            $("nxtBtn").onclick = () => {
+                cIdx++;
+                if (cIdx < qData.length) renderQuestion();
+                else finishQuiz();
+            };
+            $("nxtBtn").focus();
+        }
+
+        function finishQuiz() {
+            $("bar").style.width = "100%";
+            $("n").textContent = "Quiz complete";
+            const pct = Math.round((score / qData.length) * 100);
+            
+            let html = `
+                <div class="score">${score} / ${qData.length}</div>
+                <p style="text-align:center;font-size:1.2rem;margin:0 0 16px;">Percentage: <b>${pct}%</b></p>
+            `;
+
+            if (wrongList.length > 0) {
+                html += `<p style="margin:16px 0 8px;"><b>Questions to review:</b></p><ul class="rev">`;
+                wrongList.reverse().forEach(w => {
+                    html += `<li><b>Question ${w + 1}:</b> ${qData[w].q}</li>`;
+                });
+                html += `</ul>`;
+            } else {
+                html += `<p style="text-align:center;color:var(--ok);">Excellent! All answers are correct (100%).</p>`;
+            }
+
+            html += `<button class="btn" onclick="resetQuiz()">Restart quiz</button>`;
+            $("card").innerHTML = html;
+        }
+
+        renderQuestion();
+    </script>
+</body>
+</html>

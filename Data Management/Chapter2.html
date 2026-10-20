@@ -1,0 +1,435 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Data Management — Chapter 2</title>
+    <style>
+        :root {
+            --bg: #0f172a;
+            --c: #1e293b;
+            --t: #f8fafc;
+            --m: #94a3b8;
+            --b: #334155;
+            --ac: #38bdf8;
+            --ok: #22c55e;
+            --okb: #052e16;
+            --no: #ef4444;
+            --nob: #450a0a;
+            box-sizing: border-box;
+        }
+
+        @media(prefers-color-scheme: light) {
+            :root[data-theme=light] {
+                --bg: #f8fafc;
+                --c: #ffffff;
+                --t: #0f172a;
+                --m: #64748b;
+                --b: #e2e8f0;
+                --ac: #0284c7;
+                --okb: #dcfce7;
+                --nob: #fee2e2;
+                --ok: #16a34a;
+                --no: #dc2626;
+            }
+        }
+
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--t);
+            font-family: 'Segoe UI', Tahoma, system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+        }
+        main {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 24px 16px 60px;
+        }
+        .header-panel {
+            text-align: center;
+            margin-bottom: 24px;
+            border-bottom: 8px solid var(--b);
+            padding-bottom: 30px;
+        }
+        h1 { font-size: 1.5rem; margin: 0 0 8px; color: var(--ac); }
+        .sub { color: var(--m); font-size: 0.95rem; margin: 0; }
+        
+        .nav-tabs {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .tab-btn {
+            flex: 1;
+            padding: 12px;
+            background: var(--c);
+            border: 1px solid var(--b);
+            color: var(--t);
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .tab-btn.active {
+            background: var(--ac);
+            color: #000;
+            border-color: var(--ac);
+        }
+
+        .bar {
+            height: 8px;
+            background: var(--b);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+        .bar i {
+            display: block;
+            height: 100%;
+            background: var(--ac);
+            width: 0;
+            transition: width 0.3s;
+        }
+        .meta {
+            display: flex;
+            justify-content: space-between;
+            color: var(--m);
+            font-size: 0.9rem;
+            margin-bottom: 16px;
+        }
+        .card {
+            background: var(--c);
+            border: 1px solid var(--b);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+        .q-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            background: var(--b);
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+            color: var(--ac);
+        }
+        .q-badge.high-level {
+            background: #f59e0b;
+            color: #000;
+            font-weight: bold;
+        }
+        .q {
+            font-size: 1.1rem;
+            font-weight: 600;
+            direction: ltr;
+            text-align: left;
+            margin: 0 0 16px;
+        }
+        .diagram-container {
+            direction: ltr;
+            background: rgba(0,0,0,0.2);
+            border: 1px dashed var(--b);
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+        .opt {
+            display: flex;
+            gap: 12px;
+            direction: ltr;
+            text-align: left;
+            width: 100%;
+            background: var(--c);
+            color: var(--t);
+            border: 1.5px solid var(--b);
+            border-radius: 8px;
+            padding: 12px 14px;
+            margin-bottom: 10px;
+            font: inherit;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+        .opt:hover:not(:disabled) { border-color: var(--ac); }
+        .opt b { min-width: 1.5em; color: var(--ac); }
+        .opt.ok { background: var(--okb); border-color: var(--ok); }
+        .opt.no { background: var(--nob); border-color: var(--no); }
+        .opt:disabled { cursor: default; }
+
+        .ex {
+            margin-top: 16px;
+            padding: 14px;
+            border-radius: 8px;
+            direction: ltr;
+            text-align: left;
+            font-size: 0.95rem;
+        }
+        .ex.ok { background: var(--okb); border: 1px solid var(--ok); }
+        .ex.no { background: var(--nob); border: 1px solid var(--no); }
+        .ex strong { display: block; margin-bottom: 4px; }
+
+        .btn {
+            margin-top: 16px;
+            background: var(--ac);
+            color: #000;
+            border: 0;
+            border-radius: 8px;
+            padding: 12px 24px;
+            font: inherit;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+        }
+        .score { text-align: center; font-size: 3rem; font-weight: 800; margin: 12px 0; color: var(--ac); }
+        .rev { margin: 16px 0 0; padding: 0; list-style: none; direction: ltr; text-align: left; font-size: 0.9rem; }
+        .rev li { padding: 8px 0; border-top: 1px solid var(--b); }
+    </style>
+    <link rel="stylesheet" href="../site-theme.css">
+</head>
+<body>
+    <main>
+        <div class="header-panel">
+            <h1>Data Management — Chapter 2</h1>
+            <p class="sub">Data Collection Methods & Ethics</p>
+        </div>
+
+        <div class="nav-tabs">
+            <button class="tab-btn active" id="tab1" onclick="switchPart(1)">Multiple Choice </button>
+            <button class="tab-btn" id="tab2" onclick="switchPart(2)">True / False </button>
+        </div>
+
+        <div class="bar"><i id="bar"></i></div>
+        <div class="meta">
+            <span id="n"></span>
+            <span id="s"></span>
+        </div>
+        <div class="card" id="card"></div>
+    </main>
+      
+    <script>
+        const MCQ_DATA = [
+            // Standard Questions (1-45)
+            {"q": "What is primary data defined as in research?", "o": ["Data published in government reports", "Data collected directly by the researcher to address a specific research question", "Archived historical datasets", "Open-source online database records"], "a": 1, "e": "Primary data is collected directly by the researcher to address a specific question.", "type": "MCQ"},
+            {"q": "Which two approaches are utilized for primary data collection?", "o": ["Static and Dynamic", "Qualitative and Quantitative", "Linear and Non-Linear", "Primary and Secondary"], "a": 1, "e": "Both qualitative and quantitative approaches are used for primary data collection.", "type": "MCQ"},
+            {"q": "What are the main features of Surveys / Questionnaires?", "o": ["Long-term cultural immersion", "Structured set of questions (open- or closed-ended)", "Controlled laboratory variable manipulation", "Expert consensus rounds"], "a": 1, "e": "Surveys feature structured sets of open- or closed-ended questions.", "type": "MCQ"},
+            {"q": "Which of the following is an advantage of using Surveys?", "o": ["Deep informal rapport", "Cost-effective and easy to analyze/quantify", "Zero risk of wording bias", "Complete elimination of non-response"], "a": 1, "e": "Surveys are cost-effective, easy to analyze, and reach broad audiences.", "type": "MCQ"},
+            {"q": "What is a known disadvantage of Surveys?", "o": ["Too expensive for large samples", "Risk of low response rate and misinterpretation", "Requires specialized laboratory equipment", "Excessive qualitative detail"], "a": 1, "e": "Disadvantages include low response rates, limited depth, and misinterpretation risks.", "type": "MCQ"},
+            {"q": "Interviews are characterized primarily by:", "o": ["Anonymous multi-round expert questionnaires", "Direct one-on-one interaction (structured, semi-structured, or unstructured)", "Silent observation of subjects", "Group discussions with 10 participants"], "a": 1, "e": "Interviews involve direct one-on-one interactions allowing probing.", "type": "MCQ"},
+            {"q": "An advantage of Interviews over standard surveys is that they:", "o": ["Are much faster and cheaper", "Provide in-depth, detailed data and build trust/rapport", "Are completely free of interviewer bias", "Can survey millions of people instantly"], "a": 1, "e": "Interviews provide in-depth data, flexibility, and build rapport.", "type": "MCQ"},
+            {"q": "What is a primary disadvantage of conducting Interviews?", "o": ["Inability to ask follow-up questions", "Time-consuming, costly, and requires a skilled interviewer", "Inability to gather qualitative insights", "Completely standardized data format"], "a": 1, "e": "Interviews are time-consuming, costly, and prone to interviewer bias.", "type": "MCQ"},
+            {"q": "How many participants are typically involved in a Focus Group discussion?", "o": ["1 to 2", "6 to 10", "50 to 100", "500+"], "a": 1, "e": "Focus groups typically involve 6-10 participants moderated by a facilitator.", "type": "MCQ"},
+            {"q": "What is a major disadvantage of Focus Groups?", "o": ["Inability to generate any discussion", "Groupthink or dominant participants and unsuitability for sensitive topics", "Excessive cost compared to nationwide surveys", "Strictly quantitative numerical output"], "a": 1, "e": "Focus groups suffer from groupthink, dominant voices, and are poor for sensitive topics.", "type": "MCQ"},
+            {"q": "Observation as a data collection method can be:", "o": ["Only participant and structured", "Participant or non-participant, structured or unstructured", "Always conducted in laboratories", "Exclusively quantitative"], "a": 1, "e": "Observation can be direct/indirect, participant/non-participant, structured/unstructured.", "type": "MCQ"},
+            {"q": "When is Observation particularly useful as a research method?", "o": ["When studying historical archives", "When subjects cannot articulate their experiences", "When conducting statistical meta-analysis", "When dealing with anonymous expert panels"], "a": 1, "e": "Observation is useful when subjects cannot articulate their experiences directly.", "type": "MCQ"},
+            {"q": "What is a primary disadvantage of Observation?", "o": ["Captures only self-reported claims", "Observer bias and potential ethical/privacy concerns", "Too rapid to record anything", "Requires mandatory online internet access"], "a": 1, "e": "Observation risks observer bias, ethical/privacy concerns, and missing internal motivations.", "type": "MCQ"},
+            {"q": "Experiments are distinguished by:", "o": ["Natural unmanipulated observation", "Controlled conditions and manipulation of variables to measure effects", "Long-term cultural immersion", "Reviewing organizational financial records"], "a": 1, "e": "Experiments rely on controlled conditions and variable manipulation.", "type": "MCQ"},
+            {"q": "What is a key advantage of Experiments?", "o": ["Perfect external generalizability to all real-world settings", "Strong internal validity and ability to test causal relationships", "Zero ethical constraints", "Completely cost-free execution"], "a": 1, "e": "Experiments offer strong internal validity and test causal relationships.", "type": "MCQ"},
+            {"q": "Field Trials / Pilots combine experimentation and observation to test interventions in:", "o": ["Strictly isolated laboratories", "Real-life settings", "Historical document archives", "Simulated computer models only"], "a": 1, "e": "Field trials test interventions in real-life settings.", "type": "MCQ"},
+            {"q": "What is a main advantage of Field Trials?", "o": ["Total control over all external environmental factors", "Real-world applicability and early feedback to reduce risks", "Zero logistical complexity", "Instantaneous results with no time investment"], "a": 1, "e": "Field trials provide real-world applicability and early feedback.", "type": "MCQ"},
+            {"q": "Case Studies involve:", "o": ["Broad surveys of 10,000 respondents", "In-depth analysis of a single unit (person, group, or event) using multiple sources", "Random sampling of census data", "Automated mobile app telemetry"], "a": 1, "e": "Case studies are in-depth analyses of a single unit combining multiple data sources.", "type": "MCQ"},
+            {"q": "What is a primary limitation of Case Studies?", "o": ["They lack contextual depth", "They are not generalizable and carry a risk of researcher bias", "They cannot use qualitative data", "They are completely automated"], "a": 1, "e": "Case studies are not generalizable and risk researcher bias.", "type": "MCQ"},
+            {"q": "Diaries / Journals require participants to:", "o": ["Complete a one-time telephone interview", "Self-record experiences over time", "Analyze organizational financial sheets", "Participate in moderated group debates"], "a": 1, "e": "Diaries involve participants self-recording experiences over time.", "type": "MCQ"},
+            {"q": "What is a disadvantage associated with Diaries?", "o": ["Inability to capture longitudinal data", "Participant burden, inconsistent recording, and hard to analyze", "Too brief to provide any reflection", "Requires expensive laboratory sensors"], "a": 1, "e": "Diaries suffer from participant burden and inconsistent recording.", "type": "MCQ"},
+            {"q": "The Delphi Technique is primarily used for:", "o": ["Recording physical motions in a factory", "Consensus-building through multiple rounds of expert consultation", "Scraping social media sentiment", "Executing SQL queries on government databases"], "a": 1, "e": "The Delphi technique uses multiple rounds of expert consultation for consensus.", "type": "MCQ"},
+            {"q": "An advantage of the Delphi Technique is that it:", "o": ["Requires only 5 minutes of setup", "Reduces the influence of dominant voices among experts", "Eliminates the need for experts", "Is entirely automated via AI"], "a": 1, "e": "Delphi reduces the influence of dominant voices through anonymous feedback.", "type": "MCQ"},
+            {"q": "Ethnography is characterized by:", "o": ["Short 5-minute online surveys", "Long-term immersion in natural settings focusing on cultural context", "Laboratory chemical experiments", "Analyzing secondary book publications"], "a": 1, "e": "Ethnography involves long-term immersion in natural settings.", "type": "MCQ"},
+            {"q": "What is a disadvantage of Ethnography?", "o": ["Superficial data collection", "Time- and labor-intensive, requiring cultural sensitivity", "Inability to observe non-verbal behavior", "Zero ethical challenges"], "a": 1, "e": "Ethnography is labor-intensive and demands high cultural sensitivity.", "type": "MCQ"},
+            {"q": "Mobile Data Collection utilizes mobile apps and devices to capture:", "o": ["Historical census reports from 1950", "Real-time, location-based data in field environments", "Paper-based library archives", "Controlled laboratory chemical reactions"], "a": 1, "e": "Mobile collection captures real-time, location-based field data.", "type": "MCQ"},
+            {"q": "What is a technical disadvantage of Mobile Data Collection?", "o": ["Completely paper-based workflow", "Tech-related problems like battery, signal, and internet access requirements", "Inability to enter data digitally", "Excessive slowness in data entry"], "a": 1, "e": "Mobile collection depends on internet access, battery, and signal stability.", "type": "MCQ"},
+            {"q": "Process Analysis primarily studies:", "o": ["Individual psychological dreams", "Workflows and procedures in a system to identify inefficiencies and redundancies", "Macroeconomic national inflation rates", "Historical book chapters"], "a": 1, "e": "Process analysis studies workflows to identify inefficiencies and redundancies.", "type": "MCQ"},
+            {"q": "Process Analysis frequently uses which tools for mapping?", "o": ["Microscopes and test tubes", "Flowcharts or mapping tools", "Surveys with Likert scales", "Financial balance sheets"], "a": 1, "e": "Process analysis often uses flowcharts or process mapping tools.", "type": "MCQ"},
+            {"q": "Link Analysis is commonly used in:", "o": ["Manufacturing ergonomics", "Security, fraud detection, and network research", "Agricultural crop yield measurement", "Longitudinal medical diaries"], "a": 1, "e": "Link analysis is common in security, fraud detection, and network research.", "type": "MCQ"},
+            {"q": "What is the primary function of Link Analysis?", "o": ["Measuring time taken for physical motions", "Analyzing relationships or connections between entities (people, systems, events)", "Counting book publications", "Moderating focus group discussions"], "a": 1, "e": "Link analysis analyzes connections and relationships between entities.", "type": "MCQ"},
+            {"q": "Statistical Methods in data collection involve:", "o": ["Unstructured casual conversations", "Structured numerical data collection (e.g., random/stratified sampling)", "Purely qualitative diary entries", "Immersive cultural observation"], "a": 1, "e": "Statistical methods use structured numerical collection and sampling.", "type": "MCQ"},
+            {"q": "What is an advantage of Statistical Methods?", "o": ["Allows generalization to larger populations with high precision", "Requires no mathematical knowledge", "Captures deep emotional nuances", "Works best on samples of 1 person"], "a": 1, "e": "Statistical methods offer high precision and allow population generalization.", "type": "MCQ"},
+            {"q": "Time and Motion Study focuses primarily on:", "o": ["Financial auditing", "Time taken and motions used in completing tasks for efficiency and ergonomics", "Analyzing social media sentiment trends", "Expert consensus forecasting"], "a": 1, "e": "Time and motion studies measure task time and motion for efficiency/ergonomics.", "type": "MCQ"},
+            {"q": "What is a disadvantage of Time and Motion Studies?", "o": ["Completely invisible and unobtrusive", "Intrusive (affects worker behavior) and ethical concerns if used for micromanagement", "Requires zero observation time", "Only applicable to online software apps"], "a": 1, "e": "They can be intrusive and raise micromanagement ethical concerns.", "type": "MCQ"},
+            {"q": "Which of the following is classified as a Secondary Data Source?", "o": ["An original laboratory experiment", "Published sources like books, newspapers, and journals", "A newly conducted focus group", "A custom mobile field survey"], "a": 1, "e": "Published books, journals, and reports are secondary data sources.", "type": "MCQ"},
+            {"q": "Government Publications as secondary sources include:", "o": ["Internal employee Slack chats", "Census data, economic/health reports, and yearbooks", "Personal diaries", "Unstructured blog posts"], "a": 1, "e": "Government publications feature census data, yearbooks, and health reports.", "type": "MCQ"},
+            {"q": "What is an advantage of Organizational Records as secondary data?", "o": ["Completely public and accessible worldwide", "Specific, real-time, and cost-effective internally", "Always peer-reviewed by international academics", "Exclusively focused on macroeconomic trends"], "a": 1, "e": "Organizational records are specific, real-time, and cost-effective internal sources.", "type": "MCQ"},
+            {"q": "Online Databases like JSTOR, PubMed, and Google Scholar provide:", "o": ["Internal HR payroll records", "Vast academic resources and peer-reviewed literature", "Raw social media gossip", "Government census yearbooks"], "a": 1, "e": "Online databases provide vast peer-reviewed academic resources.", "type": "MCQ"},
+            {"q": "Using Social Media and Web Content for data analysis is useful for:", "o": ["Precise census demographic counts", "Trend analysis and real-time data", "Controlled laboratory chemical testing", "Ergonomic factory motion studies"], "a": 1, "e": "Social media provides real-time data useful for trend analysis.", "type": "MCQ"},
+            {"q": "Reports from International Agencies and NGOs (like WHO, UN, World Bank) offer:", "o": ["Global credibility and free access", "Strictly local single-company payroll data", "Unstructured personal blog entries", "Private corporate internal secrets"], "a": 0, "e": "International agency reports offer global credibility and free access.", "type": "MCQ"},
+            {"q": "Ethical commitment in data management refers to:", "o": ["Only following strict government legal penalties", "Respecting human rights, fairness, moral principles, and professional integrity", "Maximizing commercial profit at all costs", "Speeding up CPU compilation times"], "a": 1, "e": "Ethical commitment goes beyond legal compliance to respect human rights and fairness.", "type": "MCQ"},
+            {"q": "Under the principle of Respect for Privacy, researchers should:", "o": ["Collect every possible scrap of personal data regardless of need", "Collect only necessary data, obtain informed consent, and respect access/deletion rights", "Share personal data publicly online", "Ignore user requests to delete data"], "a": 1, "e": "Privacy ethics require collecting only necessary data and obtaining informed consent.", "type": "MCQ"},
+            {"q": "The Transparency principle requires data handlers to:", "o": ["Keep data collection purposes strictly secret", "Clearly state collection purposes, policies, and third-party involvement", "Hide privacy policies in complex legalese", "Avoid communicating with data subjects"], "a": 1, "e": "Transparency means clearly stating purposes and sharing understandable policies.", "type": "MCQ"},
+            {"q": "Security and Protection in data management involves:", "o": ["Leaving databases open for public testing", "Using encryption, access controls, secure storage, and regular security audits", "Avoiding backups", "Sharing passwords freely"], "a": 1, "e": "Security involves encryption, access controls, secure storage, and audits.", "type": "MCQ"},
+
+            // High-Level Questions (46-50)
+            {"q": "[HIGH-LEVEL] A researcher investigating illicit financial fraud needs to map hidden connections between suspect bank accounts across international jurisdictions. Which primary data collection method is specifically designed for this?", "o": ["Time and Motion Study", "Link Analysis", "Focus Groups", "Ethnography"], "a": 1, "e": "Link analysis analyzes relationships between entities and is common in fraud detection and security.", "type": "MCQ"},
+            {"q": "[HIGH-LEVEL] An organization wants to forecast technology trends for the next 20 years by consulting dispersed global experts without allowing dominant personalities to skew the outcome. Which method should they deploy?", "o": ["Focus Groups", "Delphi Technique", "Observation", "Process Analysis"], "a": 1, "e": "The Delphi technique uses multiple anonymous rounds of expert consultation to build consensus and reduce dominant voice bias.", "type": "MCQ"},
+            {"q": "[HIGH-LEVEL] A software startup wants to test a new mobile app prototype in real-world user environments while capturing instant location-based usage telemetry, but faces strict user confidentiality regulations. Which ethical principle must they prioritize alongside mobile collection?", "o": ["Time and motion efficiency", "Respect for Privacy and Security/Protection", "Delphi anonymity", "Secondary publication review"], "a": 1, "e": "Mobile collection requires strict adherence to privacy (consent/minimization) and security (encryption/access controls).", "type": "MCQ"},
+            {"q": "[HIGH-LEVEL] A hospital management team notices severe delays in patient emergency admissions. They need to map workflows, identify bottlenecks, and eliminate administrative waste using flowcharts. Which method is appropriate?", "o": ["Ethnography", "Process Analysis", "Case Study", "Secondary Published Sources"], "a": 1, "e": "Process analysis studies workflows and procedures using mapping tools to identify inefficiencies and bottlenecks.", "type": "MCQ"},
+            {"q": "[HIGH-LEVEL] If a researcher relies solely on published secondary books and government census reports without primary contextual validation, what is the primary risk they face?", "o": ["Excessive primary participant burden", "Data being outdated, generalized, or lacking specific local relevance to their unique research question", "Instantaneous mobile signal failure", "Interviewer personal bias during one-on-one sessions"], "a": 1, "e": "Secondary sources may be outdated, generalized, or lack specific local relevance.", "type": "MCQ"}
+        ];
+
+        const TF_DATA = [
+            // Standard Questions (1-45)
+            {"q": "Primary data is collected directly by the researcher to address a specific research question.", "o": ["True", "False"], "a": 0, "e": "True: Primary data is gathered firsthand for a specific study.", "type": "TF"},
+            {"q": "Only quantitative approaches are permitted when gathering primary data.", "o": ["True", "False"], "a": 1, "e": "False: Both qualitative and quantitative approaches are used.", "type": "TF"},
+            {"q": "Surveys and Questionnaires use a structured set of open- or closed-ended questions.", "o": ["True", "False"], "a": 0, "e": "True: Surveys feature structured questions administered via paper, online, phone, or face-to-face.", "type": "TF"},
+            {"q": "Surveys are generally considered expensive and unsuitable for large samples.", "o": ["True", "False"], "a": 1, "e": "False: Surveys are cost-effective and suitable for large samples and broad audiences.", "type": "TF"},
+            {"q": "Interviews involve direct one-on-one interaction and allow probing and follow-up questions.", "o": ["True", "False"], "a": 0, "e": "True: Interviews provide direct interaction and allow deep probing.", "type": "TF"},
+            {"q": "Focus groups are ideally suited for exploring highly sensitive personal topics.", "o": ["True", "False"], "a": 1, "e": "False: Focus groups are not suitable for sensitive topics due to the group setting.", "type": "TF"},
+            {"q": "Groupthink and dominant participants are recognized disadvantages of Focus Groups.", "o": ["True", "False"], "a": 0, "e": "True: Focus groups can suffer from groupthink and dominant voices.", "type": "TF"},
+            {"q": "Observation can capture real behavior rather than relying solely on self-reports.", "o": ["True", "False"], "a": 0, "e": "True: Observation records actual behavior directly.", "type": "TF"},
+            {"q": "Experiments eliminate all ethical constraints and external validity limitations.", "o": ["True", "False"], "a": 1, "e": "False: Experiments face ethical constraints and limited external validity/generalizability.", "type": "TF"},
+            {"q": "Field Trials test interventions in real-life settings combining experimentation and observation.", "o": ["True", "False"], "a": 0, "e": "True: Field trials combine both approaches in real-world environments.", "type": "TF"},
+            {"q": "Case Studies provide an in-depth analysis of a single unit such as a person, group, or event.", "o": ["True", "False"], "a": 0, "e": "True: Case studies focus deeply on a single unit using multiple data sources.", "type": "TF"},
+            {"q": "Case study findings are universally generalizable to all populations.", "o": ["True", "False"], "a": 1, "e": "False: Case studies are not generalizable.", "type": "TF"},
+            {"q": "Diaries and journals allow participants to self-record experiences over time.", "o": ["True", "False"], "a": 0, "e": "True: Diaries capture longitudinal self-recorded experiences.", "type": "TF"},
+            {"q": "The Delphi Technique relies on multiple rounds of anonymous expert consultation to build consensus.", "o": ["True", "False"], "a": 0, "e": "True: Delphi uses anonymous multi-round feedback for consensus.", "type": "TF"},
+            {"q": "Ethnography involves short 10-minute visits to laboratory testing rooms.", "o": ["True", "False"], "a": 1, "e": "False: Ethnography involves long-term immersion in natural cultural settings.", "type": "TF"},
+            {"q": "Mobile data collection can integrate directly with digital platforms for instant data entry.", "o": ["True", "False"], "a": 0, "e": "True: Mobile tools integrate with digital platforms for efficient fieldwork.", "type": "TF"},
+            {"q": "Process Analysis studies workflows and procedures to identify inefficiencies and redundancies.", "o": ["True", "False"], "a": 0, "e": "True: Process analysis focuses on workflow inefficiencies and waste.", "type": "TF"},
+            {"q": "Link Analysis is exclusively used in agricultural crop research.", "o": ["True", "False"], "a": 1, "e": "False: Link analysis is common in security, fraud detection, and network research.", "type": "TF"},
+            {"q": "Statistical methods in data collection rely on structured numerical data like random sampling.", "o": ["True", "False"], "a": 0, "e": "True: Statistical methods use structured numerical sampling.", "type": "TF"},
+            {"q": "Time and Motion Studies focus on measuring time and motions to enhance productivity and ergonomics.", "o": ["True", "False"], "a": 0, "e": "True: They measure task time and motion for efficiency and ergonomics.", "type": "TF"},
+            {"q": "Published sources such as books and journals are classified as primary data sources.", "o": ["True", "False"], "a": 1, "e": "False: Published books and journals are secondary data sources.", "type": "TF"},
+            {"q": "Government publications like census data and yearbooks are authoritative and comprehensive.", "o": ["True", "False"], "a": 0, "e": "True: Government publications offer authoritative and comprehensive secondary data.", "type": "TF"},
+            {"q": "Organizational records include internal financial, HR, and sales data.", "o": ["True", "False"], "a": 0, "e": "True: Organizational records consist of internal operational data.", "type": "TF"},
+            {"q": "Online databases such as PubMed and JSTOR provide access to peer-reviewed academic resources.", "o": ["True", "False"], "a": 0, "e": "True: Online academic databases offer peer-reviewed literature.", "type": "TF"},
+            {"q": "Social media and web content are structured secondary data sources.", "o": ["True", "False"], "a": 1, "e": "False: Social media and web content are typically unstructured.", "type": "TF"},
+            {"q": "International agencies like the WHO and World Bank provide global credibility and free access to reports.", "o": ["True", "False"], "a": 0, "e": "True: International agency reports offer global credibility and free access.", "type": "TF"},
+            {"q": "Ethical commitment in data management is strictly limited to minimum legal compliance.", "o": ["True", "False"], "a": 1, "e": "False: Ethical commitment goes beyond legal compliance to embrace moral principles and integrity.", "type": "TF"},
+            {"q": "Respect for Privacy dictates collecting only the data that is necessary.", "o": ["True", "False"], "a": 0, "e": "True: Privacy ethics require collecting necessary data and obtaining consent.", "type": "TF"},
+            {"q": "Transparency requires stating the purpose of data collection and disclosing third-party sharing.", "o": ["True", "False"], "a": 0, "e": "True: Transparency involves clear communication of purposes and policies.", "type": "TF"},
+            {"q": "Accuracy and Integrity require avoiding data manipulation and documenting sources.", "o": ["True", "False"], "a": 0, "e": "True: Ensuring accuracy means avoiding manipulation and documenting sources.", "type": "TF"},
+            {"q": "Security and Protection principles discourage using encryption or access controls.", "o": ["True", "False"], "a": 1, "e": "False: Security explicitly mandates using encryption, access controls, and audits.", "type": "TF"},
+            {"q": "Fairness and Non-Discrimination require avoiding bias and testing algorithms for inclusivity.", "o": ["True", "False"], "a": 0, "e": "True: Fair data practices ensure vulnerable groups are not harmed and algorithms are tested.", "type": "TF"},
+            {"q": "Accountability involves assigning clear responsibility for data governance.", "o": ["True", "False"], "a": 0, "e": "True: Accountability requires clear governance responsibility and decision records.", "type": "TF"},
+            {"q": "Researchers are ethically permitted to sell personal data without explicit consent.", "o": ["True", "False"], "a": 1, "e": "False: Responsible sharing dictates never selling or exploiting personal data without explicit consent.", "type": "TF"},
+            {"q": "Social responsibility in data management encourages supporting positive societal outcomes.", "o": ["True", "False"], "a": 0, "e": "True: Social responsibility promotes positive outcomes, sustainability, and trust.", "type": "TF"},
+            {"q": "Surveys can reach broad audiences but carry a risk of low response rates.", "o": ["True", "False"], "a": 0, "e": "True: Broad reach is an advantage, while low response rate is a noted disadvantage.", "type": "TF"},
+            {"q": "Interviews are completely free of potential interviewer bias.", "o": ["True", "False"], "a": 1, "e": "False: Interviews carry a potential for interviewer bias.", "type": "TF"},
+            {"q": "Observation is always unobtrusive regardless of setting.", "o": ["True", "False"], "a": 1, "e": "False: Observation is unobtrusive only in some settings and raises ethical/privacy concerns in others.", "type": "TF"},
+            {"q": "Experiments provide strong internal validity and allow testing of causal relationships.", "o": ["True", "False"], "a": 0, "e": "True: Strong internal validity and causality testing are core experiment advantages.", "type": "TF"},
+            {"q": "Organizational records completely eliminate the need for internal confidentiality.", "o": ["True", "False"], "a": 1, "e": "False: Organizational records are often confidential.", "type": "TF"},
+            {"q": "Online databases have zero variations in credibility.", "o": ["True", "False"], "a": 1, "e": "False: Credibility varies across online databases, requiring critical evaluation.", "type": "TF"},
+            {"q": "Informed consent should be obtained before collecting personal data under privacy ethics.", "o": ["True", "False"], "a": 0, "e": "True: Informed consent is a mandatory pillar of privacy ethics.", "type": "TF"},
+            {"q": "Data governance records are unimportant under the accountability principle.", "o": ["True", "False"], "a": 1, "e": "False: Accountability requires maintaining records of data collection, storage, and usage.", "type": "TF"},
+            {"q": "Secondary data is always fully up-to-date and never outdated.", "o": ["True", "False"], "a": 1, "e": "False: Secondary sources like books or government publications may be outdated.", "type": "TF"},
+            {"q": "Process analysis helps improve operational efficiency and identify bottlenecks.", "o": ["True", "False"], "a": 0, "e": "True: Improving efficiency and spotting bottlenecks are key benefits of process analysis.", "type": "TF"},
+
+            // High-Level Questions (46-50)
+            {"q": "[HIGH-LEVEL] If a researcher conducting a Time and Motion study secretly records workers without their knowledge or consent to maximize micro-management efficiency, this violates multiple data ethics principles including Transparency and Respect for Privacy.", "o": ["True", "False"], "a": 0, "e": "True: Secret recording without consent violates transparency, privacy, and ethical guidelines regarding micromanagement.", "type": "TF"},
+            {"q": "[HIGH-LEVEL] Using secondary data from international NGOs (like the World Bank) guarantees that local cultural nuances of a small rural village are captured with 100% precision.", "o": ["True", "False"], "a": 1, "e": "False: International agency data is often generalized and may lack specific local relevance, requiring primary methods like ethnography.", "type": "TF"},
+            {"q": "[HIGH-LEVEL] An AI model trained exclusively on historical organizational HR records may perpetuate historical hiring biases, directly violating the data ethics principle of Fairness and Non-Discrimination.", "o": ["True", "False"], "a": 0, "e": "True: Biased training data leads to unfair algorithmic decisions, violating non-discrimination and inclusivity principles.", "type": "TF"},
+            {"q": "[HIGH-LEVEL] Laboratory experiments offer high internal validity for causal testing, but their artificial environment often restricts external generalizability to real-world consumer behavior.", "o": ["True", "False"], "a": 0, "e": "True: Artificial environments provide strong internal validity but limit external validity/generalizability.", "type": "TF"},
+            {"q": "[HIGH-LEVEL] If an organization shares its customer database with a third-party marketing partner without explicit consent or policy disclosure, they are complying with the principles of Transparency and Responsible Use.", "o": ["True", "False"], "a": 1, "e": "False: Sharing data without explicit consent or disclosure violates transparency and responsible use guidelines.", "type": "TF"}
+        ];
+
+        let activePart = 1;
+        let qData = MCQ_DATA;
+        let cIdx = 0;
+        let score = 0;
+        let wrongList = [];
+
+        const $ = id => document.getElementById(id);
+
+        function switchPart(part) {
+            activePart = part;
+            $("tab1").className = "tab-btn " + (part === 1 ? "active" : "");
+            $("tab2").className = "tab-btn " + (part === 2 ? "active" : "");
+            qData = part === 1 ? MCQ_DATA : TF_DATA;
+            resetQuiz();
+        }
+
+        function resetQuiz() {
+            cIdx = 0;
+            score = 0;
+            wrongList = [];
+            renderQuestion();
+        }
+
+        function renderQuestion() {
+            const q = qData[cIdx];
+            $("n").textContent = `Question ${cIdx + 1} of ${qData.length}`;
+            $("s").textContent = `Score: ${score}`;
+            $("bar").style.width = `${(cIdx / qData.length) * 100}%`;
+
+            const isHighLevel = cIdx >= 45;
+            const badgeClass = isHighLevel ? "q-badge high-level" : "q-badge";
+            const badgeText = isHighLevel 
+                ? (q.type === 'TF' ? 'True / False — High Level' : 'Multiple Choice — High Level')
+                : (q.type === 'TF' ? 'True / False' : 'Multiple Choice');
+
+            $("card").innerHTML = `
+                <span class="${badgeClass}">${badgeText}</span>
+                <p class="q">${q.q}</p>
+                <div id="opts"></div>
+                <div id="fb"></div>
+            `;
+
+            q.o.forEach((optText, i) => {
+                const b = document.createElement("button");
+                b.className = "opt";
+                b.innerHTML = `<b>${q.type === 'TF' ? (i===0?'T':'F') : "ABCD"[i] + ")"}</b><span></span>`;
+                b.querySelector("span").textContent = optText;
+                b.onclick = () => handleAnswer(i);
+                $("opts").appendChild(b);
+            });
+        }
+
+        function handleAnswer(selected) {
+            const q = qData[cIdx];
+            const isCorrect = selected === q.a;
+            const buttons = document.querySelectorAll(".opt");
+
+            buttons.forEach((btn, idx) => {
+                btn.disabled = true;
+                if (idx === q.a) btn.classList.add("ok");
+                else if (idx === selected) btn.classList.add("no");
+            });
+
+            if (isCorrect) score++;
+            else wrongList.push(cIdx);
+
+            $("s").textContent = `Score: ${score}`;
+
+            $("fb").innerHTML = `
+                <div class="ex ${isCorrect ? 'ok' : 'no'}">
+                    <strong>${isCorrect ? 'Correct answer ✓' : 'Incorrect answer ✗'}</strong>
+                    <span>${q.e}</span>
+                </div>
+                <button class="btn" id="nxtBtn">${cIdx < qData.length - 1 ? 'Next question' : 'Show final results'}</button>
+            `;
+
+            $("nxtBtn").onclick = () => {
+                cIdx++;
+                if (cIdx < qData.length) renderQuestion();
+                else finishQuiz();
+            };
+            $("nxtBtn").focus();
+        }
+
+        function finishQuiz() {
+            $("bar").style.width = "100%";
+            $("n").textContent = "Quiz complete";
+            const pct = Math.round((score / qData.length) * 100);
+            
+            let html = `
+                <div class="score">${score} / ${qData.length}</div>
+                <p style="text-align:center;font-size:1.2rem;margin:0 0 16px;">Percentage: <b>${pct}%</b></p>
+            `;
+
+            if (wrongList.length > 0) {
+                html += `<p style="margin:16px 0 8px;"><b>Questions to review:</b></p><ul class="rev">`;
+                wrongList.forEach(w => {
+                    html += `<li><b>Question ${w + 1}:</b> ${qData[w].q}</li>`;
+                });
+                html += `</ul>`;
+            } else {
+                html += `<p style="text-align:center;color:var(--ok);">Excellent! All answers are correct (100%).</p>`;
+            }
+
+            html += `<button class="btn" onclick="resetQuiz()">Restart quiz</button>`;
+            $("card").innerHTML = html;
+        }
+
+        renderQuestion();
+    </script>
+</body>
+</html>

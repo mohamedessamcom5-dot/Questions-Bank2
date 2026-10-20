@@ -1,0 +1,438 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Finance — Chapter 3: Cost of Capital</title>
+    <style>
+        :root {
+            --bg: #0f172a;
+            --c: #1e293b;
+            --t: #f8fafc;
+            --m: #94a3b8;
+            --b: #334155;
+            --ac: #38bdf8;
+            --ok: #22c55e;
+            --okb: #052e16;
+            --no: #ef4444;
+            --nob: #450a0a;
+            box-sizing: border-box;
+        }
+
+        @media(prefers-color-scheme: light) {
+            :root[data-theme=light] {
+                --bg: #f8fafc;
+                --c: #ffffff;
+                --t: #0f172a;
+                --m: #64748b;
+                --b: #e2e8f0;
+                --ac: #0284c7;
+                --okb: #dcfce7;
+                --nob: #fee2e2;
+                --ok: #16a34a;
+                --no: #dc2626;
+            }
+        }
+
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--t);
+            font-family: 'Segoe UI', Tahoma, system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+        }
+        main {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 24px 16px 60px;
+        }
+        .header-panel {
+            text-align: center;
+            margin-bottom: 24px;
+            border-bottom: 8px solid var(--b);
+            padding-bottom: 30px;
+        }
+        h1 { font-size: 1.5rem; margin: 0 0 8px; color: var(--ac); }
+        .sub { color: var(--m); font-size: 0.95rem; margin: 0; }
+        
+        .nav-tabs {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .tab-btn {
+            flex: 1;
+            padding: 12px;
+            background: var(--c);
+            border: 1px solid var(--b);
+            color: var(--t);
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .tab-btn.active {
+            background: var(--ac);
+            color: #000;
+            border-color: var(--ac);
+        }
+
+        .bar {
+            height: 8px;
+            background: var(--b);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+        .bar i {
+            display: block;
+            height: 100%;
+            background: var(--ac);
+            width: 0;
+            transition: width 0.3s;
+        }
+        .meta {
+            display: flex;
+            justify-content: space-between;
+            color: var(--m);
+            font-size: 0.9rem;
+            margin-bottom: 16px;
+        }
+        .card {
+            background: var(--c);
+            border: 1px solid var(--b);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+        .q-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            background: var(--b);
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+            color: var(--ac);
+        }
+        .q {
+            font-size: 1.1rem;
+            font-weight: 600;
+            direction: ltr;
+            text-align: left;
+            margin: 0 0 16px;
+        }
+        .diagram-container {
+            direction: ltr;
+            background: rgba(0,0,0,0.2);
+            border: 1px dashed var(--b);
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+        .opt {
+            display: flex;
+            gap: 12px;
+            direction: ltr;
+            text-align: left;
+            width: 100%;
+            background: var(--c);
+            color: var(--t);
+            border: 1.5px solid var(--b);
+            border-radius: 8px;
+            padding: 12px 14px;
+            margin-bottom: 10px;
+            font: inherit;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+        .opt:hover:not(:disabled) { border-color: var(--ac); }
+        .opt b { min-width: 1.5em; color: var(--ac); }
+        .opt.ok { background: var(--okb); border-color: var(--ok); }
+        .opt.no { background: var(--nob); border-color: var(--no); }
+        .opt:disabled { cursor: default; }
+
+        .ex {
+            margin-top: 16px;
+            padding: 14px;
+            border-radius: 8px;
+            direction: ltr;
+            text-align: left;
+            font-size: 0.95rem;
+        }
+        .ex.ok { background: var(--okb); border: 1px solid var(--ok); }
+        .ex.no { background: var(--nob); border: 1px solid var(--no); }
+        .ex strong { display: block; margin-bottom: 4px; }
+
+        .btn {
+            margin-top: 16px;
+            background: var(--ac);
+            color: #000;
+            border: 0;
+            border-radius: 8px;
+            padding: 12px 24px;
+            font: inherit;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+        }
+        .score { text-align: center; font-size: 3rem; font-weight: 800; margin: 12px 0; color: var(--ac); }
+        .rev { margin: 16px 0 0; padding: 0; list-style: none; direction: ltr; text-align: left; font-size: 0.9rem; }
+        .rev li { padding: 8px 0; border-top: 1px solid var(--b); }
+    </style>
+    <link rel="stylesheet" href="../site-theme.css">
+</head>
+<body>
+    <main>
+        <div class="header-panel">
+            <h1>Finance — Chapter 3</h1>
+            <p class="sub">Cost of Capital & Weighted Average Cost of Capital (WACC)</p>
+        </div>
+        
+        <div class="nav-tabs">
+            <button class="tab-btn active" id="tab1" onclick="switchPart(1)">Multiple Choice</button>
+            <button class="tab-btn" id="tab2" onclick="switchPart(2)">True/False</button>
+        </div>
+
+        <div class="bar"><i id="bar"></i></div>
+        <div class="meta">
+            <span id="n"></span>
+            <span id="s"></span>
+        </div>
+        <div class="card" id="card"></div>
+    </main>
+      
+    <script>
+       const P1_SOURCE = [
+            // Standard Questions (1-45)
+            {"q": "What represents the firm's cost of financing in Chapter 3?", "o": ["Net operating profit", "The cost of capital", "Total corporate tax rate", "Dividend payout ratio"], "a": 1, "e": "The firm's cost of financing can be represented by the cost of capital.", "type": "MCQ"},
+            {"q": "What does the cost of capital reflect for a business?", "o": ["Total of the firm's financing decisions", "The daily cash register receipts", "Short-term inventory holding costs", "Total manufacturing overhead"], "a": 0, "e": "The cost of capital reflects the total of the firm's financing decisions.", "type": "MCQ"},
+            {"q": "How is the cost of capital defined regarding investment returns?", "o": ["The maximum return a project can generate", "The minimum rate of return that a project or investment must generate to increase the value of the firm", "The average interest rate on short-term bank credit", "The historical dividend yield"], "a": 1, "e": "The cost of capital is the minimum rate of return that a project or investment must generate to increase the value of the firm.", "type": "MCQ"},
+            {"q": "Financial managers are morally expected to invest in only those projects where:", "o": ["Their benefits equal zero", "Their benefits exceed the cost of capital", "Fixed operating costs are minimized", "Taxes are completely eliminated"], "a": 1, "e": "Financial managers are expected to invest only in projects where benefits exceed the cost of capital.", "type": "MCQ"},
+            {"q": "Most firms attempt to maintain an optimal capital structure, which is defined as:", "o": ["An optimal mix of debt and equity financing", "A 100% debt financing strategy", "A 100% equity financing strategy", "Zero working capital"], "a": 0, "e": "Most firms attempt to maintain an optimal capital structure optimal mix of debt and equity financing.", "type": "MCQ"},
+            {"q": "Why must we look at the total cost of capital rather than just the cost of a single source?", "o": ["To capture all relevant financing costs assuming a desired financing mix", "Because single sources are illegal", "To avoid paying corporate income taxes", "To simplify accounting bookkeeping"], "a": 0, "e": "We look at total cost of capital to capture all relevant financing costs assuming some desired mix of financing.", "type": "MCQ"},
+            {"q": "What is the risk of relying on the cost of only one single source of financing for investment decisions?", "o": ["Faster corporate growth", "Making wrong decisions (accepting bad projects or rejecting good ones)", "Elimination of all financial risk", "Lower WACC calculations"], "a": 1, "e": "Relying on a single source cost may lead to wrong decisions: accepting bad projects or rejecting good ones.", "type": "MCQ"},
+            {"q": "What are the main sources of long-term capital?", "o": ["Short-term bank loans and accounts payable", "Long-term debt and common stock equity", "Government grants and tax refunds", "Trade credit and accrued expenses"], "a": 1, "e": "The main sources of long-term capital are long-term debt and common stock equity.", "type": "MCQ"},
+            {"q": "Common stock equity as a source of long-term capital includes:", "o": ["Bonds and debentures", "Common stock and retained earnings", "Preferred stock and bank overdrafts", "Short-term notes payable"], "a": 1, "e": "Common stock equity includes common stock and retained earnings.", "type": "MCQ"},
+            {"q": "What does WACC stand for?", "o": ["Weighted Average Cost of Capital", "Working Asset Capital Corporation", "Weighted Annual Cash Flow", "Wide Asset Cost Calculation"], "a": 0, "e": "WACC stands for Weighted Average Cost of Capital.", "type": "MCQ."},
+            {"q": "How is WACC (represented as ra) calculated?", "o": ["By summing all financing costs without weights", "By weighting the cost of each specific type of capital by its percentage in the capital structure", "By dividing total debt by total assets", "By subtracting taxes from operating profit"], "a": 1, "e": "WACC is found by weighting the cost of each specific type of capital by its percentage in the capital structure.", "type": "MCQ."},
+            {"q": "What does WACC reflect over the long run?", "o": ["Historical cost of debt from 10 years ago", "The expected average future cost of capital over the long run", "Immediate short-term bank interest", "Liquidity ratios"], "a": 1, "e": "It reflects the expected average future cost of capital over the long run.", "type": "MCQ."},
+            {"q": "What is the standard WACC formula given in Chapter 3?", "o": ["ra = (wi x ri) + (ws x rr or rn)", "ra = wi + ws + ri + rr", "ra = (ri x rr) / wi", "ra = (wi / ri) - ws"], "a": 0, "e": "The formula is ra = (wi x ri) + (ws x rr or rn).", "type": "MCQ."},
+            {"q": "In the WACC formula, what does 'wi' represent?", "o": ["Cost of long-term debt", "Percentage of long-term debt in capital structure", "Weight of retained earnings", "Total interest expense"], "a": 1, "e": "wi = percentage of long-term debt in capital structure.", "type": "MCQ."},
+            {"q": "In the WACC formula, what does 'ri' represent?", "o": ["Cost of long-term debt", "Return on investment", "Retained earnings weight", "Risk index"], "a": 0, "e": "ri = Cost of long-term debt.", "type": "MCQ."},
+            {"q": "In the WACC formula, what does 'ws' represent?", "o": ["Cost of short-term debt", "Percentage of common stock equity in capital structure", "Working capital surplus", "Stock market price"], "a": 1, "e": "ws = percentage of common stock equity in capital structure.", "type": "MCQ."},
+            {"q": "In the WACC formula, what does 'rr' represent?", "o": ["Risk rate", "Cost of retained earnings", "Revenue ratio", "Rate of return on debt"], "a": 1, "e": "rr = Cost of retained earnings.", "type": "MCQ."},
+            {"q": "In the WACC formula, what does 'rn' represent?", "o": ["Cost of new common stock", "Net profit margin", "Nominal interest rate", "Normal return"], "a": 0, "e": "rn = Cost of new common stock.", "type": "MCQ."},
+            {"q": "What is the mathematical relationship between wi and ws in the capital structure?", "o": ["wi x ws = 1", "wi - ws = 0", "wi + ws = 1", "wi / ws = 100"], "a": 2, "e": "Wi + WS = 1.", "type": "MCQ."},
+            {"q": "In DODO company example, if long-term debt weight is 40% (0.40) and after-tax cost of debt (ri) is 7.51%, what is the debt component contribution to WACC?", "o": ["3.00%", "7.51%", "4.00%", "11.40%"], "a": 0, "e": "0.40 x 7.51 = 3.0% (or 3.004%).", "type": "MCQ."},
+            {"q": "In DODO company example, if common stock equity weight is 60% (0.60) and cost of retained earnings (rr) is 14.0%, what is the equity component contribution?", "o": ["6.00%", "8.40%", "14.00%", "11.40%"], "a": 1, "e": "0.60 x 14.0 = 8.40%.", "type": "MCQ."},
+            {"q": "Using retained earnings, what is the calculated WACC for DODO company?", "o": ["7.51%", "14.00%", "11.40%", "11.88%"], "a": 2, "e": "WACC = (0.40 x 7.51) + (0.60 x 14.0) = 3.0 + 8.40 = 11.40%.", "type": "MCQ."},
+            {"q": "What does a WACC of 11.40% mean for DODO company?", "o": ["The firm pays 11.40% tax", "The minimum acceptable return covering the cost of capital is 11.40%", "The return on equity is exactly 11.40%", "The cost of debt is 11.40%"], "a": 1, "e": "This means that the minimum acceptable return covering the cost of capital is 11.40%.", "type": "MCQ."},
+            {"q": "In DODO company, when using the cost of new common stock (rn = 14.79%), what is the resulting WACC?", "o": ["11.40%", "11.88%", "14.79%", "7.51%"], "a": 1, "e": "WACC = (0.40 x 7.51) + (0.60 x 14.79) = 3.004 + 8.874 = 11.878%, or approximately 11.88%.", "type": "MCQ."},
+            {"q": "Why is the WACC higher when using new common stock (rn = 14.79%) compared to retained earnings (rr = 14.0%)?", "o": ["Because issuing new common stock involves floatation costs and higher return requirements than retained earnings", "Because debt weight increases", "Because taxes increase", "Because interest rates drop"], "a": 0, "e": "New common stock carries floatation costs, making its cost higher than retained earnings, raising WACC to 11.88%.", "type": "MCQ."},
+            {"q": "In AMAL company example, Common Stock weight is 50% with a cost of 12%. What is its weighted contribution?", "o": ["6.0%", "12.0%", "50.0%", "25.0%"], "a": 0, "e": "0.50 x 12% = 6.0%.", "type": "MCQ."},
+            {"q": "In AMAL company example, Preferred Stock weight is 15% with a cost of 10%. What is its weighted contribution?", "o": ["1.5%", "10.0%", "15.0%", "2.5%"], "a": 0, "e": "0.15 x 10% = 1.5%.", "type": "MCQ."},
+            {"q": "In AMAL company example, Debt (After-Tax) weight is 35% with a cost of 6%. What is its weighted contribution?", "o": ["2.1%", "6.0%", "35.0%", "12.1%"], "a": 0, "e": "0.35 x 6% = 2.1%.", "type": "MCQ."},
+            {"q": "Based on AMAL company data (Common Stock 50% @ 12%, Preferred Stock 15% @ 10%, Debt 35% @ 6%), what is the total WACC?", "o": ["6.0% + 1.5% + 2.1% = 9.6%", "12.0% + 10% + 6% = 28.0%", "50% + 15% + 35% = 100%", "6.0% + 1.5% + 2.1% = 10.0%"], "a": 0, "e": "WACC = (0.50 x 12) + (0.15 x 10) + (0.35 x 6) = 6.0 + 1.5 + 2.1 = 9.6%.", "type": "MCQ."},
+            {"q": "Cost of capital represents:", "o": ["The hurdle rate or minimum required rate of return for investments", "The total revenue generated by sales", "The amount of dividends paid out", "The corporate tax liability"], "a": 0, "e": "Cost of capital acts as the hurdle rate that investments must clear to add firm value.", "type": "MCQ."},
+            {"q": "If a project's expected internal rate of return (IRR) is 13% and the firm's WACC is 11.40%, should the project be accepted?", "o": ["Yes, because its return exceeds the cost of capital (benefits exceed cost)", "No, because return is lower than WACC", "Only if debt financing is 100%", "No, reject all projects"], "a": 0, "e": "Projects should be accepted if their return exceeds WACC because benefits exceed the cost of financing.", "type": "MCQ."},
+            {"q": "If a project's expected return is 10% and the firm's WACC is 11.40%, should the project be accepted?", "o": ["Yes", "No, because its return is less than the cost of capital", "Only if retained earnings are used", "It does not matter"], "a": 1, "e": "Reject projects yielding less than WACC since they destroy firm value.", "type": "MCQ."},
+            {"q": "Why is long-term debt cost typically expressed on an 'After-Tax' basis?", "o": ["Because interest payments on debt are tax-deductible for corporations", "Because taxes on equity are higher", "To eliminate inflation", "Because governments pay the interest"], "a": 0, "e": "Interest is tax-deductible, so debt cost is calculated on an after-tax basis.", "type": "MCQ."},
+            {"q": "Which of the following is considered an internal source of long-term capital equity?", "o": ["Long-term bank bonds", "Retained earnings", "New common stock issues", "Preferred stock"], "a": 1, "e": "Retained earnings are generated internally by the firm.", "type": "MCQ."},
+            {"q": "Which of the following is considered an external source of long-term capital equity?", "o": ["Retained earnings", "New common stock", "Depreciation write-offs", "Accounts payable"], "a": 1, "e": "New common stock is an external equity source.", "type": "MCQ."},
+            {"q": "What happens to the weighted average cost of capital if the proportion of low-cost debt increases significantly beyond the optimal capital structure?", "o": ["WACC continuously drops forever with zero risk", "Financial risk rises, potentially increasing the cost of both debt and equity, which eventually raises WACC", "WACC becomes negative", "Nothing changes"], "a": 1, "e": "Excessive debt increases financial risk and distress costs, ultimately raising the overall WACC.", "type": "MCQ."},
+            {"q": "The optimal capital structure is the mix of financing that:", "o": ["Maximizes the firm's overall cost of capital", "Minimizes the firm's overall cost of capital (WACC) while maximizing firm value", "Eliminates all common stock equity", "Relies entirely on short-term bank credit"], "a": 1, "e": "The optimal capital structure minimizes WACC and maximizes firm value.", "type": "MCQ."},
+            {"q": "In capital budgeting decisions, WACC is used as the discount rate for:", "o": ["Calculating Net Present Value (NPV) of cash flows", "Calculating daily employee payroll", "Determining physical inventory turnover", "Computing tax depreciation schedules"], "a": 0, "e": "WACC is the standard discount rate used in NPV calculations for capital budgeting.", "type": "MCQ."},
+            {"q": "If a firm relies solely on the cost of debt (e.g., 7.51%) to evaluate a high-risk equity-type project instead of the total WACC (11.40%), what error occurs?", "o": ["Rejecting a profitable project", "Accepting an unprofitable project that destroys value (type of wrong decision)", "Calculating taxes incorrectly", "Overestimating retained earnings"], "a": 1, "e": "Using a single low cost (debt) makes projects look artificially attractive, leading to acceptance of value-destroying investments.", "type": "MCQ."},
+            {"q": "Which financing source represents ownership claims on the firm's assets and earnings?", "o": ["Long-term bonds", "Common stock equity", "Bank notes payable", "Government debentures"], "a": 1, "e": "Common stock equity represents ownership in the firm.", "type": "MCQ."},
+            {"q": "The weights used in WACC calculation must sum up to:", "o": ["0.50", "1.0 (or 100%)", "10.0", "Depends on project size"], "a": 1, "e": "The sum of all capital component weights equals 1.0 (Wi + Ws = 1).", "type": "MCQ."},
+            {"q": "Expected average future cost of capital over the long run is best represented by:", "o": ["Short-term bank overdraft rate", "Weighted Average Cost of Capital (WACC)", "Historical dividend yield of last year", "Supplier credit discount rate"], "a": 1, "e": "WACC reflects the expected average future cost of capital over the long run.", "type": "MCQ."},
+            {"q": "When evaluating an investment opportunity, financial managers compare the project's expected return against:", "o": ["The book value of assets", "The WACC (Cost of Capital)", "Total annual sales revenue", "Total number of employees"], "a": 1, "e": "Managers compare project return against the cost of capital.", "type": "MCQ."},
+            {"q": "If a firm has 70% debt and 30% equity, what are wi and ws respectively?", "o": ["wi = 0.30, ws = 0.70", "wi = 0.70, ws = 0.30", "wi = 0.50, ws = 0.50", "wi = 70, ws = 30"], "a": 1, "e": "wi (debt weight) = 0.70, ws (equity weight) = 0.30, and 0.70 + 0.30 = 1.0.", "type": "MCQ."},
+            {"q": "Which component cost is typically lower due to tax deductibility: cost of debt or cost of equity?", "o": ["Cost of debt (after-tax)", "Cost of equity", "Both are identical", "Neither has tax effects"], "a": 0, "e": "After-tax cost of debt is lower because interest is tax-deductible.", "type": "MCQ."},
+
+            // High-Level Questions (46-50)
+            {"q": "[HIGH-LEVEL] A firm evaluates a new expansion project using only the cost of retained earnings (14.0%) while ignoring the lower cost of debt (7.51%) because the project is funded entirely by a new bond issue. According to Chapter 3 principles, why is evaluating a specific project with a single financing source cost flawed?", "o": ["Firms must look at the total WACC rather than a single source because capital is pooled and projects impact the overall optimal capital structure over the long run", "It violates tax laws", "Bonds cannot be used for expansion", "Retained earnings are cheaper than debt"], "a": 0, "e": "Looking at total cost of capital captures all relevant financing costs and avoids wrong decisions caused by single-source reliance.", "type": "MCQ."},
+            {"q": "[HIGH-LEVEL] Company Zeta has a WACC of 10%. It accepts Project A with an expected return of 9.5% because 'debt financing for this specific project only costs 7%'. What will be the long-term consequence on firm value?", "o": ["Firm value will increase", "Firm value will decrease because project return (9.5%) is below the hurdle WACC (10%)", "No impact on firm value", "EPS will double immediately"], "a": 1, "e": "Projects returning less than WACC destroy shareholder value, regardless of how an individual project is funded.", "type": "MCQ."},
+            {"q": "[HIGH-LEVEL] If a firm exhausts its internal retained earnings and is forced to issue new common stock with floatation costs, raising equity cost from 14.0% to 14.79%, what happens to the firm's marginal WACC and investment hurdle rate?", "o": ["WACC decreases", "WACC increases (e.g., from 11.40% to 11.88%), raising the hurdle rate for new projects", "WACC remains completely unchanged", "Hurdle rate drops to zero"], "a": 1, "e": "Higher equity cost from new common stock raises WACC from 11.40% to 11.88%, increasing the required hurdle rate.", "type": "MCQ."},
+            {"q": "[HIGH-LEVEL] Company X has a capital structure consisting of 50% Debt (after-tax cost 6%) and 50% Equity (cost 12%). Its WACC is 9%. If management alters the structure to 80% Debt and 20% Equity, initially lowering WACC to 7.8%, but credit rating agencies warn of severe bankruptcy risk, why might the actual effective cost of capital still rise?", "o": ["Because lenders and stockholders will demand higher risk premiums (higher ri and re) due to excessive financial leverage", "Because taxes disappear", "Because WACC formulas only work at 50/50", "Because equity costs drop to zero"], "a": 0, "e": "Extreme leverage increases financial risk, driving up component costs of debt and equity and offsetting the weight benefit.", "type": "MCQ."},
+            {"q": "[HIGH-LEVEL] A financial manager argues: 'Since retained earnings belong to existing shareholders and cost the company nothing in cash interest payments, we can treat their cost as 0% in our WACC calculation.' Is this statement correct according to Chapter 3?", "o": ["Yes, retained earnings are completely free", "No, retained earnings have an opportunity cost equal to the return shareholders could earn on alternative investments of equivalent risk (e.g., 14.0%)", "Yes, as long as debt weight is 100%", "No, retained earnings cost more than new common stock"], "a": 1, "e": "Retained earnings are not free; they carry an opportunity cost (cost of retained earnings, e.g. 14.0%).", "type": "MCQ."}
+        ];
+
+        const P2_SOURCE = [
+            // Standard Questions (1-45)
+            {"q": "The firm's cost of financing can be represented by the cost of capital.", "o": ["True", "False"], "a": 0, "e": "True: Cost of financing is represented by the cost of capital.", "type": "TF"},
+            {"q": "The cost of capital reflects the total of the firm's financing decisions.", "o": ["True", "False"], "a": 0, "e": "True: It reflects total financing decisions.", "type": "TF"},
+            {"q": "The cost of capital is the minimum rate of return that an investment must generate to increase the value of the firm.", "o": ["True", "False"], "a": 0, "e": "True: It is the minimum rate of return hurdle to increase firm value.", "type": "TF"},
+            {"q": "Financial managers are morally expected to invest only in projects where benefits exceed the cost of capital.", "o": ["True", "False"], "a": 0, "e": "True: Benefits must exceed the cost of capital.", "type": "TF"},
+            {"q": "Most firms attempt to maintain an optimal capital structure consisting of an optimal mix of debt and equity.", "o": ["True", "False"], "a": 0, "e": "True: Optimal capital structure is the optimal mix of debt and equity.", "type": "TF"},
+            {"q": "We should look at the cost of a single source of financing rather than total WACC to capture all financing costs.", "o": ["True", "False"], "a": 1, "e": "False: We look at total cost of capital rather than just a single source.", "type": "TF"},
+            {"q": "Relying on a single source of financing cost can lead to wrong investment decisions.", "o": ["True", "False"], "a": 0, "e": "True: Single-source reliance can lead to accepting bad projects or rejecting good ones.", "type": "TF"},
+            {"q": "The main sources of long-term capital are long-term debt and common stock equity.", "o": ["True", "False"], "a": 0, "e": "True: Long-term debt and common stock equity are the main long-term sources.", "type": "TF"},
+            {"q": "Common stock equity includes common stock and retained earnings.", "o": ["True", "False"], "a": 0, "e": "True: Common stock equity comprises common stock and retained earnings.", "type": "TF"},
+            {"q": "The Weighted Average Cost of Capital (WACC) is represented by ra.", "o": ["True", "False"], "a": 0, "e": "True: WACC is denoted as ra.", "type": "TF"},
+            {"q": "WACC is found by weighting the cost of each specific type of capital by its percentage in the capital structure.", "o": ["True", "False"], "a": 0, "e": "True: WACC weights each capital component by its proportion.", "type": "TF"},
+            {"q": "WACC reflects the expected average future cost of capital over the long run.", "o": ["True", "False"], "a": 0, "e": "True: It reflects long-term expected average future cost.", "type": "TF"},
+            {"q": "The WACC formula is given as ra = (wi x ri) + (ws x rr or rn).", "o": ["True", "False"], "a": 0, "e": "True: This is the exact WACC formula in Chapter 3.", "type": "TF"},
+            {"q": "In the WACC formula, wi represents the percentage of long-term debt in the capital structure.", "o": ["True", "False"], "a": 0, "e": "True: wi is the debt percentage.", "type": "TF"},
+            {"q": "In the WACC formula, ri represents the cost of long-term debt.", "o": ["True", "False"], "a": 0, "e": "True: ri is the cost of long-term debt.", "type": "TF"},
+            {"q": "In the WACC formula, ws represents the percentage of common stock equity.", "o": ["True", "False"], "a": 0, "e": "True: ws is common stock equity percentage.", "type": "TF"},
+            {"q": "In the WACC formula, rr represents the cost of retained earnings.", "o": ["True", "False"], "a": 0, "e": "True: rr is cost of retained earnings.", "type": "TF"},
+            {"q": "In the WACC formula, rn represents the cost of new common stock.", "o": ["True", "False"], "a": 0, "e": "True: rn is cost of new common stock.", "type": "TF"},
+            {"q": "The sum of debt percentage (wi) and equity percentage (ws) must equal 1.", "o": ["True", "False"], "a": 0, "e": "True: Wi + WS = 1.", "type": "TF"},
+            {"q": "In DODO company example, the cost of debt after-tax (ri) is given as 7.51%.", "o": ["True", "False"], "a": 0, "e": "True: ri = 7.51%.", "type": "TF"},
+            {"q": "In DODO company example, the cost of retained earnings (rr) is 14.0%.", "o": ["True", "False"], "a": 0, "e": "True: rr = 14.0%.", "type": "TF"},
+            {"q": "In DODO company example, the cost of new common stock (rn) is 14.79%.", "o": ["True", "False"], "a": 0, "e": "True: rn = 14.79%.", "type": "TF"},
+            {"q": "In DODO company, long-term debt weight is 40% and common stock equity weight is 60%.", "o": ["True", "False"], "a": 0, "e": "True: Debt is 40% and equity is 60%.", "type": "TF."},
+            {"q": "The WACC for DODO company using retained earnings is 11.40%.", "o": ["True", "False"], "a": 0, "e": "True: WACC with rr is 11.40%.", "type": "TF"},
+            {"q": "A WACC of 11.40% means the minimum acceptable return covering the cost of capital is 11.40%.", "o": ["True", "False"], "a": 0, "e": "True: It represents the minimum acceptable return threshold.", "type": "TF"},
+            {"q": "The WACC for DODO company using new common stock is 11.88%.", "o": ["True", "False"], "a": 0, "e": "True: WACC with rn is 11.88%.", "type": "TF"},
+            {"q": "In AMAL company example, Common Stock weight is 50% with a cost of 12%.", "o": ["True", "False"], "a": 0, "e": "True: Common stock weight is 50% and cost is 12%.", "type": "TF"},
+            {"q": "In AMAL company example, Preferred Stock weight is 15% with a cost of 10%.", "o": ["True", "False"], "a": 0, "e": "True: Preferred stock weight is 15% and cost is 10%.", "type": "TF"},
+            {"q": "In AMAL company example, Debt After-Tax weight is 35% with a cost of 6%.", "o": ["True", "False"], "a": 0, "e": "True: Debt weight is 35% and cost is 6%.", "type": "TF"},
+            {"q": "The calculated WACC for AMAL company is 9.6%.", "o": ["True", "False"], "a": 0, "e": "True: (0.50 x 12) + (0.15 x 10) + (0.35 x 6) = 9.6%.", "type": "TF"},
+            {"q": "Retained earnings are an external source of long-term equity capital.", "o": ["True", "False"], "a": 1, "e": "False: Retained earnings are internal equity, while new common stock is external.", "type": "TF"},
+            {"q": "Long-term debt is considered a source of long-term capital.", "o": ["True", "False"], "a": 0, "e": "True: Long-term debt is a primary long-term capital source.", "type": "TF."},
+            {"q": "Using a single source cost for investment decisions ensures 100% accuracy.", "o": ["True", "False"], "a": 1, "e": "False: Single-source cost reliance can cause wrong investment decisions.", "type": "TF"},
+            {"q": "WACC combines the costs of all capital sources weighted by their respective proportions.", "o": ["True", "False"], "a": 0, "e": "True: WACC weights each component by its capital structure proportion.", "type": "TF"},
+            {"q": "The cost of capital acts as a hurdle rate for capital budgeting decisions.", "o": ["True", "False"], "a": 0, "e": "True: Projects must clear this minimum rate of return hurdle.", "type": "TF"},
+            {"q": "If an investment's return exceeds WACC, it increases the value of the firm.", "o": ["True", "False"], "a": 0, "e": "True: Exceeding WACC increases firm value.", "type": "TF"},
+            {"q": "Financial managers should accept projects whose expected return is below the cost of capital.", "o": ["True", "False"], "a": 1, "e": "False: Managers must invest only when benefits/returns exceed the cost of capital.", "type": "TF"},
+            {"q": "Optimal capital structure refers to the best mix of debt and equity financing.", "o": ["True", "False"], "a": 0, "e": "True: Optimal capital structure is the optimal debt/equity mix.", "type": "TF"},
+            {"q": "Cost of new common stock (rn) is typically higher than cost of retained earnings (rr) due to floatation costs.", "o": ["True", "False"], "a": 0, "e": "True: New stock costs more, as seen in DODO company (14.79% vs 14.0%).", "type": "TF"},
+            {"q": "In WACC calculations, weights can be expressed as percentages or decimals.", "o": ["True", "False"], "a": 0, "e": "True: Percentages (e.g. 40%) and decimals (0.40) are mathematically interchangeable.", "type": "TF"},
+            {"q": "Debt financing is always 100% free of cost for corporations.", "o": ["True", "False"], "a": 1, "e": "False: Debt carries an after-tax cost (ri) like 7.51%.", "type": "TF"},
+            {"q": "The cost of capital calculation is irrelevant when evaluating long-term business expansion.", "o": ["True", "False"], "a": 1, "e": "False: Cost of capital is central to long-term investment and financing decisions.", "type": "TF"},
+            {"q": "Total cost of capital captures all relevant financing costs under the desired financing mix.", "o": ["True", "False"], "a": 0, "e": "True: Total cost of capital captures all financing costs for the desired mix.", "type": "TF"},
+            {"q": "WACC calculation ignores preferred stock if a company only has debt and common stock.", "o": ["True", "False"], "a": 0, "e": "True: If preferred stock weight is zero or absent, the formula only sums debt and common equity components.", "type": "TF"},
+            {"q": "A company's cost of capital remains static and never changes over economic cycles.", "o": ["True", "False"], "a": 1, "e": "False: Market interest rates and equity costs fluctuate over time, changing WACC.", "type": "TF"},
+
+            // High-Level Questions (46-50)
+            {"q": "[HIGH-LEVEL] If a firm's WACC is 11.40%, and it finances a new project entirely with debt costing 7.51%, evaluating the project using the 7.51% debt rate rather than the 11.40% WACC will cause the firm to mistakenly accept unprofitable projects that destroy shareholder value.", "o": ["True", "False"], "a": 0, "e": "True: Single-source evaluation using low debt cost creates a false hurdle rate, leading to acceptance of value-destroying projects.", "type": "TF"},
+            {"q": "[HIGH-LEVEL] Retained earnings carry a 0% cost to the firm because no external dividends or interest payments are sent out immediately upon their generation.", "o": ["True", "False"], "a": 1, "e": "False: Retained earnings have an opportunity cost (cost of retained earnings, e.g. 14.0%) representing what shareholders could earn elsewhere.", "type": "TF"},
+            {"q": "[HIGH-LEVEL] If a company shifts its capital structure from 40% debt to 90% debt, the immediate drop in weighted cost due to cheap debt guarantees that the overall WACC will permanently remain at its lowest possible level.", "o": ["True", "False"], "a": 1, "e": "False: Extreme leverage drastically increases financial risk and bankruptcy probability, causing component costs of debt and equity to soar and ultimately raising WACC.", "type": "TF"},
+            {"q": "[HIGH-LEVEL] In AMAL company, if the cost of common stock rises from 12% to 15% while debt and preferred stock costs remain unchanged, the overall WACC will increase because common stock holds the largest weight (50%).", "o": ["True", "False"], "a": 0, "e": "True: A higher cost on a 50% weighted component directly drives up the weighted average cost of capital.", "type": "TF"},
+            {"q": "[HIGH-LEVEL] Financial managers who invest in projects yielding returns below WACC are fulfilling their moral responsibility to maximize firm value.", "o": ["True", "False"], "a": 1, "e": "False: Returns below WACC destroy firm value; managers are expected to invest only when benefits/returns exceed the cost of capital.", "type": "TF"}
+        ];
+
+        const getQuestionType = question => question.type.replace(/[.!?]+$/, "");
+
+        const P1_DATA = [
+            ...P1_SOURCE.filter(question => getQuestionType(question) === "MCQ"),
+            ...P2_SOURCE.filter(question => getQuestionType(question) === "MCQ")
+        ];
+        const P2_DATA = [
+            ...P1_SOURCE.filter(question => getQuestionType(question) === "TF"),
+            ...P2_SOURCE.filter(question => getQuestionType(question) === "TF")
+        ];
+
+        let activePart = 1;
+        let qData = P1_DATA;
+        let cIdx = 0;
+        let score = 0;
+        let wrongList = [];
+
+        const $ = id => document.getElementById(id);
+
+        function switchPart(part) {
+            activePart = part;
+            $("tab1").className = "tab-btn " + (part === 1 ? "active" : "");
+            $("tab2").className = "tab-btn " + (part === 2 ? "active" : "");
+            qData = part === 1 ? P1_DATA : P2_DATA;
+            resetQuiz();
+        }
+
+        function resetQuiz() {
+            cIdx = 0;
+            score = 0;
+            wrongList = [];
+            renderQuestion();
+        }
+
+        function renderQuestion() {
+            const q = qData[cIdx];
+            $("n").textContent = `Question ${cIdx + 1} of ${qData.length}`;
+            $("s").textContent = `Score: ${score}`;
+            $("bar").style.width = `${(cIdx / qData.length) * 100}%`;
+
+            let diagHtml = q.diagram ? `<div class="diagram-container">${q.diagram}</div>` : '';
+            
+            $("card").innerHTML = `
+                <span class="q-badge">${getQuestionType(q) === 'TF' ? 'True / False' : 'Multiple Choice'}</span>
+                <p class="q">${q.q}</p>
+                ${diagHtml}
+                <div id="opts"></div>
+                <div id="fb"></div>
+            `;
+
+            q.o.forEach((optText, i) => {
+                const b = document.createElement("button");
+                b.className = "opt";
+                b.innerHTML = `<b>${getQuestionType(q) === 'TF' ? (i===0?'T':'F') : "ABCD"[i] + ")"}</b><span></span>`;
+                b.querySelector("span").textContent = optText;
+                b.onclick = () => handleAnswer(i);
+                $("opts").appendChild(b);
+            });
+        }
+
+        function handleAnswer(selected) {
+            const q = qData[cIdx];
+            const isCorrect = selected === q.a;
+            const buttons = document.querySelectorAll(".opt");
+
+            buttons.forEach((btn, idx) => {
+                btn.disabled = true;
+                if (idx === q.a) btn.classList.add("ok");
+                else if (idx === selected) btn.classList.add("no");
+            });
+
+            if (isCorrect) score++;
+            else wrongList.push(cIdx);
+
+            $("s").textContent = `Score: ${score}`;
+
+            $("fb").innerHTML = `
+                <div class="ex ${isCorrect ? 'ok' : 'no'}">
+                    <strong>${isCorrect ? 'Correct answer ✓' : 'Incorrect answer ✗'}</strong>
+                    <span>${q.e}</span>
+                </div>
+                <button class="btn" id="nxtBtn">${cIdx < qData.length - 1 ? 'Next question' : 'Show final results'}</button>
+            `;
+
+            $("nxtBtn").onclick = () => {
+                cIdx++;
+                if (cIdx < qData.length) renderQuestion();
+                else finishQuiz();
+            };
+            $("nxtBtn").focus();
+        }
+
+        function finishQuiz() {
+            $("bar").style.width = "100%";
+            $("n").textContent = "Quiz complete";
+            const pct = Math.round((score / qData.length) * 100);
+            
+            let html = `
+                <div class="score">${score} / ${qData.length}</div>
+                <p style="text-align:center;font-size:1.2rem;margin:0 0 16px;">Percentage: <b>${pct}%</b></p>
+            `;
+
+            if (wrongList.length > 0) {
+                html += `<p style="margin:16px 0 8px;"><b>Questions to review:</b></p><ul class="rev">`;
+                wrongList.forEach(w => {
+                    html += `<li><b>Question ${w + 1}:</b> ${qData[w].q}</li>`;
+                });
+                html += `</ul>`;
+            } else {
+                html += `<p style="text-align:center;color:var(--ok);">Excellent! All answers are correct (100%).</p>`;
+            }
+
+            html += `<button class="btn" onclick="resetQuiz()">Restart quiz</button>`;
+            $("card").innerHTML = html;
+        }
+
+        renderQuestion();
+    </script>
+</body>
+</html>

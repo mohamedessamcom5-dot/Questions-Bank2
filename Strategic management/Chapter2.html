@@ -1,0 +1,436 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Strategic Management — Chapter 2: Environmental Scanning</title>
+    <style>
+        :root {
+            --bg: #0f172a;
+            --c: #1e293b;
+            --t: #f8fafc;
+            --m: #94a3b8;
+            --b: #334155;
+            --ac: #38bdf8;
+            --ok: #22c55e;
+            --okb: #052e16;
+            --no: #ef4444;
+            --nob: #450a0a;
+            box-sizing: border-box;
+        }
+
+        @media(prefers-color-scheme: light) {
+            :root[data-theme=light] {
+                --bg: #f8fafc;
+                --c: #ffffff;
+                --t: #0f172a;
+                --m: #64748b;
+                --b: #e2e8f0;
+                --ac: #0284c7;
+                --okb: #dcfce7;
+                --nob: #fee2e2;
+                --ok: #16a34a;
+                --no: #dc2626;
+            }
+        }
+
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--t);
+            font-family: 'Segoe UI', Tahoma, system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+        }
+        main {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 24px 16px 60px;
+        }
+        .header-panel {
+            text-align: center;
+            margin-bottom: 24px;
+            border-bottom: 8px solid var(--b);
+            padding-bottom: 30px;
+        }
+        h1 { font-size: 1.5rem; margin: 0 0 8px; color: var(--ac); }
+        .sub { color: var(--m); font-size: 0.95rem; margin: 0; }
+        
+        .nav-tabs {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .tab-btn {
+            flex: 1;
+            padding: 12px;
+            background: var(--c);
+            border: 1px solid var(--b);
+            color: var(--t);
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .tab-btn.active {
+            background: var(--ac);
+            color: #000;
+            border-color: var(--ac);
+        }
+
+        .bar {
+            height: 8px;
+            background: var(--b);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+        .bar i {
+            display: block;
+            height: 100%;
+            background: var(--ac);
+            width: 0;
+            transition: width 0.3s;
+        }
+        .meta {
+            display: flex;
+            justify-content: space-between;
+            color: var(--m);
+            font-size: 0.9rem;
+            margin-bottom: 16px;
+        }
+        .card {
+            background: var(--c);
+            border: 1px solid var(--b);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+        .q-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            background: var(--b);
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+            color: var(--ac);
+        }
+        .q-badge.high-level {
+            background: #f59e0b;
+            color: #000;
+            font-weight: bold;
+        }
+        .q {
+            font-size: 1.1rem;
+            font-weight: 600;
+            direction: ltr;
+            text-align: left;
+            margin: 0 0 16px;
+        }
+        .opt {
+            display: flex;
+            gap: 12px;
+            direction: ltr;
+            text-align: left;
+            width: 100%;
+            background: var(--c);
+            color: var(--t);
+            border: 1.5px solid var(--b);
+            border-radius: 8px;
+            padding: 12px 14px;
+            margin-bottom: 10px;
+            font: inherit;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+        .opt:hover:not(:disabled) { border-color: var(--ac); }
+        .opt b { min-width: 1.5em; color: var(--ac); }
+        .opt.ok { background: var(--okb); border-color: var(--ok); }
+        .opt.no { background: var(--nob); border-color: var(--no); }
+        .opt:disabled { cursor: default; }
+
+        .ex {
+            margin-top: 16px;
+            padding: 14px;
+            border-radius: 8px;
+            direction: ltr;
+            text-align: left;
+            font-size: 0.95rem;
+        }
+        .ex.ok { background: var(--okb); border: 1px solid var(--ok); }
+        .ex.no { background: var(--nob); border: 1px solid var(--no); }
+        .ex strong { display: block; margin-bottom: 4px; }
+
+        .btn {
+            margin-top: 16px;
+            background: var(--ac);
+            color: #000;
+            border: 0;
+            border-radius: 8px;
+            padding: 12px 24px;
+            font: inherit;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+        }
+        .score { text-align: center; font-size: 3rem; font-weight: 800; margin: 12px 0; color: var(--ac); }
+        .rev { margin: 16px 0 0; padding: 0; list-style: none; direction: ltr; text-align: left; font-size: 0.9rem; }
+        .rev li { padding: 8px 0; border-top: 1px solid var(--b); }
+    </style>
+</head>
+<body>
+    <main>
+        <div class="header-panel">
+            <h1>Strategic Management — Chapter 2</h1>
+            <p class="sub">Environmental Scanning & External Environment Analysis</p>
+        </div>
+        
+        <div class="nav-tabs">
+            <button class="tab-btn active" id="tab1" onclick="switchPart(1)">Multiple Choice</button>
+            <button class="tab-btn" id="tab2" onclick="switchPart(2)">True/False</button>
+        </div>
+
+        <div class="bar"><i id="bar"></i></div>
+        <div class="meta">
+            <span id="n"></span>
+            <span id="s"></span>
+        </div>
+        <div class="card" id="card"></div>
+    </main>
+      
+    <script>
+       const P1_SOURCE = [
+            // Standard Questions (1-45)
+            {"q": "How is Environmental Scanning defined in Chapter 2?", "o": ["An in-depth study of the external and internal environments (SWOT analysis) to avoid strategic surprise and risk and ensure long-term performance", "A short-term financial accounting audit of quarterly expenses", "A routine daily procedure for checking employee attendance and factory machinery", "An exclusive marketing campaign for launching new products"], "a": 0, "e": "Environmental scanning is defined as an in-depth study of the external and internal environments (SWOT) to avoid surprise and ensure long-term performance.", "type": "MCQ"},
+            {"q": "What two broad categories of environments are analyzed during environmental scanning to form a SWOT analysis?", "o": ["External (Opportunities and Threats) and Internal (Strengths and Weaknesses)", "Global and Local financial markets", "Short-term and Long-term operational budgets", "Macro and Micro economic policies"], "a": 0, "e": "Environmental scanning covers external environments (Opportunities and Threats) and internal environments (Strengths and Weaknesses).", "type": "MCQ"},
+            {"q": "What are the three layers of the external environment in environmental scanning?", "o": ["Natural Environment, Societal Environment, and Task Environment", "Structure, Culture, and Resources", "Corporate, Business, and Functional", "Mission, Objectives, and Policies"], "a": 0, "e": "The three layers of the external environment are Natural, Societal, and Task environments.", "type": "MCQ"},
+            {"q": "Which layer of the external environment represents the most basic foundation, consisting of physical resources, wildlife, and climate?", "o": ["Natural Environment", "Societal Environment", "Task Environment", "Internal Environment"], "a": 0, "e": "The Natural Environment consists of physical resources, wildlife, and climate inherent to Earth, upon which all industries depend.", "type": "MCQ"},
+            {"q": "What characterizes the Societal (General) Environment?", "o": ["General forces that do not directly affect short-run activities but influence the long-run decisions of multiple industries", "Specific competitors and customers within a single industry", "Internal corporate structures and employee culture", "Daily stock market fluctuations"], "a": 0, "e": "The societal environment involves general forces influencing long-run decisions of multiple industries rather than short-run daily operations.", "type": "MCQ"},
+            {"q": "Which framework is commonly used for scanning the Societal Environment?", "o": ["STEEP or PESTEL", "SWOT and ROI", "BCG Growth-Share Matrix", "Five Forces Model"], "a": 0, "e": "Scanning the societal environment is organized around STEEP or PESTEL forces.", "type": "MCQ"},
+            {"q": "What does the acronym PESTEL stand for in environmental analysis?", "o": ["Political, Economic, Sociocultural, Technological, Ecological, Legal", "Production, Efficiency, Staffing, Training, Evaluation, Logistics", "Planning, Execution, Staffing, Timing, Economics, Leadership", "Public, Enterprise, System, Technology, Environment, Law"], "a": 0, "e": "PESTEL stands for Political, Economic, Sociocultural, Technological, Ecological, and Legal forces.", "type": "MCQ"},
+            {"q": "Which of the following belongs to Economic forces in PESTEL analysis?", "o": ["GDP, interest rates, inflation rates, unemployment, and oil prices", "Government stability and trade tariffs", "Patent protection and R&D spending", "Health consciousness and lifestyle changes"], "a": 0, "e": "GDP, interest rates, inflation, unemployment, and oil prices are economic forces.", "type": "MCQ"},
+            {"q": "Which emerging economic grouping is frequently highlighted in societal economic scans?", "o": ["BRIC (Brazil, Russia, India, China)", "G7 nations exclusively", "EU agricultural cooperatives", "Local municipal councils"], "a": 0, "e": "BRIC (Brazil, Russia, India, China) represents key economic scanning markets.", "type": "MCQ"},
+            {"q": "Which of the following represents Technological forces in PESTEL analysis?", "o": ["Patent protection, R&D spending, cloud computing, biotechnology, and smart mobile robots", "Interest rates and inflation trends", "Minimum wage laws and labor unions", "Plastic straw and bag bans"], "a": 0, "e": "Patent protection, R&D spending, cloud computing, biotech, and robots are technological forces.", "type": "MCQ"},
+            {"q": "What real-world corporate failure is cited regarding technological scanning neglect?", "o": ["Kodak inventing digital photography but being slow to accept it, leading to digital cameras and smartphones ending film", "Walmart failing to adopt online e-commerce websites", "Maytag failing to acquire international appliance makers", "Maytag's lack of presence in Asian markets"], "a": 0, "e": "Kodak invented digital photography but was slow to adopt it, illustrating technological scanning failure.", "type": "MCQ"},
+            {"q": "Which of the following are Political-Legal force variables?", "o": ["Government stability, foreign trade regulations, environmental protection laws, and taxation laws", "Health consciousness and age distribution", "Cloud computing and patent protection", "Interest rates and GDP growth"], "a": 0, "e": "Government stability, trade regulations, environmental laws, and taxation are political-legal forces.", "type": "MCQ."},
+            {"q": "How did the EU General Data Protection Regulation (GDPR) impact firms as a legal force?", "o": ["Forced tech firms like Meta and Google to change how they handle user data and privacy practices", "Banned all smartphone usage across European borders", "Mandated a 10% tax on all software exports", "Eliminated international trade tariffs"], "a": 0, "e": "EU GDPR forced tech giants like Meta and Google to change user data handling practices.", "type": "MCQ."},
+            {"q": "Which variables comprise Sociocultural forces?", "o": ["Lifestyle changes, population growth rate, age distribution, health consciousness, and workforce diversity", "Interest rates, inflation, and currency exchange markets", "Government bureaucracy and WTO trade rules", "R&D spending and cloud computing infrastructure"], "a": 0, "e": "Lifestyle changes, population growth, age distribution, health consciousness, and diversity are sociocultural forces.", "type": "MCQ."},
+            {"q": "What industry trend is noted regarding mass marketing versus mass customization?", "o": ["Mass market is declining while mass customization is rising (e.g., in computers)", "Mass customization is disappearing while standard mass production is doubling", "Mass marketing is entirely replacing personalized products", "Mass customization applies exclusively to agricultural commodities"], "a": 0, "e": "Mass market is declining while mass customization is rising.", "type": "MCQ."},
+            {"q": "What real-world corporate shift was driven by rising sociocultural health awareness?", "o": ["Coca-Cola and Pepsi expanding zero-sugar beverage lines", "Kodak launching digital cameras", "McDonald's and Starbucks adopting paper straws", "Egypt floating its pound currency"], "a": 0, "e": "Rising health awareness pushed Coca-Cola and Pepsi to expand zero-sugar product lines.", "type": "MCQ."},
+            {"q": "What do Ecological forces primarily encompass in PESTEL scanning?", "o": ["Climate change, weather patterns, and environmental protection regulations like plastic-straw and bag bans", "Corporate income tax codes and labor union agreements", "Stock market capitalization and interest rate hikes", "Software patent protection and cloud servers"], "a": 0, "e": "Ecological forces cover climate, weather, and environmental regulations such as plastic straw and bag bans.", "type": "MCQ."},
+            {"q": "What real-world economic event dramatically impacted importers' costs in Egypt in November 2016?", "o": ["The floating of the Egyptian pound", "The implementation of EU GDPR regulations", "US-China trade tariff enactments", "The introduction of smartphone cloud computing"], "a": 0, "e": "Egypt floating its pound in November 2016 caused importers' costs to jump overnight.", "type": "MCQ."},
+            {"q": "What tool is used to prioritize external issues identified during environmental scanning?", "o": ["Issues Priority Matrix (Probability of occurrence vs Probable impact)", "BCG Growth-Share Matrix", "Financial Balance Sheet Audit", "Job Evaluation Ranking Scale"], "a": 0, "e": "The Issues Priority Matrix plots probability of occurrence against probable impact to prioritize trends.", "type": "MCQ."},
+            {"q": "In the Issues Priority Matrix, which category of trends becomes the 'External Strategic Factors'?", "o": ["High probability and high impact (High-High cells)", "Low probability and low impact", "Medium probability and low impact", "Low probability and high impact"], "a": 0, "e": "Trends in the High-High probability and impact cells become the external strategic factors.", "type": "MCQ."},
+            {"q": "Do top managers have direct control over external environmental variables?", "o": ["No, external variables are outside the organization's direct control; companies must adapt to them", "Yes, top managers have total short-term control over societal inflation and weather", "Yes, top managers legally decree global interest rates", "No, but they can dissolve external competitors at will"], "a": 0, "e": "Variables in the external environment are outside direct control; organizations must monitor and adapt.", "type": "MCQ."},
+            {"q": "What does SWOT analysis combine?", "o": ["External Opportunities and Threats with Internal Strengths and Weaknesses", "Financial budgets with marketing sales quotas", "Short-term liabilities with long-term assets", "Corporate missions with departmental procedures"], "a": 0, "e": "SWOT combines external environmental scanning (Opportunities and Threats) with internal environment evaluation (Strengths and Weaknesses).", "type": "MCQ."},
+            {"q": "Which of the following best describes the Natural environment's relationship with industry?", "o": ["Every industry in the end depends on natural resources, energy, water, and a stable climate to operate", "It only affects agricultural farming and has zero impact on technology firms", "It is entirely controlled by top management decisions", "It is unrelated to supply chain risk"], "a": 0, "e": "Every industry ultimately depends on natural resources, energy, water, and climate.", "type": "MCQ."},
+            {"q": "What is the primary purpose of monitoring and disseminating environmental scanning information?", "o": ["To identify strategic factors (Opportunities and Threats) and avoid strategic surprise and risk", "To calculate quarterly employee payroll taxes", "To design office cafeteria seating arrangements", "To print advertising brochures"], "a": 0, "e": "Scanning monitors and disseminates info to identify opportunities/threats and avoid strategic surprise.", "type": "MCQ."},
+            {"q": "How do societal environment forces differ from task environment forces?", "o": ["Societal forces affect multiple industries over the long run, whereas task forces directly involve the specific industry and stakeholders", "Societal forces apply to only one company at a time", "Task forces have no impact on company operations", "Societal forces can be directly controlled by frontline supervisors"], "a": 0, "e": "Societal forces affect multiple industries broadly over the long run, unlike task industry forces.", "type": "MCQ."},
+            {"q": "Which of the following is an example of a demographic sociocultural force?", "o": ["Aging population and growth of the seniors market (over 55)", "Corporate patent protection laws", "Fluctuating global crude oil prices", "Cloud computing server architecture"], "a": 0, "e": "Population growth, age distribution, and the seniors market over 55 are demographic sociocultural forces.", "type": "MCQ."},
+            {"q": "What does STEEP stand for as an alternative to PESTEL?", "o": ["Sociocultural, Technological, Economic, Ecological, Political-legal", "Staffing, Training, Evaluation, Execution, Planning", "Sales, Technology, Efficiency, Economics, Production", "System, Task, Environment, Economy, Policy"], "a": 0, "e": "STEEP stands for Sociocultural, Technological, Economic, Ecological, and Political-legal.", "type": "MCQ."},
+            {"q": "What is the key difference between STEEP and PESTEL?", "o": ["PESTEL explicitly treats Legal as a separate force from Political, whereas STEEP combines them into Political-Legal", "STEEP includes financial accounting audits while PESTEL does not", "PESTEL is used exclusively for non-profit organizations", "There is zero difference between the two acronyms"], "a": 0, "e": "STEEP combines Political-Legal, whereas PESTEL explicitly splits Legal into its own separate force.", "type": "MCQ."},
+            {"q": "Why is scanning the natural environment increasingly critical for supply chain risk management?", "o": ["Climate change and weather patterns directly disrupt agriculture, insurance, energy, and global transport supply chains", "Natural resources have become completely infinite and free", "Weather patterns have zero impact on corporate expenses", "Climate stability eliminates all business competition"], "a": 0, "e": "Climate change and weather patterns alter agriculture, energy, insurance, and supply-chain risk.", "type": "MCQ."},
+            {"q": "In the Issues Priority Matrix, where do trends with low probability and low impact fall?", "o": ["Low Priority cells", "High Priority cells", "Medium Priority cells", "External Strategic Factor cells"], "a": 0, "e": "Trends with low probability and low impact fall in the Low Priority cells.", "type": "MCQ."},
+            {"q": "What happens to trends that land in the High Priority cells of the Issues Priority Matrix?", "o": ["They are monitored closely as critical external strategic factors for strategy formulation", "They are permanently ignored and deleted from records", "They are automatically converted into internal strengths", "They are treated as daily accounting ledger entries"], "a": 0, "e": "High priority trends become external strategic factors guiding strategic decisions.", "type": "MCQ."},
+            {"q": "Which force category includes government stability and foreign trade regulations?", "o": ["Political-Legal", "Economic", "Sociocultural", "Ecological"], "a": 0, "e": "Government stability and trade regulations belong to Political-Legal forces.", "type": "MCQ."},
+            {"q": "Which force category includes GDP growth rate and currency exchange markets?", "o": ["Economic", "Political-Legal", "Technological", "Sociocultural"], "a": 0, "e": "GDP and currency markets belong to Economic forces.", "type": "MCQ."},
+            {"q": "Which force category includes R&D spending and virtual personal assistants?", "o": ["Technological", "Ecological", "Political-Legal", "Sociocultural"], "a": 0, "e": "R&D spending and virtual personal assistants belong to Technological forces.", "type": "MCQ."},
+            {"q": "Which force category includes health consciousness and household composition?", "o": ["Sociocultural", "Economic", "Legal", "Political"], "a": 0, "e": "Health consciousness and household composition belong to Sociocultural forces.", "type": "MCQ."},
+            {"q": "Which force category includes plastic-straw and bag bans?", "o": ["Ecological", "Economic", "Technological", "Political-Legal"], "a": 0, "e": "Plastic straw and bag bans belong to Ecological forces.", "type": "MCQ."},
+            {"q": "What is the primary objective of Chapter 2 according to the lecture agenda?", "o": ["Understanding aspects of the environment that shape long-term decisions, societal forces, and key variables/trends", "Mastering Porter's five forces and industry matrix calculations", "Conducting job descriptions and person specifications", "Performing regression analysis on factory machine voltage"], "a": 0, "e": "Chapter 2 goals focus on environmental aspects shaping long-term decisions and societal forces/trends.", "type": "MCQ."},
+            {"q": "How does the societal environment influence multi-year strategic choices?", "o": ["By shaping where to invest and which markets to enter over the long run", "By establishing daily shift schedules for factory workers", "By auditing quarterly income statements", "By negotiating individual employee grievances"], "a": 0, "e": "The societal environment shapes multi-year strategic choices such as market entry and investments.", "type": "MCQ."},
+            {"q": "Why are societal forces considered broad rather than industry-specific?", "o": ["Because a rise in interest rates or inflation affects retailers, manufacturers, and banks alike across multiple industries", "Because they apply to only one single corporation globally", "Because they are controlled entirely by department supervisors", "Because they have zero impact on the financial sector"], "a": 0, "e": "Societal forces affect multiple industries simultaneously (e.g., interest rates affect banks, retailers, and manufacturers).", "type": "MCQ."},
+            {"q": "What role do physical resources play in the natural environment layer?", "o": ["Providing raw materials, minerals, energy sources, land, and water supplies used across industries", "Financing corporate stock buybacks", "Regulating labor union contracts", "Developing artificial intelligence algorithms"], "a": 0, "e": "Physical resources provide raw materials, energy, land, and water used across industries.", "type": "MCQ."},
+            {"q": "How do wildlife and ecosystems impact specific industries?", "o": ["Industries such as agriculture, medicine, and tourism depend on biodiversity and healthy ecosystems", "They dictate software coding protocols for tech firms", "They set international currency exchange rates", "They manage corporate tax auditing standards"], "a": 0, "e": "Agriculture, medicine, and tourism depend directly on wildlife and healthy ecosystems.", "type": "MCQ."},
+            {"q": "What is the ultimate outcome of completing Chapter 2 environmental scanning?", "o": ["Identifying external opportunities and threats to feed into SWOT analysis and strategic planning", "Closing down all business operations permanently", "Drafting employee health insurance policies", "Issuing shareholder dividend checks"], "a": 0, "e": "Scanning culminates in identifying external opportunities and threats for SWOT analysis.", "type": "MCQ."},
+            {"q": "What does a probability score of occurrence measure in the Issues Priority Matrix?", "o": ["How likely a given environmental trend or event is to happen", "The exact financial profit generated by a product line", "The number of employees in a manufacturing plant", "The speed of cloud server data transfer"], "a": 0, "e": "Probability of occurrence measures how likely an environmental trend is to happen.", "type": "MCQ."},
+            {"q": "What does probable impact measure in the Issues Priority Matrix?", "o": ["The magnitude of consequence or effect the trend will have on the corporation or industry", "The physical weight of office machinery", "The number of customer complaints received daily", "The corporate income tax percentage"], "a": 0, "e": "Probable impact measures the magnitude of effect the trend will have on the firm or industry.", "type": "MCQ."},
+            {"q": "If a macroeconomic trend has high probability and medium impact, where does it land in the priority matrix?", "o": ["High Priority cell", "Low Priority cell", "Zero Priority cell", "Irrelevant cell"], "a": 0, "e": "High probability combined with medium impact lands in the High Priority category.", "type": "MCQ."},
+
+            // High-Level Questions (46-50)
+            {"q": "[HIGH-LEVEL] A corporate executive assumes that because societal and natural environmental forces are completely outside direct managerial control, environmental scanning and PESTEL analysis are a waste of time and should be abandoned. According to Chapter 2, why is this executive committing a fatal strategic error?", "o": ["Although external forces cannot be directly controlled, scanning them is vital to identify opportunities and threats, avoid strategic surprise, and adapt long-term plans", "Because external forces can actually be controlled by altering daily shift hours", "Because PESTEL analysis legally replaces financial accounting audits", "Because natural forces only affect agricultural farming"], "a": 0, "e": "External variables are outside direct control, but scanning them is essential to avoid strategic surprise and ensure long-term performance.", "type": "MCQ."},
+            {"q": "[HIGH-LEVEL] An analyst plots an emerging technological trend (such as generative AI disruption) on the Issues Priority Matrix and determines it has a Low probability of occurrence but an extremely High probable impact on the corporation. According to the matrix rules, how should management classify this trend?", "o": ["Medium Priority (sitting in the row/column intersection of low probability and high impact)", "High Priority (because impact is high)", "Low Priority (because probability is low)", "Ignored entirely"], "a": 0, "e": "According to the Issues Priority Matrix, Low probability and High impact intersect in the Medium Priority cells.", "type": "MCQ."},
+            {"q": "[HIGH-LEVEL] A retail bank experiences a sudden country-wide surge in loan defaults following an unexpected government currency float and soaring inflation rates. Management reviews their PESTEL scan. Which combined societal forces from Chapter 2 triggered this crisis?", "o": ["Economic forces (inflation, currency fluctuation) and Political-Legal forces (government currency policies)", "Sociocultural lifestyle changes and ecological plastic bans", "Technological cloud computing and R&D spending", "Natural wildlife ecosystems and demographic aging"], "a": 0, "e": "Currency float and inflation belong to Economic forces, while government policies belong to Political-Legal forces.", "type": "MCQ."},
+            {"q": "[HIGH-LEVEL] When comparing the Societal environment to the Task environment, a logistics manager argues that a global rise in crude oil prices and fluctuating exchange rates are task environment variables because they immediately impact transport fuel bills. How should this misunderstanding be corrected?", "o": ["Crude oil and exchange rates are general societal (economic) forces affecting multiple industries broadly, whereas the task environment consists specifically of direct industry stakeholders like customers, suppliers, and competitors", "Oil prices are internal corporate strengths", "Exchange rates are part of company culture", "There is no distinction between societal and task environments"], "a": 0, "e": "Societal economic forces affect multiple industries broadly, whereas task environments involve direct industry stakeholders.", "type": "MCQ."},
+            {"q": "[HIGH-LEVEL] If a company completely omits the Natural environment layer and focuses solely on PESTEL societal forces, what fundamental vulnerability is introduced into their long-term strategic plan?", "o": ["They ignore basic physical resources, energy, water, and climate vulnerabilities upon which every industry ultimately depends for survival and supply-chain stability", "They will violate labor union rules", "They will fail employee recruitment interviews", "They will miscalculate internal accounting depreciation"], "a": 0, "e": "The natural environment is the most basic layer; every industry ultimately depends on natural resources, energy, water, and climate.", "type": "MCQ."}
+        ];
+
+        const P2_SOURCE = [
+            // Standard Questions (1-45)
+            {"q": "Environmental scanning is an in-depth study of external and internal environments to avoid strategic surprise.", "o": ["True", "False"], "a": 0, "e": "True: Environmental scanning is an in-depth study of external and internal environments to avoid surprise.", "type": "TF"},
+            {"q": "Environmental scanning examines exclusively the external environment without looking inside the firm.", "o": ["True", "False"], "a": 1, "e": "False: It examines both external (Opportunities/Threats) and internal (Strengths/Weaknesses) environments (SWOT).", "type": "TF"},
+            {"q": "The societal environment directly affects a firm's short-run daily operational activities.", "o": ["True", "False"], "a": 1, "e": "False: Societal forces influence *long-run* decisions of multiple industries rather than short-run daily operations.", "type": "TF"},
+            {"q": "The natural environment includes physical resources, wildlife, and climate inherent to Earth.", "o": ["True", "False"], "a": 0, "e": "True: Natural environment covers physical resources, wildlife, and climate.", "type": "TF"},
+            {"q": "Every industry ultimately depends on natural resources, energy, water, and a stable climate to operate.", "o": ["True", "False"], "a": 0, "e": "True: Every industry depends on natural resources, water, energy, and climate.", "type": "TF"},
+            {"q": "PESTEL analysis covers Political, Economic, Sociocultural, Technological, Ecological, and Legal forces.", "o": ["True", "False"], "a": 0, "e": "True: PESTEL stands for Political, Economic, Sociocultural, Technological, Ecological, and Legal.", "type": "TF"},
+            {"q": "STEEP combines Political and Legal forces into a single category, whereas PESTEL treats Legal as a separate force.", "o": ["True", "False"], "a": 0, "e": "True: STEEP combines Political-Legal, while PESTEL splits Legal into its own force.", "type": "TF"},
+            {"q": "Top management has direct, immediate control over external societal and natural environmental variables.", "o": ["True", "False"], "a": 1, "e": "False: External variables are *outside* the organization's direct control; companies must adapt.", "type": "TF"},
+            {"q": "GDP, interest rates, inflation rates, and oil prices are examples of Economic forces.", "o": ["True", "False"], "a": 0, "e": "True: GDP, interest rates, inflation, and oil prices are economic forces.", "type": "TF"},
+            {"q": "Patent protection, R&D spending, and cloud computing represent Technological forces.", "o": ["True", "False"], "a": 0, "e": "True: Patents, R&D, and cloud computing are technological forces.", "type": "TF"},
+            {"q": "Government stability and environmental protection laws belong to Political-Legal forces.", "o": ["True", "False"], "a": 0, "e": "True: Government stability and environmental laws are political-legal forces.", "type": "TF"},
+            {"q": "Health consciousness, population growth, and age distribution are Sociocultural forces.", "o": ["True", "False"], "a": 0, "e": "True: Health consciousness, population growth, and age distribution are sociocultural.", "type": "TF"},
+            {"q": "Plastic-straw and bag bans are examples of Ecological forces.", "o": ["True", "False"], "a": 0, "e": "True: Plastic-straw and bag bans are ecological forces.", "type": "TF"},
+            {"q": "The Issues Priority Matrix plots the probability of occurrence against the probable impact of trends.", "o": ["True", "False"], "a": 0, "e": "True: The matrix plots probability of occurrence versus probable impact.", "type": "TF"},
+            {"q": "Trends with high probability and high impact become external strategic factors in the High-High cells.", "o": ["True", "False"], "a": 0, "e": "True: High-probability and high-impact trends become external strategic factors.", "type": "TF"},
+            {"q": "A trend with low probability and low impact is classified as a high priority in the priority matrix.", "o": ["True", "False"], "a": 1, "e": "False: Low probability and low impact fall in low-priority cells.", "type": "TF"},
+            {"q": "Kodak's failure to embrace digital photography is a real-world example of neglecting technological scanning.", "o": ["True", "False"], "a": 0, "e": "True: Kodak was slow to accept digital photography, illustrating technological scanning failure.", "type": "TF"},
+            {"q": "Egypt floating its pound in November 2016 is an example of a societal economic force.", "o": ["True", "False"], "a": 0, "e": "True: Floating the Egyptian pound is an economic force.", "type": "TF"},
+            {"q": "The EU General Data Protection Regulation (GDPR) is an example of a legal force.", "o": ["True", "False"], "a": 0, "e": "True: EU GDPR is a legal force forcing data practice changes.", "type": "TF"},
+            {"q": "Societal forces affect multiple industries simultaneously rather than just one specific industry.", "o": ["True", "False"], "a": 0, "e": "True: Societal forces influence long-run decisions across multiple industries.", "type": "TF"},
+            {"q": "The mass market is currently expanding rapidly while mass customization is declining.", "o": ["True", "False"], "a": 1, "e": "False: The reverse is true: mass market is declining while mass customization is rising.", "type": "TF"},
+            {"q": "Rising health consciousness prompted beverage brands like Coca-Cola and Pepsi to expand zero-sugar lines.", "o": ["True", "False"], "a": 0, "e": "True: Health awareness pushed beverage brands toward zero-sugar lines.", "type": "TF"},
+            {"q": "BRIC stands for Brazil, Russia, India, and China.", "o": ["True", "False"], "a": 0, "e": "True: BRIC represents Brazil, Russia, India, and China.", "type": "TF"},
+            {"q": "Internal environmental variables are typically within top management's control, unlike external variables.", "o": ["True", "False"], "a": 0, "e": "True: Internal variables are within top management's control, unlike external ones.", "type": "TF"},
+            {"q": "External environmental scanning identifies opportunities and threats for SWOT analysis.", "o": ["True", "False"], "a": 0, "e": "True: Scanning external environments identifies opportunities and threats.", "type": "TF"},
+            {"q": "Internal environmental scanning identifies strengths and weaknesses for SWOT analysis.", "o": ["True", "False"], "a": 0, "e": "True: Internal scanning identifies strengths and weaknesses.", "type": "TF"},
+            {"q": "Climate change and long-run weather patterns have zero impact on agriculture and energy industries.", "o": ["True", "False"], "a": 1, "e": "False: Climate change alters agriculture, energy, insurance, and supply-chain risk.", "type": "TF"},
+            {"q": "Physical resources in the natural environment include raw materials, minerals, energy, land, and water.", "o": ["True", "False"], "a": 0, "e": "True: Physical resources include raw materials, minerals, energy sources, land, and water.", "type": "TF"},
+            {"q": "Wildlife and ecosystems are vital for industries such as agriculture, medicine, and tourism.", "o": ["True", "False"], "a": 0, "e": "True: Agriculture, medicine, and tourism depend on wildlife and ecosystems.", "type": "TF"},
+            {"q": "Societal environment forces shape multi-year strategic choices more than this quarter's operations.", "o": ["True", "False"], "a": 0, "e": "True: Societal forces shape multi-year strategic choices rather than short-run operations.", "type": "TF"},
+            {"q": "A rise in interest rates affects retailers, manufacturers, and banks simultaneously, illustrating a societal force.", "o": ["True", "False"], "a": 0, "e": "True: Societal forces affect multiple industries at once.", "type": "TF"},
+            {"q": "R&D spending by government and industry is classified as a sociocultural force.", "o": ["True", "False"], "a": 1, "e": "False: R&D spending is a *technological* force, not sociocultural.", "type": "TF"},
+            {"q": "Unemployment rates and oil prices are classified as economic forces.", "o": ["True", "False"], "a": 0, "e": "True: Unemployment and oil prices are economic forces.", "type": "TF"},
+            {"q": "The seniors market (people over 55) is an example of a demographic sociocultural force.", "o": ["True", "False"], "a": 0, "e": "True: The seniors market over 55 is a demographic sociocultural force.", "type": "TF"},
+            {"q": "Government stability and trade regulations are part of technological forces.", "o": ["True", "False"], "a": 1, "e": "False: Government stability and trade regulations are political-legal forces.", "type": "TF"},
+            {"q": "Environmental protection laws and labor laws belong to political-legal forces.", "o": ["True", "False"], "a": 0, "e": "True: Environmental and labor laws are political-legal forces.", "type": "TF"},
+            {"q": "Chapter 2 focuses on analyzing the internal environment while Chapter 3 focuses on the external environment.", "o": ["True", "False"], "a": 1, "e": "False: Chapter 2 focuses on external environmental scanning (natural and societal), while Chapter 3 focuses on the task environment/industry analysis.", "type": "TF"},
+            {"q": "Environmental scanning helps firms avoid strategic surprise and risk.", "o": ["True", "False"], "a": 0, "e": "True: Environmental scanning avoids strategic surprise and risk.", "type": "TF"},
+            {"q": "The natural environment is considered the most basic layer of the external environment.", "o": ["True", "False"], "a": 0, "e": "True: The natural environment is the most basic layer upon which all industries depend.", "type": "TF"},
+            {"q": "In the Issues Priority Matrix, probability and impact are evaluated on High, Medium, and Low scales.", "o": ["True", "False"], "a": 0, "e": "True: The matrix uses High, Medium, and Low scales for probability and impact.", "type": "TF"},
+            {"q": "External strategic factors derived from PESTEL analysis are irrelevant to SWOT formulation.", "o": ["True", "False"], "a": 1, "e": "False: External strategic factors extracted from PESTEL and Porter's form the foundation of SWOT and EFAS analysis.", "type": "TF"},
+            {"q": "Consumer demand for instant communication and the pace of life are sociocultural forces.", "o": ["True", "False"], "a": 0, "e": "True: Pace and location of life are sociocultural forces.", "type": "TF"},
+            {"q": "Cloud computing and portable mobile devices are economic forces rather than technological forces.", "o": ["True", "False"], "a": 1, "e": "False: Cloud computing and portable devices are technological forces.", "type": "TF"},
+            {"q": "Foreign trade regulations and WTO policies are political-legal forces.", "o": ["True", "False"], "a": 0, "e": "True: Trade regulations and WTO policies are political-legal forces.", "type": "TF"},
+            {"q": "Strategic management requires continuous scanning of both macro-environmental trends and micro-environmental industry forces.", "o": ["True", "False"], "a": 0, "e": "True: Effective strategic management requires scanning macro societal trends and micro task forces.", "type": "TF"},
+
+            // High-Level Questions (46-50)
+            {"q": "[HIGH-LEVEL] If a management team concludes that societal environmental forces only impact single-firm short-run daily workflows, they have accurately interpreted Chapter 2 foundational definitions.", "o": ["True", "False"], "a": 1, "e": "False: Societal forces affect *multiple industries* over the *long run* rather than short-run daily workflows.", "type": "TF"},
+            {"q": "[HIGH-LEVEL] According to Chapter 2, top management exercises direct operational control over external macroeconomic interest rates and global climate patterns in the short term.", "o": ["True", "False"], "a": 1, "e": "False: External variables are outside direct managerial control; organizations must monitor and adapt.", "type": "TF"},
+            {"q": "[HIGH-LEVEL] The Issues Priority Matrix categorizes trends into priority cells based on their probability of occurrence and probable impact on the corporation or industry.", "o": ["True", "False"], "a": 0, "e": "True: The matrix plots probability of occurrence against probable impact to establish priorities.", "type": "TF"},
+            {"q": "[HIGH-LEVEL] PESTEL analysis treats legal regulations as entirely identical to political stability without any separate distinction.", "o": ["True", "False"], "a": 1, "e": "False: PESTEL explicitly treats Legal as a separate force distinct from Political.", "type": "TF"},
+            {"q": "[HIGH-LEVEL] Environmental scanning serves as the critical initial diagnostic phase that uncovers external opportunities and threats, directly fueling SWOT analysis and strategic decision-making.", "o": ["True", "False"], "a": 0, "e": "True: Scanning external environments uncovers opportunities and threats to form SWOT and guide long-term performance.", "type": "TF"}
+        ];
+
+        const getQuestionType = question => question.type.replace(/[.!?]+$/, "");
+
+        const P1_DATA = [
+            ...P1_SOURCE.filter(question => getQuestionType(question) === "MCQ"),
+            ...P2_SOURCE.filter(question => getQuestionType(question) === "MCQ")
+        ];
+        const P2_DATA = [
+            ...P1_SOURCE.filter(question => getQuestionType(question) === "TF"),
+            ...P2_SOURCE.filter(question => getQuestionType(question) === "TF")
+        ];
+
+        let activePart = 1;
+        let qData = P1_DATA;
+        let cIdx = 0;
+        let score = 0;
+        let wrongList = [];
+
+        const $ = id => document.getElementById(id);
+
+        function switchPart(part) {
+            activePart = part;
+            $("tab1").className = "tab-btn " + (part === 1 ? "active" : "");
+            $("tab2").className = "tab-btn " + (part === 2 ? "active" : "");
+            qData = part === 1 ? P1_DATA : P2_DATA;
+            resetQuiz();
+        }
+
+        function resetQuiz() {
+            cIdx = 0;
+            score = 0;
+            wrongList = [];
+            renderQuestion();
+        }
+
+        function renderQuestion() {
+            const q = qData[cIdx];
+            $("n").textContent = `Question ${cIdx + 1} of ${qData.length}`;
+            $("s").textContent = `Score: ${score}`;
+            $("bar").style.width = `${(cIdx / qData.length) * 100}%`;
+
+            const isHighLevel = cIdx >= 45;
+            const badgeClass = isHighLevel ? "q-badge high-level" : "q-badge";
+            const badgeText = isHighLevel 
+                ? (getQuestionType(q) === 'TF' ? 'True / False — High Level' : 'Multiple Choice — High Level')
+                : (getQuestionType(q) === 'TF' ? 'True / False' : 'Multiple Choice');
+            
+            $("card").innerHTML = `
+                <span class="${badgeClass}">${badgeText}</span>
+                <p class="q">${q.q}</p>
+                <div id="opts"></div>
+                <div id="fb"></div>
+            `;
+
+            q.o.forEach((optText, i) => {
+                const b = document.createElement("button");
+                b.className = "opt";
+                b.innerHTML = `<b>${getQuestionType(q) === 'TF' ? (i===0?'T':'F') : "ABCD"[i] + ")"}</b><span></span>`;
+                b.querySelector("span").textContent = optText;
+                b.onclick = () => handleAnswer(i);
+                $("opts").appendChild(b);
+            });
+        }
+
+        function handleAnswer(selected) {
+            const q = qData[cIdx];
+            const isCorrect = selected === q.a;
+            const buttons = document.querySelectorAll(".opt");
+
+            buttons.forEach((btn, idx) => {
+                btn.disabled = true;
+                if (idx === q.a) btn.classList.add("ok");
+                else if (idx === selected) btn.classList.add("no");
+            });
+
+            if (isCorrect) score++;
+            else wrongList.push(cIdx);
+
+            $("s").textContent = `Score: ${score}`;
+
+            $("fb").innerHTML = `
+                <div class="ex ${isCorrect ? 'ok' : 'no'}">
+                    <strong>${isCorrect ? 'Correct answer ✓' : 'Incorrect answer ✗'}</strong>
+                    <span>${q.e}</span>
+                </div>
+                <button class="btn" id="nxtBtn">${cIdx < qData.length - 1 ? 'Next question' : 'Show final results'}</button>
+            `;
+
+            $("nxtBtn").onclick = () => {
+                cIdx++;
+                if (cIdx < qData.length) renderQuestion();
+                else finishQuiz();
+            };
+            $("nxtBtn").focus();
+        }
+
+        function finishQuiz() {
+            $("bar").style.width = "100%";
+            $("n").textContent = "Quiz complete";
+            const pct = Math.round((score / qData.length) * 100);
+            
+            let html = `
+                <div class="score">${score} / ${qData.length}</div>
+                <p style="text-align:center;font-size:1.2rem;margin:0 0 16px;">Percentage: <b>${pct}%</b></p>
+            `;
+
+            if (wrongList.length > 0) {
+                html += `<p style="margin:16px 0 8px;"><b>Questions to review:</b></p><ul class="rev">`;
+                wrongList.reverse().forEach(w => {
+                    html += `<li><b>Question ${w + 1}:</b> ${qData[w].q}</li>`;
+                });
+                html += `</ul>`;
+            } else {
+                html += `<p style="text-align:center;color:var(--ok);">Excellent! All answers are correct (100%).</p>`;
+            }
+
+            html += `<button class="btn" onclick="resetQuiz()">Restart quiz</button>`;
+            $("card").innerHTML = html;
+        }
+
+        renderQuestion();
+    </script>
+</body>
+</html>

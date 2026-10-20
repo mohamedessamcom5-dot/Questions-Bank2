@@ -1,0 +1,436 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Problem Solving and Decision Making — Chapter 1 Quiz</title>
+    <style>
+        :root {
+            --bg: #0f172a;
+            --c: #1e293b;
+            --t: #f8fafc;
+            --m: #94a3b8;
+            --b: #334155;
+            --ac: #38bdf8;
+            --ok: #22c55e;
+            --okb: #052e16;
+            --no: #ef4444;
+            --nob: #450a0a;
+            box-sizing: border-box;
+        }
+
+        @media(prefers-color-scheme: light) {
+            :root[data-theme=light] {
+                --bg: #f8fafc;
+                --c: #ffffff;
+                --t: #0f172a;
+                --m: #64748b;
+                --b: #e2e8f0;
+                --ac: #0284c7;
+                --okb: #dcfce7;
+                --nob: #fee2e2;
+                --ok: #16a34a;
+                --no: #dc2626;
+            }
+        }
+
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--t);
+            font-family: 'Segoe UI', Tahoma, system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+        }
+        main {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 24px 16px 60px;
+        }
+        .header-panel {
+            text-align: center;
+            margin-bottom: 24px;
+            border-bottom: 8px solid var(--b);
+            padding-bottom: 30px;
+        }
+        h1 { font-size: 1.5rem; margin: 0 0 8px; color: var(--ac); }
+        .sub { color: var(--m); font-size: 0.95rem; margin: 0; }
+        
+        .nav-tabs {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .tab-btn {
+            flex: 1;
+            padding: 12px;
+            background: var(--c);
+            border: 1px solid var(--b);
+            color: var(--t);
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .tab-btn.active {
+            background: var(--ac);
+            color: #000;
+            border-color: var(--ac);
+        }
+
+        .bar {
+            height: 8px;
+            background: var(--b);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+        .bar i {
+            display: block;
+            height: 100%;
+            background: var(--ac);
+            width: 0;
+            transition: width 0.3s;
+        }
+        .meta {
+            display: flex;
+            justify-content: space-between;
+            color: var(--m);
+            font-size: 0.9rem;
+            margin-bottom: 16px;
+        }
+        .card {
+            background: var(--c);
+            border: 1px solid var(--b);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+        .q-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            background: var(--b);
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+            color: var(--ac);
+        }
+        .q-badge.high-level {
+            background: #f59e0b;
+            color: #000;
+            font-weight: bold;
+        }
+        .q {
+            font-size: 1.1rem;
+            font-weight: 600;
+            direction: ltr;
+            text-align: left;
+            margin: 0 0 16px;
+        }
+        .opt {
+            display: flex;
+            gap: 12px;
+            direction: ltr;
+            text-align: left;
+            width: 100%;
+            background: var(--c);
+            color: var(--t);
+            border: 1.5px solid var(--b);
+            border-radius: 8px;
+            padding: 12px 14px;
+            margin-bottom: 10px;
+            font: inherit;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+        .opt:hover:not(:disabled) { border-color: var(--ac); }
+        .opt b { min-width: 1.5em; color: var(--ac); }
+        .opt.ok { background: var(--okb); border-color: var(--ok); }
+        .opt.no { background: var(--nob); border-color: var(--no); }
+        .opt:disabled { cursor: default; }
+
+        .ex {
+            margin-top: 16px;
+            padding: 14px;
+            border-radius: 8px;
+            direction: ltr;
+            text-align: left;
+            font-size: 0.95rem;
+        }
+        .ex.ok { background: var(--okb); border: 1px solid var(--ok); }
+        .ex.no { background: var(--nob); border: 1px solid var(--no); }
+        .ex strong { display: block; margin-bottom: 4px; }
+
+        .btn {
+            margin-top: 16px;
+            background: var(--ac);
+            color: #000;
+            border: 0;
+            border-radius: 8px;
+            padding: 12px 24px;
+            font: inherit;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+        }
+        .score { text-align: center; font-size: 3rem; font-weight: 800; margin: 12px 0; color: var(--ac); }
+        .rev { margin: 16px 0 0; padding: 0; list-style: none; direction: ltr; text-align: left; font-size: 0.9rem; }
+        .rev li { padding: 8px 0; border-top: 1px solid var(--b); }
+    </style>
+</head>
+<body>
+    <main>
+        <div class="header-panel">
+            <h1>Chapter 1: Problem Solving & Decision Making</h1>
+            <p class="sub">Comprehensive Exam Question Bank</p>
+        </div>
+        
+        <div class="nav-tabs">
+            <button class="tab-btn active" id="tab1" onclick="switchPart(1)">Multiple Choice (50)</button>
+            <button class="tab-btn" id="tab2" onclick="switchPart(2)">True/False (50)</button>
+        </div>
+
+        <div class="bar"><i id="bar"></i></div>
+        <div class="meta">
+            <span id="n"></span>
+            <span id="s"></span>
+        </div>
+        <div class="card" id="card"></div>
+    </main>
+      
+    <script>
+       const P1_SOURCE = [
+            // --- Standard MCQs (1 to 45) ---
+            {"q": "How is a 'problem' formally defined in Chapter 1?", "o": ["A situation where there is a meaningful discrepancy between a current state and a desired or expected state", "An unformatted collection of raw database logs with no context", "The final choice made by management among alternative courses of action", "An automated software bug in enterprise ERP systems"], "a": 0, "e": "Correct answer ✓\nA problem is defined as a meaningful discrepancy between a current state and a desired or expected state.", "type": "MCQ"},
+            {"q": "What does an observed performance gap strictly reveal in problem analysis?", "o": ["The definitive root cause of the failure", "The signal that something is wrong, but not necessarily why it exists", "The precise decision alternatives available to the CEO", "The exact financial profit margin of the organization"], "a": 1, "e": "Correct answer ✓\nThe gap identifies the signal—what is wrong—not necessarily why it exists.", "type": "MCQ"},
+            {"q": "What is the key functional difference between problem solving and decision making?", "o": ["Problem solving focuses on understanding, investigating, and improvement, whereas decision making focuses on choice and commitment", "Problem solving is exclusively quantitative, while decision making is qualitative", "Decision making happens before data is collected, while problem solving happens after", "There is no functional difference between the two concepts"], "a": 0, "e": "Correct answer ✓\nProblem solving focuses primarily on understanding and improvement, whereas decision making focuses on choice and commitment.", "type": "MCQ"},
+            {"q": "What distinguishes a 'problem situation' from a 'defined problem'?", "o": ["A problem situation is an initial signal that something may be wrong, whereas a defined problem is a precise description including evidence, magnitude, and context", "A problem situation involves financial records, while a defined problem involves software code", "There is no difference between the two terms", "A defined problem is solved automatically by artificial intelligence"], "a": 0, "e": "Correct answer ✓\nA problem situation is an initial signal, while a defined problem is a precise description including evidence, magnitude, and context.", "type": "MCQ"},
+            {"q": "What is the correct hierarchical progression from raw data to knowledge as outlined in Chapter 1?", "o": ["Data -> Information -> Evidence -> Knowledge", "Knowledge -> Evidence -> Information -> Data", "Information -> Data -> Knowledge -> Evidence", "Evidence -> Knowledge -> Data -> Information"], "a": 0, "e": "Correct answer ✓\nThe progression moves sequentially from Data to Information, then to Evidence, and finally to Knowledge.", "type": "MCQ"},
+            {"q": "How are 'data' defined in the context of business analytics?", "o": ["Observations, measurements, records, or representations of characteristics collected for a particular purpose", "Processed averages and final summary reports", "Proven hypotheses used to guide corporate strategy", "The deep accumulated experience of senior executives"], "a": 0, "e": "Correct answer ✓\nData are observations, measurements, records, or representations collected for a particular purpose.", "type": "MCQ"},
+            {"q": "What transforms raw data into 'information'?", "o": ["Processing, organizing, summarizing, or interpreting data so it provides meaningful context about a situation", "Storing raw files on external hard drives without opening them", "Deleting 50% of the observations to save memory", "Ignoring contextual variations in customer behavior"], "a": 0, "e": "Correct answer ✓\nInformation is data that has been processed, organized, summarized, or interpreted to provide meaning.", "type": "MCQ"},
+            {"q": "What is 'evidence' in business problem solving?", "o": ["Relevant and sufficiently reliable information used to support or challenge a hypothesis, explanation, or decision", "Any raw observation collected from website traffic logs", "An executive manager's personal intuition and gut feeling", "An unverified customer complaint on social media"], "a": 0, "e": "Correct answer ✓\nEvidence is relevant and reliable information used to support or challenge a hypothesis, explanation, or decision.", "type": "MCQ"},
+            {"q": "What role does 'knowledge' play in organizational problem solving?", "o": ["It provides an informed understanding of how evidence can be interpreted and applied within a specific context to take smart strategic actions", "It replaces the need for data collection entirely", "It guarantees zero business failures in future quarters", "It is stored exclusively in computer database tables"], "a": 0, "e": "Correct answer ✓\nKnowledge is an informed understanding enabling smart, strategic actions based on evidence and context.", "type": "MCQ"},
+            {"q": "What does analytical thinking involve?", "o": ["Breaking a complex situation into meaningful components, examining relationships among them, and using evidence to reach reasoned conclusions", "Accepting initial management assumptions without question", "Relying purely on intuitive guesswork", "Calculating averages without context"], "a": 0, "e": "Correct answer ✓\nAnalytical thinking involves breaking a complex situation into meaningful components and examining relationships.", "type": "MCQ"},
+            {"q": "In the sales decomposition formula (Sales = Traffic * Conversion Rate * Average Transaction Value), what does decomposing the problem achieve?", "o": ["It helps identify which specific component is responsible for an observed performance outcome", "It eliminates customer churn automatically", "It replaces the need for statistical thinking", "It increases web traffic instantly"], "a": 0, "e": "Correct answer ✓\nDecomposing a problem helps identify which component is responsible for an observed outcome.", "type": "MCQ"},
+            {"q": "What does statistical thinking account for when analyzing business data?", "o": ["That data vary, measurements may contain error, relationships are uncertain, and conclusions depend on data quality, assumptions, and context", "That all numerical observations are 100% precise and error-free", "That data values never change over time", "That sample size has no impact on conclusions"], "a": 0, "e": "Correct answer ✓\nStatistical thinking recognizes that data vary, measurements contain error, uncertainty exists, and context matters.", "type": "MCQ"},
+            {"q": "Which category of organizational problems concerns day-to-day activities, operational disruptions, and immediate errors?", "o": ["Operational problems", "Strategic problems", "Tactical problems", "Theoretical problems"], "a": 0, "e": "Correct answer ✓\nOperational problems concern day-to-day activities, delays, errors, and service disruptions.", "type": "MCQ"},
+            {"q": "What characterizes tactical problems in business management?", "o": ["Improving processes, allocating resources, and coordinating departmental activities over the medium term (months)", "Long-term corporate survival and global expansion", "Immediate minute-by-minute customer service chat responses", "Personal employee performance appraisals"], "a": 0, "e": "Correct answer ✓\nTactical problems involve improving processes and allocating resources over the medium term.", "type": "MCQ"},
+            {"q": "What is the primary focus of strategic problems?", "o": ["Long-term direction, competitiveness, growth, and adaptation to environmental change", "Daily inventory stock checks", "Fixing software bugs in local desktop applications", "Scheduling weekly employee shift rosters"], "a": 0, "e": "Correct answer ✓\nStrategic problems concern long-term direction, competitiveness, growth, and environmental adaptation.", "type": "MCQ"},
+            {"q": "When translating a broad business problem (e.g., 'Sales are declining') into investigative steps, what is the correct sequence of questions?", "o": ["Business Problem -> Diagnostic Question -> Analytical Question -> Decision Question", "Decision Question -> Business Problem -> Analytical Question -> Diagnostic Question", "Analytical Question -> Decision Question -> Business Problem -> Diagnostic Question", "Diagnostic Question -> Business Problem -> Decision Question -> Analytical Question"], "a": 0, "e": "Correct answer ✓\nThe correct sequence moves from Business Problem to Diagnostic Question, Analytical Question, and Decision Question.", "type": "MCQ"},
+            {"q": "What is the role of Artificial Intelligence and digital technologies in problem solving?", "o": ["They support pattern identification, prediction, classification, optimization, and recommendations", "They completely replace human managerial accountability and judgment", "They eliminate the need to define problems or collect evidence", "They make all business decisions automatically without review"], "a": 0, "e": "Correct answer ✓\nAI supports pattern identification, prediction, classification, optimization, and recommendations.", "type": "MCQ"},
+            {"q": "Why must AI-supported recommendations (such as price adjustments) be evaluated independently by management?", "o": ["Because AI outputs may contain factual, logical, or contextual errors, and weak data can produce misleading recommendations", "Because AI algorithms run too slowly on enterprise servers", "Because computers are legally barred from making business decisions", "Because AI models never use historical data"], "a": 0, "e": "Correct answer ✓\nAI outputs may contain errors, and weak models can produce misleading recommendations requiring independent evaluation.", "type": "MCQ"},
+            {"q": "What are the core stages of the integrated Problem-Solving Logic?", "o": ["Problem -> Questions -> Evidence -> Decision -> Action -> Learning", "Action -> Decision -> Problem -> Learning -> Questions -> Evidence", "Evidence -> Problem -> Action -> Learning -> Decision -> Questions", "Questions -> Learning -> Action -> Decision -> Evidence -> Problem"], "a": 0, "e": "Correct answer ✓\nThe integrated logic flows from Problem to Questions, Evidence, Decision, Action, and Learning.", "type": "MCQ"},
+            {"q": "Is the problem-solving logic strictly linear and rigid in practice?", "o": ["No, new evidence or learning may reveal that the original problem was incorrectly defined, sending the process back to earlier stages", "Yes, managers must never revisit previous stages once started", "Yes, skipping stages is prohibited by corporate law", "No, because problem solving requires no structured logic at all"], "a": 0, "e": "Correct answer ✓\nThe logic is not rigidly linear; new evidence or learning can send the process back to problem definition.", "type": "MCQ"},
+            {"q": "What does a 'decision problem' specifically represent?", "o": ["The need to choose among alternative courses of action", "The initial signal that a customer complaint occurred", "The mathematical calculation of customer churn percentage", "The storage format of raw enterprise data"], "a": 0, "e": "Correct answer ✓\nA decision problem represents the need to choose among alternative courses of action.", "type": "MCQ"},
+            {"q": "Which of the following is considered a core element of a sound decision?", "o": ["Objectives, alternatives, criteria, constraints, and consequences/uncertainty", "Raw data tables without summarization", "Employee personal opinions and unverified rumors", "Fixed operational machine speeds"], "a": 0, "e": "Correct answer ✓\nA sound decision considers objectives, alternatives, criteria, constraints, and consequences/uncertainty.", "type": "MCQ"},
+            {"q": "In Example 1.3, individual customer waiting times (8, 11, 6, 13, 7 minutes) represent which level of data hierarchy?", "o": ["Data (raw observations)", "Information (summary report)", "Evidence (reliable hypothesis support)", "Knowledge (strategic action)"], "a": 0, "e": "Correct answer ✓\nIndividual waiting times represent raw observations, which are classified as data.", "type": "MCQ"},
+            {"q": "When individual waiting times are averaged to find a 9-minute mean, what category does this calculation belong to?", "o": ["Information", "Raw Data", "Strategic Knowledge", "Unverified Noise"], "a": 0, "e": "Correct answer ✓\nProcessed and summarized calculations constitute information.", "type": "MCQ"},
+            {"q": "If analysis shows that customers waiting more than 10 minutes have a higher probability of abandoning service, this finding serves as:", "o": ["Evidence", "Raw Data", "A tactical operational delay", "A software configuration error"], "a": 0, "e": "Correct answer ✓\nReliable information used to support or challenge an explanation constitutes evidence.", "type": "MCQ"},
+            {"q": "What does the mini-case of customer churn define as the 'decision problem'?", "o": ["Which intervention should be implemented to reduce churn", "The fact that churn increased from 8% to 13%", "The raw customer survey logs", "The daily website visitor traffic count"], "a": 0, "e": "Correct answer ✓\nThe decision problem is determining which intervention should be implemented to reduce churn.", "type": "MCQ"},
+            {"q": "Why is diagnosing before deciding emphasized in problem solving?", "o": ["Because investigating underlying factors and causes prevents selecting inappropriate interventions based solely on surface signals", "Because management is legally forbidden from making decisions without software", "Because diagnosis eliminates all business costs", "Because small-group activities require 5 minutes of silence"], "a": 0, "e": "Correct answer ✓\nDiagnosing investigates why things happen, allowing management to compare appropriate interventions rather than guessing.", "type": "MCQ"},
+            {"q": "What does analytical thinking use to reach reasoned conclusions?", "o": ["Evidence and structured component relationships", "Executive intuition and personal bias", "Random guessing and trial-and-error", "Unverified social media posts"], "a": 0, "e": "Correct answer ✓\nAnalytical thinking uses component breakdown and evidence to reach reasoned conclusions.", "type": "MCQ"},
+            {"q": "In the online sales decline example, if traffic is 20,000, conversion rate is 3%, and average transaction value is EGP 500, what is expected revenue?", "o": ["EGP 300,000", "EGP 50,000", "EGP 250,000", "EGP 600,000"], "a": 0, "e": "Correct answer ✓\n20,000 * 0.03 * 500 = EGP 300,000.", "type": "MCQ"},
+            {"q": "In the same sales example, if the conversion rate drops to 2.5% while traffic and value remain constant, what is the new expected revenue?", "o": ["EGP 250,000", "EGP 300,000", "EGP 200,000", "EGP 275,000"], "a": 0, "e": "Correct answer ✓\n20,000 * 0.025 * 500 = EGP 250,000.", "type": "MCQ"},
+            {"q": "What does statistical thinking evaluate in addition to the numerical value itself?", "o": ["How the data was obtained, its variability, precision, and meaningfulness", "The aesthetic font style of the report", "The physical weight of the paper documents", "The personal background of the data entry clerk"], "a": 0, "e": "Correct answer ✓\nStatistical thinking asks how numbers were obtained, how variable and precise they are, and how meaningful they are.", "type": "MCQ"},
+            {"q": "In Example 1.5 comparing two customer satisfaction groups (Group A mean 4.25 SD 0.70; Group B mean 4.10 SD 0.35), why is it premature to conclude Group A is genuinely more satisfied?", "o": ["Because observed differences must be evaluated for sampling variability, statistical significance, and practical importance", "Because Group B had more customers", "Because customer satisfaction surveys are illegal", "Because standard deviation has no mathematical meaning"], "a": 0, "e": "Correct answer ✓\nObserved differences require evaluation of sampling variability and statistical significance before drawing population conclusions.", "type": "MCQ"},
+            {"q": "How is an operational problem illustrated in the delivery truck breakdown example?", "o": ["A truck breaks down causing a delay in 20 customer orders that day, solved by rerouting another driver", "A company merges with a multinational conglomerate", "A board of directors redesigns the entire business model", "An AI algorithm predicts annual market trends"], "a": 0, "e": "Correct answer ✓\nOperational problems concern day-to-day disruptions like daily order delivery delays solved by immediate rerouting.", "type": "MCQ"},
+            {"q": "How is a tactical problem illustrated in the delivery operations example?", "o": ["A 15% increase in delayed orders over a quarter due to warehouse-shipping coordination issues, solved by workflow redesign and real-time tracking software", "A single truck breakdown on a Tuesday morning", "A complete transition to electric self-driving trucks globally", "An automated customer apology SMS"], "a": 0, "e": "Correct answer ✓\nTactical problems involve medium-term process improvements and resource coordination.", "type": "MCQ"},
+            {"q": "How is a strategic problem illustrated in the delivery market example?", "o": ["A strong new competitor offering same-day delivery threatens long-term growth, prompting a business model transformation", "A minor delay of 3 minutes in customer service response time", "A temporary shortage of cardboard packing boxes", "Adjusting warehouse staff shift schedules for next week"], "a": 0, "e": "Correct answer ✓\nStrategic problems concern long-term competitiveness, growth, and fundamental business model transformation.", "type": "MCQ"},
+            {"q": "When employees continue using an old information system despite a new one being introduced, what should management avoid doing?", "o": ["Immediately concluding that employees are resistant to change without investigating multiple explanations", "Collecting evidence and conducting structured interviews", "Evaluating training and usability factors", "Investigating workflow incompatibilities"], "a": 0, "e": "Correct answer ✓\nManagement should avoid immediately assigning blame or assuming resistance without investigating root causes.", "type": "MCQ"},
+            {"q": "What is the primary purpose of formulating a 'diagnostic question' from a broad business problem?", "o": ["To investigate why the problem is occurring before jumping to conclusions", "To select software vendors for purchase", "To finalize employee salary bonuses", "To print daily operational invoices"], "a": 0, "e": "Correct answer ✓\nDiagnostic questions investigate why a problem is occurring.", "type": "MCQ."},
+            {"q": "What is the primary purpose of formulating an 'analytical question'?", "o": ["To determine which products, customer segments, or markets contribute most to the issue", "To choose the final management action", "To sign corporate legal contracts", "To format computer hard drives"], "a": 0, "e": "Correct answer ✓\nAnalytical questions determine which segments, products, or markets contribute most.", "type": "MCQ."},
+            {"q": "What is the primary purpose of formulating a 'decision question'?", "o": ["To determine which intervention management should implement to improve performance", "To calculate raw data averages", "To review historical weather patterns", "To test employee typing speeds"], "a": 0, "e": "Correct answer ✓\nDecision questions determine which intervention management should implement.", "type": "MCQ."},
+            {"q": "What combination is required for effective evidence-based decisions according to Section 1.6?", "o": ["Relevant Data + Appropriate Analysis + Contextual Knowledge + Judgment + Awareness of Uncertainty", "Raw Data + Intuition Alone + Zero Analysis", "Speed + Random Guessing + Unlimited Budget", "Software Automation + Zero Human Oversight"], "a": 0, "e": "Correct answer ✓\nEffective decisions require relevant data, analysis, contextual knowledge, judgment, and uncertainty awareness.", "type": "MCQ."},
+            {"q": "In Example 1.6, when AI recommends increasing product price from EGP 1,000 to EGP 1,080 (an 8% increase), what must management evaluate beyond the calculation?", "o": ["Model reliability, expected demand effects, customer reactions, competitor responses, costs, and risks", "Nothing, because AI calculations are always 100% infallible", "The physical color of the product packaging", "The office room temperature during the meeting"], "a": 0, "e": "Correct answer ✓\nManagement must evaluate model reliability, demand effects, customer and competitor responses, and risks.", "type": "MCQ."},
+            {"q": "What does the 'Learning' stage accomplish in the Problem-Solving Logic?", "o": ["Evaluating outcomes of implemented actions and improving future decisions", "Deleting all historical transaction logs", "Punishing employees for operational delays", "Purchasing new computer hardware"], "a": 0, "e": "Correct answer ✓\nLearning evaluates outcomes and improves future decisions.", "type": "MCQ."},
+            {"q": "In the integrated churn case study, what is the final stage that loops back to evaluate and revise the approach?", "o": ["Learning", "Raw Data Collection", "Initial Problem Definition", "Software Installation"], "a": 0, "e": "Correct answer ✓\nLearning evaluates whether churn changes and revises the approach.", "type": "MCQ."},
+            {"q": "Which statement best summarizes the overarching message of Chapter 1?", "o": ["Problem solving requires structured understanding, evidence evaluation, analytical/statistical thinking, and judgment, supported rather than replaced by technology", "Technology can completely replace human thinking in business management", "Data collection alone guarantees optimal business decisions", "Problems are exclusively solved by purchasing expensive software"], "a": 0, "e": "Correct answer ✓\nChapter 1 emphasizes structured problem solving, evidence, analytical/statistical rigor, and human judgment supported by technology.", "type": "MCQ."},
+            {"q": "What is the primary danger of relying solely on unverified automated AI recommendations in business?", "o": ["AI models can produce misleading recommendations due to weak data or logical/contextual errors", "AI will physically damage office furniture", "AI increases internet connection speed too much", "AI requires manual paper filing"], "a": 0, "e": "Correct answer ✓\nAI outputs may contain errors, and weak models produce misleading recommendations.", "type": "MCQ."},
+
+            // --- High-Level MCQs (46 to 50) ---
+            {"q": "[HIGH-LEVEL] An organization implements a new information system, but employees continue using the legacy system. Management immediately concludes that employees are resistant to change. According to Chapter 1 principles, why is this conclusion flawed?", "o": ["Effective problem solving requires investigating multiple possible explanations (training, usability, technical issues, workflow) and gathering evidence before assigning blame or selecting solutions", "Because employees are legally required to accept new software", "Because legacy systems are automatically deleted upon new installations", "Because resistance to change is the only possible cause for software failure"], "a": 0, "e": "[HIGH-LEVEL] Correct answer ✓\nManagement should investigate possible explanations and gather evidence rather than immediately assigning blame or assuming resistance.", "type": "MCQ."},
+            {"q": "[HIGH-LEVEL] If an AI tool recommends an 8% price increase based on historical sales data, why does management still need to consider context, competitor responses, and risks?", "o": ["Because calculation of a recommendation does not establish its correctness; technology supports analysis but does not replace context, judgment, and accountability", "Because AI algorithms cannot multiply percentages correctly", "Because price changes are strictly prohibited by statistical models", "Because competitor responses are always identical across industries"], "a": 0, "e": "[HIGH-LEVEL] Correct answer ✓\nMathematical calculations do not replace managerial judgment, context, risk assessment, and accountability.", "type": "MCQ."},
+            {"q": "[HIGH-LEVEL] A store manager observes a 50% drop in winter coat sales in January and notes unseasonably warm weather combined with customer requests for lightweight clothing. What level of the data-to-knowledge hierarchy does the weather and customer feedback represent?", "o": ["Evidence", "Raw unverified data", "A tactical operational glitch", "A software programming bug"], "a": 0, "e": "[HIGH-LEVEL] Correct answer ✓\nInterconnected information explaining the decline serves as strong evidence.", "type": "MCQ."},
+            {"q": "[HIGH-LEVEL] Why must an analyst distinguish between a 'problem situation' and a 'defined problem' before initiating data collection?", "o": ["Because an initial signal only indicates a discrepancy, whereas a defined problem provides precise evidence, magnitude, and context needed to guide investigation", "Because problem situations are illegal to investigate without a CEO's permit", "Because defined problems require zero analytical thinking", "Because problem situations eliminate the need for decision making"], "a": 0, "e": "[HIGH-LEVEL] Correct answer ✓\nMoving from an initial signal to a defined problem ensures the investigation is guided by precise evidence and context.", "type": "MCQ."},
+            {"q": "[HIGH-LEVEL] How do analytical thinking and statistical thinking complement each other in evidence-based decision making?", "o": ["Analytical thinking determines what elements to examine and how they relate, while statistical thinking assesses how confidently data supports the conclusion", "Analytical thinking replaces data collection, while statistical thinking replaces human judgment", "Analytical thinking focuses on strategy, while statistical thinking focuses on employee morale", "There is no functional overlap between analytical and statistical thinking"], "a": 0, "e": "[HIGH-LEVEL] Correct answer ✓\nAnalytical thinking examines component relationships, while statistical thinking addresses data variation and confidence in conclusions.", "type": "MCQ"}
+        ];
+
+        const P2_SOURCE = [
+            // --- Standard TFs (1 to 45) ---
+            {"q": "A problem is defined as a meaningful discrepancy between a current state and a desired or expected state.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: A problem is a discrepancy between current and expected states.", "type": "TF"},
+            {"q": "An observed performance gap automatically identifies the root cause of the problem.", "o": ["True", "False"], "a": 1, "e": "Correct answer ✓\nFalse: The gap identifies the signal—what is wrong—not necessarily why it exists.", "type": "TF"},
+            {"q": "Problems in business can be qualitative (e.g., poor communication or organizational conflict) as well as quantitative.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Problems are not necessarily quantitative; they may involve qualitative conditions.", "type": "TF"},
+            {"q": "Problem solving focuses primarily on understanding and improvement, whereas decision making focuses on choice and commitment.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Decision making focuses on choice, while problem solving focuses on understanding and improvement.", "type": "TF"},
+            {"q": "A well-understood problem automatically determines one single correct course of action.", "o": ["True", "False"], "a": 1, "e": "Correct answer ✓\nFalse: A well-understood problem does not automatically determine one correct action.", "type": "TF"},
+            {"q": "Data automatically constitutes useful information without requiring processing or interpretation.", "o": ["True", "False"], "a": 1, "e": "Correct answer ✓\nFalse: Data is not automatically information; information requires processing, organization, and interpretation.", "type": "TF"},
+            {"q": "Evidence is relevant and reliable information used to support or challenge a hypothesis or decision.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Evidence supports or challenges explanations and decisions.", "type": "TF"},
+            {"q": "Knowledge represents an informed understanding enabling smart, strategic actions based on evidence.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Knowledge is deep understanding enabling strategic action.", "type": "TF"},
+            {"q": "More data automatically guarantees better information and better decisions.", "o": ["True", "False"], "a": 1, "e": "Correct answer ✓\nFalse: More data does not necessarily produce better information or decisions.", "type": "TF"},
+            {"q": "Analytical thinking involves breaking a complex situation into meaningful components and examining their relationships.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Analytical thinking decomposes complexity and examines relationships.", "type": "TF"},
+            {"q": "Statistical thinking recognizes that data vary, measurements may contain error, and conclusions depend on context.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Statistical thinking addresses data variation, error, uncertainty, and context.", "type": "TF"},
+            {"q": "Operational problems concern day-to-day activities such as delays, errors, and service disruptions.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Operational problems deal with day-to-day disruptions.", "type": "TF"},
+            {"q": "Tactical problems involve improving processes, allocating resources, and coordinating activities over the medium term.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Tactical problems address medium-term process and resource allocation.", "type": "TF"},
+            {"q": "Strategic problems concern long-term direction, competitiveness, growth, and environmental adaptation.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Strategic problems focus on long-term growth and competitiveness.", "type": "TF"},
+            {"q": "Management should immediately conclude that employees resist change when a new information system is underutilized.", "o": ["True", "False"], "a": 1, "e": "Correct answer ✓\nFalse: Management should investigate multiple possible explanations rather than jumping to conclusions.", "type": "TF"},
+            {"q": "A broad business problem should be translated into diagnostic, analytical, and decision questions before selecting data methods.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Business problems should be translated into systematic investigative questions.", "type": "TF"},
+            {"q": "Artificial intelligence and digital technologies can support pattern identification, prediction, and optimization.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: AI supports pattern recognition, prediction, and optimization.", "type": "TF"},
+            {"q": "Technology and AI recommendations completely replace problem definition, evidence evaluation, and managerial judgment.", "o": ["True", "False"], "a": 1, "e": "Correct answer ✓\nFalse: Technology supports analysis but does not replace judgment, accountability, or problem definition.", "type": "TF"},
+            {"q": "AI outputs and recommendations are infallible and never contain factual or logical errors.", "o": ["True", "False"], "a": 1, "e": "Correct answer ✓\nFalse: AI outputs may contain factual, logical, or contextual errors.", "type": "TF"},
+            {"q": "The problem-solving logic follows a strictly rigid, unidirectional linear sequence.", "o": ["True", "False"], "a": 1, "e": "Correct answer ✓\nFalse: The logic is not rigidly linear; new evidence or learning can send the process back to earlier stages.", "type": "TF"},
+            {"q": "Information is automatically equivalent to evidence without requiring reliability checks.", "o": ["True", "False"], "a": 1, "e": "Correct answer ✓\nFalse: Information is not automatically evidence; evidence requires relevant and reliable support.", "type": "TF"},
+            {"q": "Decision making focuses primarily on choice and commitment.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Decision making focuses on choice and commitment.", "type": "TF"},
+            {"q": "Problem solving focuses primarily on understanding and improvement rather than simply choosing an action.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Problem solving focuses on understanding and improvement.", "type": "TF"},
+            {"q": "A poorly defined problem can lead to a poor decision.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: A poorly defined problem can lead to a poor decision.", "type": "TF"},
+            {"q": "Decomposing a problem helps identify which component is responsible for an observed outcome.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Decomposing a problem helps isolate the responsible component.", "type": "TF"},
+            {"q": "Statistical thinking asks 'What is the number?' but ignores how it was obtained or how variable it is.", "o": ["True", "False"], "a": 1, "e": "Correct answer ✓\nFalse: Statistical thinking specifically asks how numbers were obtained and how variable they are.", "type": "TF"},
+            {"q": "An observed numerical difference between sample groups is automatically a conclusion about the underlying population.", "o": ["True", "False"], "a": 1, "e": "Correct answer ✓\nFalse: An observed difference is evidence to be interpreted, not automatically a population conclusion.", "type": "TF"},
+            {"q": "Operational problem solutions involve day-to-day corrective actions such as rerouting deliveries.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Operational solutions handle immediate day-to-day disruptions.", "type": "TF"},
+            {"q": "Tactical solutions address medium-term process improvements and resource allocation over months.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Tactical problems involve medium-term process improvements.", "type": "TF"},
+            {"q": "Strategic solutions involve long-term transformations of business models and competitive positioning.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Strategic problems concern long-term growth and business model transformation.", "type": "TF"},
+            {"q": "Diagnostic questions are designed to determine why a business problem is occurring.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Diagnostic questions investigate why a problem exists.", "type": "TF"},
+            {"q": "Analytical questions help identify which products, customer segments, or markets contribute most to a decline.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Analytical questions isolate contributing segments or products.", "type": "TF"},
+            {"q": "Decision questions evaluate which intervention management should implement.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Decision questions focus on choosing interventions.", "type": "TF"},
+            {"q": "Effective decision making requires ignoring uncertainty and assuming complete predictability.", "o": ["True", "False"], "a": 1, "e": "Correct answer ✓\nFalse: Effective decisions require awareness and consideration of uncertainty.", "type": "TF"},
+            {"q": "Mathematical AI recommendations eliminate the need for management to evaluate model reliability and risk.", "o": ["True", "False"], "a": 1, "e": "Correct answer ✓\nFalse: Management must evaluate model reliability, risks, and expected effects.", "type": "TF"},
+            {"q": "The learning stage of problem solving can send management back to revise the problem definition.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Learning can send us back to the problem definition stage.", "type": "TF"},
+            {"q": "Raw observations recorded for a particular purpose are formally classified as information.", "o": ["True", "False"], "a": 1, "e": "Correct answer ✓\nFalse: Raw observations are data; information is processed and organized data.", "type": "TF"},
+            {"q": "A sound decision evaluates objectives, alternatives, criteria, constraints, and consequences.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Sound decisions incorporate objectives, alternatives, criteria, constraints, and uncertainty.", "type": "TF"},
+            {"q": "Making a decision without considering available alternatives is a standard recommended practice.", "o": ["True", "False"], "a": 1, "e": "Correct answer ✓\nFalse: Decision making fundamentally involves choosing among available alternatives.", "type": "TF"},
+            {"q": "Data is automatically transformed into knowledge without passing through information and evidence.", "o": ["True", "False"], "a": 1, "e": "Correct answer ✓\nFalse: Knowledge requires moving through data, information, and evidence sequentially.", "type": "TF"},
+            {"q": "Analytical thinking helps determine what elements to examine and how they relate.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Analytical thinking examines components and relationships.", "type": "TF"},
+            {"q": "Statistical thinking helps determine how confidently available data supports a conclusion.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Statistical thinking assesses confidence and data variability.", "type": "TF"},
+            {"q": "Operational problems deal with long-term international expansion strategies.", "o": ["True", "False"], "a": 1, "e": "Correct answer ✓\nFalse: Operational problems concern day-to-day activities and disruptions.", "type": "TF"},
+            {"q": "Strategic problems are solved purely through immediate operational rerouting of delivery trucks.", "o": ["True", "False"], "a": 1, "e": "Correct answer ✓\nFalse: Strategic problems concern long-term competitiveness and business model adaptation.", "type": "TF"},
+            {"q": "Accountability for business decisions rests entirely with artificial intelligence algorithms.", "o": ["True", "False"], "a": 1, "e": "Correct answer ✓\nFalse: Technology supports analysis, but accountability remains strictly human.", "type": "TF"},
+
+            // --- High-Level TFs (46 to 50) ---
+            {"q": "[HIGH-LEVEL] A poorly defined problem guarantees a successful decision if advanced AI analytics are applied.", "o": ["True", "False"], "a": 1, "e": "[HIGH-LEVEL] Correct answer ✓\nFalse: A poorly defined problem can lead to a poor decision regardless of analytical sophistication.", "type": "TF"},
+            {"q": "[HIGH-LEVEL] Statistical significance and practical importance are identical concepts that never require separate interpretation.", "o": ["True", "False"], "a": 1, "e": "[HIGH-LEVEL] Correct answer ✓\nFalse: An observed numerical difference requires separate evaluation of statistical significance and practical importance.", "type": "TF"},
+            {"q": "[HIGH-LEVEL] The learning phase in the problem-solving logic can never trigger a reconsideration of the original problem definition.", "o": ["True", "False"], "a": 1, "e": "[HIGH-LEVEL] Correct answer ✓\nFalse: Learning outcomes can send the process back to problem definition.", "type": "TF"},
+            {"q": "[HIGH-LEVEL] Decomposing a complex business metric into underlying drivers helps isolate the specific source of a performance gap.", "o": ["True", "False"], "a": 0, "e": "[HIGH-LEVEL] Correct answer ✓\nTrue: Decomposing metrics helps identify which component is responsible for an observed outcome.", "type": "TF"},
+            {"q": "[HIGH-LEVEL] Managerial accountability and contextual evaluation are rendered obsolete by advanced machine learning models.", "o": ["True", "False"], "a": 1, "e": "[HIGH-LEVEL] Correct answer ✓\nFalse: Technology supports decision making but does not replace managerial judgment and accountability.", "type": "TF"}
+        ];
+
+        const getQuestionType = question => question.type.replace(/[.!?]+$/, "");
+
+        const P1_DATA = [
+            ...P1_SOURCE.filter(question => getQuestionType(question) === "MCQ"),
+            ...P2_SOURCE.filter(question => getQuestionType(question) === "MCQ")
+        ];
+        const P2_DATA = [
+            ...P1_SOURCE.filter(question => getQuestionType(question) === "TF"),
+            ...P2_SOURCE.filter(question => getQuestionType(question) === "TF")
+        ];
+
+        let activePart = 1;
+        let qData = P1_DATA;
+        let cIdx = 0;
+        let score = 0;
+        let wrongList = [];
+
+        const $ = id => document.getElementById(id);
+
+        function switchPart(part) {
+            activePart = part;
+            $("tab1").className = "tab-btn " + (part === 1 ? "active" : "");
+            $("tab2").className = "tab-btn " + (part === 2 ? "active" : "");
+            qData = part === 1 ? P1_DATA : P2_DATA;
+            resetQuiz();
+        }
+
+        function resetQuiz() {
+            cIdx = 0;
+            score = 0;
+            wrongList = [];
+            renderQuestion();
+        }
+
+        function renderQuestion() {
+            const q = qData[cIdx];
+            $("n").textContent = `Question ${cIdx + 1} of ${qData.length}`;
+            $("s").textContent = `Score: ${score}`;
+            $("bar").style.width = `${(cIdx / qData.length) * 100}%`;
+
+            const isHighLevel = q.q.includes("[HIGH-LEVEL]");
+            const badgeClass = isHighLevel ? "q-badge high-level" : "q-badge";
+            const badgeText = isHighLevel 
+                ? (getQuestionType(q) === 'TF' ? 'True / False — High Level' : 'Multiple Choice — High Level')
+                : (getQuestionType(q) === 'TF' ? 'True / False' : 'Multiple Choice');
+            
+            $("card").innerHTML = `
+                <span class="${badgeClass}">${badgeText}</span>
+                <p class="q">${q.q}</p>
+                <div id="opts"></div>
+                <div id="fb"></div>
+            `;
+
+            q.o.forEach((optText, i) => {
+                const b = document.createElement("button");
+                b.className = "opt";
+                b.innerHTML = `<b>${getQuestionType(q) === 'TF' ? (i===0?'T':'F') : "ABCD"[i] + ")"}</b><span></span>`;
+                b.querySelector("span").textContent = optText;
+                b.onclick = () => handleAnswer(i);
+                $("opts").appendChild(b);
+            });
+        }
+
+        function handleAnswer(selected) {
+            const q = qData[cIdx];
+            const isCorrect = selected === q.a;
+            const buttons = document.querySelectorAll(".opt");
+
+            buttons.forEach((btn, idx) => {
+                btn.disabled = true;
+                if (idx === q.a) btn.classList.add("ok");
+                else if (idx === selected) btn.classList.add("no");
+            });
+
+            if (isCorrect) score++;
+            else wrongList.push(cIdx);
+
+            $("s").textContent = `Score: ${score}`;
+
+            $("fb").innerHTML = `
+                <div class="ex ${isCorrect ? 'ok' : 'no'}">
+                    <strong>${isCorrect ? 'Correct answer ✓' : 'Incorrect answer ✗'}</strong>
+                    <span>${q.e}</span>
+                </div>
+                <button class="btn" id="nxtBtn">${cIdx < qData.length - 1 ? 'Next question' : 'Show final results'}</button>
+            `;
+
+            $("nxtBtn").onclick = () => {
+                cIdx++;
+                if (cIdx < qData.length) renderQuestion();
+                else finishQuiz();
+            };
+            $("nxtBtn").focus();
+        }
+
+        function finishQuiz() {
+            $("bar").style.width = "100%";
+            $("n").textContent = "Quiz complete";
+            const pct = Math.round((score / qData.length) * 100);
+            
+            let html = `
+                <div class="score">${score} / ${qData.length}</div>
+                <p style="text-align:center;font-size:1.2rem;margin:0 0 16px;">Percentage: <b>${pct}%</b></p>
+            `;
+
+            if (wrongList.length > 0) {
+                html += `<p style="margin:16px 0 8px;"><b>Questions to review:</b></p><ul class="rev">`;
+                wrongList.reverse().forEach(w => {
+                    html += `<li><b>Question ${w + 1}:</b> ${qData[w].q}</li>`;
+                });
+                html += `</ul>`;
+            } else {
+                html += `<p style="text-align:center;color:var(--ok);">Excellent! All answers are correct (100%).</p>`;
+            }
+
+            html += `<button class="btn" onclick="resetQuiz()">Restart quiz</button>`;
+            $("card").innerHTML = html;
+        }
+
+        renderQuestion();
+    </script>
+</body>
+</html>

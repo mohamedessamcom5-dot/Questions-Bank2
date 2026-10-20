@@ -1,0 +1,431 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Data Structures - Chapter 2 Complete Quiz</title>
+    <style>
+        :root {
+            --bg: #0f172a;
+            --c: #1e293b;
+            --t: #f8fafc;
+            --m: #94a3b8;
+            --b: #334155;
+            --ac: #38bdf8;
+            --ok: #22c55e;
+            --okb: #052e16;
+            --no: #ef4444;
+            --nob: #450a0a;
+            box-sizing: border-box;
+        }
+
+        @media(prefers-color-scheme: light) {
+            :root[data-theme=light] {
+                --bg: #f8fafc;
+                --c: #ffffff;
+                --t: #0f172a;
+                --m: #64748b;
+                --b: #e2e8f0;
+                --ac: #0284c7;
+                --okb: #dcfce7;
+                --nob: #fee2e2;
+                --ok: #16a34a;
+                --no: #dc2626;
+            }
+        }
+
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--t);
+            font-family: 'Segoe UI', Tahoma, system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+        }
+        main {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 24px 16px 60px;
+        }
+        .header-panel {
+            text-align: center;
+            margin-bottom: 24px;
+            border-bottom: 8px solid var(--b);
+            padding-bottom: 30px;
+            position: relative;
+        }
+        .back-btn {
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: var(--ac);
+            color: #000;
+            border: none;
+            border-radius: 8px;
+            padding: 8px 14px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        h1 { font-size: 1.5rem; margin: 0 0 8px; color: var(--ac); }
+        .sub { color: var(--m); font-size: 0.95rem; margin: 0; }
+        
+        .nav-tabs {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .tab-btn {
+            flex: 1;
+            padding: 12px;
+            background: var(--c);
+            border: 1px solid var(--b);
+            color: var(--t);
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .tab-btn.active {
+            background: var(--ac);
+            color: #000;
+            border-color: var(--ac);
+        }
+
+        .bar {
+            height: 8px;
+            background: var(--b);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+        .bar i {
+            display: block;
+            height: 100%;
+            background: var(--ac);
+            width: 0;
+            transition: width 0.3s;
+        }
+        .meta {
+            display: flex;
+            justify-content: space-between;
+            color: var(--m);
+            font-size: 0.9rem;
+            margin-bottom: 16px;
+        }
+        .card {
+            background: var(--c);
+            border: 1px solid var(--b);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+        .q-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            background: var(--b);
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+            color: var(--ac);
+        }
+        .q {
+            font-size: 1.1rem;
+            font-weight: 600;
+            direction: ltr;
+            text-align: left;
+            margin: 0 0 16px;
+        }
+        .opt {
+            display: flex;
+            gap: 12px;
+            direction: ltr;
+            text-align: left;
+            width: 100%;
+            background: var(--c);
+            color: var(--t);
+            border: 1.5px solid var(--b);
+            border-radius: 8px;
+            padding: 12px 14px;
+            margin-bottom: 10px;
+            font: inherit;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+        .opt:hover:not(:disabled) { border-color: var(--ac); }
+        .opt b { min-width: 1.5em; color: var(--ac); }
+        .opt.ok { background: var(--okb); border-color: var(--ok); }
+        .opt.no { background: var(--nob); border-color: var(--no); }
+        .opt:disabled { cursor: default; }
+
+        .ex {
+            margin-top: 16px;
+            padding: 14px;
+            border-radius: 8px;
+            direction: ltr;
+            text-align: left;
+            font-size: 0.95rem;
+        }
+        .ex.ok { background: var(--okb); border: 1px solid var(--ok); }
+        .ex.no { background: var(--nob); border: 1px solid var(--no); }
+        .ex strong { display: block; margin-bottom: 4px; }
+
+        .btn {
+            margin-top: 16px;
+            background: var(--ac);
+            color: #000;
+            border: 0;
+            border-radius: 8px;
+            padding: 12px 24px;
+            font: inherit;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+        }
+        .score { text-align: center; font-size: 3rem; font-weight: 800; margin: 12px 0; color: var(--ac); }
+        .rev { margin: 16px 0 0; padding: 0; list-style: none; direction: ltr; text-align: left; font-size: 0.9rem; }
+        .rev li { padding: 8px 0; border-top: 1px solid var(--b); }
+    </style>
+    <link rel="stylesheet" href="../site-theme.css">
+</head>
+<body>
+    <main>
+            <div class="header-panel">
+            <h1>Data Structures — Chapter 2</h1>
+               <p class="sub">Array</p>
+            <p class="sub"></p>
+        </div>
+
+        <div class="nav-tabs">
+            <button class="tab-btn active" id="tab1" onclick="switchPart(1)">Multiple Choice</button>
+            <button class="tab-btn" id="tab2" onclick="switchPart(2)">True/False</button>
+        </div>
+
+        <div class="bar"><i id="bar"></i></div>
+        <div class="meta">
+            <span id="n"></span>
+            <span id="s"></span>
+        </div>
+        <div class="card" id="card"></div>
+    </main>
+
+    <script>
+        const P1_SOURCE = [
+            // 52 MCQ Questions
+            {"q": "What is the primary definition of an Array according to Chapter 2?", "o": ["A collection of elements stored in scattered heap pointers", "A collection of elements stored in contiguous (continuous) memory locations", "A hierarchical tree structure", "A set of graph vertices connected by edges"], "a": 1, "e": "An array is a collection of elements stored in contiguous (continuous) memory locations.", "type": "MCQ"},
+            {"q": "Which data types are elements in a traditional standard array required to be?", "o": ["Mixed data types", "All elements of the same data type", "Only pointers", "Only strings"], "a": 1, "e": "All elements are of the same data type (e.g., all integers or all strings).", "type": "MCQ"},
+            {"q": "How are array elements accessed efficiently in memory?", "o": ["By sequential pointer chasing", "By searching from the end", "By using its index (starting from 0)", "By hashing keys"], "a": 2, "e": "Each element can be accessed directly by its index (starting from 0), granting fast random access.", "type": "MCQ"},
+            {"q": "How do Python lists differ from traditional fixed-size arrays in languages like C++?", "o": ["Python lists have fixed size and cannot grow", "Python lists are dynamic, automatically handling memory growth or shrinkage", "Python lists store elements in non-contiguous memory", "Python lists do not support indexing"], "a": 1, "e": "Unlike C++ fixed arrays, Python lists are dynamic and handle memory management automatically.", "type": "MCQ"},
+            {"q": "What are the three most common basic operations highlighted for dynamic arrays?", "o": ["Push, Pop, Peek", "Insertion, Deletion, Traversal", "Enqueue, Dequeue, Traverse", "Add, Remove, Sort"], "a": 1, "e": "The three most common operations are Insertion, Deletion, and Traversal.", "type": "MCQ"},
+            {"q": "In Step 0 (Initial Setup), what does arr = [None] * cap create?", "o": ["A full array of integers", "An empty array filled with None slots representing capacity", "A linked list of nodes", "A pointer array"], "a": 1, "e": "arr = [None] * cap creates an empty array filled with None to show empty slots.", "type": "MCQ"},
+            {"q": "What do variables cap and numOfItem represent respectively?", "o": ["cap: max capacity/slots; numOfItem: number of elements currently stored", "cap: current items; numOfItem: total memory size in bytes", "cap: index start; numOfItem: index end", "cap: pointer address; numOfItem: node count"], "a": 0, "e": "cap is how many elements the array can hold now, and numOfItem is how many elements are actually stored.", "type": "MCQ"},
+            {"q": "What is the primary purpose of the expand() function?", "o": ["To delete all elements", "To double the array capacity and copy existing elements when full", "To shrink the array when empty", "To shift items to the left"], "a": 1, "e": "expand() increases the size of the array when it's full by doubling cap and copying elements.", "type": "MCQ"},
+            {"q": "What is the time complexity of the expand() function due to copying elements?", "o": ["O(1)", "O(log n)", "O(n)", "O(n^2)"], "a": 2, "e": "Copying all existing elements to the new larger array takes O(n) time.", "type": "MCQ"},
+            {"q": "When executing add_to_last(value), what check is performed first?", "o": ["If numOfItem == cap, call expand()", "If numOfItem == 0, delete list", "If array is sorted", "If index is negative"], "a": 0, "e": "If numOfItem == cap, expand() is called before placing the value.", "type": "MCQ"},
+            {"q": "What is the amortized time complexity of add_to_last(value)?", "o": ["O(1) average with occasional O(n) when expanding", "O(n) always", "O(log n)", "O(n^2)"], "a": 0, "e": "add_to_last has an amortized O(1) per insert, with occasional O(n) when expanding.", "type": "MCQ"},
+            {"q": "Why does add_to_last need the global numOfItem keyword in Python?", "o": ["Because numOfItem is assigned/mutated inside the function", "Because arr is mutated", "Because cap is read", "To import modules"], "a": 0, "e": "We assign to numOfItem inside the function (numOfItem += 1), so Python needs global to rebind the outer variable.", "type": "MCQ"},
+            {"q": "How does remove_from_last() remove the last element?", "o": ["By shifting all elements left", "By simply reducing numOfItem by 1 and optionally setting arr[numOfItem] = None", "By deleting the array object", "By calling expand()"], "a": 1, "e": "remove_from_last() simply reduces numOfItem and clears the slot, requiring no rearrangement.", "type": "MCQ"},
+            {"q": "What is the time complexity of remove_from_last()?", "o": ["O(n)", "O(log n)", "O(1)", "O(n^2)"], "a": 2, "e": "Removing from the end takes O(1) time because no shifting is needed.", "type": "MCQ"},
+            {"q": "What is the definition of Traversal in data structures?", "o": ["Modifying every element in reverse order", "Visiting each element of a data structure one by one", "Deleting elements randomly", "Searching for memory leaks"], "a": 1, "e": "Traversal means visiting each element of a data structure one by one, usually from first to last.", "type": "MCQ"},
+            {"q": "What is the time complexity of print_list() traversal?", "o": ["O(1)", "O(n)", "O(log n)", "O(n^2)"], "a": 1, "e": "Traversal visits every element once, resulting in O(n) time complexity.", "type": "MCQ"},
+            {"q": "When implementing add_to_first(value), why must we iterate from right-to-left (backward loop)?", "o": ["To speed up loops", "To avoid overwriting existing values while shifting", "To sort elements descending", "To clear memory"], "a": 1, "e": "We iterate right-to-left to avoid overwriting values while shifting items right.", "type": "MCQ"},
+            {"q": "Where is the new value placed after shifting elements in add_to_first(value)?", "o": ["At arr[numOfItem]", "At arr[0]", "At the middle", "At cap - 1"], "a": 1, "e": "After shifting, the first slot (arr[0]) is free for the new value.", "type": "MCQ"},
+            {"q": "In remove_from_first(), what is the direction of the shifting loop?", "o": ["Right-to-left", "Left-to-right (from index 0 to numOfItem - 2)", "Random jumps", "Backward only"], "a": 1, "e": "It loops from index 0 to numOfItem - 2, moving each element one step left.", "type": "MCQ"},
+            {"q": "What is done to the leftover slot at the end of the array after remove_from_first()?", "o": ["Deleted", "Set to None", "Doubled", "Ignored"], "a": 1, "e": "We clean up the leftover slot at the end by setting arr[numOfItem] = None.", "type": "MCQ"},
+            {"q": "What is the primary purpose of the search(value) function?", "o": ["To check if a specific value exists inside the array", "To sort the array", "To remove duplicates", "To expand capacity"], "a": 0, "e": "The purpose is to check if a specific value exists inside the array.", "type": "MCQ"},
+            {"q": "What does search(value) return if the item is found?", "o": ["False", "True", "Its index", "None"], "a": 1, "e": "If any element matches the given value, it returns True.", "type": "MCQ"},
+            {"q": "What does search(value) return if the loop finishes with no match?", "o": ["True", "False", "None", "Error"], "a": 1, "e": "If the loop finishes with no match, it returns False.", "type": "MCQ"},
+            {"q": "What is the time complexity of search(value) in an unsorted array of size n?", "o": ["O(1)", "O(log n)", "O(n)", "O(n^2)"], "a": 2, "e": "Searching an unsorted array takes O(n) linear time.", "type": "MCQ"},
+            {"q": "What is the time complexity of expand() operation summarized in the chapter?", "o": ["O(1)", "O(n) (due to copying)", "O(log n)", "O(n^2)"], "a": 1, "e": "Expand array takes O(n) due to copying elements.", "type": "MCQ"},
+            {"q": "What is the time complexity of print_list() summarized in the chapter?", "o": ["O(1)", "O(n)", "O(log n)", "O(n^2)"], "a": 1, "e": "Print all / traverse takes O(n).", "type": "MCQ"},
+            {"q": "What is the value of numOfItem when an array is newly initialized?", "o": ["1", "0", "-1", "cap"], "a": 1, "e": "numOfItem starts at 0.", "type": "MCQ"},
+            {"q": "Which method is used in expand() to create the temporary larger array?", "o": ["temp = [None] * cap", "temp = []", "temp = list(arr)", "temp = new int[cap]"], "a": 0, "e": "temp = [None] * cap creates a list with cap elements starting as None.", "type": "MCQ"},
+            {"q": "In expand(), what happens to cap before creating the new temp array?", "o": ["It is halved", "It is doubled (cap *= 2)", "It is set to zero", "It remains unchanged"], "a": 1, "e": "Step 1 of expand() doubles the capacity: cap *= 2.", "type": "MCQ"},
+            {"q": "How are elements copied from arr to temp during expand()?", "o": ["Using a backward loop", "Using a for loop from 0 to numOfItem - 1", "Using recursion", "Using pop()"], "a": 1, "e": "Loop takes each element from arr and copies it to temp.", "type": "MCQ"},
+            {"q": "What does arr = temp do at the end of expand()?", "o": ["Deletes temp", "Replaces the old array reference with the new larger array", "Clears memory", "Resets numOfItem"], "a": 1, "e": "Step 4 replaces old array with new one.", "type": "MCQ"},
+            {"q": "Why is cap not declared with global inside add_to_last(value)?", "o": ["Because cap is reassigned", "Because we only read cap without reassigning/rebinding its name", "Because cap is a local variable", "Because cap is deleted"], "a": 1, "e": "We read cap but do not assign to it here; reading does not need global.", "type": "MCQ"},
+            {"q": "What is the real-life analogy given for remove_from_last()?", "o": ["Waiting in a customer queue", "Picking up the last book from a stack — no rearranging needed", "Reading a guest list", "Buying a larger pencil case"], "a": 1, "e": "Think of removing the last book from a stack — you just pick it up.", "type": "MCQ"},
+            {"q": "What is the real-life analogy given for expand()?", "o": ["Buying a new, bigger pencil case that is empty", "A line of customers", "Reading out loud guest names", "Stacking dinner plates"], "a": 0, "e": "Think of this as buying a new, bigger pencil case that is empty.", "type": "MCQ"},
+            {"q": "What is the real-life analogy given for print_list() traversal?", "o": ["Buying a pencil case", "Reading out loud all names in a guest list one by one", "Picking up a book", "Expanding a shelf"], "a": 1, "e": "Think of reading out loud all names in a guest list one by one.", "type": "MCQ"},
+            {"q": "What is the time complexity of remove_from_first() due to shifting?", "o": ["O(1)", "O(log n)", "O(n)", "O(n^2)"], "a": 2, "e": "Shifting all elements one step left takes O(n) time.", "type": "MCQ"},
+            {"q": "What is the time complexity of add_to_first() due to shifting and potential expansion?", "o": ["O(1)", "O(n)", "O(log n)", "O(n^2)"], "a": 1, "e": "Shifting elements right takes O(n) time.", "type": "MCQ"},
+            {"q": "In search(value), what statement is executed immediately when arr[i] == value?", "o": ["return False", "return True", "break loop", "continue"], "a": 1, "e": "If any element matches the given value, it returns True.", "type": "MCQ"},
+            {"q": "If an array has numOfItem = 3, what are the indices of valid elements?", "o": ["1, 2, 3", "0, 1, 2", "0, 1, 2, 3", "1, 2"], "a": 1, "e": "Indices range from 0 to numOfItem - 1 (0, 1, 2).", "type": "MCQ"},
+            {"q": "What does [None] * cap mean in Python?", "o": ["Create a list with cap elements, all starting as None", "Multiply None by capacity", "Create a string", "Delete elements"], "a": 0, "e": "[None] * cap creates a list with cap elements starting as None.", "type": "MCQ"},
+            {"q": "Which module or structure is covered in Chapter 2?", "o": ["Python Array Module / Dynamic Arrays", "Linked Lists", "Binary Trees", "Graphs"], "a": 0, "e": "Chapter 2 covers Python Array Module and Dynamic Arrays.", "type": "MCQ"},
+            {"q": "What happens if you attempt remove_from_last() when numOfItem is 0?", "o": ["It throws an error", "numOfItem remains 0 or condition numOfItem > 0 prevents underflow", "Array capacity doubles", "Index out of bounds"], "a": 1, "e": "if numOfItem > 0 checks that array is not empty before removing.", "type": "MCQ"},
+            {"q": "Which operation does NOT modify the array contents?", "o": ["add_to_last", "remove_from_last", "print_list (traversal)", "expand"], "a": 2, "e": "Traversal doesn't modify the array — it just reads through it.", "type": "MCQ"},
+            {"q": "In add_to_first, what is the loop condition/range for shifting right?", "o": ["range(numOfItem - 1, -1, -1)", "range(numOfItem)", "range(cap)", "range(1, cap)"], "a": 0, "e": "We iterate from right-to-left using range(numOfItem - 1, -1, -1).", "type": "MCQ"},
+            {"q": "In remove_from_first, what is the loop range for shifting left?", "o": ["range(numOfItem - 1)", "range(numOfItem)", "range(cap)", "range(1, numOfItem)"], "a": 0, "e": "It loops from index 0 to numOfItem - 2 using range(numOfItem - 1).", "type": "MCQ"},
+            {"q": "What is printed after each element in print_list()?", "o": ["A newline", "A space (end=' ')", "A comma", "Nothing"], "a": 1, "e": "print(arr[i], end=' ') prints each element on the same line separated by spaces.", "type": "MCQ"},
+            {"q": "What is executed after the print_list loop finishes?", "o": ["print() to move to the next line", "exit()", "clear()", "return None"], "a": 0, "e": "print() moves to the next line after printing all elements.", "type": "MCQ"},
+            {"q": "Why is arr[numOfItem] = None optional in remove_from_last()?", "o": ["Because numOfItem already ignores it", "Because it deletes memory", "Because it doubles capacity", "It is mandatory"], "a": 0, "e": "arr[numOfItem] = None is optional because reducing numOfItem 'forgets' the last element.", "type": "MCQ"},
+            {"q": "What does a dynamic array do when it reaches maximum capacity?", "o": ["Shrinks", "Expands automatically", "Stops accepting items", "Deletes data"], "a": 1, "e": "It expands automatically when reaching capacity.", "type": "MCQ"},
+            {"q": "Which function is responsible for doubling capacity when numOfItem == cap?", "o": ["expand()", "resize()", "double()", "grow()"], "a": 0, "e": "expand() increases the size of the array when it's full.", "type": "MCQ"},
+            {"q": "What is the primary benefit of continuous memory alignment in arrays?", "o": ["Allows fast random access via indexing and efficient traversal", "Uses less CPU power", "Allows random scattered pointers", "Prevents all errors"], "a": 0, "e": "Stored in contiguous memory allows efficient traversal and fast random access.", "type": "MCQ"}
+        ];
+
+        const P2_SOURCE = [
+            // 50 True/False Questions
+            {"q": "An array is defined as a collection of elements stored in contiguous (continuous) memory locations.", "o": ["True", "False"], "a": 0, "e": "True: Elements are stored in contiguous memory locations.", "type": "TF"},
+            {"q": "All elements in a standard array must be of the same data type.", "o": ["True", "False"], "a": 0, "e": "True: All elements share the same data type.", "type": "TF"},
+            {"q": "Arrays provide fast random access to elements because of direct indexing.", "o": ["True", "False"], "a": 0, "e": "True: Indexing enables fast random access.", "type": "TF"},
+            {"q": "Traditional arrays in languages like C++ have a fixed size, whereas Python lists are dynamic.", "o": ["True", "False"], "a": 0, "e": "True: Python lists grow or shrink dynamically during runtime.", "type": "TF"},
+            {"q": "In Step 0, initializing an array with [None] * cap creates slots representing empty storage compartments.", "o": ["True", "False"], "a": 0, "e": "True: Filled with None to show empty slots.", "type": "TF"},
+            {"q": "The variable cap tracks how many elements the array has actually stored so far.", "o": ["True", "False"], "a": 1, "e": "False: cap tracks total capacity; numOfItem tracks how many elements are actually stored.", "type": "TF"},
+            {"q": "The expand() function doubles the capacity (cap) when the array becomes full.", "o": ["True", "False"], "a": 0, "e": "True: expand() doubles cap and copies elements.", "type": "TF"},
+            {"q": "The expand() function has a time complexity of O(n) because all existing elements must be copied.", "o": ["True", "False"], "a": 0, "e": "True: Copying elements takes O(n) time.", "type": "TF"},
+            {"q": "Adding an element to the end of an array (add_to_last) checks if numOfItem == cap and calls expand() if needed.", "o": ["True", "False"], "a": 0, "e": "True: It checks capacity and expands if full.", "type": "TF"},
+            {"q": "Removing the last element from an array (remove_from_last) requires shifting all remaining elements.", "o": ["True", "False"], "a": 1, "e": "False: Removing from the end just decreases numOfItem without any shifting.", "type": "TF"},
+            {"q": "Traversal means visiting each element of a data structure one by one.", "o": ["True", "False"], "a": 0, "e": "True: Traversal visits elements sequentially.", "type": "TF"},
+            {"q": "The print_list() function modifies the array values while reading them.", "o": ["True", "False"], "a": 1, "e": "False: Traversal doesn't modify the array; it just reads/displays values.", "type": "TF"},
+            {"q": "In add_to_first(value), shifting elements must be done using a right-to-left loop to prevent overwriting.", "o": ["True", "False"], "a": 0, "e": "True: Backward loop avoids overwriting values during shifting.", "type": "TF"},
+            {"q": "Removing an element from the beginning (remove_from_first) shifts elements from left-to-right.", "o": ["True", "False"], "a": 0, "e": "True: Each element moves one step to the left.", "type": "TF"},
+            {"q": "After removing an element from the beginning, numOfItem is decreased by 1.", "o": ["True", "False"], "a": 0, "e": "True: numOfItem -= 1.", "type": "TF"},
+            {"q": "The search(value) function returns True immediately upon finding a matching element.", "o": ["True", "False"], "a": 0, "e": "True: Returns True when a match is encountered.", "type": "TF"},
+            {"q": "If search(value) finishes checking all elements without finding a match, it returns False.", "o": ["True", "False"], "a": 0, "e": "True: Returns False if no match is found.", "type": "TF"},
+            {"q": "Array indexing in Python starts from 1.", "o": ["True", "False"], "a": 1, "e": "False: Array indexing starts from 0.", "type": "TF"},
+            {"q": "numOfItem starts at 0 upon initial setup before adding any elements.", "o": ["True", "False"], "a": 0, "e": "True: numOfItem = 0 initially.", "type": "TF"},
+            {"q": "The expand() function creates a temporary array using [None] * cap.", "o": ["True", "False"], "a": 0, "e": "True: temp = [None] * cap.", "type": "TF"},
+            {"q": "add_to_last places the new value at index numOfItem.", "o": ["True", "False"], "a": 0, "e": "True: arr[numOfItem] = value.", "type": "TF"},
+            {"q": "add_to_last increments numOfItem by 1 after insertion.", "o": ["True", "False"], "a": 0, "e": "True: numOfItem += 1.", "type": "TF"},
+            {"q": "remove_from_last physically deletes memory blocks of the array.", "o": ["True", "False"], "a": 1, "e": "False: It just reduces used size and optionally sets slot to None.", "type": "TF"},
+            {"q": "Traversal can be used for counting elements, summing, or printing.", "o": ["True", "False"], "a": 0, "e": "True: Traversal allows processing elements for various goals.", "type": "TF"},
+            {"q": "print_list() prints elements separated by spaces using end=' '.", "o": ["True", "False"], "a": 0, "e": "True: print(arr[i], end=' ').", "type": "TF"},
+            {"q": "Linear search time complexity in an unsorted array is O(n).", "o": ["True", "False"], "a": 0, "e": "True: It examines up to n elements.", "type": "TF"},
+            {"q": "add_to_first places the new item at index 0 after right-shifting.", "o": ["True", "False"], "a": 0, "e": "True: arr[0] = value.", "type": "TF"},
+            {"q": "remove_from_first shifts elements left and decreases numOfItem.", "o": ["True", "False"], "a": 0, "e": "True: Shifts left and numOfItem -= 1.", "type": "TF"},
+            {"q": "cap represents how many elements the array can hold currently.", "o": ["True", "False"], "a": 0, "e": "True: cap is current capacity.", "type": "TF"},
+            {"q": "numOfItem represents how many elements are actually stored.", "o": ["True", "False"], "a": 0, "e": "True: numOfItem is active item count.", "type": "TF"},
+            {"q": "Dynamic arrays automatically grow or shrink during runtime in Python.", "o": ["True", "False"], "a": 0, "e": "True: Python lists handle this automatically.", "type": "TF"},
+            {"q": "The three common operations are insertion, deletion, and traversal.", "o": ["True", "False"], "a": 0, "e": "True: Listed as the three main dynamic array operations.", "type": "TF"},
+            {"q": "expand() doubles the capacity by multiplying cap by 2.", "o": ["True", "False"], "a": 0, "e": "True: cap *= 2.", "type": "TF"},
+            {"q": "Copying elements in expand() is done using a loop over range(numOfItem).", "o": ["True", "False"], "a": 0, "e": "True: for i in range(numOfItem): temp[i] = arr[i].", "type": "TF"},
+            {"q": "add_to_last has an amortized time complexity of O(1).", "o": ["True", "False"], "a": 0, "e": "True: O(1) per insert on average.", "type": "TF"},
+            {"q": "remove_from_last takes O(1) time complexity.", "o": ["True", "False"], "a": 0, "e": "True: No shifting needed, O(1).", "type": "TF"},
+            {"q": "print_list takes O(n) time complexity.", "o": ["True", "False"], "a": 0, "e": "True: Visits every element once, O(n).", "type": "TF"},
+            {"q": "add_to_first requires a capacity check and potential expansion.", "o": ["True", "False"], "a": 0, "e": "True: Ensures room before shifting.", "type": "TF"},
+            {"q": "remove_from_first cleans up the leftover slot at the end by setting it to None.", "o": ["True", "False"], "a": 0, "e": "True: arr[numOfItem] = None.", "type": "TF"},
+            {"q": "search returns False if the loop finishes with no match found.", "o": ["True", "False"], "a": 0, "e": "True: Returns False.", "type": "TF"},
+            {"q": "Python lists require manual memory management like C++ pointers.", "o": ["True", "False"], "a": 1, "e": "False: Python handles memory management automatically.", "type": "TF"},
+            {"q": "Array elements are stored at non-contiguous memory addresses.", "o": ["True", "False"], "a": 1, "e": "False: Stored in contiguous memory.", "type": "TF"},
+            {"q": "The global keyword is needed for numOfItem in add_to_last because it is assigned/mutated.", "o": ["True", "False"], "a": 0, "e": "True: Rebinding requires global.", "type": "TF"},
+            {"q": "Reading cap inside add_to_last requires the global keyword.", "o": ["True", "False"], "a": 1, "e": "False: Reading does not rebind names, so global is not needed for cap.", "type": "TF"},
+            {"q": "Removing from the beginning of an array is faster than removing from the end.", "o": ["True", "False"], "a": 1, "e": "False: Beginning removal takes O(n) due to shifting, whereas end removal takes O(1).", "type": "TF"},
+            {"q": "Traversal modifies the elements inside the array permanently.", "o": ["True", "False"], "a": 1, "e": "False: Traversal just reads through elements without modifying.", "type": "TF"},
+            {"q": "In a fixed array of size 6, 6 elements can be stored before expand() is triggered.", "o": ["True", "False"], "a": 0, "e": "True: When numOfItem == cap, expand is triggered.", "type": "TF"},
+            {"q": "The search function checks elements starting from index 0 up to numOfItem - 1.", "o": ["True", "False"], "a": 0, "e": "True: Loops through range(numOfItem).", "type": "TF"},
+            {"q": "Chapter 2 focuses entirely on Data Structure - Array and its operations.", "o": ["True", "False"], "a": 0, "e": "True: Focuses on Array, Dynamic arrays, and operations.", "type": "TF"}
+        ];
+
+        const P1_DATA = P1_SOURCE;
+        const P2_DATA = P2_SOURCE;
+
+        let activePart = 1;
+        let qData = P1_DATA;
+        let cIdx = 0;
+        let score = 0;
+        let wrongList = [];
+
+        const $ = id => document.getElementById(id);
+
+        function switchPart(part) {
+            activePart = part;
+            $("tab1").className = "tab-btn " + (part === 1 ? "active" : "");
+            $("tab2").className = "tab-btn " + (part === 2 ? "active" : "");
+            qData = part === 1 ? P1_DATA : P2_DATA;
+            resetQuiz();
+        }
+
+        function resetQuiz() {
+            cIdx = 0;
+            score = 0;
+            wrongList = [];
+            renderQuestion();
+        }
+
+        function renderQuestion() {
+            const q = qData[cIdx];
+            $("n").textContent = `Question ${cIdx + 1} of ${qData.length}`;
+            $("s").textContent = `Score: ${score}`;
+            $("bar").style.width = `${(cIdx / qData.length) * 100}%`;
+            
+            $("card").innerHTML = `
+                <span class="q-badge">${q.type === 'TF' ? 'True/False' : 'Multiple Choice'}</span>
+                <p class="q">${q.q}</p>
+                <div id="opts"></div>
+                <div id="fb"></div>
+            `;
+
+            q.o.forEach((optText, i) => {
+                const b = document.createElement("button");
+                b.className = "opt";
+                b.innerHTML = `<b>${q.type === 'TF' ? (i===0?'T':'F') : "ABCD"[i] + ")"}</b><span></span>`;
+                b.querySelector("span").textContent = optText;
+                b.onclick = () => handleAnswer(i);
+                $("opts").appendChild(b);
+            });
+        }
+
+        function handleAnswer(selected) {
+            const q = qData[cIdx];
+            const isCorrect = selected === q.a;
+            const buttons = document.querySelectorAll(".opt");
+
+            buttons.forEach((btn, idx) => {
+                btn.disabled = true;
+                if (idx === q.a) btn.classList.add("ok");
+                else if (idx === selected) btn.classList.add("no");
+            });
+
+            if (isCorrect) score++;
+            else wrongList.push(cIdx);
+
+            $("s").textContent = `Score: ${score}`;
+
+            $("fb").innerHTML = `
+                <div class="ex ${isCorrect ? 'ok' : 'no'}">
+                    <strong>${isCorrect ? 'Correct answer ✓' : 'Incorrect answer ✗'}</strong>
+                    <span>${q.e}</span>
+                </div>
+                <button class="btn" id="nxtBtn">${cIdx < qData.length - 1 ? 'Next question' : 'Show final results'}</button>
+            `;
+
+            $("nxtBtn").onclick = () => {
+                cIdx++;
+                if (cIdx < qData.length) renderQuestion();
+                else finishQuiz();
+            };
+            $("nxtBtn").focus();
+        }
+
+        function finishQuiz() {
+            $("bar").style.width = "100%";
+            $("n").textContent = "Quiz complete";
+            const pct = Math.round((score / qData.length) * 100);
+            
+            let html = `
+                <div class="score">${score} / ${qData.length}</div>
+                <p style="text-align:center;font-size:1.2rem;margin:0 0 16px;">Percentage: <b>${pct}%</b></p>
+            `;
+
+            if (wrongList.length > 0) {
+                html += `<p style="margin:16px 0 8px;"><b>Questions to review:</b></p><ul class="rev">`;
+                wrongList.forEach(w => {
+                    html += `<li><b>Question ${w + 1}:</b> ${qData[w].q}</li>`;
+                });
+                html += `</ul>`;
+            } else {
+                html += `<p style="text-align:center;color:var(--ok);">Excellent! All answers are correct (100%).</p>`;
+            }
+
+            html += `<button class="btn" onclick="resetQuiz()">Restart quiz</button>`;
+            $("card").innerHTML = html;
+        }
+
+  
+        renderQuestion();
+    </script>
+</body>
+</html>

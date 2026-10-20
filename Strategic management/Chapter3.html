@@ -1,0 +1,436 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Strategic Management — Chapter 3: Task Environment Analysis</title>
+    <style>
+        :root {
+            --bg: #0f172a;
+            --c: #1e293b;
+            --t: #f8fafc;
+            --m: #94a3b8;
+            --b: #334155;
+            --ac: #38bdf8;
+            --ok: #22c55e;
+            --okb: #052e16;
+            --no: #ef4444;
+            --nob: #450a0a;
+            box-sizing: border-box;
+        }
+
+        @media(prefers-color-scheme: light) {
+            :root[data-theme=light] {
+                --bg: #f8fafc;
+                --c: #ffffff;
+                --t: #0f172a;
+                --m: #64748b;
+                --b: #e2e8f0;
+                --ac: #0284c7;
+                --okb: #dcfce7;
+                --nob: #fee2e2;
+                --ok: #16a34a;
+                --no: #dc2626;
+            }
+        }
+
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--t);
+            font-family: 'Segoe UI', Tahoma, system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+        }
+        main {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 24px 16px 60px;
+        }
+        .header-panel {
+            text-align: center;
+            margin-bottom: 24px;
+            border-bottom: 8px solid var(--b);
+            padding-bottom: 30px;
+        }
+        h1 { font-size: 1.5rem; margin: 0 0 8px; color: var(--ac); }
+        .sub { color: var(--m); font-size: 0.95rem; margin: 0; }
+        
+        .nav-tabs {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .tab-btn {
+            flex: 1;
+            padding: 12px;
+            background: var(--c);
+            border: 1px solid var(--b);
+            color: var(--t);
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .tab-btn.active {
+            background: var(--ac);
+            color: #000;
+            border-color: var(--ac);
+        }
+
+        .bar {
+            height: 8px;
+            background: var(--b);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+        .bar i {
+            display: block;
+            height: 100%;
+            background: var(--ac);
+            width: 0;
+            transition: width 0.3s;
+        }
+        .meta {
+            display: flex;
+            justify-content: space-between;
+            color: var(--m);
+            font-size: 0.9rem;
+            margin-bottom: 16px;
+        }
+        .card {
+            background: var(--c);
+            border: 1px solid var(--b);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+        .q-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            background: var(--b);
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+            color: var(--ac);
+        }
+        .q-badge.high-level {
+            background: #f59e0b;
+            color: #000;
+            font-weight: bold;
+        }
+        .q {
+            font-size: 1.1rem;
+            font-weight: 600;
+            direction: ltr;
+            text-align: left;
+            margin: 0 0 16px;
+        }
+        .opt {
+            display: flex;
+            gap: 12px;
+            direction: ltr;
+            text-align: left;
+            width: 100%;
+            background: var(--c);
+            color: var(--t);
+            border: 1.5px solid var(--b);
+            border-radius: 8px;
+            padding: 12px 14px;
+            margin-bottom: 10px;
+            font: inherit;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+        .opt:hover:not(:disabled) { border-color: var(--ac); }
+        .opt b { min-width: 1.5em; color: var(--ac); }
+        .opt.ok { background: var(--okb); border-color: var(--ok); }
+        .opt.no { background: var(--nob); border-color: var(--no); }
+        .opt:disabled { cursor: default; }
+
+        .ex {
+            margin-top: 16px;
+            padding: 14px;
+            border-radius: 8px;
+            direction: ltr;
+            text-align: left;
+            font-size: 0.95rem;
+        }
+        .ex.ok { background: var(--okb); border: 1px solid var(--ok); }
+        .ex.no { background: var(--nob); border: 1px solid var(--no); }
+        .ex strong { display: block; margin-bottom: 4px; }
+
+        .btn {
+            margin-top: 16px;
+            background: var(--ac);
+            color: #000;
+            border: 0;
+            border-radius: 8px;
+            padding: 12px 24px;
+            font: inherit;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+        }
+        .score { text-align: center; font-size: 3rem; font-weight: 800; margin: 12px 0; color: var(--ac); }
+        .rev { margin: 16px 0 0; padding: 0; list-style: none; direction: ltr; text-align: left; font-size: 0.9rem; }
+        .rev li { padding: 8px 0; border-top: 1px solid var(--b); }
+    </style>
+</head>
+<body>
+    <main>
+        <div class="header-panel">
+            <h1>Strategic Management — Chapter 3</h1>
+            <p class="sub">Task Environment Analysis & Industry Analysis</p>
+        </div>
+        
+        <div class="nav-tabs">
+            <button class="tab-btn active" id="tab1" onclick="switchPart(1)">Multiple Choice</button>
+            <button class="tab-btn" id="tab2" onclick="switchPart(2)">True/False</button>
+        </div>
+
+        <div class="bar"><i id="bar"></i></div>
+        <div class="meta">
+            <span id="n"></span>
+            <span id="s"></span>
+        </div>
+        <div class="card" id="card"></div>
+    </main>
+      
+    <script>
+       const P1_SOURCE = [
+            // Standard Questions (1-45)
+            {"q": "How is the Task Environment defined in Chapter 3?", "o": ["The industry within which the firm operates, including elements that directly affect and are affected by the firm (stakeholders)", "The general macro-societal economic forces affecting multiple industries", "The internal corporate structure, culture, and employee resources", "The physical climate and natural resources of Earth"], "a": 0, "e": "The task environment is typically the industry within which the firm operates, including stakeholders that directly affect and are affected by the firm.", "type": "MCQ"},
+            {"q": "What is an Industry?", "o": ["A group of firms in the same type of business (e.g., Helwan University, AUC, and Cairo University in higher education)", "A single corporation operating in multiple unrelated global markets", "A government agency regulating national taxation laws", "An internal corporate department of human resources"], "a": 0, "e": "An industry is a group of firms in the same type of business.", "type": "MCQ"},
+            {"q": "Who developed the Five Forces model driving industry competition featured in Chapter 3?", "o": ["Thomas L. Wheelen and J. David Hunger (based on Michael Porter)", "Miles and Snow", "Frederick Taylor and Henri Fayol", "Maytag and Whirlpool executives"], "a": 0, "e": "The five forces model is presented by Wheelen & Hunger based on Michael Porter's framework.", "type": "MCQ"},
+            {"q": "What are the five competitive forces in Porter's model?", "o": ["Threat of new entrants, Rivalry among existing firms, Threat of substitutes, Bargaining power of buyers, Bargaining power of suppliers", "Political, Economic, Sociocultural, Technological, Legal", "Strengths, Weaknesses, Opportunities, Threats", "Structure, Culture, Resources, Programs, Budgets"], "a": 0, "e": "Porter's five forces include new entrants, existing rivalry, substitutes, buyer power, and supplier power.", "type": "MCQ"},
+            {"q": "Which of the following is an entry barrier that reduces the threat of new entrants?", "o": ["Economies of scale, capital requirements, switching costs, and access to distribution channels", "Slow industry growth and high seasonal fixed costs", "Large purchase volume by powerful buyers", "Low buyer switching costs"], "a": 0, "e": "Entry barriers include economies of scale, capital requirements, switching costs, and distribution access.", "type": "MCQ"},
+            {"q": "How do economies of scale protect existing firms from new entrants?", "o": ["By spreading fixed costs over large volume, lowering unit costs and forcing new entrants to enter at a cost disadvantage", "By eliminating all government licensing requirements", "By granting legal monopolies in foreign markets", "By increasing buyer switching costs to zero"], "a": 0, "e": "Economies of scale lower unit costs through high volume, putting new entrants at a cost disadvantage.", "type": "MCQ."},
+            {"q": "What factors intensify rivalry among existing firms in an industry?", "o": ["Slow industry growth, many equal-sized competitors, undifferentiated products, and high fixed costs", "Rapid market expansion and unique proprietary software", "High supplier concentration and zero exit barriers", "Strong product differentiation and low fixed costs"], "a": 0, "e": "Rivalry intensifies with slow growth, equal competitors, undifferentiated products, and high fixed costs.", "type": "MCQ."},
+            {"q": "Why do high fixed costs (e.g., in airlines or hotels) intensify competitive rivalry during low seasons?", "o": ["Firms cut prices to cover fixed costs and maintain capacity utilization, often sparking price wars", "Firms instantly shut down all operations permanently", "Firms increase prices to maximize profit margins", "Firms outsource all staffing overseas"], "a": 0, "e": "High fixed costs cause firms to cut prices in low seasons to cover overhead and avoid idle capacity.", "type": "MCQ."},
+            {"q": "What role do substitute products play in industry competition?", "o": ["They place an upper limit on prices that industry firms can charge (e.g., tea vs. coffee)", "They increase industry profitability without limits", "They eliminate the need for supplier negotiations", "They serve as internal corporate strengths"], "a": 0, "e": "Substitutes place a ceiling on industry prices by offering alternative ways to satisfy the same consumer need.", "type": "MCQ."},
+            {"q": "When does Supplier Power peak in an industry?", "o": ["When few companies dominate, products are unique or specialized, and forward integration is possible", "When buyers make large volume purchases and have low switching costs", "When substitute products are abundant and cheap", "When industry growth is extremely slow"], "a": 0, "e": "Supplier power is high when few firms dominate, products are unique, and forward integration is possible.", "type": "MCQ."},
+            {"q": "When does Buyer Power peak?", "o": ["When purchases are large volume, backward integration is possible, and switching costs are low", "When suppliers control unique petroleum resources", "When products are highly differentiated with no substitutes", "When industry fixed costs are seasonal and high"], "a": 0, "e": "Buyer power peaks with large volume purchases, backward integration capability, and low switching costs.", "type": "MCQ."},
+            {"q": "Which of the following is considered a task environment stakeholder other than buyers and suppliers?", "o": ["Government, communities, media, unions, shareholders, and action groups", "Macroeconomic inflation rates and GDP", "Internal corporate payroll tax withholdings", "Physical climate patterns and wildlife"], "a": 0, "e": "Task environment stakeholders include government, communities, media, unions, shareholders, and action groups.", "type": "MCQ."},
+            {"q": "What is Competitive Intelligence?", "o": ["The legal and ethical process of collecting, analyzing, and using information about competitors and the wider market", "Illegal industrial espionage involving dumpster diving and wiretapping", "An internal corporate financial audit of tax returns", "A government regulatory investigation into monopoly pricing"], "a": 0, "e": "Competitive intelligence is the legal and ethical process of collecting and analyzing market and competitor info.", "type": "MCQ."},
+            {"q": "What is Benchmarking?", "o": ["Searching for best practices among competitors and non-competitors, then copying the methods behind their better performance", "Filing legal lawsuits against industry rivals for patent infringement", "Calculating quarterly employee salary bonuses", "Auditing factory machine voltage capacity"], "a": 0, "e": "Benchmarking searches for best practices among competitors and non-competitors to copy their methods.", "type": "MCQ.", "type": "MCQ"},
+            {"q": "What classic corporate benchmarking case is cited in Chapter 3?", "o": ["Xerox benchmarking L.L.Bean's warehousing and order fulfillment practices", "Kodak benchmarking digital camera sensor chips", "Maytag benchmarking European washing machine motors", "Netflix benchmarking cable television subscriptions"], "a": 0, "e": "Xerox benchmarking L.L.Bean's warehousing is a classic benchmarking case study.", "type": "MCQ."},
+            {"q": "According to Miles & Snow's Competitor Typology, what do Defenders focus on?", "o": ["Efficiency of existing operations within limited product lines; highly unlikely to innovate in new areas", "Aggressive market opportunities and innovation, sacrificing strict efficiency", "Hybrid operations combining stable core efficiency with edge experimentation", "Inconsistent ad-hoc responses only when forcefully compelled"], "a": 0, "e": "Defenders focus on operational efficiency and limited product lines, avoiding new innovation areas.", "type": "MCQ."},
+            {"q": "What characterizes Prospectors in Miles & Snow's typology?", "o": ["Market opportunities and innovation with broad product lines, sacrificing strict efficiency for first-mover advantage", "Strict focus on existing operational efficiency and stable cores", "Inconsistent strategies with zero structural alignment", "Reacting only when forced by environmental threats"], "a": 0, "e": "Prospectors focus on market innovation and broad product lines, sacrificing efficiency for first-mover advantage.", "type": "MCQ."},
+            {"q": "What is the strategic behavior of Analyzers according to Miles & Snow?", "o": ["Hybrid approach: operating a stable core while experimenting on the edges for innovation", "Strict focus on a single limited product line without change", "Ad-hoc reaction without any consistent plan", "Massive diversification across all global industries simultaneously"], "a": 0, "e": "Analyzers are hybrids, operating a stable core while cautiously experimenting on product edges.", "type": "MCQ."},
+            {"q": "How do Reactors behave in the Miles & Snow typology?", "o": ["They lack a consistent strategy-structure fit and only respond to environmental threats when forcefully compelled", "They lead market innovation as aggressive first-movers", "They maintain hyper-efficient stable operational cores", "They engage in systematic multi-divisional benchmarking"], "a": 0, "e": "Reactors lack consistent strategies and respond to threats only when forcefully compelled.", "type": "MCQ."},
+            {"q": "What does EFAS stand for?", "o": ["External Factors Analysis Summary", "Executive Financial Auditing System", "External Factor Assessment Strategy", "Employee Functional Appraisal Schedule"], "a": 0, "e": "EFAS stands for External Factors Analysis Summary.", "type": "MCQ."},
+            {"q": "In an EFAS table, what must the sum of the weights assigned to key opportunities and threats equal?", "o": ["Exactly 1.0 (or 1.00)", "Exactly 5.0", "Exactly 100", "Zero"], "a": 0, "e": "The weights assigned to EFAS factors must sum to 1.0.", "type": "MCQ."},
+            {"q": "What is the rating scale used in EFAS tables to assess how well a company is responding to factors?", "o": ["1 to 5 scale (1 = Poor, 3 = Average, 5 = Outstanding)", "0 to 100 percentage scale", "1 to 10 scale", "A to F letter grade scale"], "a": 0, "e": "EFAS uses a 1 to 5 rating scale (1 is poor, 3 is average, 5 is outstanding).", "type": "MCQ."},
+            {"q": "How is the Weighted Score calculated in an EFAS table?", "o": ["Multiplying the factor's Weight by its Rating (Weight x Rating)", "Adding the Weight and the Rating together", "Dividing the Rating by the Weight", "Subtracting the Weight from 5.0"], "a": 0, "e": "The weighted score is calculated by multiplying the factor's weight by its rating.", "type": "MCQ."},
+            {"q": "What is the average benchmark weighted score in an EFAS table?", "o": ["3.0 (Scores above 3.0 indicate above-average response; scores below 3.0 indicate below-average)", "5.0", "1.0", "10.0"], "a": 0, "e": "The average weighted score baseline is 3.0.", "type": "MCQ."},
+            {"q": "In the textbook Maytag EFAS case study, what was Maytag's total weighted score?", "o": ["3.15 (proving Maytag responded slightly better than average)", "1.00", "5.00", "2.50"], "a": 0, "e": "Maytag's total EFAS score was 3.15, indicating an above-average response.", "type": "MCQ."},
+            {"q": "What do exit barriers (such as specialized assets with no alternative use) do to industry competition?", "o": ["Keep firms in the industry even when profits are low, intensifying rivalry", "Allow firms to exit the market instantly with zero cost", "Eliminate all supplier bargaining power", "Prevent new entrants from ever joining"], "a": 0, "e": "High exit barriers trap firms in the industry with specialized assets, intensifying rivalry during downturns.", "type": "MCQ."},
+            {"q": "Which of the following is an example of forward integration by a supplier?", "o": ["A petroleum supplier opening its own retail gasoline service stations", "A retail clothing store manufacturing its own fabric", "A computer buyer purchasing computer chips from Intel", "An airline cutting ticket prices in low season"], "a": 0, "e": "Forward integration occurs when a supplier enters the buyer's industry (e.g., oil refiner opening gas stations).", "type": "MCQ."},
+            {"q": "Which of the following is an example of backward integration by a buyer?", "o": ["A car manufacturer acquiring a tire-manufacturing plant to supply its own vehicles", "A petroleum supplier opening retail gas stations", "A consumer switching from coffee to tea", "Xerox benchmarking L.L.Bean's warehousing"], "a": 0, "e": "Backward integration occurs when a buyer enters the supplier's industry (e.g., automaker making its own tires).", "type": "MCQ."},
+            {"q": "How does product differentiation affect rivalry among existing firms?", "o": ["High differentiation builds customer loyalty, reducing direct price rivalry; undifferentiated commodities increase price wars", "Differentiation guarantees immediate bankruptcy", "Differentiation has zero impact on competition", "Differentiation eliminates all supplier power"], "a": 0, "e": "Undifferentiated products (like gasoline) lead to intense price competition, while differentiation builds loyalty.", "type": "MCQ."},
+            {"q": "What is a Strategic Group?", "o": ["A group of firms in an industry following a similar strategy along similar strategic dimensions", "All corporations operating globally in any unrelated sector", "A labor union representing factory assembly workers", "A government trade regulatory commission"], "a": 0, "e": "Strategic groups consist of firms within an industry following similar strategies.", "type": "MCQ."},
+            {"q": "Are firms within the same strategic group more alike or less alike than firms in different groups?", "o": ["More alike and strong direct rivals", "Completely unrelated with zero competition", "Monopolistic entities controlling foreign trade", "Internal company departments"], "a": 0, "e": "Firms in the same strategic group are more alike and are stronger rivals with each other.", "type": "MCQ."},
+            {"q": "What does Intel's dominant microprocessor position illustrate regarding Porter's Five Forces?", "o": ["High supplier power over personal computer manufacturers due to specialized unique components", "High buyer power due to low switching costs", "Intense rivalry with zero barriers to entry", "The irrelevance of substitute products"], "a": 0, "e": "Intel's chips give it high supplier power over PC makers.", "type": "MCQ."},
+            {"q": "How do streaming services like Netflix compete with traditional cable TV in Porter's framework?", "o": ["As substitute products meeting the same entertainment need", "As direct existing industry rivals sharing identical coaxial cables", "As powerful raw material suppliers", "As government regulatory agencies"], "a": 0, "e": "Netflix and streaming services compete as substitutes to cable TV.", "type": "MCQ."},
+            {"q": "What source of competitive intelligence involves interviewing a competitor's former talent?", "o": ["Market & talent interception", "Investigation & espionage", "Direct & broker info", "Benchmarking reverse-engineering"], "a": 0, "e": "Interviewing a competitor's former talent falls under market and talent interception.", "type": "MCQ."},
+            {"q": "What competitive intelligence practice crosses the line into illegal or unethical behavior?", "o": ["Searching through public dumpsters for shredded documents (espionage/spying)", "Reading published newspaper articles and financial journals", "Utilizing specialized information brokers and trade associations", "Interviewing former employees legally"], "a": 0, "e": "Spying, wiretapping, and searching through trash are illegal and unethical intelligence methods.", "type": "MCQ."},
+            {"q": "Why does high capital requirement act as an entry barrier?", "o": ["Because needing massive financial investments for facilities and R&D deters potential new entrants", "Because governments forbid anyone from opening a bank account", "Because existing firms give away products for free", "Because switching costs for buyers are infinite"], "a": 0, "e": "High capital requirements deter new entrants who lack massive upfront investment capital.", "type": "MCQ."},
+            {"q": "What happens when buyer switching costs are extremely low?", "o": ["Buyer power increases because customers can easily switch to competing products without penalty", "Supplier power reaches absolute maximum", "Rivalry among existing firms drops to zero", "Substitute products become illegal"], "a": 0, "e": "Low switching costs increase buyer power since customers can easily move to competitors.", "type": "MCQ."},
+            {"q": "What does a rating of 5.0 represent in an EFAS table?", "o": ["Outstanding response by the company to the key success factor", "Poor response requiring immediate corrective action", "Average industry performance", "Total market failure"], "a": 0, "e": "In EFAS ratings, 5.0 represents outstanding performance.", "type": "MCQ."},
+            {"q": "What does a rating of 1.0 represent in an EFAS table?", "o": ["Poor response by the company", "Outstanding performance", "Average baseline score", "Total market dominance"], "a": 0, "e": "In EFAS ratings, 1.0 represents a poor response.", "type": "MCQ."},
+            {"q": "Which of the following describes Walmart's bargaining power over small suppliers?", "o": ["High buyer power due to massive purchase volumes and size", "Zero buyer power due to high switching costs", "Supplier monopoly control over pricing", "Complete reliance on government subsidies"], "a": 0, "e": "Walmart's massive size and large purchase volume give it high buyer power over suppliers.", "type": "MCQ."},
+            {"q": "How do government policies act as an entry barrier?", "o": ["Through licensing requirements, permits, and legal restrictions that limit new entrants (e.g., taxis, utilities)", "By forcing all companies to merge into a single monopoly", "By eliminating all corporate taxation", "By mandating free product distribution"], "a": 0, "e": "Government policy can restrict or bar entry through licensing and legal permits.", "type": "MCQ."},
+            {"q": "What does access to distribution channels mean as an entry barrier?", "o": ["New entrants must secure shelf space or logistics access, which established firms often control or block", "New entrants are given free delivery trucks by the government", "Distribution channels are irrelevant to competition", "Retailers are legally required to buy from new entrants first"], "a": 0, "e": "Securing distribution channel access is difficult when established firms control shelf space or logistics.", "type": "MCQ."},
+            {"q": "What is the primary focus of Chapter 3?", "o": ["Task environment analysis and industry analysis (Porter's forces, EFAS, competitive intelligence)", "Personnel planning and employee recruiting", "Job descriptions and person specifications", "Macro-societal PESTEL economic forecasting"], "a": 0, "e": "Chapter 3 focuses on task environment analysis, industry characteristics, Porter's forces, and EFAS tables.", "type": "MCQ."},
+            {"q": "Why are trade associations and special interest groups included in the task environment?", "o": ["They represent stakeholder elements that directly affect and are affected by the firm's industry operations", "They calculate corporate income tax returns", "They manufacture factory raw materials", "They dictate internal employee salary grades"], "a": 0, "e": "Trade associations and special interest groups are task environment stakeholders influencing the industry.", "type": "MCQ."},
+            {"q": "What is the ultimate purpose of building an EFAS table?", "o": ["To distill macro-trends and micro-industry factors into a single strategic posture and weighted score", "To audit employee payroll tax withholdings", "To negotiate labor union strikes", "To design office cafeteria seating layouts"], "a": 0, "e": "The EFAS table distills macro and micro factors into a single strategic score evaluating corporate response.", "type": "MCQ."},
+
+            // High-Level Questions (46-50)
+            {"q": "[HIGH-LEVEL] An industry consists of four massive firms controlling 95% of petroleum supply, selling unique un-substitutable raw materials to thousands of fragmented buyers with no backward integration capability. According to Porter's Five Forces, which force dominates this industry completely?", "o": ["High Supplier Power, driven by industry concentration (few dominant firms), unique products, and lack of substitutes", "High Buyer Power due to fragmented customer bases", "Intense Rivalry with zero barriers to entry", "High Threat of Substitute products"], "a": 0, "e": "Few dominant firms and unique products create extreme supplier power in the petroleum industry.", "type": "MCQ."},
+            {"q": "[HIGH-LEVEL] A corporate analyst calculates an EFAS table score of 1.45 for a major appliance manufacturer. Based on the EFAS scoring benchmarks, how should top management interpret this result?", "o": ["The company is performing significantly below the 3.0 industry average response rate, indicating weak strategic positioning and urgent need for corrective action", "The company is performing at an outstanding level above 5.0", "The company has achieved a balanced average response", "The scoring calculation is invalid because weights sum to 1.0"], "a": 0, "e": "A score of 1.45 is well below the 3.0 average benchmark, signaling a poor strategic response.", "type": "MCQ."},
+            {"q": "[HIGH-LEVEL] A firm operates as a Defender in Miles & Snow's typology but attempts overnight to pivot into an aggressive Prospector strategy by launching dozens of experimental product lines in uncharted global markets while dismantling its efficient stable core. Why is this strategic shift likely to fail?", "o": ["Defenders are structured for operational efficiency in stable narrow lines; abruptly dismantling the core without transitional alignment destroys their competitive advantage", "Defenders always outperform Prospectors automatically", "Miles & Snow typologies forbid changing strategies", "Prospectors never succeed in global markets"], "a": 0, "e": "Defenders rely on efficiency in stable cores; sudden unaligned shifts disrupt their structure and cause strategic failure.", "type": "MCQ."},
+            {"q": "[HIGH-LEVEL] An executive argues that engaging in competitive intelligence requires hiring private investigators to rifle through competitor trash dumpsters and wiretap executive boardrooms. How should this unethical assumption be corrected using Chapter 3 definitions?", "o": ["Competitive intelligence is strictly defined as the legal and ethical collection of market data (via trade associations, benchmarking, and former talent), whereas espionage and rummaging through trash are illegal and unethical", "Illegal espionage is legally required for strategic planning", "Ethical intelligence gathering is impossible in modern business", "Trade associations encourage dumpster diving"], "a": 0, "e": "Competitive intelligence is strictly legal and ethical; searching through trash is illegal/unethical.", "type": "MCQ."},
+            {"q": "[HIGH-LEVEL] If an airline industry experiences stagnant zero growth, high seasonal fixed costs, specialized aircraft assets with massive exit barriers, and undifferentiated ticket offerings among dozens of equal competitors, what structural outcome will occur?", "o": ["Intense competitive rivalry characterized by destructive price wars and depressed industry profitability", "A peaceful monopoly with 100% profit margins", "Complete elimination of all entry barriers", "Zero buyer power and infinite supplier leverage"], "a": 0, "e": "Slow growth, high fixed costs, exit barriers, and undifferentiated products create intense rivalry and price wars.", "type": "MCQ."}
+        ];
+
+        const P2_SOURCE = [
+            // Standard Questions (1-45)
+            {"q": "The task environment is typically the industry within which the firm operates.", "o": ["True", "False"], "a": 0, "e": "True: The task environment is typically the industry within which the firm operates.", "type": "TF"},
+            {"q": "An industry is defined as a group of firms in the same type of business.", "o": ["True", "False"], "a": 0, "e": "True: An industry is a group of firms in the same business.", "type": "TF"},
+            {"q": "Porter's Five Forces model includes the threat of new entrants and existing rivalry.", "o": ["True", "False"], "a": 0, "e": "True: Porter's model includes new entrants and existing rivalry.", "type": "TF"},
+            {"q": "Substitutes place an upper limit (ceiling) on industry prices.", "o": ["True", "False"], "a": 0, "e": "True: Substitutes place an upper limit on prices (e.g., tea vs coffee).", "type": "TF"},
+            {"q": "Buyers are more powerful when products are completely unique and switching costs are infinite.", "o": ["True", "False"], "a": 1, "e": "False: Buyer power peaks when purchases are large volume, backward integration is possible, and switching costs are *low*.", "type": "TF"},
+            {"q": "Rivalry among existing firms is stronger when industry growth is slow.", "o": ["True", "False"], "a": 0, "e": "True: Slow industry growth intensifies rivalry as firms fight for market share.", "type": "TF"},
+            {"q": "Firms in the same strategic group are less alike than firms in other groups.", "o": ["True", "False"], "a": 1, "e": "False: Firms in the same strategic group are *more* alike and are strong rivals.", "type": "TF"},
+            {"q": "In an EFAS table, the average baseline weighted score is 3.0.", "o": ["True", "False"], "a": 0, "e": "True: The average weighted score benchmark in EFAS is 3.0.", "type": "TF"},
+            {"q": "Defenders focus on aggressive innovation in brand new uncharted market areas.", "o": ["True", "False"], "a": 1, "e": "False: Defenders focus on efficiency of existing operations with limited product lines; *prospectors* innovate.", "type": "TF"},
+            {"q": "Reactors have a consistent strategy-structure-culture fit.", "o": ["True", "False"], "a": 1, "e": "False: Reactors lack a consistent strategy-structure fit and respond without a plan.", "type": "TF"},
+            {"q": "In EFAS ratings, 5 represents outstanding performance and 1 represents poor performance.", "o": ["True", "False"], "a": 0, "e": "True: EFAS ratings use 5 for outstanding and 1 for poor.", "type": "TF"},
+            {"q": "Benchmarking involves searching for best practices among competitors and non-competitors.", "o": ["True", "False"], "a": 0, "e": "True: Benchmarking searches for best practices among competitors and non-competitors.", "type": "TF"},
+            {"q": "High exit barriers can trap a firm in an industry even during low profits.", "o": ["True", "False"], "a": 0, "e": "True: High exit barriers (specialized assets) keep firms in the industry.", "type": "TF"},
+            {"q": "Maytag's EFAS total weighted score of 3.15 is slightly above average.", "o": ["True", "False"], "a": 0, "e": "True: Maytag's score of 3.15 is slightly above the 3.0 average.", "type": "TF"},
+            {"q": "Competitive intelligence is an illegal and unethical process of industrial spying.", "o": ["True", "False"], "a": 1, "e": "False: Competitive intelligence is the *legal and ethical* process of collecting market info.", "type": "TF"},
+            {"q": "Economies of scale act as an entry barrier by lowering unit costs through high production volume.", "o": ["True", "False"], "a": 0, "e": "True: Economies of scale lower unit cost, deterring new entrants.", "type": "TF"},
+            {"q": "Supplier power peaks when few companies dominate and products are unique.", "o": ["True", "False"], "a": 0, "e": "True: Supplier power peaks when few firms dominate and products are unique.", "type": "TF"},
+            {"q": "Task environment stakeholders include shareholders, employees, government, customers, suppliers, and unions.", "o": ["True", "False"], "a": 0, "e": "True: Task elements include shareholders, employees, government, customers, suppliers, unions, and media.", "type": "TF"},
+            {"q": "Xerox benchmarking L.L.Bean's warehousing is a classic example of benchmarking.", "o": ["True", "False"], "a": 0, "e": "True: Xerox benchmarking L.L.Bean warehousing is a classic case.", "type": "TF"},
+            {"q": "The sum of all factor weights in an EFAS table must equal 1.0.", "o": ["True", "False"], "a": 0, "e": "True: EFAS weights must sum to 1.0.", "type": "TF"},
+            {"q": "Analyzers operate a stable core while experimenting on the edges.", "o": ["True", "False"], "a": 0, "e": "True: Analyzers maintain a stable core while experimenting on product edges.", "type": "TF"},
+            {"q": "Prospectors sacrifice strict operational efficiency to achieve first-mover innovation advantage.", "o": ["True", "False"], "a": 0, "e": "True: Prospectors sacrifice efficiency for innovation and first-mover advantage.", "type": "TF"},
+            {"q": "High seasonal fixed costs in hotels and airlines decrease rivalry during low seasons.", "o": ["True", "False"], "a": 1, "e": "False: High fixed costs *increase* rivalry as firms cut prices to cover overhead in low seasons.", "type": "TF"},
+            {"q": "Backward integration occurs when a buyer enters the supplier's industry.", "o": ["True", "False"], "a": 0, "e": "True: Backward integration is when a buyer enters the supplier business.", "type": "TF"},
+            {"q": "Forward integration occurs when a supplier enters the buyer's industry.", "o": ["True", "False"], "a": 0, "e": "True: Forward integration is when a supplier enters the buyer business.", "type": "TF"},
+            {"q": "Intel's microprocessors give it low supplier power over personal computer makers.", "o": ["True", "False"], "a": 1, "e": "False: Intel's chips give it *high* supplier power over PC makers.", "type": "TF"},
+            {"q": "Netflix and streaming services compete as substitutes to cable television.", "o": ["True", "False"], "a": 0, "e": "True: Netflix and streaming serve as substitutes to cable TV.", "type": "TF"},
+            {"q": "Searching through public dumpsters for shredded competitor documents is considered legal competitive intelligence.", "o": ["True", "False"], "a": 1, "e": "False: Searching through trash and industrial spying are illegal and unethical.", "type": "TF"},
+            {"q": "Government licensing policies can restrict new entrants and act as an entry barrier.", "o": ["True", "False"], "a": 0, "e": "True: Government policy and licensing act as entry barriers.", "type": "TF"},
+            {"q": "Walmart's massive size gives it high buyer power over its suppliers.", "o": ["True", "False"], "a": 0, "e": "True: Walmart's size gives it high buyer power.", "type": "TF"},
+            {"q": "EFAS column 4 is calculated by multiplying column 2 (weight) by column 3 (rating).", "o": ["True", "False"], "a": 0, "e": "True: Weighted score equals weight multiplied by rating.", "type": "TF"},
+            {"q": "An EFAS score of 4.2 indicates below-average corporate performance.", "o": ["True", "False"], "a": 1, "e": "False: A score of 4.2 is well above the 3.0 average, indicating strong performance.", "type": "TF"},
+            {"q": "Strategic groups consist of firms pursuing completely unrelated strategies in different industries.", "o": ["True", "False"], "a": 1, "e": "False: Strategic groups consist of firms within an industry following *similar* strategies.", "type": "TF"},
+            {"q": "Undifferentiated commodity products (like gasoline) intensify price rivalry among firms.", "o": ["True", "False"], "a": 0, "e": "True: Undifferentiated products intensify price wars and rivalry.", "type": "TF"},
+            {"q": "Capital requirements for heavy manufacturing plants serve as an entry barrier.", "o": ["True", "False"], "a": 0, "e": "True: High capital requirements deter new entrants.", "type": "TF"},
+            {"q": "Switching costs refer to the one-time costs a customer incurs switching from one supplier to another.", "o": ["True", "False"], "a": 0, "e": "True: Switching costs are the costs incurred by buyers when changing suppliers.", "type": "TF"},
+            {"q": "Trade associations and special interest groups have no influence on industry competition.", "o": ["True", "False"], "a": 1, "e": "False: Trade associations and special interest groups are key task environment stakeholders influencing firms.", "type": "TF"},
+            {"q": "Interviewing a competitor's former talent is a recognized method of competitive intelligence.", "o": ["True", "False"], "a": 0, "e": "True: Interviewing former talent is part of market and talent interception.", "type": "TF"},
+            {"q": "The center of Porter's Five Forces diagram represents rivalry among existing firms.", "o": ["True", "False"], "a": 0, "e": "True: Rivalry among existing firms sits at the center of Porter's model.", "type": "TF"},
+            {"q": "Potential entrants sit at the top of Porter's Five Forces framework.", "o": ["True", "False"], "a": 0, "e": "True: Potential entrants are at the top of Porter's diagram.", "type": "TF"},
+            {"q": "Substitute products are positioned at the bottom of Porter's Five Forces framework.", "o": ["True", "False"], "a": 0, "e": "True: Substitutes are positioned at the bottom.", "type": "TF"},
+            {"q": "Suppliers are located on the left side and buyers on the right side of Porter's framework.", "o": ["True", "False"], "a": 0, "e": "True: Suppliers are on the left and buyers on the right.", "type": "TF"},
+            {"q": "Chapter 3 covers macro PESTEL societal trends while Chapter 2 covers micro industry forces.", "o": ["True", "False"], "a": 1, "e": "False: Chapter 2 covers macro societal PESTEL trends, whereas Chapter 3 covers micro task environment and industry analysis.", "type": "TF"},
+            {"q": "EFAS analysis synthesizes macro-trends and micro-factors into a single strategic evaluation score.", "o": ["True", "False"], "a": 0, "e": "True: EFAS distills macro and micro factors into a single strategic score.", "type": "TF"},
+            {"q": "Industry analysis helps management understand the competitive intensity and profit potential of their market sector.", "o": ["True", "False"], "a": 0, "e": "True: Industry analysis assesses competitive intensity and profit potential.", "type": "TF"},
+
+            // High-Level Questions (46-50)
+            {"q": "[HIGH-LEVEL] According to Chapter 3, if an industry has zero entry barriers, perfect product homogeneity, high fixed costs, and numerous equal competitors, profitability will be exceptionally high and rivalry will be non-existent.", "o": ["True", "False"], "a": 1, "e": "False: Zero entry barriers, homogeneity, high fixed costs, and many equal competitors trigger *intense rivalry* and price wars, driving industry profitability *down*.", "type": "TF"},
+            {"q": "[HIGH-LEVEL] An EFAS weighted score of 3.15 achieved by Maytag indicates that the company's strategic response to external opportunities and threats is slightly above the industry average baseline of 3.0.", "o": ["True", "False"], "a": 0, "e": "True: Maytag's score of 3.15 is above the 3.0 average, demonstrating a slightly better-than-average response.", "type": "TF"},
+            {"q": "[HIGH-LEVEL] Miles & Snow's Reactors possess a highly disciplined, consistent strategy-structure-culture fit that rivals Prospectors in market innovation.", "o": ["True", "False"], "a": 1, "e": "False: Reactors *lack* a consistent strategy-structure fit and only respond to threats when forcefully compelled.", "type": "TF"},
+            {"q": "[HIGH-LEVEL] Rummaging through public dumpsters for shredded competitor files is classified under Chapter 3 as standard legal benchmarking.", "o": ["True", "False"], "a": 1, "e": "False: Rummaging through trash is illegal and unethical industrial espionage, whereas benchmarking involves copying best practices legally.", "type": "TF"},
+            {"q": "[HIGH-LEVEL] Porter's Five Forces model demonstrates that supplier power and buyer power operate in direct opposition across an industry's value chain, placing upward or downward pressure on profit margins.", "o": ["True", "False"], "a": 0, "e": "True: Supplier and buyer power exert opposing pressures on industry margins across the value chain.", "type": "TF"}
+        ];
+
+        const getQuestionType = question => question.type.replace(/[.!?]+$/, "");
+
+        const P1_DATA = [
+            ...P1_SOURCE.filter(question => getQuestionType(question) === "MCQ"),
+            ...P2_SOURCE.filter(question => getQuestionType(question) === "MCQ")
+        ];
+        const P2_DATA = [
+            ...P1_SOURCE.filter(question => getQuestionType(question) === "TF"),
+            ...P2_SOURCE.filter(question => getQuestionType(question) === "TF")
+        ];
+
+        let activePart = 1;
+        let qData = P1_DATA;
+        let cIdx = 0;
+        let score = 0;
+        let wrongList = [];
+
+        const $ = id => document.getElementById(id);
+
+        function switchPart(part) {
+            activePart = part;
+            $("tab1").className = "tab-btn " + (part === 1 ? "active" : "");
+            $("tab2").className = "tab-btn " + (part === 2 ? "active" : "");
+            qData = part === 1 ? P1_DATA : P2_DATA;
+            resetQuiz();
+        }
+
+        function resetQuiz() {
+            cIdx = 0;
+            score = 0;
+            wrongList = [];
+            renderQuestion();
+        }
+
+        function renderQuestion() {
+            const q = qData[cIdx];
+            $("n").textContent = `Question ${cIdx + 1} of ${qData.length}`;
+            $("s").textContent = `Score: ${score}`;
+            $("bar").style.width = `${(cIdx / qData.length) * 100}%`;
+
+            const isHighLevel = cIdx >= 45;
+            const badgeClass = isHighLevel ? "q-badge high-level" : "q-badge";
+            const badgeText = isHighLevel 
+                ? (getQuestionType(q) === 'TF' ? 'True / False — High Level' : 'Multiple Choice — High Level')
+                : (getQuestionType(q) === 'TF' ? 'True / False' : 'Multiple Choice');
+            
+            $("card").innerHTML = `
+                <span class="${badgeClass}">${badgeText}</span>
+                <p class="q">${q.q}</p>
+                <div id="opts"></div>
+                <div id="fb"></div>
+            `;
+
+            q.o.forEach((optText, i) => {
+                const b = document.createElement("button");
+                b.className = "opt";
+                b.innerHTML = `<b>${getQuestionType(q) === 'TF' ? (i===0?'T':'F') : "ABCD"[i] + ")"}</b><span></span>`;
+                b.querySelector("span").textContent = optText;
+                b.onclick = () => handleAnswer(i);
+                $("opts").appendChild(b);
+            });
+        }
+
+        function handleAnswer(selected) {
+            const q = qData[cIdx];
+            const isCorrect = selected === q.a;
+            const buttons = document.querySelectorAll(".opt");
+
+            buttons.forEach((btn, idx) => {
+                btn.disabled = true;
+                if (idx === q.a) btn.classList.add("ok");
+                else if (idx === selected) btn.classList.add("no");
+            });
+
+            if (isCorrect) score++;
+            else wrongList.push(cIdx);
+
+            $("s").textContent = `Score: ${score}`;
+
+            $("fb").innerHTML = `
+                <div class="ex ${isCorrect ? 'ok' : 'no'}">
+                    <strong>${isCorrect ? 'Correct answer ✓' : 'Incorrect answer ✗'}</strong>
+                    <span>${q.e}</span>
+                </div>
+                <button class="btn" id="nxtBtn">${cIdx < qData.length - 1 ? 'Next question' : 'Show final results'}</button>
+            `;
+
+            $("nxtBtn").onclick = () => {
+                cIdx++;
+                if (cIdx < qData.length) renderQuestion();
+                else finishQuiz();
+            };
+            $("nxtBtn").focus();
+        }
+
+        function finishQuiz() {
+            $("bar").style.width = "100%";
+            $("n").textContent = "Quiz complete";
+            const pct = Math.round((score / qData.length) * 100);
+            
+            let html = `
+                <div class="score">${score} / ${qData.length}</div>
+                <p style="text-align:center;font-size:1.2rem;margin:0 0 16px;">Percentage: <b>${pct}%</b></p>
+            `;
+
+            if (wrongList.length > 0) {
+                html += `<p style="margin:16px 0 8px;"><b>Questions to review:</b></p><ul class="rev">`;
+                wrongList.reverse().forEach(w => {
+                    html += `<li><b>Question ${w + 1}:</b> ${qData[w].q}</li>`;
+                });
+                html += `</ul>`;
+            } else {
+                html += `<p style="text-align:center;color:var(--ok);">Excellent! All answers are correct (100%).</p>`;
+            }
+
+            html += `<button class="btn" onclick="resetQuiz()">Restart quiz</button>`;
+            $("card").innerHTML = html;
+        }
+
+        renderQuestion();
+    </script>
+</body>
+</html>
