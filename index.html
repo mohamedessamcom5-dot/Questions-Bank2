@@ -10,6 +10,28 @@
         }
     </script>
     <style>
+        .marquee-container {
+            width: 100%;
+            overflow: hidden;
+            background-color: #264994;
+            color: #fdfefe;
+            padding: 8px 0;
+            white-space: nowrap;
+            position: relative;
+        }
+        .marquee-track {
+            display: inline-flex;
+            white-space: nowrap;
+            animation: scrollAnimation 20s linear infinite;
+        }
+        .marquee-track span {
+            display: inline-block;
+            padding-right: 30px;
+        }
+        @keyframes scrollAnimation {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
         :root {
             --bg: #0f172a;
             --c: #1e293b;
@@ -153,6 +175,18 @@
     <link rel="stylesheet" href="site-theme.css">
 </head>
 <body>
+    <div class="marquee-container">
+        <div class="marquee-track">
+            <span>🔥 New Release Chapter 3 Data Structure! </span>
+            <span>⚡ New Release Quiz HRM! </span>
+            <span>🔥 New Release Chapter 3 HRM!</span>
+            <span>⚡ New Release Chapter 3 Data Structure!  </span>
+           <span>🔥 New Release Chapter 3 Data Structure! </span>
+            <span>⚡ New Release Quiz HRM! </span>
+            <span>🔥 New Release Chapter 3 HRM!</span>
+            <span>⚡ New Release Chapter 3 Data Structure!  </span>
+        </div>
+    </div>
     <main>
         <div class="header-panel">
             <h1>Question Bank For BIDT Level Three</h1>

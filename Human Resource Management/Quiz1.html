@@ -1,0 +1,445 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>HRM — Quiz: Chapter 1 & Chapter 2</title>
+    <style>
+        :root {
+            --bg: #0f172a;
+            --c: #1e293b;
+            --t: #f8fafc;
+            --m: #94a3b8;
+            --b: #334155;
+            --ac: #38bdf8;
+            --ok: #22c55e;
+            --okb: #052e16;
+            --no: #ef4444;
+            --nob: #450a0a;
+            box-sizing: border-box;
+        }
+
+        @media(prefers-color-scheme: light) {
+            :root[data-theme=light] {
+                --bg: #f8fafc;
+                --c: #ffffff;
+                --t: #0f172a;
+                --m: #64748b;
+                --b: #e2e8f0;
+                --ac: #0284c7;
+                --okb: #dcfce7;
+                --nob: #fee2e2;
+                --ok: #16a34a;
+                --no: #dc2626;
+            }
+        }
+
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--t);
+            font-family: 'Segoe UI', Tahoma, system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+        }
+        main {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 24px 16px 60px;
+        }
+        .header-panel {
+            text-align: center;
+            margin-bottom: 24px;
+            border-bottom: 8px solid var(--b);
+            padding-bottom: 30px;
+        }
+        h1 { font-size: 1.5rem; margin: 0 0 8px; color: var(--ac); }
+        .sub { color: var(--m); font-size: 0.95rem; margin: 0; }
+        
+        .nav-tabs {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .tab-btn {
+            flex: 1;
+            padding: 12px;
+            background: var(--c);
+            border: 1px solid var(--b);
+            color: var(--t);
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .tab-btn.active {
+            background: var(--ac);
+            color: #000;
+            border-color: var(--ac);
+        }
+
+        .bar {
+            height: 8px;
+            background: var(--b);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+        .bar i {
+            display: block;
+            height: 100%;
+            background: var(--ac);
+            width: 0;
+            transition: width 0.3s;
+        }
+        .meta {
+            display: flex;
+            justify-content: space-between;
+            color: var(--m);
+            font-size: 0.9rem;
+            margin-bottom: 16px;
+        }
+        .card {
+            background: var(--c);
+            border: 1px solid var(--b);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+        .q-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            background: var(--b);
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+            color: var(--ac);
+        }
+        .q-badge.high-level {
+            background: #f59e0b;
+            color: #000;
+            font-weight: bold;
+        }
+        .q {
+            font-size: 1.1rem;
+            font-weight: 600;
+            direction: ltr;
+            text-align: left;
+            margin: 0 0 16px;
+        }
+        .opt {
+            display: flex;
+            gap: 12px;
+            direction: ltr;
+            text-align: left;
+            width: 100%;
+            background: var(--c);
+            color: var(--t);
+            border: 1.5px solid var(--b);
+            border-radius: 8px;
+            padding: 12px 14px;
+            margin-bottom: 10px;
+            font: inherit;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+        .opt:hover:not(:disabled) { border-color: var(--ac); }
+        .opt b { min-width: 1.5em; color: var(--ac); }
+        .opt.ok { background: var(--okb); border-color: var(--ok); }
+        .opt.no { background: var(--nob); border-color: var(--no); }
+        .opt:disabled { cursor: default; }
+
+        .ex {
+            margin-top: 16px;
+            padding: 14px;
+            border-radius: 8px;
+            direction: ltr;
+            text-align: left;
+            font-size: 0.95rem;
+        }
+        .ex.ok { background: var(--okb); border: 1px solid var(--ok); }
+        .ex.no { background: var(--nob); border: 1px solid var(--no); }
+        .ex strong { display: block; margin-bottom: 4px; }
+
+        .btn {
+            margin-top: 16px;
+            background: var(--ac);
+            color: #000;
+            border: 0;
+            border-radius: 8px;
+            padding: 12px 24px;
+            font: inherit;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+        }
+        .score { text-align: center; font-size: 3rem; font-weight: 800; margin: 12px 0; color: var(--ac); }
+        .rev { margin: 16px 0 0; padding: 0; list-style: none; direction: ltr; text-align: left; font-size: 0.9rem; }
+        .rev li { padding: 8px 0; border-top: 1px solid var(--b); }
+    </style>
+</head>
+<body>
+    <main>
+        <div class="header-panel">
+            <h1>Human Resource Management — Quiz1</h1>
+            <p class="sub">Chapter 1 & Chapter 2</p>
+        </div>
+        
+        <div class="nav-tabs">
+            <button class="tab-btn active" id="tab1" onclick="switchPart(1)">Quiz 1</button>
+      
+        </div>
+
+        <div class="bar"><i id="bar"></i></div>
+        <div class="meta">
+            <span id="n"></span>
+            <span id="s"></span>
+        </div>
+        <div class="card" id="card"></div>
+    </main>
+      
+<script>
+        const QUIZ_QUESTIONS = [
+            // Multiple Choice Questions (1-10)
+            {
+                "q": "Line authority creates which type of relationship?",
+                "o": ["Superior–subordinate", "Consultant–client", "Adviser–adviser", "Peer–peer"],
+                "a": 0,
+                "e": "Line authority traditionally gives managers the right to issue orders to other managers or employees, creating a superior-subordinate relationship[cite: 10].",
+                "type": "MCQ"
+            },
+            {
+                "q": "Which section is considered the heart of the job description?",
+                "o": ["Job summary", "Working conditions", "Job identification", "Responsibilities and duties"],
+                "a": 3,
+                "e": "Responsibilities and duties is considered the heart of the job description[cite: 38].",
+                "type": "MCQ"
+            },
+            {
+                "q": "Which HR specialist investigates and resolves EEO grievances and compiles EEO reports?",
+                "o": ["EEO coordinator", "Compensation manager", "Recruiter", "Job analyst"],
+                "a": 0,
+                "e": "Equal employment opportunity (EEO) coordinators investigate and resolve EEO grievances, examine practices, and compile EEO reports[cite: 13].",
+                "type": "MCQ"
+            },
+            {
+                "q": "Which of the following is NOT a type of information collected through job analysis?",
+                "o": ["Competitors' market share", "Job context (e.g., working conditions)", "Work activities", "Performance standards"],
+                "a": 0,
+                "e": "Job analysis collects work activities, human behaviors, machines/tools, performance standards, job context, and human requirements, not competitors' market share[cite: 21, 22].",
+                "type": "MCQ"
+            },
+            {
+                "q": "The main problem with using interviews to collect job analysis information is:",
+                "o": ["Distortion of information", "Inability to collect any data on duties", "The need to observe each worker for weeks", "High cost of printing forms"],
+                "a": 0,
+                "e": "Distortion of information is the main problem with using interviews, whether due to outright falsification or honest error[cite: 32].",
+                "type": "MCQ"
+            },
+            {
+                "q": "Many HR professionals consider which of the following the biggest demographic trend affecting employers?",
+                "o": ["High-tech jobs", "Nontraditional workers", "The aging workforce (retirees)", "Service jobs"],
+                "a": 2,
+                "e": "Many human resource professionals call the aging workforce the biggest demographic trend affecting employers[cite: 18].",
+                "type": "MCQ"
+            },
+            {
+                "q": "Competency-based job analysis describes the job in terms of:",
+                "o": ["Measurable, observable, behavioral competencies", "Organization charts and process charts", "Physical working conditions only", "Salary and bonus levels"],
+                "a": 0,
+                "e": "Competency-based job analysis means describing the job in terms of measurable, observable, behavioral competencies[cite: 42].",
+                "type": "MCQ"
+            },
+            {
+                "q": "Which of the following is a staff (assist and advise) function of the HR manager?",
+                "o": ["Giving orders to line managers in other departments", "Assisting line managers in hiring, training, and evaluating employees", "Setting production quotas for each plant", "Directing the activities of the production department"],
+                "a": 1,
+                "e": "Staff functions include assisting and advising line managers in hiring, training, evaluating, rewarding, counseling, promoting, and firing employees[cite: 12].",
+                "type": "MCQ"
+            },
+            {
+                "q": "Determining what type of people to hire, recruiting, selecting, training, and compensating employees are activities of which management function?",
+                "o": ["Planning", "Controlling", "Organizing", "Staffing"],
+                "a": 3,
+                "e": "Staffing includes determining hiring needs, recruiting, selecting, training, and compensating employees[cite: 3].",
+                "type": "MCQ"
+            },
+            {
+                "q": "The Position Analysis Questionnaire (PAQ) is useful because it:",
+                "o": ["Is the fastest way to write job descriptions", "Provides numerical ratings for each job that can be used to compare jobs for compensation", "Lists the personal traits of each employee", "Replaces the need for any job specification"],
+                "a": 1,
+                "e": "PAQ provides numerical ratings for each job that can be used to compare jobs for compensation purposes[cite: 25].",
+                "type": "MCQ"
+            },
+
+            // True / False Questions (11-20)
+            {
+                "q": "Direct observation is the most appropriate job analysis method for jobs that involve a lot of mental activity.",
+                "o": ["True", "False"],
+                "a": 1,
+                "e": "False: Observation is usually not appropriate when the job entails a lot of mental activity; it is useful mainly for observable physical activities[cite: 34].",
+                "type": "TF"
+            },
+            {
+                "q": "The information gathered in a job analysis should be verified with the worker performing the job and with his or her immediate supervisor.",
+                "o": ["True", "False"],
+                "a": 0,
+                "e": "True: Step 5 verifies the job analysis information with the worker performing the job and with his immediate supervisor to confirm correctness and completeness[cite: 28].",
+                "type": "TF"
+            },
+            {
+                "q": "Globalization reduces competition, which lowers the pressure on firms to cut costs and improve productivity.",
+                "o": ["True", "False"],
+                "a": 1,
+                "e": "False: Globalization means more competition, and more competition means more pressure to lower costs and make employees more productive[cite: 14].",
+                "type": "TF"
+            },
+            {
+                "q": "Job analysis produces the information used to write both job descriptions and job specifications.",
+                "o": ["True", "False"],
+                "a": 0,
+                "e": "True: Job analysis produces information for writing job descriptions and person/job specifications[cite: 20].",
+                "type": "TF"
+            },
+            {
+                "q": "Competency-based job analysis is more job-focused than worker-focused, since it ignores the behaviors employees must demonstrate.",
+                "o": ["True", "False"],
+                "a": 1,
+                "e": "False: Competency-based job analysis is more worker-focused, not job-focused, and it focuses on competencies and behaviors employees must demonstrate[cite: 42].",
+                "type": "TF"
+            },
+            {
+                "q": "A manager is the person responsible for accomplishing the organization's goals by managing the efforts of the organization's people.",
+                "o": ["True", "False"],
+                "a": 0,
+                "e": "True: A manager is the person responsible for accomplishing organizational goals by managing people's efforts[cite: 2].",
+                "type": "TF"
+            },
+            {
+                "q": "Setting standards such as sales quotas and taking corrective action when performance deviates from them is part of the staffing function.",
+                "o": ["True", "False"],
+                "a": 1,
+                "e": "False: Setting standards and taking corrective action is part of the controlling function, not the staffing function[cite: 3].",
+                "type": "TF"
+            },
+            {
+                "q": "The coordinative function of the HR manager ensures that line managers are implementing the firm's HR policies and practices.",
+                "o": ["True", "False"],
+                "a": 0,
+                "e": "True: The coordinative function ensures that line managers are implementing the firm's HR policies and practices[cite: 12].",
+                "type": "TF"
+            },
+            {
+                "q": "Questionnaires are a quick and efficient way to collect job information from many employees, but developing and testing them can be time-consuming.",
+                "o": ["True", "False"],
+                "a": 0,
+                "e": "True: Questionnaires are quick and efficient for large numbers, but developing and testing them can be time-consuming[cite: 33].",
+                "type": "TF"
+            },
+            {
+                "q": "Staff authority gives a manager the right to issue orders to other managers or employees.",
+                "o": ["True", "False"],
+                "a": 1,
+                "e": "False: Staff authority gives a manager the right to advise other managers or employees, whereas line authority gives the right to issue orders[cite: 10].",
+                "type": "TF"
+            }
+        ];
+
+        let cIdx = 0;
+        let score = 0;
+        let wrongList = [];
+
+        const $ = id => document.getElementById(id);
+
+        function resetQuiz() {
+            cIdx = 0;
+            score = 0;
+            wrongList = [];
+            renderQuestion();
+        }
+
+        function renderQuestion() {
+            const q = QUIZ_QUESTIONS[cIdx];
+            $("n").textContent = `Question ${cIdx + 1} of ${QUIZ_QUESTIONS.length}`;
+            $("s").textContent = `Score: ${score}`;
+            $("bar").style.width = `${(cIdx / QUIZ_QUESTIONS.length) * 100}%`;
+
+            const badgeText = q.type === 'TF' ? 'True / False' : 'Multiple Choice';
+            
+            $("card").innerHTML = `
+                <span class="q-badge">${badgeText}</span>
+                <p class="q">${q.q}</p>
+                <div id="opts"></div>
+                <div id="fb"></div>
+            `;
+
+            q.o.forEach((optText, i) => {
+                const b = document.createElement("button");
+                b.className = "opt";
+                b.innerHTML = `<b>${q.type === 'TF' ? (i===0?'T':'F') : "ABCD"[i] + ")"}</b><span></span>`;
+                b.querySelector("span").textContent = optText;
+                b.onclick = () => handleAnswer(i);
+                $("opts").appendChild(b);
+            });
+        }
+
+        function handleAnswer(selected) {
+            const q = QUIZ_QUESTIONS[cIdx];
+            const isCorrect = selected === q.a;
+            const buttons = document.querySelectorAll(".opt");
+
+            buttons.forEach((btn, idx) => {
+                btn.disabled = true;
+                if (idx === q.a) btn.classList.add("ok");
+                else if (idx === selected) btn.classList.add("no");
+            });
+
+            if (isCorrect) score++;
+            else wrongList.push(cIdx);
+
+            $("s").textContent = `Score: ${score}`;
+
+            $("fb").innerHTML = `
+                <div class="ex ${isCorrect ? 'ok' : 'no'}">
+                    <strong>${isCorrect ? 'Correct answer ✓' : 'Incorrect answer ✗'}</strong>
+                    <span>${q.e}</span>
+                </div>
+                <button class="btn" id="nxtBtn">${cIdx < QUIZ_QUESTIONS.length - 1 ? 'Next question' : 'Show final results'}</button>
+            `;
+
+            $("nxtBtn").onclick = () => {
+                cIdx++;
+                if (cIdx < QUIZ_QUESTIONS.length) renderQuestion();
+                else finishQuiz();
+            };
+            $("nxtBtn").focus();
+        }
+
+        function finishQuiz() {
+            $("bar").style.width = "100%";
+            $("n").textContent = "Quiz complete";
+            const pct = Math.round((score / QUIZ_QUESTIONS.length) * 100);
+            
+            let html = `
+                <div class="score">${score} / ${QUIZ_QUESTIONS.length}</div>
+                <p style="text-align:center;font-size:1.2rem;margin:0 0 16px;">Percentage: <b>${pct}%</b></p>
+            `;
+
+            if (wrongList.length > 0) {
+                html += `<p style="margin:16px 0 8px;"><b>Questions to review:</b></p><ul class="rev">`;
+                wrongList.reverse().forEach(w => {
+                    html += `<li><b>Question ${w + 1}:</b> ${QUIZ_QUESTIONS[w].q}</li>`;
+                });
+                html += `</ul>`;
+            } else {
+                html += `<p style="text-align:center;color:var(--ok);">Excellent! All answers are correct (100%).</p>`;
+            }
+
+            html += `<button class="btn" onclick="resetQuiz()">Restart quiz</button>`;
+            $("card").innerHTML = html;
+        }
+
+        renderQuestion();
+    </script>
+</body>
+</html>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <title>Data Structures - Chapter 3 Linked Lists</title>
+    <title>Data Structure - Stack</title>
     <style>
         :root {
             --bg: #0f172a;
@@ -52,21 +52,6 @@
             margin-bottom: 24px;
             border-bottom: 8px solid var(--b);
             padding-bottom: 30px;
-            position: relative;
-        }
-        .back-btn {
-            position: absolute;
-            left: 0;
-            top: 0;
-            background: var(--ac);
-            color: #000;
-            border: none;
-            border-radius: 8px;
-            padding: 8px 14px;
-            font-weight: 700;
-            font-size: 0.85rem;
-            cursor: pointer;
-            text-decoration: none;
         }
         h1 { font-size: 1.5rem; margin: 0 0 8px; color: var(--ac); }
         .sub { color: var(--m); font-size: 0.95rem; margin: 0; }
@@ -130,6 +115,11 @@
             margin-bottom: 10px;
             color: var(--ac);
         }
+        .q-badge.high-level {
+            background: #f59e0b;
+            color: #000;
+            font-weight: bold;
+        }
         .q {
             font-size: 1.1rem;
             font-weight: 600;
@@ -166,6 +156,7 @@
             direction: ltr;
             text-align: left;
             font-size: 0.95rem;
+            white-space: pre-line;
         }
         .ex.ok { background: var(--okb); border: 1px solid var(--ok); }
         .ex.no { background: var(--nob); border: 1px solid var(--no); }
@@ -187,19 +178,17 @@
         .rev { margin: 16px 0 0; padding: 0; list-style: none; direction: ltr; text-align: left; font-size: 0.9rem; }
         .rev li { padding: 8px 0; border-top: 1px solid var(--b); }
     </style>
-    <link rel="stylesheet" href="../site-theme.css">
 </head>
 <body>
     <main>
-            <div class="header-panel">
-            <h1>Data Structures — Chapter 3</h1>
-               <p class="sub">Linked Lists</p>
-            <p class="sub"></p>
+        <div class="header-panel">
+            <h1>Data Structure - Chapter 3</h1>
+            <p class="sub">Stack</p>
         </div>
-
+        
         <div class="nav-tabs">
-            <button class="tab-btn active" id="tab1" onclick="switchPart(1)">Multiple Choice</button>
-            <button class="tab-btn" id="tab2" onclick="switchPart(2)">True/False</button>
+            <button class="tab-btn active" id="tab1" onclick="switchPart(1)">Multiple Choice (50)</button>
+            <button class="tab-btn" id="tab2" onclick="switchPart(2)">True/False (50)</button>
         </div>
 
         <div class="bar"><i id="bar"></i></div>
@@ -209,16 +198,130 @@
         </div>
         <div class="card" id="card"></div>
     </main>
-
+      
     <script>
-        const P1_SOURCE = [
+       const P1_SOURCE = [
+            // --- Standard MCQs (1 to 45) ---
+            {"q": "What principle does a stack data structure operate on?", "o": ["LIFO: Last In, First Out", "FIFO: First In, First Out", "LILO: Last In, Last Out", "FILO: First In, Last Out"], "a": 0, "e": "Correct answer ✓\nA stack operates strictly on the LIFO (Last In, First Out) principle, like stacking and removing plates from the top.", "type": "MCQ"},
+            {"q": "How is an empty stack initialized in Python according to the lecture code?", "o": ["v = []", "v = stack()", "v = list(empty)", "v = {}"], "a": 0, "e": "Correct answer ✓\nA stack is initialized as an empty dynamic array list: `v = []`.", "type": "MCQ"},
+            {"q": "Which Python list method corresponds to the stack 'Push' operation?", "o": ["append()", "pop()", "insert()", "push()"], "a": 0, "e": "Correct answer ✓\nThe `append()` method adds items to the top of the stack, serving as the Push operation.", "type": "MCQ"},
+            {"q": "Given `v = []`, after executing `for i in range(100, 110): v.append(i)`, what is the top element of the stack?", "o": ["109", "100", "110", "None"], "a": 0, "e": "Correct answer ✓\nThe loop appends numbers from 100 to 109, making 109 the last added (top) element.", "type": "MCQ"},
+            {"q": "What does the `v.pop()` operation do on a stack?", "o": ["Removes the top (last) element", "Removes the bottom (first) element at index 0", "Clears the entire stack", "Removes an element at a random index"], "a": 0, "e": "Correct answer ✓\n`v.pop()` removes the top (last) element of the stack.", "type": "MCQ"},
+            {"q": "In Python, why is `map(str, v)` required when formatting stack elements with `join()`?", "o": ["Because `join()` can only join strings, not integers", "Because `map()` sorts the integers automatically", "Because `join()` only works on empty lists", "Because `str()` deletes duplicate numbers"], "a": 0, "e": "Correct answer ✓\n`map(str, v)` converts integers to strings because `join()` cannot join integers directly.", "type": "MCQ"},
+            {"q": "What does `v.insert(0, 900)` demonstrate in the context of Python lists used as stacks?", "o": ["List flexibility, allowing insertion at the beginning (though not strict stack behavior)", "A strict LIFO push operation at the top", "Clearing all stack items", "Reversing the stack order"], "a": 0, "e": "Correct answer ✓\nStrict stacks only push/pop from the top, but Python dynamic lists allow inserting anywhere like `v.insert(0, 900)`.", "type": "MCQ"},
+            {"q": "What is the effect of executing `v.pop(0)`?", "o": ["Removes the first element from the bottom of the stack", "Removes the top element", "Clears the stack", "Returns the length of the stack"], "a": 0, "e": "Correct answer ✓\n`v.pop(0)` removes the first element (from the bottom), demonstrating dynamic list flexibility.", "type": "MCQ"},
+            {"q": "What does `v.clear()` accomplish?", "o": ["Removes all elements, leaving the stack empty `[]`", "Deletes the variable `v` from memory", "Removes only the top element", "Reverses the stack order"], "a": 0, "e": "Correct answer ✓\n`v.clear()` removes all elements, leaving the stack empty (`[]`).", "type": "MCQ"},
+            {"q": "How do you check if a stack `v` is empty in Python?", "o": ["if not v:", "if v.isEmpty():", "if len(v) == -1:", "if v == None:"], "a": 0, "e": "Correct answer ✓\n`if not v:` evaluates to true if the list is empty.", "type": "MCQ"},
+            {"q": "What function is used to get the current size (number of elements) of stack `v`?", "o": ["len(v)", "v.size()", "v.count()", "size(v)"], "a": 0, "e": "Correct answer ✓\n`len(v)` returns the current number of elements in the list.", "type": "MCQ"},
+            {"q": "In the `Fill()` function example from the lecture, what values are entered when prompted for 5 numbers: 5, 10, 15, 20, 25?", "o": ["[5, 10, 15, 20, 25]", "[25, 20, 15, 10, 5]", "[]", "[5, 25]"], "a": 0, "e": "Correct answer ✓\n`Fill()` appends inputs sequentially, resulting in `[5, 10, 15, 20, 25]`.", "type": "MCQ"},
+            {"q": "Given `v = [10, 20, 10, 30, 10]`, what is the output of `print(v.count(10))`?", "o": ["3", "1", "5", "0"], "a": 0, "e": "Correct answer ✓\nThe number 10 appears 3 times in `v`, so `v.count(10)` returns 3.", "type": "MCQ"},
+            {"q": "Given `v = [1, 2, 3, 4, 5]`, what is `v` after executing `v.reverse()`?", "o": ["[5, 4, 3, 2, 1]", "[1, 2, 3, 4, 5]", "[1, 5]", "[5, 1, 2, 3, 4]"], "a": 0, "e": "Correct answer ✓\n`v.reverse()` reverses the order of elements in the list in-place.", "type": "MCQ"},
+            {"q": "In the case study presented in the lecture, what real-world feature is modeled using a stack?", "o": ["The Undo button in a text editor", "A grocery shopping receipt", "A static printer queue", "A database table index"], "a": 0, "e": "Correct answer ✓\nText editor actions (typing, deleting) are stored in a stack, and Pressing Undo removes the last action performed.", "type": "MCQ"},
+            {"q": "According to the operations summary table, which method returns the index of the first occurrence of a specific element?", "o": ["Search(value)", "Access(index)", "Count(value)", "Remove(index)"], "a": 0, "e": "Correct answer ✓\n`Search(value)` returns the index of the first occurrence of a specific element.", "type": "MCQ"},
+            {"q": "What does `Access(index)` do in the array/stack operations summary?", "o": ["Returns the value of a specific element at the given index", "Deletes the element at the index", "Inserts a new value at the index", "Returns the index count"], "a": 0, "e": "Correct answer ✓\n`Access(index)` returns the value of a specific element.", "type": "MCQ"},
+            {"q": "What does `ExpandArray(newArraySize)` do?", "o": ["Replaces the old array with a larger one", "Clears all elements", "Reverses the array order", "Counts occurrences of a value"], "a": 0, "e": "Correct answer ✓\n`ExpandArray` replaces the old array with a larger one when capacity is reached.", "type": "MCQ"},
+            {"q": "Which operation adds an element specifically to the end of the array?", "o": ["Append(addedvalue)", "Insert(index, Newvalue)", "Create()", "Access(index)"], "a": 0, "e": "Correct answer ✓\n`Append` adds an element to the end of the array.", "type": "MCQ"},
+            {"q": "What is the purpose of `Insert(index, Newvalue)`?", "o": ["Inserts an element at a specific index", "Removes an element at a specific index", "Replaces the entire array", "Searches for a value"], "a": 0, "e": "Correct answer ✓\n`Insert` places an element at the specified index.", "type": "MCQ"},
+            {"q": "What does `Remove(index)` do according to the operations summary?", "o": ["Removes the element at a specific index", "Removes all elements", "Removes the last element only", "Clears the stack"], "a": 0, "e": "Correct answer ✓\n`Remove(index)` removes the element of a specific index.", "type": "MCQ"},
+            {"q": "If you press 'Undo' three times consecutively in a text editor application, how many actions are removed from the stack?", "o": ["3 actions (the last 3 performed, in LIFO order)", "1 action only", "All actions in the editor history", "0 actions"], "a": 0, "e": "Correct answer ✓\nPressing Undo pops the last action performed each time, removing 3 actions in LIFO order.", "type": "MCQ"},
+            {"q": "Which function creates a new array in the operations summary?", "o": ["Create()", "Fill()", "Display()", "Clear()"], "a": 0, "e": "Correct answer ✓\n`Create()` initializes a new array.", "type": "MCQ"},
+            {"q": "Which function populates the values of elements in an array?", "o": ["Fill()", "Create()", "Display()", "Append()"], "a": 0, "e": "Correct answer ✓\n`Fill()` populates the values of elements.", "type": "MCQ"},
+            {"q": "What does `Display()` do?", "o": ["Displays values of elements of the array", "Clears the array", "Reverses the array", "Counts elements"], "a": 0, "e": "Correct answer ✓\n`Display()` outputs the array values.", "type": "MCQ"},
+            {"q": "In Python, what does `map(str, v)` take as arguments?", "o": ["A function (`str`) and an iterable (`v`)", "Two lists", "An index and a value", "A capacity and a size"], "a": 0, "e": "Correct answer ✓\n`map(function, iterable)` takes `str` and `v`.", "type": "MCQ"},
+            {"q": "What delimiter is used in `\"\".join(map(str, v))` to separate elements when printing?", "o": ["A space string (`\" \"`)", "A comma (`\",\"`)", "A newline (`\"\\n\"`)", "An empty string (`\"\"`)"], "a": 0, "e": "Correct answer ✓\nElements are joined with a space separator (`\" \"`).", "type": "MCQ"},
+            {"q": "If `v = [100, 101, 102]` and `v.pop()` is executed, what value is removed and returned?", "o": ["102", "100", "101", "None"], "a": 0, "e": "Correct answer ✓\n`v.pop()` removes and returns the last element (102).", "type": "MCQ"},
+            {"q": "After `v.pop()` is executed on `[100, 101, 102]`, what is the new stack content?", "o": ["[100, 101]", "[101, 102]", "[100, 102]", "[]"], "a": 0, "e": "Correct answer ✓\nRemoving 102 leaves `[100, 101]`.", "type": "MCQ"},
+            {"q": "What does `v.insert(3, 900)` do if `v` has 10 elements?", "o": ["Inserts 900 at index 3, shifting subsequent elements right", "Replaces the element at index 3 with 900", "Appends 900 at the end", "Throws an error"], "a": 0, "e": "Correct answer ✓\n`insert(3, 900)` places 900 at index 3 and shifts elements to the right.", "type": "MCQ"},
+            {"q": "Is `v.pop(0)` considered a standard strict stack operation?", "o": ["No, because strict stacks only remove from the top, whereas pop(0) removes from the bottom", "Yes, popping from index 0 is the definition of LIFO", "Yes, because Python lists require it", "No, because pop(0) deletes the entire array"], "a": 0, "e": "Correct answer ✓\nStrict stacks only push/pop from the top; popping from index 0 demonstrates list flexibility rather than strict stack behavior.", "type": "MCQ"},
+            {"q": "What is printed by `print(v)` right after `v.clear()`?", "o": ["[]", "None", "0", "Error"], "a": 0, "e": "Correct answer ✓\nClearing the stack leaves an empty list `[]`.", "type": "MCQ"},
+            {"q": "In the `Fill()` function code snippet, how many numbers does the user input?", "o": ["5 numbers", "10 numbers", "100 numbers", "Unspecified"], "a": 0, "e": "Correct answer ✓\nThe loop runs `for i in range(5):`, prompting for 5 numbers.", "type": "MCQ"},
+            {"q": "What function is used inside `Fill()` to convert user string input to an integer?", "o": ["int()", "str()", "float()", "map()"], "a": 0, "e": "Correct answer ✓\n`val = int(input())` converts input to an integer.", "type": "MCQ"},
+            {"q": "What method adds the entered value to `arr` inside `Fill()`?", "o": ["arr.append(val)", "arr.insert(0, val)", "arr.pop()", "arr.clear()"], "a": 0, "e": "Correct answer ✓\n`arr.append(val)` adds each entered number to the array.", "type": "MCQ"},
+            {"q": "If `v = [1, 2, 3]`, what does `v.count(5)` return?", "o": ["0", "1", "3", "None"], "a": 0, "e": "Correct answer ✓\nSince 5 does not appear in `v`, `count(5)` returns 0.", "type": "MCQ"},
+            {"q": "Does `v.reverse()` create a new reversed list or modify the existing list in-place?", "o": ["Modifies the existing list in-place", "Creates a new list and leaves `v` unchanged", "Returns a tuple", "Clears the list"], "a": 0, "e": "Correct answer ✓\n`v.reverse()` reverses the order of elements in the list directly (in-place).", "type": "MCQ"},
+            {"q": "Which data structure analogy is used in the lecture to explain LIFO?", "o": ["Stacking plates (you remove the top plate first)", "A queue of people waiting in line", "A circular train track", "A telephone directory"], "a": 0, "e": "Correct answer ✓\nStacking plates is the classic analogy where the top plate is removed first.", "type": "MCQ"},
+            {"q": "What does `print(\"\\nLength size\", len(v))` output if `v` has 10 items?", "o": ["Length size 10", "Length size 0", "Length size None", "Error"], "a": 0, "e": "Correct answer ✓\n`len(v)` evaluates to 10.", "type": "MCQ"},
+            {"q": "In Python, can a list hold mixed data types (e.g., integers and strings) when used as a stack?", "o": ["Yes, Python dynamic lists are heterogeneous", "No, strict type declaration is mandatory", "Only if declared with `map()`", "Only if capacity is 0"], "a": 0, "e": "Correct answer ✓\nPython lists are dynamic and heterogeneous, supporting mixed data types.", "type": "MCQ"},
+            {"q": "What is the return value of `v.clear()`?", "o": ["None (it modifies the list in-place)", "An empty list `[]`", "The number of deleted items", "True"], "a": 0, "e": "Correct answer ✓\n`clear()` modifies the list in-place and returns `None`.", "type": "MCQ"},
+            {"q": "If you want to display stack items vertically using a loop, which code structure is shown in the lecture?", "o": ["for i in range(len(v)): print(v[i])", "while(v): print(v)", "print(v.display())", "for item in v: print(item.top())"], "a": 0, "e": "Correct answer ✓\nThe lecture shows `for i in range(len(v)): print(v[i])`.", "type": "MCQ"},
+            {"q": "What is the purpose of `print(\"\".join(map(str, v)))`?", "o": ["To print all stack elements joined by a space on a single line", "To delete the stack contents", "To count stack elements", "To reverse the stack"], "a": 0, "e": "Correct answer ✓\nIt joins string representations of stack elements with spaces for single-line display.", "type": "MCQ"},
+            {"q": "In `for i in range(100, 110): v.append(i)`, how many items are appended in total?", "o": ["10 items (100 through 109)", "11 items (100 through 110)", "9 items", "100 items"], "a": 0, "e": "Correct answer ✓\n`range(100, 110)` generates 10 numbers (100 to 109).", "type": "MCQ"},
+            {"q": "Which method removes an element at a specific index according to the operations summary?", "o": ["Remove(index)", "Pop()", "Clear()", "Count()"], "a": 0, "e": "Correct answer ✓\n`Remove(index)` removes the element at a specific index.", "type": "MCQ"},
+
+            // --- High-Level MCQs (46 to 50) ---
+            {"q": "[HIGH-LEVEL] An application processes user actions using a Python list `v` as a stack. If a developer mistakenly uses `v.pop(0)` instead of `v.pop()` for all stack extraction operations, how does this alter the structural behavior of the data structure?", "o": ["It converts the stack into a Queue (FIFO behavior) because removing from index 0 extracts the oldest element first instead of the newest", "It turns the stack into a binary search tree", "It doubles the execution speed of the program", "It causes an immediate syntax error"], "a": 0, "e": "[HIGH-LEVEL] Correct answer ✓\nRemoving from index 0 (`pop(0)`) removes the first-in item rather than the last-in item, effectively transforming LIFO stack behavior into FIFO queue behavior.", "type": "MCQ."},
+            {"q": "[HIGH-LEVEL] Consider the expression `print(\" \".join(v))` where `v = [100, 101, 102]`. What happens when this code is executed in Python, and why?", "o": ["A TypeError occurs because `join()` expects an iterable of strings, but `v` contains integers", "It prints `100 101 102` successfully", "It prints `None`", "It clears the stack"], "a": 0, "e": "[HIGH-LEVEL] Correct answer ✓\nPython's `str.join()` requires all elements to be strings. Without `map(str, v)`, passing a list of integers throws a `TypeError`.", "type": "MCQ."},
+            {"q": "[HIGH-LEVEL] If you push numbers 1 through 5 sequentially onto an empty stack using `append()`, and then execute `v.pop()` twice followed by `v.insert(0, 99)`, what is the final state of list `v`?", "o": ["[99, 1, 2, 3]", "[1, 2, 3, 4, 5, 99]", "[5, 4, 3, 2, 1]", "[99, 3, 2, 1]"], "a": 0, "e": "[HIGH-LEVEL] Correct answer ✓\nStack becomes `[1,2,3,4,5]`. `pop()` removes 5, then 4, leaving `[1,2,3]`. `v.insert(0, 99)` inserts 99 at index 0, resulting in `[99, 1, 2, 3]`.", "type": "MCQ."},
+            {"q": "[HIGH-LEVEL] Analyze the time complexity of `v.pop(0)` vs `v.pop()` on a dynamic array list of size N. Why do they differ?", "o": ["`v.pop()` is O(1) because removing the last element requires no shifting, whereas `v.pop(0)` is O(N) because removing the first element requires shifting all N-1 remaining elements left", "Both are O(1) time complexity", "Both are O(N) time complexity", "`v.pop(0)` is O(1) and `v.pop()` is O(N)"], "a": 0, "e": "[HIGH-LEVEL] Correct answer ✓\n`pop()` removes from the end (O(1)), while `pop(0)` removes from the beginning, forcing all subsequent elements to shift left (O(N)).", "type": "MCQ."},
+            {"q": "[HIGH-LEVEL] In the text editor undo case study, suppose a user types 'A', then 'B', then 'C'. The stack contains `['A', 'B', 'C']`. The user presses Undo twice, then types 'D'. What is the exact state of the stack?", "o": ["['A', 'D']", "['A', 'B', 'C', 'D']", "['D']", "['A', 'B', 'D']"], "a": 0, "e": "[HIGH-LEVEL] Correct answer ✓\nStack starts `['A', 'B', 'C']`. Two undos pop 'C' then 'B', leaving `['A']`. Typing 'D' appends 'D', resulting in `['A', 'D']`.", "type": "MCQ."}
         ];
 
         const P2_SOURCE = [
+            // --- Standard TFs (1 to 45) ---
+            {"q": "A stack data structure works strictly on the LIFO principle: Last In, First Out.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Stack operates on LIFO (Last In, First Out).", "type": "TF"},
+            {"q": "In a stack, the last element added is the LAST to be removed.", "o": ["True", "False"], "a": 1, "e": "Correct answer ✓\nFalse: The last element added is the FIRST to be removed (LIFO).", "type": "TF"},
+            {"q": "The plate-stacking analogy illustrates that you remove the top plate first in a stack.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Plate-stacking demonstrates removing the top element first.", "type": "TF"},
+            {"q": "An empty stack is initialized in Python using `v = []`.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: `v = []` creates an empty dynamic array list.", "type": "TF"},
+            {"q": "The `append()` method in Python acts as the Push operation for a stack.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: `append()` adds items to the top of the stack.", "type": "TF"},
+            {"q": "The `pop()` method without arguments removes the bottom element of the stack.", "o": ["True", "False"], "a": 1, "e": "Correct answer ✓\nFalse: `v.pop()` removes the top (last) element.", "type": "TF"},
+            {"q": "The `map(str, v)` function converts every element in list `v` into a string.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: `map(str, v)` applies `str()` to every element.", "type": "TF"},
+            {"q": "The `join()` function can successfully join integers without converting them to strings first.", "o": ["True", "False"], "a": 1, "e": "Correct answer ✓\nFalse: `join()` only joins strings, not integers.", "type": "TF"},
+            {"q": "In a strict stack, you are only allowed to push or pop from the top.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Strict stacks restrict operations to the top.", "type": "TF"},
+            {"q": "Because Python lists are dynamic, you can insert elements anywhere (e.g., `v.insert(0, 900)`), demonstrating list flexibility beyond strict stack rules.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Python lists allow arbitrary insertions.", "type": "TF"},
+            {"q": "Executing `v.pop(0)` removes an element from the bottom of the stack.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: `v.pop(0)` removes from index 0 (the bottom).", "type": "TF"},
+            {"q": "`v.clear()` leaves the stack with one default element.", "o": ["True", "False"], "a": 1, "e": "Correct answer ✓\nFalse: `v.clear()` removes all elements, leaving an empty list `[]`.", "type": "TF"},
+            {"q": "`len(v)` returns the current size (number of elements) of stack `v`.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: `len(v)` shows current stack size.", "type": "TF"},
+            {"q": "The expression `if not v:` is used to check if stack `v` is empty.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: `if not v:` checks for empty stack condition.", "type": "TF"},
+            {"q": "The `Fill()` function example populates an array by prompting the user for 5 numbers.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: `Fill()` prompts for 5 numbers and appends them.", "type": "TF"},
+            {"q": "`v.count(value)` returns how many times `value` appears in list `v`.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: `count(value)` returns frequency of appearance.", "type": "TF"},
+            {"q": "`v.reverse()` reverses the order of elements in list `v`.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: `reverse()` reverses list order.", "type": "TF"},
+            {"q": "Text editor Undo features are modeled using a stack data structure.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Undo removes the last action performed, matching stack LIFO behavior.", "type": "TF"},
+            {"q": "`Search(value)` returns the index of the first occurrence of a specific element.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: `Search(value)` returns the first occurrence index.", "type": "TF"},
+            {"q": "`Access(index)` inserts a new value at the specified index.", "o": ["True", "False"], "a": 1, "e": "Correct answer ✓\nFalse: `Access(index)` returns the value of a specific element.", "type": "TF"},
+            {"q": "`Append(addedvalue)` adds an element to the beginning of the array.", "o": ["True", "False"], "a": 1, "e": "Correct answer ✓\nFalse: `Append` adds an element to the END of the array.", "type": "TF"},
+            {"q": "`ExpandArray(newArraySize)` replaces the old array with a larger one.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: `ExpandArray` allocates and replaces with a larger array.", "type": "TF"},
+            {"q": "In Python, `map()` applies a function to every element in an iterable.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: `map()` applies the given function to all items in `v`.", "type": "TF"},
+            {"q": "`v.pop()` returns the element that was removed from the top of the stack.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: `pop()` removes and returns the top element.", "type": "TF"},
+            {"q": "Inserting at index 0 via `v.insert(0, 900)` is the standard O(1) operation for strict stacks.", "o": ["True", "False"], "a": 1, "e": "Correct answer ✓\nFalse: Inserting at index 0 requires shifting all elements right (O(N)), which violates strict stack top-only restriction.", "type": "TF"},
+            {"q": "The `clear()` method leaves a single `None` element in the list.", "o": ["True", "False"], "a": 1, "e": "Correct answer ✓\nFalse: `clear()` leaves the list completely empty (`[]`).", "type": "TF"},
+            {"q": "`len(v)` throws an error if stack `v` is empty.", "o": ["True", "False"], "a": 1, "e": "Correct answer ✓\nFalse: `len([])` returns 0 without error.", "type": "TF"},
+            {"q": "User input inside `Fill()` is converted to integers using `int(input())`.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: `int(input())` converts string input to integer.", "type": "TF"},
+            {"q": "If `v = [10, 20, 10, 30, 10]`, `v.count(10)` outputs 2.", "o": ["True", "False"], "a": 1, "e": "Correct answer ✓\nFalse: 10 appears 3 times, so `count(10)` outputs 3.", "type": "TF"},
+            {"q": "Executing `v.reverse()` on `[1, 2, 3, 4, 5]` results in `[5, 4, 3, 2, 1]`.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: `reverse()` reverses element order.", "type": "TF"},
+            {"q": "The `Create()` operation initializes a new array.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: `Create()` creates a new array.", "type": "TF"},
+            {"q": "The `Display()` operation removes elements from the array.", "o": ["True", "False"], "a": 1, "e": "Correct answer ✓\nFalse: `Display()` outputs values, it does not remove them.", "type": "TF"},
+            {"q": "A stack allows random access to any element in O(1) time without violating stack abstraction.", "o": ["True", "False"], "a": 1, "e": "Correct answer ✓\nFalse: Stacks abstractly restrict access to the top element only (LIFO), prohibiting random middle access.", "type": "TF"},
+            {"q": "Python dynamic lists implement stacks efficiently because appending to the end is amortized O(1).", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Appending to Python lists is amortized O(1).", "type": "TF"},
+            {"q": "The `insert()` method can place an element at any specified index in a Python list.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: `insert(index, value)` places elements at any index.", "type": "TF"},
+            {"q": "The `remove()` operation in summary table deletes an element by its index.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: `Remove(index)` removes the element at the specified index.", "type": "TF"},
+            {"q": "Pressing 'Redo' in software typically uses a stack opposite to Undo.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Redo/Undo commonly utilize dual stack architectures.", "type": "TF"},
+            {"q": "In Python, `print(v)` directly outputs stack elements as a list representation.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: `print(v)` outputs `[100, 101, ...]`.", "type": "TF"},
+            {"q": "The `map()` function in Python 3 returns a map object iterator rather than a direct list.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: `map()` returns an iterator, which is passed to `join()`.", "type": "TF"},
+            {"q": "Calling `v.pop()` on an empty list `[]` raises an `IndexError` in Python.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Popping an empty list throws an IndexError.", "type": "TF"},
+            {"q": "Stack overflow occurs when pushing to a stack that has exceeded its maximum allocated capacity.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Stack overflow happens when capacity limits are breached in fixed structures.", "type": "TF"},
+            {"q": "Stack underflow occurs when attempting to pop or peek from an empty stack.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Underflow occurs on empty stack extractions.", "type": "TF"},
+            {"q": "The `Fill()` function prints prompts formatted with `end=\"\"`.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Code shows `print(f\"Enter number {i+1}:\", end=\"\")`.", "type": "TF"},
+            {"q": "A stack can be implemented using either arrays or linked lists.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Stacks can be implemented using dynamic arrays or linked lists.", "type": "TF"},
+            {"q": "LIFO stands for Least In, First Out.", "o": ["True", "False"], "a": 1, "e": "Correct answer ✓\nFalse: LIFO stands for Last In, First Out.", "type": "TF"},
+
+            // --- High-Level TFs (46 to 50) ---
+            {"q": "[HIGH-LEVEL] Using `v.pop(0)` to remove items from a stack maintains true O(1) stack operational efficiency equivalent to `v.pop()`.", "o": ["True", "False"], "a": 1, "e": "[HIGH-LEVEL] Correct answer ✓\nFalse: `v.pop(0)` requires shifting all remaining elements left in memory, taking O(N) time, unlike `v.pop()` which is O(1).", "type": "TF"},
+            {"q": "[HIGH-LEVEL] In Python, `\"\".join(v)` where `v = [1, 2, 3]` executes successfully without raising exceptions.", "o": ["True", "False"], "a": 1, "e": "[HIGH-LEVEL] Correct answer ✓\nFalse: `join()` throws a `TypeError` because integers in `v` are not strings; `map(str, v)` is mandatory.", "type": "TF"},
+            {"q": "[HIGH-LEVEL] If you perform 5 pushes (`append`) and 3 pops (`pop`) on a stack, the height/size of the stack is guaranteed to be 2.", "o": ["True", "False"], "a": 0, "e": "[HIGH-LEVEL] Correct answer ✓\nTrue: 5 additions minus 3 removals leaves 2 elements in the stack.", "type": "TF"},
+            {"q": "[HIGH-LEVEL] The `reverse()` method creates and returns a brand-new list object while leaving the original list `v` completely unmodified.", "o": ["True", "False"], "a": 1, "e": "[HIGH-LEVEL] Correct answer ✓\nFalse: `v.reverse()` modifies the list in-place and returns `None`, it does not create a new list object.", "type": "TF"},
+            {"q": "[HIGH-LEVEL] A text editor stack maintaining undo history can theoretically grow indefinitely without consuming system memory resources.", "o": ["True", "False"], "a": 1, "e": "[HIGH-LEVEL] Correct answer ✓\nFalse: Every action stored consumes system RAM; unbounded history stacks risk memory exhaustion unless limited or managed.", "type": "TF"}
         ];
 
-        const P1_DATA = P1_SOURCE;
-        const P2_DATA = P2_SOURCE;
+        const getQuestionType = question => question.type.replace(/[.!?]+$/, "");
+
+        const P1_DATA = [
+            ...P1_SOURCE.filter(question => getQuestionType(question) === "MCQ"),
+            ...P2_SOURCE.filter(question => getQuestionType(question) === "MCQ")
+        ];
+        const P2_DATA = [
+            ...P1_SOURCE.filter(question => getQuestionType(question) === "TF"),
+            ...P2_SOURCE.filter(question => getQuestionType(question) === "TF")
+        ];
 
         let activePart = 1;
         let qData = P1_DATA;
@@ -248,9 +351,15 @@
             $("n").textContent = `Question ${cIdx + 1} of ${qData.length}`;
             $("s").textContent = `Score: ${score}`;
             $("bar").style.width = `${(cIdx / qData.length) * 100}%`;
+
+            const isHighLevel = q.q.includes("[HIGH-LEVEL]");
+            const badgeClass = isHighLevel ? "q-badge high-level" : "q-badge";
+            const badgeText = isHighLevel 
+                ? (getQuestionType(q) === 'TF' ? 'True / False — High Level' : 'Multiple Choice — High Level')
+                : (getQuestionType(q) === 'TF' ? 'True / False' : 'Multiple Choice');
             
             $("card").innerHTML = `
-                <span class="q-badge">${q.type === 'TF' ? 'True/False' : 'Multiple Choice'}</span>
+                <span class="${badgeClass}">${badgeText}</span>
                 <p class="q">${q.q}</p>
                 <div id="opts"></div>
                 <div id="fb"></div>
@@ -259,7 +368,7 @@
             q.o.forEach((optText, i) => {
                 const b = document.createElement("button");
                 b.className = "opt";
-                b.innerHTML = `<b>${q.type === 'TF' ? (i===0?'T':'F') : "ABCD"[i] + ")"}</b><span></span>`;
+                b.innerHTML = `<b>${getQuestionType(q) === 'TF' ? (i===0?'T':'F') : "ABCD"[i] + ")"}</b><span></span>`;
                 b.querySelector("span").textContent = optText;
                 b.onclick = () => handleAnswer(i);
                 $("opts").appendChild(b);
@@ -310,7 +419,7 @@
 
             if (wrongList.length > 0) {
                 html += `<p style="margin:16px 0 8px;"><b>Questions to review:</b></p><ul class="rev">`;
-                wrongList.forEach(w => {
+                wrongList.reverse().forEach(w => {
                     html += `<li><b>Question ${w + 1}:</b> ${qData[w].q}</li>`;
                 });
                 html += `</ul>`;
@@ -322,7 +431,6 @@
             $("card").innerHTML = html;
         }
 
-  
         renderQuestion();
     </script>
 </body>
