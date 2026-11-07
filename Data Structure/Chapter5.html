@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <title>Data Structures - Chapter 5 Queues</title>
+    <title>Data Structures - Chapter 5</title>
     <style>
         :root {
             --bg: #0f172a;
@@ -192,7 +192,7 @@
 <body>
     <main>
             <div class="header-panel">
-            <h1>Data Structures — Chapter 5</h1>
+            <h1>Data Structures - Chapter 5</h1>
                <p class="sub">Queues</p>
             <p class="sub"></p>
         </div>
@@ -211,10 +211,116 @@
     </main>
 
     <script>
-        const P1_SOURCE = [
+       const P1_SOURCE = [
+            // --- MCQs (50 Questions) ---
+            { "q": "What core principle does a Queue data structure follow?", "o": ["First In, First Out (FIFO)", "Last In, First Out (LIFO)", "Random Access", "Priority-based Sorting"], "a": 0, "e": "Correct answer ✓\nA queue is a linear data structure that follows the First In, First Out (FIFO) principle.", "type": "MCQ" },
+            { "q": "Where are new elements added during an Enqueue operation in a queue?", "o": ["At the rear (end) of the queue", "At the front (beginning) of the queue", "At the middle of the queue", "At a random memory position"], "a": 0, "e": "Correct answer ✓\nEnqueue Operation adds an element to the rear (end) of the queue.", "type": "MCQ" },
+            { "q": "Which operation removes an element from the front (beginning) of the queue?", "o": ["Dequeue", "Enqueue", "Peek", "IsEmpty"], "a": 0, "e": "Correct answer ✓\nDequeue Operation removes an element from the front (beginning) of the queue.", "type": "MCQ" },
+            { "q": "What does the Peek/Front operation do in a queue?", "o": ["Returns/views the front element without removing it", "Removes the front element from the queue", "Inserts an element at the rear", "Clears all elements in the queue"], "a": 0, "e": "Correct answer ✓\nPeek/Front operation views the front element without removing it.", "type": "MCQ" },
+            { "q": "In a singly linked list implementation of a queue, what does the tail/rear pointer of the last node point to?", "o": ["nullptr or None", "The head node", "The front node", "A random integer"], "a": 0, "e": "Correct answer ✓\nThe last node's pointer in a singly linked list points to nullptr or None.", "type": "MCQ" },
+            { "q": "If elements 12, 24, and 36 are enqueued in order into an empty queue, which element will be removed first upon calling dequeue()?", "o": ["12", "24", "36", "None"], "a": 0, "e": "Correct answer ✓\nAccording to FIFO, 12 was added first, so it is the first one removed.", "type": "MCQ" },
+            { "q": "In Python's custom doubly-linked queue node creation `create_node(prev_node, value, next_node)`, what keys are returned in the dictionary?", "o": ["'prev', 'value', 'next'", "'head', 'data', 'tail'", "'first', 'element', 'last'", "'left', 'key', 'right'"], "a": 0, "e": "Correct answer ✓\n`return {\"prev\": prev_node, \"value\": value, \"next\": next_node}`.", "type": "MCQ" },
+            { "q": "In the custom Python linked-list queue, what indicates that the queue is empty?", "o": ["head is None", "tail is 0", "len(queue) == 1", "head == tail"], "a": 0, "e": "Correct answer ✓\nIf head is None, the queue has no elements.", "type": "MCQ" },
+            { "q": "When calling `push_back(value)` on an empty queue, what happens to `head` and `tail`?", "o": ["The new node becomes both head and tail", "head stays None while tail is created", "tail stays None while head is created", "An overflow error is raised"], "a": 0, "e": "Correct answer ✓\nIf queue is empty, the new node is both head and tail.", "type": "MCQ" },
+            { "q": "In Python's built-in `collections.deque`, which method performs the Dequeue operation (removing from first)?", "o": ["popleft()", "pop()", "remove_first()", "dequeue()"], "a": 0, "e": "Correct answer ✓\n`queue.popleft()` removes from the front in `collections.deque`.", "type": "MCQ" },
+            { "q": "What will be the printed output after running: \n`q = deque(); q.append(10); q.append(20); q.append(30); q.popleft(); print(q)`?", "o": ["deque([20, 30])", "deque([10, 20])", "deque([30])", "deque([10, 20, 30])"], "a": 0, "e": "Correct answer ✓\n`popleft()` removes 10, leaving `[20, 30]` in the queue.", "type": "MCQ" },
+            { "q": "What type of data structure is a tree?", "o": ["Nonlinear hierarchical data structure", "Linear sequential data structure", "Flat key-value hash map", "Circular ring buffer"], "a": 0, "e": "Correct answer ✓\nA tree is a nonlinear hierarchical data structure.", "type": "MCQ" },
+            { "q": "What is the topmost node of a tree called?", "o": ["Root", "Leaf", "Child", "Sibling"], "a": 0, "e": "Correct answer ✓\nThe root is the topmost node of a tree.", "type": "MCQ" },
+            { "q": "What is the connecting link between any two nodes in a tree called?", "o": ["Edge", "Branch", "Pointer", "Path"], "a": 0, "e": "Correct answer ✓\nAn edge is the connecting link between any two nodes.", "type": "MCQ" },
+            { "q": "In a tree with `n` nodes, how many total edges are there?", "o": ["n - 1", "n", "n + 1", "2n"], "a": 0, "e": "Correct answer ✓\nIn a tree with n number of nodes, there are exactly (n - 1) number of edges.", "type": "MCQ" },
+            { "q": "How many root nodes can exist in any single tree data structure?", "o": ["Only one root node", "Up to two root nodes", "Any number of root nodes", "Zero root nodes"], "a": 0, "e": "Correct answer ✓\nIn any tree, there must be only one root node; we can never have multiple root nodes.", "type": "MCQ" },
+            { "q": "What are nodes with no children called?", "o": ["Leaf nodes (or external / terminal nodes)", "Internal nodes", "Parent nodes", "Root nodes"], "a": 0, "e": "Correct answer ✓\nNodes which do not have any child are called leaf nodes or external/terminal nodes.", "type": "MCQ" },
+            { "q": "What is a node called if it has at least one child node?", "o": ["Internal node (or non-terminal node)", "Leaf node", "External node", "Null node"], "a": 0, "e": "Correct answer ✓\nThe node which has at least one child is called an internal or non-terminal node.", "type": "MCQ" },
+            { "q": "What is the term for nodes that belong to the same parent?", "o": ["Siblings", "Children", "Ancestors", "Subtrees"], "a": 0, "e": "Correct answer ✓\nNodes which belong to the same parent are called siblings.", "type": "MCQ" },
+            { "q": "What is all nodes in a tree called except the root node?", "o": ["Child nodes", "Parent nodes", "Root nodes", "External nodes only"], "a": 0, "e": "Correct answer ✓\nAll the nodes except the root node are child nodes (they are descendants of some node).", "type": "MCQ" },
+            { "q": "How is the 'Degree of a node' defined?", "o": ["Total number of children of that node", "Total number of edges from the root", "Distance to the nearest leaf", "Total number of siblings"], "a": 0, "e": "Correct answer ✓\nDegree of a node is the total number of children of that node.", "type": "MCQ" },
+            { "q": "How is the 'Degree of a tree' defined?", "o": ["The highest degree of a node among all nodes in the tree", "The total number of nodes in the tree", "The total number of leaf nodes", "The depth of the root node"], "a": 0, "e": "Correct answer ✓\nDegree of a tree is the highest degree of a node among all nodes in the tree.", "type": "MCQ" },
+            { "q": "In the standard slide tree (Root A with children B, C; B has D, E, F; C has G, H), what is Degree(B)?", "o": ["3", "2", "1", "0"], "a": 0, "e": "Correct answer ✓\nNode B has 3 children (D, E, F), so Degree(B) = 3.", "type": "MCQ" },
+            { "q": "What is the degree of any leaf node in a tree?", "o": ["0", "1", "2", "-1"], "a": 0, "e": "Correct answer ✓\nLeaf nodes have no children, so their degree is always 0.", "type": "MCQ" },
+            { "q": "At what number does the level count start at the root node of a tree?", "o": ["Level 0", "Level 1", "Level -1", "Level 2"], "a": 0, "e": "Correct answer ✓\nThe level count starts with 0 at the root and increments by 1 at each step.", "type": "MCQ" },
+            { "q": "How is the 'Height of a node' defined?", "o": ["Total number of edges on the longest path from any leaf node to that particular node", "Total number of edges from the root to that node", "Total number of children of that node", "Level number of that node"], "a": 0, "e": "Correct answer ✓\nHeight of a node is the total number of edges on the longest path from any leaf node to that node.", "type": "MCQ" },
+            { "q": "What is the height of all leaf nodes?", "o": ["0", "1", "-1", "Equal to tree depth"], "a": 0, "e": "Correct answer ✓\nHeight of all leaf nodes is 0.", "type": "MCQ" },
+            { "q": "What is the 'Height of a tree' equal to?", "o": ["The height of the root node", "The total number of leaf nodes", "The degree of the tree", "The number of edges minus 1"], "a": 0, "e": "Correct answer ✓\nHeight of a tree is the height of the root node.", "type": "MCQ" },
+            { "q": "How is the 'Depth of a node' defined?", "o": ["Total number of edges from the root node to that particular node", "Total number of edges from that node to a leaf node", "Total number of siblings of that node", "Level number plus 1"], "a": 0, "e": "Correct answer ✓\nDepth of a node is the total number of edges from the root node to that node.", "type": "MCQ" },
+            { "q": "What is the depth of the root node?", "o": ["0", "1", "-1", "Infinite"], "a": 0, "e": "Correct answer ✓\nDepth of the root node = 0.", "type": "MCQ" },
+            { "q": "Which two tree terminology terms are used interchangeably in slides?", "o": ["'Level' and 'Depth'", "'Height' and 'Degree'", "'Leaf' and 'Root'", "'Parent' and 'Sibling'"], "a": 0, "e": "Correct answer ✓\nThe terms 'level' and 'depth' are used interchangeably.", "type": "MCQ" },
+            { "q": "What is the longest path from the root to a leaf node in a tree called? (From Slide 31 MCQ Q5)", "o": ["Height", "Depth", "Level", "Degree"], "a": 0, "e": "Correct answer ✓\nThe longest path from the root to a leaf is called Height.", "type": "MCQ" },
+            { "q": "In Exercise Slide 32 (Tree with Root A, children B & C; B has D & E; C has F): What are the leaf nodes?", "o": ["D, E, F", "B, C", "A, B, C", "D, E"], "a": 0, "e": "Correct answer ✓\nNodes D, E, and F have no children, making them the leaf nodes.", "type": "MCQ" },
+            { "q": "In Exercise Slide 32: What is the height of the tree?", "o": ["2", "3", "1", "6"], "a": 0, "e": "Correct answer ✓\nLongest path from root A to leaves (D, E, or F) has 2 edges (A-B-D or A-C-F), so height = 2.", "type": "MCQ" },
+            { "q": "In Exercise Slide 32: What is the depth of node E?", "o": ["2", "1", "0", "3"], "a": 0, "e": "Correct answer ✓\nPath from root A to node E goes A -> B -> E (2 edges), so depth = 2.", "type": "MCQ" },
+
+            // --- High-Level MCQs (36 to 50) ---
+            { "q": "[HIGH-LEVEL] 36. A printer queue receives 5 document requests in sequence. Which document will print third?", "o": ["The 3rd document enqueued", "The 5th document enqueued", "The 1st document enqueued", "The last document enqueued"], "a": 0, "e": "[HIGH-LEVEL] Correct answer ✓\nBecause queues follow FIFO, items are processed in exact arrival order; thus the 3rd enqueued item dequeues 3rd.", "type": "MCQ" },
+            { "q": "[HIGH-LEVEL] 37. If a tree has 15 total nodes, how many total edges connect these nodes?", "o": ["14 edges", "15 edges", "16 edges", "30 edges"], "a": 0, "e": "[HIGH-LEVEL] Correct answer ✓\nFor any tree with n nodes, total edges = n - 1. Here 15 - 1 = 14 edges.", "type": "MCQ" },
+            { "q": "[HIGH-LEVEL] 38. Consider a tree where Node X is at Level 3. What is the depth of Node X?", "o": ["3", "2", "4", "0"], "a": 0, "e": "[HIGH-LEVEL] Correct answer ✓\nLevel and depth start at 0 at the root and are used interchangeably; Level 3 means Depth = 3.", "type": "MCQ" },
+            { "q": "[HIGH-LEVEL] 39. In a custom doubly-linked queue `push_back(val)`, after linking `tail[\"next\"] = new_node`, what is the vital final step?", "o": ["`tail = new_node`", "`head = new_node`", "`new_node[\"prev\"] = None`", "`head[\"next\"] = None`"], "a": 0, "e": "[HIGH-LEVEL] Correct answer ✓\nThe tail pointer must be updated to reference the newly appended node.", "type": "MCQ" },
+            { "q": "[HIGH-LEVEL] 40. In `pop_front()` for a custom queue with multiple elements, after updating `head = head[\"next\"]`, why do we execute `head[\"prev\"] = None`?", "o": ["To detach the old head reference from the new head's prev link", "To clear the data inside the tail", "To turn the queue into a circular structure", "To set the queue size to zero"], "a": 0, "e": "[HIGH-LEVEL] Correct answer ✓\nSetting `head[\"prev\"] = None` removes the link to the popped old front node.", "type": "MCQ" },
+            { "q": "[HIGH-LEVEL] 41. If a node in a tree has 4 children, 2 grandchildren, and no parent (it is Root), what is the degree of this node?", "o": ["4", "6", "2", "0"], "a": 0, "e": "[HIGH-LEVEL] Correct answer ✓\nDegree of a node measures only its direct children count (which is 4).", "type": "MCQ" },
+            { "q": "[HIGH-LEVEL] 42. In the main lecture tree figure (Root A), Node E has children I and J, while Node K is child of G (which is child of C). What is the Height of Node A?", "o": ["3", "2", "4", "1"], "a": 0, "e": "[HIGH-LEVEL] Correct answer ✓\nLongest path from leaf (I, J, or K) to root A has 3 edges (A-B-E-I or A-C-G-K), so Height(A) = 3.", "type": "MCQ" },
+            { "q": "[HIGH-LEVEL] 43. In the same main lecture tree figure, what is the Depth of Node H?", "o": ["2", "0", "1", "3"], "a": 0, "e": "[HIGH-LEVEL] Correct answer ✓\nPath from Root A to Node H is A -> C -> H (2 edges), so Depth(H) = 2.", "type": "MCQ" },
+            { "q": "[HIGH-LEVEL] 44. What happens in `pop_front()` when `head == tail` (a single element queue)?", "o": ["`head = tail = None` (queue becomes empty)", "Only head becomes None", "An underflow error is thrown", "The node is re-enqueued at the back"], "a": 0, "e": "[HIGH-LEVEL] Correct answer ✓\nRemoving the only node leaves the queue empty, so head and tail are set to None.", "type": "MCQ" },
+            { "q": "[HIGH-LEVEL] 45. In `collections.deque`, what is the time complexity of `append()` and `popleft()` operations?", "o": ["O(1) constant time", "O(n) linear time", "O(log n) logarithmic time", "O(n^2) quadratic time"], "a": 0, "e": "[HIGH-LEVEL] Correct answer ✓\n`collections.deque` provides O(1) time complexity for appending and popping from both ends.", "type": "MCQ" },
+            { "q": "[HIGH-LEVEL] 46. If all non-root nodes in a tree have a degree of 0, what does the tree look like?", "o": ["A root node with only leaf direct children (height = 1)", "A single straight chain line", "An empty tree", "A complete binary tree"], "a": 0, "e": "[HIGH-LEVEL] Correct answer ✓\nIf all children of root have degree 0, they are all leaves, making a 1-level deep tree.", "type": "MCQ" },
+            { "q": "[HIGH-LEVEL] 47. Which of the following tree elements can NEVER have a parent node?", "o": ["Root node", "Leaf node", "Internal node", "Sibling node"], "a": 0, "e": "[HIGH-LEVEL] Correct answer ✓\nThe root node is the topmost node from which the tree originates; it has no parent.", "type": "MCQ" },
+            { "q": "[HIGH-LEVEL] 48. What is a collection of disjoint trees called in standard tree terminology?", "o": ["Forest", "Subtree", "Branch", "Leaf group"], "a": 0, "e": "[HIGH-LEVEL] Correct answer ✓\nA forest is a set/collection of zero or more disjoint trees.", "type": "MCQ" },
+            { "q": "[HIGH-LEVEL] 49. In Exercise Slide 32 (Root A -> B, C; B -> D, E; C -> F), which nodes are internal nodes?", "o": ["A, B, C", "D, E, F", "B, C, D", "A, D, E"], "a": 0, "e": "[HIGH-LEVEL] Correct answer ✓\nInternal nodes have at least one child. A has (B,C), B has (D,E), C has (F). So A, B, C are internal.", "type": "MCQ" },
+            { "q": "[HIGH-LEVEL] 50. If an application requires quick non-linear data access with hierarchical parent-child relationships, which structure is ideal?", "o": ["Tree", "Queue", "Stack", "Array"], "a": 0, "e": "[HIGH-LEVEL] Correct answer ✓\nTrees are non-linear hierarchical structures allowing quicker, structured access.", "type": "MCQ." }
         ];
 
         const P2_SOURCE = [
+            // --- True/False (50 Questions) ---
+            { "q": "1. A queue is a linear data structure following the First In, First Out (FIFO) principle.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: A queue follows FIFO, meaning the first element added is the first removed.", "type": "TF" },
+            { "q": "2. In a queue, Enqueue operation removes an element from the front.", "o": ["True", "False"], "a": 1, "e": "Correct answer ✓\nFalse: Enqueue adds an element to the rear; Dequeue removes from the front.", "type": "TF" },
+            { "q": "3. Peek/Front operation views the front element of the queue without removing it.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Peek/Front returns the front element without removal.", "type": "TF" },
+            { "q": "4. Queues can be implemented using either arrays or linked lists.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Queue can be implemented using arrays or linked lists.", "type": "TF" },
+            { "q": "5. In a singly linked list queue, the rear pointer points to nullptr or None.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: The last node's pointer points to nullptr or None.", "type": "TF" },
+            { "q": "6. In Python `collections.deque`, `append()` is used for Dequeue and `popleft()` for Enqueue.", "o": ["True", "False"], "a": 1, "e": "Correct answer ✓\nFalse: `append()` is Enqueue (add to last) and `popleft()` is Dequeue (remove from first).", "type": "TF" },
+            { "q": "7. A tree is a linear sequential data structure.", "o": ["True", "False"], "a": 1, "e": "Correct answer ✓\nFalse: A tree is a non-linear hierarchical data structure.", "type": "TF" },
+            { "q": "8. The root node is the topmost node of a tree.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Root is the first topmost node from where the tree originates.", "type": "TF" },
+            { "q": "9. A tree data structure can have multiple root nodes.", "o": ["True", "False"], "a": 1, "e": "Correct answer ✓\nFalse: We can never have multiple root nodes in a tree data structure.", "type": "TF" },
+            { "q": "10. In a tree with `n` nodes, there are exactly `n - 1` edges.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: In a tree with n nodes, there are (n - 1) edges.", "type": "TF" },
+            { "q": "11. A parent node is a node that has one or more children.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: The node having one or more children is called a parent node.", "type": "TF" },
+            { "q": "12. All nodes in a tree except the root node are child nodes.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: All nodes except root are child nodes (descendants).", "type": "TF" },
+            { "q": "13. Nodes belonging to different parents are called siblings.", "o": ["True", "False"], "a": 1, "e": "Correct answer ✓\nFalse: Siblings are nodes that belong to the SAME parent.", "type": "TF" },
+            { "q": "14. Degree of a node is the total number of children of that node.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Degree of a node is its total number of children.", "type": "TF" },
+            { "q": "15. Degree of a tree is the sum of degrees of all nodes in the tree.", "o": ["True", "False"], "a": 1, "e": "Correct answer ✓\nFalse: Degree of a tree is the HIGHEST degree of a node among all nodes in the tree.", "type": "TF" },
+            { "q": "16. Internal nodes are also called non-terminal nodes.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Internal nodes are non-terminal nodes having at least one child.", "type": "TF" },
+            { "q": "17. Leaf nodes are also called external nodes or terminal nodes.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Leaf nodes are also called external or terminal nodes.", "type": "TF" },
+            { "q": "18. Leaf nodes have a degree of 1.", "o": ["True", "False"], "a": 1, "e": "Correct answer ✓\nFalse: Leaf nodes have no children, so their degree is 0.", "type": "TF" },
+            { "q": "19. Level count in a tree starts with 1 at the root node.", "o": ["True", "False"], "a": 1, "e": "Correct answer ✓\nFalse: Level count starts with 0 at the root node.", "type": "TF" },
+            { "q": "20. Height of a node is the total number of edges on the longest path from any leaf node to that node.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Height is measured on the longest path from a leaf node to that node.", "type": "TF" },
+            { "q": "21. Height of all leaf nodes is 0.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Height of all leaf nodes is 0.", "type": "TF" },
+            { "q": "22. Height of a tree is equal to the height of its root node.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Height of a tree is the height of root node.", "type": "TF" },
+            { "q": "23. Depth of a node is the total number of edges from the root node to that particular node.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Depth is the number of edges from the root to that node.", "type": "TF" },
+            { "q": "24. Depth of the root node is 1.", "o": ["True", "False"], "a": 1, "e": "Correct answer ✓\nFalse: Depth of the root node is 0.", "type": "TF" },
+            { "q": "25. The terms 'level' and 'depth' are used interchangeably in tree terminology.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Level and depth are used interchangeably.", "type": "TF" },
+            { "q": "26. Each child node forms a subtree recursively on its parent node.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Every child node forms a subtree on its parent node.", "type": "TF" },
+            { "q": "27. In Slide 31 MCQ Q1, the topmost node in a tree is called Root.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Topmost node is Root.", "type": "TF" },
+            { "q": "28. In Slide 31 MCQ Q2, nodes with no children are called Parent nodes.", "o": ["True", "False"], "a": 1, "e": "Correct answer ✓\nFalse: Nodes with no children are called Leaf nodes.", "type": "TF" },
+            { "q": "29. In Slide 31 MCQ Q3, a node having the same parent as another is called Sibling.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Same parent = Sibling.", "type": "TF" },
+            { "q": "30. In Slide 31 MCQ Q4, the level of a tree represents distance from the root node.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Level represents distance from root node starting at 0.", "type": "TF" },
+            { "q": "31. In custom Python queue, `display_from_head()` traverses nodes starting from tail.", "o": ["True", "False"], "a": 1, "e": "Correct answer ✓\nFalse: `display_from_head()` starts from `p = head`.", "type": "TF" },
+            { "q": "32. In Exercise Slide 32 (Root A -> B, C; B -> D, E; C -> F), Root of the tree is A.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Root of the tree is A.", "type": "TF" },
+            { "q": "33. In Exercise Slide 32, nodes D and E are siblings.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: D and E share parent B, so they are siblings.", "type": "TF" },
+            { "q": "34. In Exercise Slide 32, the height of the tree is 3.", "o": ["True", "False"], "a": 1, "e": "Correct answer ✓\nFalse: Height is 2 (path A-B-D has 2 edges).", "type": "TF" },
+            { "q": "35. In Exercise Slide 32, the depth of node E is 2.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Path from root A to E has 2 edges (A-B-E), so depth = 2.", "type": "TF" },
+            { "q": "36. Size() operation returns the number of elements in a queue.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Size() returns the number of elements.", "type": "TF" },
+            { "q": "37. In horizontal queue visualization, elements are added at front and removed from rear.", "o": ["True", "False"], "a": 1, "e": "Correct answer ✓\nFalse: Elements are added at the REAR and removed from the FRONT.", "type": "TF" },
+            { "q": "38. In a tree, every non-leaf node is an internal node.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Every non-leaf node is an internal node.", "type": "TF" },
+            { "q": "39. The number of edges from root to any node is called the height of that node.", "o": ["True", "False"], "a": 1, "e": "Correct answer ✓\nFalse: Edges from root to node is DEPTH; edges from leaf to node is HEIGHT.", "type": "TF" },
+            { "q": "40. A queue guarantees LIFO ordering for element removal.", "o": ["True", "False"], "a": 1, "e": "Correct answer ✓\nFalse: Queue guarantees FIFO ordering; Stacks guarantee LIFO.", "type": "TF" },
+
+            // --- High-Level True/False (41 to 50) ---
+            { "q": "[HIGH-LEVEL] 41. True or False: If a tree has 10 nodes, it must contain exactly 9 edges.", "o": ["True", "False"], "a": 0, "e": "[HIGH-LEVEL] Correct answer ✓\nTrue: In any tree with n nodes, number of edges is always n - 1 (10 - 1 = 9).", "type": "TF" },
+            { "q": "[HIGH-LEVEL] 42. True or False: In a tree, the depth of the root node is always equal to the height of the tree.", "o": ["True", "False"], "a": 1, "e": "[HIGH-LEVEL] Correct answer ✓\nFalse: Depth of root node is 0, whereas height of tree is height of root node (longest path to leaf).", "type": "TF" },
+            { "q": "[HIGH-LEVEL] 43. True or False: Calling `pop_front()` on an empty custom queue causes a crash.", "o": ["True", "False"], "a": 1, "e": "[HIGH-LEVEL] Correct answer ✓\nFalse: `pop_front()` checks `if empty(): return`, safely doing nothing.", "type": "TF" },
+            { "q": "[HIGH-LEVEL] 44. True or False: In a binary tree where root A has child B, and B has child C, the degree of Node A is 2.", "o": ["True", "False"], "a": 1, "e": "[HIGH-LEVEL] Correct answer ✓\nFalse: Node A has only 1 direct child (B), so Degree(A) = 1.", "type": "TF" },
+            { "q": "[HIGH-LEVEL] 45. True or False: `len(queue)` in Python's `collections.deque` returns the current count of elements in the queue.", "o": ["True", "False"], "a": 0, "e": "[HIGH-LEVEL] Correct answer ✓\nTrue: `len(queue)` returns the number of elements.", "type": "TF" },
+            { "q": "[HIGH-LEVEL] 46. True or False: External nodes and terminal nodes are alternative names for leaf nodes.", "o": ["True", "False"], "a": 0, "e": "[HIGH-LEVEL] Correct answer ✓\nTrue: Leaf nodes are also called external nodes or terminal nodes.", "type": "TF" },
+            { "q": "[HIGH-LEVEL] 47. True or False: If Node X is an internal node, its degree must be at least 1.", "o": ["True", "False"], "a": 0, "e": "[HIGH-LEVEL] Correct answer ✓\nTrue: An internal node has at least one child, so its degree is >= 1.", "type": "TF" },
+            { "q": "[HIGH-LEVEL] 48. True or False: If element X is enqueued before element Y, element Y will always be dequeued before X.", "o": ["True", "False"], "a": 1, "e": "[HIGH-LEVEL] Correct answer ✓\nFalse: Under FIFO, X was added first so X is dequeued before Y.", "type": "TF" },
+            { "q": "[HIGH-LEVEL] 49. True or False: In Exercise Slide 32, nodes B and C are siblings.", "o": ["True", "False"], "a": 0, "e": "[HIGH-LEVEL] Correct answer ✓\nTrue: B and C share root parent A, making them siblings.", "type": "TF" },
+            { "q": "[HIGH-LEVEL] 50. True or False: In a tree, a parent node is restricted to having a maximum of 2 children.", "o": ["True", "False"], "a": 1, "e": "[HIGH-LEVEL] Correct answer ✓\nFalse: In a general tree, a parent node can have ANY number of child nodes (only binary trees restrict to 2).", "type": "TF" }
         ];
 
         const P1_DATA = P1_SOURCE;
@@ -302,7 +408,7 @@
             $("bar").style.width = "100%";
             $("n").textContent = "Quiz complete";
             const pct = Math.round((score / qData.length) * 100);
-            
+
             let html = `
                 <div class="score">${score} / ${qData.length}</div>
                 <p style="text-align:center;font-size:1.2rem;margin:0 0 16px;">Percentage: <b>${pct}%</b></p>
@@ -310,7 +416,7 @@
 
             if (wrongList.length > 0) {
                 html += `<p style="margin:16px 0 8px;"><b>Questions to review:</b></p><ul class="rev">`;
-                wrongList.forEach(w => {
+                wrongList.reverse().forEach(w => {
                     html += `<li><b>Question ${w + 1}:</b> ${qData[w].q}</li>`;
                 });
                 html += `</ul>`;
@@ -322,7 +428,6 @@
             $("card").innerHTML = html;
         }
 
-  
         renderQuestion();
     </script>
 </body>

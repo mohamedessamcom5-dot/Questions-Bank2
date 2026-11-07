@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en" dir="ltr">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -34,7 +35,10 @@
             }
         }
 
-        * { box-sizing: border-box; }
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             margin: 0;
             background: var(--bg);
@@ -42,25 +46,38 @@
             font-family: 'Segoe UI', Tahoma, system-ui, -apple-system, sans-serif;
             line-height: 1.6;
         }
+
         main {
             max-width: 760px;
             margin: 0 auto;
             padding: 24px 16px 60px;
         }
+
         .header-panel {
             text-align: center;
             margin-bottom: 24px;
             border-bottom: 8px solid var(--b);
             padding-bottom: 30px;
         }
-        h1 { font-size: 1.5rem; margin: 0 0 8px; color: var(--ac); }
-        .sub { color: var(--m); font-size: 0.95rem; margin: 0; }
-        
+
+        h1 {
+            font-size: 1.5rem;
+            margin: 0 0 8px;
+            color: var(--ac);
+        }
+
+        .sub {
+            color: var(--m);
+            font-size: 0.95rem;
+            margin: 0;
+        }
+
         .nav-tabs {
             display: flex;
             gap: 12px;
             margin-bottom: 20px;
         }
+
         .tab-btn {
             flex: 1;
             padding: 12px;
@@ -72,6 +89,7 @@
             cursor: pointer;
             transition: all 0.2s;
         }
+
         .tab-btn.active {
             background: var(--ac);
             color: #000;
@@ -85,6 +103,7 @@
             overflow: hidden;
             margin-bottom: 8px;
         }
+
         .bar i {
             display: block;
             height: 100%;
@@ -92,6 +111,7 @@
             width: 0;
             transition: width 0.3s;
         }
+
         .meta {
             display: flex;
             justify-content: space-between;
@@ -99,13 +119,15 @@
             font-size: 0.9rem;
             margin-bottom: 16px;
         }
+
         .card {
             background: var(--c);
             border: 1px solid var(--b);
             border-radius: 12px;
             padding: 20px;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
         }
+
         .q-badge {
             display: inline-block;
             padding: 2px 8px;
@@ -115,11 +137,13 @@
             margin-bottom: 10px;
             color: var(--ac);
         }
+
         .q-badge.high-level {
             background: #f59e0b;
             color: #000;
             font-weight: bold;
         }
+
         .q {
             font-size: 1.1rem;
             font-weight: 600;
@@ -127,6 +151,7 @@
             text-align: left;
             margin: 0 0 16px;
         }
+
         .opt {
             display: flex;
             gap: 12px;
@@ -143,11 +168,29 @@
             cursor: pointer;
             transition: border-color 0.2s;
         }
-        .opt:hover:not(:disabled) { border-color: var(--ac); }
-        .opt b { min-width: 1.5em; color: var(--ac); }
-        .opt.ok { background: var(--okb); border-color: var(--ok); }
-        .opt.no { background: var(--nob); border-color: var(--no); }
-        .opt:disabled { cursor: default; }
+
+        .opt:hover:not(:disabled) {
+            border-color: var(--ac);
+        }
+
+        .opt b {
+            min-width: 1.5em;
+            color: var(--ac);
+        }
+
+        .opt.ok {
+            background: var(--okb);
+            border-color: var(--ok);
+        }
+
+        .opt.no {
+            background: var(--nob);
+            border-color: var(--no);
+        }
+
+        .opt:disabled {
+            cursor: default;
+        }
 
         .ex {
             margin-top: 16px;
@@ -157,9 +200,21 @@
             text-align: left;
             font-size: 0.95rem;
         }
-        .ex.ok { background: var(--okb); border: 1px solid var(--ok); }
-        .ex.no { background: var(--nob); border: 1px solid var(--no); }
-        .ex strong { display: block; margin-bottom: 4px; }
+
+        .ex.ok {
+            background: var(--okb);
+            border: 1px solid var(--ok);
+        }
+
+        .ex.no {
+            background: var(--nob);
+            border: 1px solid var(--no);
+        }
+
+        .ex strong {
+            display: block;
+            margin-bottom: 4px;
+        }
 
         .btn {
             margin-top: 16px;
@@ -173,36 +228,162 @@
             cursor: pointer;
             width: 100%;
         }
-        .score { text-align: center; font-size: 3rem; font-weight: 800; margin: 12px 0; color: var(--ac); }
-        .rev { margin: 16px 0 0; padding: 0; list-style: none; direction: ltr; text-align: left; font-size: 0.9rem; }
-        .rev li { padding: 8px 0; border-top: 1px solid var(--b); }
+
+        .score {
+            text-align: center;
+            font-size: 3rem;
+            font-weight: 800;
+            margin: 12px 0;
+            color: var(--ac);
+        }
+
+        .rev {
+            margin: 16px 0 0;
+            padding: 0;
+            list-style: none;
+            direction: ltr;
+            text-align: left;
+            font-size: 0.9rem;
+        }
+
+        .rev li {
+            padding: 8px 0;
+            border-top: 1px solid var(--b);
+        }
     </style>
 </head>
-<body>
-    <main>
-        <div class="header-panel">
-            <h1>Human Resource Management — Chapter 4</h1>
-            <p class="sub">Training and Development </p>
-        </div>
-        
-        <div class="nav-tabs">
-            <button class="tab-btn active" id="tab1" onclick="switchPart(1)">Multiple Choice</button>
-            <button class="tab-btn" id="tab2" onclick="switchPart(2)">True/False</button>
-        </div>
 
-        <div class="bar"><i id="bar"></i></div>
-        <div class="meta">
-            <span id="n"></span>
-            <span id="s"></span>
-        </div>
-        <div class="card" id="card"></div>
+<body>
+    in>
+    <div class="header-panel">
+        <h1>Human Resource Management — Chapter 4</h1>
+        <p class="sub">Employee Testing & Selection</p>
+    </div>
+
+    <div class="nav-tabs">
+        <button class="tab-btn active" id="tab1" onclick="switchPart(1)">Multiple Choice </button>
+        <button class="tab-btn" id="tab2" onclick="switchPart(2)">True/False </button>
+    </div>
+
+    <div class="bar"><i id="bar"></i></div>
+    <div class="meta">
+        <span id="n"></span>
+        <span id="s"></span>
+    </div>
+    <div class="card" id="card"></div>
     </main>
-      
+
     <script>
-       const P1_SOURCE = [
+        const P1_SOURCE = [
+            // --- Standard MCQs (1 to 45) ---
+            { "q": "What are the three main reasons why employee selection is important for organizations?", "o": ["Performance, costs, and legal obligations", "Office size, computer speed, and software licenses", "Marketing reach, tax refunds, and inventory turnover", "Employee age, gender, and nationality"], "a": 0, "e": "Correct answer ✓\nSelection is important for three main reasons: performance, costs, and legal obligations.", "type": "MCQ" },
+            { "q": "Why is employee performance directly tied to the selection process?", "o": ["Because your own managerial performance always depends on your subordinates; employees with the right skills do a better job", "Because managers do not need to work if subordinates are hired", "Because performance is measured solely by office attendance", "Because subordinates set corporate strategy"], "a": 0, "e": "Correct answer ✓\nYour own performance depends on your subordinates, and right skills lead to better job execution.", "type": "MCQ" },
+            { "q": "Which of the following represents a direct cost factor associated with recruiting and hiring employees?", "o": ["Search fees, interviewing time, reference checking, and travel/moving expenses", "Electricity bills of the corporate headquarters", "Routine maintenance of office elevators", "Cafeteria food catering services"], "a": 0, "e": "Correct answer ✓\nHiring costs include search fees, interviewing time, reference checking, and travel/moving expenses.", "type": "MCQ" },
+            { "q": "What legal consequence can arise from mismanaging the hiring process or using discriminatory selection procedures?", "o": ["Equal employment law violations and lawsuits for negligent hiring", "Automatic corporate tax exemption", "Mandatory promotion of all applicants", "Immediate cancellation of company patents"], "a": 0, "e": "Correct answer ✓\nMismanaging hiring has legal consequences, equal employment laws require nondiscriminatory procedures, and employers can be sued for negligent hiring.", "type": "MCQ" },
+            { "q": "What is the primary aim of employee selection?", "o": ["Achieving person-job fit", "Maximizing office desk capacity", "Reducing electricity consumption", "Minimizing annual leave days"], "a": 0, "e": "Correct answer ✓\nThe main aim of employee selection is to achieve person-job fit.", "type": "MCQ" },
+            { "q": "How is 'person-job fit' formally defined?", "o": ["Matching knowledge, skills, abilities (KSAs), and competencies central to performing the job with the prospective employee's KSAs and competencies", "Matching employee clothing style with corporate dress codes", "Matching employee birthdates with department founding dates", "Matching salary expectations with company bank interest rates"], "a": 0, "e": "Correct answer ✓\nPerson-job fit refers to matching job KSAs and competencies with the prospective employee's KSAs and competencies.", "type": "MCQ" },
+            { "q": "How is test 'reliability' defined in employee testing?", "o": ["Its consistency: yielding consistent scores when taken on alternate forms or different occasions", "Its physical weight in grams", "Its ability to predict quarterly profits", "Its compliance with tax regulations"], "a": 0, "e": "Correct answer ✓\nReliability refers to consistency across different forms or occasions.", "type": "MCQ" },
+            { "q": "If a person scores 90 on an intelligence test on Monday and 130 when retested on Tuesday under identical conditions, what does this indicate about the test?", "o": ["The test lacks reliability", "The test has perfect construct validity", "The test is 100% accurate", "The test measures job performance perfectly"], "a": 0, "e": "Correct answer ✓\nLarge score fluctuations on retesting indicate lack of reliability.", "type": "MCQ" },
+            { "q": "What method involves administering a test to a group on one day and readministering the same test several days later to correlate scores?", "o": ["Test-retest reliability estimate", "Content validity test", "Management assessment center simulation", "Situational judgment test"], "a": 0, "e": "Correct answer ✓\nAdministering the same test days later and correlating scores measures test-retest reliability.", "type": "MCQ" },
+            { "q": "What is an 'alternate form' or 'equivalent form' estimate of reliability?", "o": ["Administering a test and then administering an expert-approved equivalent test later", "Changing the font size of the exam paper", "Translating the test into three different languages simultaneously", "Administering the test exclusively online"], "a": 0, "e": "Correct answer ✓\nAdministering an equivalent test later yields an alternate form reliability estimate.", "type": "MCQ" },
+            { "q": "Which of the following environmental or personal factors can cause a test to be unreliable?", "o": ["Physical conditions (quiet one day, noisy the next) and differences in the test-taker (healthy vs sick)", "Changing the company logo on the test paper header", "Using blue ink instead of black ink", "Increasing the computer screen resolution"], "a": 0, "e": "Correct answer ✓\nUnreliability is caused by physical conditions, test-taker differences (health), and administrator demeanor.", "type": "MCQ" },
+            { "q": "What fundamental question does test 'validity' answer?", "o": ["Does this test measure what it's supposed to measure?", "How much did the test cost to print?", "How fast can the applicant finish the test?", "Is the applicant taller than 170 cm?"], "a": 0, "e": "Correct answer ✓\nValidity answers whether the test measures what it is supposed to measure.", "type": "MCQ" },
+            { "q": "What is 'content validity'?", "o": ["Demonstration that the content of a selection test is representative of important aspects of performance on the job", "Demonstration that test scores correlate with annual sales revenue", "Measurement of abstract psychological constructs like honesty", "Checking if the test paper has no grammatical typos"], "a": 0, "e": "Correct answer ✓\nContent validity demonstrates that test content represents important job performance aspects.", "type": "MCQ" },
+            { "q": "What does 'construct validity' mean?", "o": ["Demonstrating that a selection test measures an abstract construct (like morale or honesty) and that the construct is important for job performance", "Demonstrating physical endurance on the factory floor", "Proving that test questions are printed in correct chronological order", "Calculating exact employee payroll deductions"], "a": 0, "e": "Correct answer ✓\nConstruct validity demonstrates measuring an abstract construct important for job performance.", "type": "MCQ" },
+            { "q": "What is 'criterion validity' in employee testing?", "o": ["Demonstrating statistically a relationship between scores on a test and job performance of a sample of workers", "Ensuring the test room has adequate air conditioning", "Checking if all applicants have college degrees", "Measuring applicant typing speed in words per minute"], "a": 0, "e": "Correct answer ✓\nCriterion validity demonstrates a statistical relationship between test scores and worker job performance.", "type": "MCQ" },
+            { "q": "What do cognitive tests of general reasoning ability measure?", "o": ["General intelligence (IQ) across a range of abilities including memory, vocabulary, verbal fluency, and numerical ability", "Physical arm strength and lifting capacity", "Typing speed and keyboard accuracy", "Employee emotional stability and introversion"], "a": 0, "e": "Correct answer ✓\nGeneral intelligence tests measure a range of intellectual abilities like memory, vocabulary, and numerical ability.", "type": "MCQ" },
+            { "q": "Which of the following is an example of a specific cognitive ability test?", "o": ["Deductive reasoning and verbal comprehension", "Introversion and emotional stability", "Marketing knowledge and economic history", "Project deadline negotiation"], "a": 0, "e": "Correct answer ✓\nSpecific cognitive abilities include deductive reasoning, verbal comprehension, memory, and numerical ability.", "type": "MCQ" },
+            { "q": "What do personality tests measure?", "o": ["Basic aspects of an applicant's personality, such as introversion, stability, and motivation", "Arithmetic calculation speed", "Job-specific technical knowledge in marketing", "Physical reaction time"], "a": 0, "e": "Correct answer ✓\nPersonality tests measure basic personality aspects like introversion, stability, and motivation.", "type": "MCQ" },
+            { "q": "What do achievement tests measure?", "o": ["What someone has learned (such as job knowledge in economics, marketing, or HR)", "Inborn intelligence quotient (IQ)", "Physical stamina and athletic endurance", "Basic genetic traits"], "a": 0, "e": "Correct answer ✓\nAchievement tests measure acquired knowledge in areas like economics, marketing, or HR.", "type": "MCQ" },
+            { "q": "What is a situational judgment test designed to assess?", "o": ["An applicant's judgment regarding a situation encountered in the workplace", "An applicant's memory recall of historical dates", "An applicant's physical height and reach", "An applicant's typing speed"], "a": 0, "e": "Correct answer ✓\nSituational judgment tests assess applicant judgment in workplace scenarios.", "type": "MCQ." },
+            { "q": "In the situational judgment test example regarding project deadlines, which of the following is listed as a possible alternative course of action?", "o": ["Ask for an extension of the deadline, or work as many hours as it takes, or explore different ways to do the work", "Ignore the project entirely and go on vacation", "Delete all project files from the computer", "Blame coworkers for the delay"], "a": 0, "e": "Correct answer ✓\nAlternatives include asking for an extension, working required hours, or exploring different ways to complete the work.", "type": "MCQ" },
+            { "q": "What is a 'Management Assessment Center'?", "o": ["A 2- to 3-day simulation in which 10 to 12 candidates perform realistic management tasks under expert observation", "A medical clinic for executive health checkups", "A financial stock exchange trading floor", "A training seminar on basic computer programming"], "a": 0, "e": "Correct answer ✓\nManagement assessment centers are 2-3 day simulations for 10-12 candidates performing realistic management tasks.", "type": "MCQ." },
+            { "q": "What physical room setup is frequently used in management assessment centers to facilitate expert observation?", "o": ["A special room with a one-way mirror", "An open-air outdoor stadium", "A dark basement with no lighting", "A high-security bank vault"], "a": 0, "e": "Correct answer ✓\nAssessment centers often use special rooms with one-way mirrors to facilitate observation.", "type": "MCQ." },
+            { "q": "What do situational tests require examinees to do?", "o": ["Respond to situations representative of the job", "Write a 10-page academic essay on management theory", "Solve complex calculus differential equations", "Run a 100-meter sprint"], "a": 0, "e": "Correct answer ✓\nSituational tests require examinees to respond to situations representative of the job.", "type": "MCQ." },
+            { "q": "What does a video-based simulation present to a candidate?", "o": ["Several online or PC-based video situations, each followed by multiple-choice questions asking to choose a course of action", "A full-length Hollywood feature film", "A live musical concert performance", "A recorded weather forecast"], "a": 0, "e": "Correct answer ✓\nVideo-based simulations present PC-based video scenarios followed by multiple-choice action choices.", "type": "MCQ." },
+            { "q": "Why is reference checking included under hiring costs in Chapter 4?", "o": ["Because conducting reference checks consumes valuable time and administrative resources during the recruitment process", "Because government agencies charge a tax for reference checks", "Because references require hiring private investigators", "Because reference letters must be printed on gold foil"], "a": 0, "e": "Correct answer ✓\nReference checking requires time and administrative effort, contributing to recruitment costs.", "type": "MCQ." },
+            { "q": "What is the primary danger of neglecting legal obligations in employee selection?", "o": ["Lawsuits for negligent hiring and equal employment law violations", "Loss of office internet connection", "Decreased computer processing speed", "Mandatory office painting"], "a": 0, "e": "Correct answer ✓\nNeglecting legal obligations leads to negligent hiring lawsuits and equal employment violations.", "type": "MCQ." },
+            { "q": "If an intelligence test yields a score of 120 on first administration and 121 on retesting a week later, what does this high consistency indicate?", "o": ["High test reliability", "Low content validity", "Severe test bias", "Complete lack of job relevance"], "a": 0, "e": "Correct answer ✓\nHigh score consistency across occasions indicates high reliability.", "type": "MCQ." },
+            { "q": "Which method of measuring reliability uses two expert-approved equivalent forms of a test?", "o": ["Equivalent or alternate form estimate", "Test-retest estimate", "Content validity index", "Construct stability ratio"], "a": 0, "e": "Correct answer ✓\nAdministering expert-approved equivalent tests yields an alternate form reliability estimate.", "type": "MCQ." },
+            { "q": "If an administrator is courteous on Monday when testing applicants and curt and rude on Tuesday, causing score variations, what type of unreliability source is this?", "o": ["Differences in the person administering the test", "Physical conditions of the room", "Differences in the test-taker's health", "Lack of test construct validity"], "a": 0, "e": "Correct answer ✓\nAdministrator demeanor changes represent differences in the person administering the test.", "type": "MCQ." },
+            { "q": "Which type of validity demonstration evaluates whether test content represents important aspects of job performance?", "o": ["Content validity", "Construct validity", "Criterion validity", "Test-retest validity"], "a": 0, "e": "Correct answer ✓\nContent validity demonstrates that test content is representative of job performance aspects.", "type": "MCQ." },
+            { "q": "When a test measures an abstract idea like 'employee honesty' or 'morale' and proves its importance to job performance, what validity type has been established?", "o": ["Construct validity", "Content validity", "Criterion validity", "Split-half reliability"], "a": 0, "e": "Correct answer ✓\nConstruct validity measures abstract constructs important for job performance.", "type": "MCQ." },
+            { "q": "Demonstrating statistically that workers who score high on a test also perform well on the job establishes which type of validity?", "o": ["Criterion validity", "Content validity", "Construct validity", "Alternate form validity"], "a": 0, "e": "Correct answer ✓\nCriterion validity demonstrates a statistical relationship between test scores and job performance.", "type": "MCQ." },
+            { "q": "General intelligence (IQ) tests measure which of the following combinations of mental abilities?", "o": ["Memory, vocabulary, verbal fluency, and numerical ability", "Only physical typing speed and endurance", "Only emotional stability and introversion", "Only marketing and accounting knowledge"], "a": 0, "e": "Correct answer ✓\nIQ tests measure a range including memory, vocabulary, verbal fluency, and numerical ability.", "type": "MCQ." },
+            { "q": "Which of the following tests measures acquired knowledge in subjects like marketing, human resources, or economics?", "o": ["Achievement tests", "Intelligence tests", "Personality tests", "Situational judgment tests"], "a": 0, "e": "Correct answer ✓\nAchievement tests measure what someone has learned in subjects like marketing or HR.", "type": "MCQ." },
+            { "q": "In a management assessment center simulation, how long does the process typically last?", "o": ["2 to 3 days", "2 to 3 hours", "2 to 3 weeks", "One single minute"], "a": 0, "e": "Correct answer ✓\nManagement assessment centers are 2- to 3-day simulations.", "type": "MCQ." },
+            { "q": "How many candidates typically participate in a management assessment center simulation at one time?", "o": ["10 to 12 candidates", "1 to 2 candidates", "100 to 120 candidates", "500 candidates"], "a": 0, "e": "Correct answer ✓\nAssessment centers involve 10 to 12 candidates performing realistic tasks.", "type": "MCQ." },
+            { "q": "What is the primary role of experts observing candidates in a management assessment center?", "o": ["To appraise each candidate's leadership potential", "To grade candidates on typing speed", "To test candidate physical blood pressure", "To repair office computer equipment"], "a": 0, "e": "Correct answer ✓\nExperts observe candidates to appraise their leadership potential.", "type": "MCQ." },
+            { "q": "In video-based situational testing, what happens at a critical moment in the video scenario?", "o": ["The scenario ends and asks the candidate to choose from several courses of action", "The video screen turns completely black and shuts down", "An alarm bell rings loudly in the room", "The candidate is asked to leave the building"], "a": 0, "e": "Correct answer ✓\nAt a critical moment, the video asks the candidate to choose from several courses of action.", "type": "MCQ." },
+            { "q": "Which hiring reason directly involves protecting the organization from lawsuits filed by clients or coworkers hurt by an unfit employee?", "o": ["Legal obligations (preventing negligent hiring)", "Minimizing office stationary costs", "Maximizing annual company profits", "Improving executive travel comfort"], "a": 0, "e": "Correct answer ✓\nAvoiding negligent hiring and legal consequences falls under legal obligations.", "type": "MCQ." },
+            { "q": "What is the result when job analysis KSAs are perfectly aligned with a candidate's KSAs?", "o": ["Person-job fit", "Test unreliability", "Construct invalidity", "Assessment center failure"], "a": 0, "e": "Correct answer ✓\nMatching job KSAs with candidate KSAs achieves person-job fit.", "type": "MCQ." },
+            { "q": "If room temperature changes from quiet and comfortable on Day 1 to extremely noisy and hot on Day 2, affecting test scores, what test property is compromised?", "o": ["Reliability", "Construct validity", "Cost efficiency", "Legal compliance"], "a": 0, "e": "Correct answer ✓\nPhysical test condition changes cause inconsistency, violating test reliability.", "type": "MCQ." },
+            { "q": "Which validity type is established by expert judgment showing that test items sample the full range of job duties?", "o": ["Content validity", "Construct validity", "Criterion validity", "Test-retest validity"], "a": 0, "e": "Correct answer ✓\nContent validity demonstrates representation of important job performance aspects.", "type": "MCQ." },
+            { "q": "What do specific cognitive ability tests measure in contrast to general IQ tests?", "o": ["Targeted mental faculties such as deductive reasoning, verbal comprehension, memory, and numerical ability", "Overall body weight and height", "General personality temperament", "School grade point averages"], "a": 0, "e": "Correct answer ✓\nSpecific cognitive tests measure targeted abilities like deductive reasoning and memory.", "type": "MCQ." },
+            { "q": "Which test category would evaluate an applicant's level of introversion, emotional stability, and motivation?", "o": ["Personality tests", "Achievement tests", "General intelligence tests", "Situational judgment tests"], "a": 0, "e": "Correct answer ✓\nPersonality tests measure traits like introversion, stability, and motivation.", "type": "MCQ." },
+
+            // --- High-Level MCQs (46 to 50) ---
+            { "q": "[HIGH-LEVEL] 46. An HR manager administers an IQ test to job applicants and finds that scores have zero statistical correlation with actual on-the-job supervisor ratings of employee productivity. What fundamental psychometric property does this test lack?", "o": ["Criterion validity (the test fails to predict actual job performance)", "Test-retest reliability", "Content validity", "Construct consistency"], "a": 0, "e": "[HIGH-LEVEL] Correct answer ✓\nLack of correlation with job performance ratings indicates a failure of criterion validity.", "type": "MCQ." },
+            { "q": "[HIGH-LEVEL] 47. A company hires an applicant without checking references or criminal background, and the employee subsequently commits assault against a coworker on company premises. What legal liability does the company face?", "o": ["Negligent hiring lawsuit under legal obligations", "Violation of content validity standards", "Breach of test-retest reliability", "Failure of alternate form estimation"], "a": 0, "e": "[HIGH-LEVEL] Correct answer ✓\nFailing to properly screen or check references exposes the employer to negligent hiring lawsuits.", "type": "MCQ." },
+            { "q": "[HIGH-LEVEL] 48. An applicant takes a newly developed customer service aptitude test twice under identical conditions, scoring 85 on the first attempt and 40 on the second attempt. How should an HR professional evaluate this test?", "o": ["Reject the test due to unacceptable unreliability (lack of consistency across occasions)", "Accept the test as having high criterion validity", "Classify the test as an achievement test", "Approve the test for management assessment centers"], "a": 0, "e": "[HIGH-LEVEL] Correct answer ✓\nMassive score variance between identical administrations indicates severe unreliability.", "type": "MCQ." },
+            { "q": "[HIGH-LEVEL] 49. In designing a selection process for senior executives, an organization decides to bypass standard written tests and instead utilizes a 3-day simulation involving realistic presentations, group leadership tasks, and expert observation behind one-way mirrors. What selection tool is being implemented?", "o": ["A Management Assessment Center", "A basic achievement test", "An equivalent form reliability test", "A video-based situational multiple-choice test"], "a": 0, "e": "[HIGH-LEVEL] Correct answer ✓\nA 2-3 day realistic simulation observed by experts via one-way mirrors is a management assessment center.", "type": "MCQ." },
+            { "q": "[HIGH-LEVEL] 50. Why might a selection procedure that has high content validity still fail to achieve optimal person-job fit if personality and motivational traits are ignored?", "o": ["Because person-job fit requires matching both cognitive/technical KSAs and personality/motivational competencies central to the job", "Because personality tests are illegal under federal law", "Because content validity automatically measures personality", "Because achievement tests replace the need for interviews"], "a": 0, "e": "[HIGH-LEVEL] Correct answer ✓\nPerson-job fit requires matching both technical KSAs and personality/motivational competencies.", "type": "MCQ" }
         ];
 
         const P2_SOURCE = [
+            // --- Standard TFs (1 to 45) ---
+            { "q": "1. Employee selection is important for three main reasons: performance, costs, and legal obligations.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Performance, costs, and legal obligations are the three core reasons.", "type": "TF" },
+            { "q": "2. Your own managerial performance always depends on your subordinates.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Managerial performance depends on subordinate capabilities.", "type": "TF" },
+            { "q": "3. Recruiting and hiring employees is cost-free for modern corporations.", "o": ["True", "False"], "a": 1, "e": "Correct answer ✓\nFalse: Hiring incurs significant costs like search fees, interviewing time, and moving expenses.", "type": "TF" },
+            { "q": "4. Mismanaging the hiring process has zero legal consequences for employers.", "o": ["True", "False"], "a": 1, "e": "Correct answer ✓\nFalse: Mismanagement leads to legal consequences and negligent hiring lawsuits.", "type": "TF" },
+            { "q": "5. Equal employment laws require nondiscriminatory selection procedures.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Equal employment laws mandate nondiscriminatory selection.", "type": "TF" },
+            { "q": "6. An employer can be successfully sued by an injured party for negligent hiring.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Employers face negligence lawsuits for improper hiring.", "type": "TF" },
+            { "q": "7. The main aim of employee selection is to achieve person-job fit.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Person-job fit is the primary selection goal.", "type": "TF" },
+            { "q": "8. Person-job fit refers to matching job KSAs and competencies with the prospective employee's KSAs and competencies.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: It matches job KSAs with candidate KSAs.", "type": "TF" },
+            { "q": "9. Test reliability refers to its consistency across alternate forms or repeated occasions.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Reliability is defined by test consistency.", "type": "TF" },
+            { "q": "10. A reliable test yields consistent scores when taken on alternate forms or multiple different occasions.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Consistent scores across occasions define reliability.", "type": "TF" },
+            { "q": "11. If an intelligence test gives wildly different scores on two consecutive days, the test possesses high reliability.", "o": ["True", "False"], "a": 1, "e": "Correct answer ✓\nFalse: Wildly different scores indicate a lack of reliability.", "type": "TF" },
+            { "q": "12. Test-retest reliability involves administering a test to a group and readministering the same test several days later.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Test-retest compares scores from identical tests administered days apart.", "type": "TF" },
+            { "q": "13. An alternate form estimate of reliability involves administering an expert-approved equivalent test later.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Equivalent tests measure alternate form reliability.", "type": "TF" },
+            { "q": "14. Physical conditions like a noisy testing room can cause a test to be unreliable.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Environmental distractions affect test reliability.", "type": "TF" },
+            { "q": "15. Differences in the test-taker's health (healthy one day, sick the next) can undermine test reliability.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Test-taker health fluctuations affect consistency.", "type": "TF" },
+            { "q": "16. Test validity answers the question: Does this test measure what it's supposed to measure?", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Validity addresses what the test measures.", "type": "TF" },
+            { "q": "17. Content validity demonstrates that test content is representative of important job performance aspects.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Content validity links test items directly to job performance aspects.", "type": "TF" },
+            { "q": "18. Construct validity means demonstrating that a test measures an abstract construct important for job performance.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Construct validity measures abstract ideas like morale or honesty.", "type": "TF" },
+            { "q": "19. Criterion validity involves demonstrating statistically a relationship between test scores and worker job performance.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Criterion validity establishes statistical relationships with performance.", "type": "TF" },
+            { "q": "20. Cognitive tests include tests of general reasoning ability (intelligence) and specific mental abilities.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Cognitive tests cover general intelligence and specific mental abilities.", "type": "TF" },
+            { "q": "21. Intelligence (IQ) tests measure a single isolated trait rather than a range of abilities.", "o": ["True", "False"], "a": 1, "e": "Correct answer ✓\nFalse: IQ tests measure a range of abilities including memory, vocabulary, and numerical ability.", "type": "TF" },
+            { "q": "22. Specific cognitive abilities include deductive reasoning, verbal comprehension, memory, and numerical ability.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: These are specific cognitive ability measures.", "type": "TF" },
+            { "q": "23. Personality tests measure basic aspects of an applicant's personality, such as introversion, stability, and motivation.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Personality tests evaluate traits like stability and motivation.", "type": "TF" },
+            { "q": "24. Achievement tests measure what someone has learned, such as job knowledge in marketing or economics.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Achievement tests measure acquired learning and job knowledge.", "type": "TF" },
+            { "q": "25. Most tests taken in school are achievement tests.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: School exams are classic achievement tests.", "type": "TF" },
+            { "q": "26. Situational judgment tests assess an applicant's judgment regarding workplace encountered situations.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Situational judgment tests evaluate workplace scenario decisions.", "type": "TF" },
+            { "q": "27. Asking for a deadline extension is one possible alternative evaluated in workplace situational judgment tests.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Deadline extension is listed among test alternatives.", "type": "TF" },
+            { "q": "28. A management assessment center is a 2- to 3-day simulation involving realistic management tasks.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Assessment centers are 2-3 day simulations.", "type": "TF" },
+            { "q": "29. Management assessment centers typically involve 10 to 12 candidates.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: They involve 10 to 12 candidates performing tasks.", "type": "TF" },
+            { "q": "30. Experts observe candidates in assessment centers to appraise their leadership potential.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Expert observation appraises leadership potential.", "type": "TF" },
+            { "q": "31. Assessment center rooms often feature one-way mirrors to facilitate expert observation.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Special rooms with one-way mirrors are commonly used.", "type": "TF" },
+            { "q": "32. Situational tests require examinees to respond to situations representative of the job.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Situational tests use job-representative scenarios.", "type": "TF" },
+            { "q": "33. Video-based simulations present candidates with online or PC-based video situations followed by multiple-choice questions.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Video simulations use PC video scenarios and action choices.", "type": "TF" },
+            { "q": "34. Search fees and interviewing time are considered non-financial administrative overheads unrelated to hiring costs.", "o": ["True", "False"], "a": 1, "e": "Correct answer ✓\nFalse: Search fees and interviewing time are direct hiring costs.", "type": "TF" },
+            { "q": "35. Negligent hiring lawsuits occur when an employer fails to properly screen an employee who subsequently harms someone.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Negligent hiring arises from improper employee screening.", "type": "TF" },
+            { "q": "36. Test reliability guarantees that the test is also valid for predicting job performance.", "o": ["True", "False"], "a": 1, "e": "Correct answer ✓\nFalse: A test can be highly reliable but completely invalid for job performance (consistency does not equal validity).", "type": "TF" },
+            { "q": "37. Correlating scores from two administrations of the same test days apart measures test-retest reliability.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Test-retest correlates scores across two occasions.", "type": "TF" },
+            { "q": "38. Courteous behavior by a test administrator on Monday and curt behavior on Tuesday can introduce unreliability.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Administrator demeanor differences affect test consistency.", "type": "TF" },
+            { "q": "39. Content validity focuses on whether test content represents important aspects of job performance.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Content validity evaluates job performance representation.", "type": "TF" },
+            { "q": "40. Construct validity deals with measuring abstract ideas like honesty or employee morale.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Construct validity measures abstract constructs.", "type": "TF" },
+            { "q": "41. Criterion validity requires statistical demonstration of a relationship between test scores and job performance.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Criterion validity uses statistical correlation with performance.", "type": "TF" },
+            { "q": "42. General reasoning ability tests measure intelligence across memory, vocabulary, and numerical ability.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: General reasoning tests measure these broad intellectual traits.", "type": "TF" },
+            { "q": "43. Deductive reasoning and verbal comprehension are examples of specific cognitive ability tests.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: These are specific cognitive measures.", "type": "TF" },
+            { "q": "44. Achievement tests measure innate unlearned potential rather than acquired knowledge.", "o": ["True", "False"], "a": 1, "e": "Correct answer ✓\nFalse: Achievement tests measure what someone has learned, not innate potential.", "type": "TF" },
+            { "q": "45. Video-based situational testing asks candidates to choose courses of action at critical moments in video scenarios.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Candidates choose actions at critical video scenario moments.", "type": "TF" },
+
+            // --- High-Level TFs (46 to 50) ---
+            { "q": "[HIGH-LEVEL] 46. If a test has zero reliability (complete randomness in scores), it is logically impossible for that test to demonstrate valid prediction of job performance.", "o": ["True", "False"], "a": 0, "e": "[HIGH-LEVEL] Correct answer ✓\nTrue: Reliability is a prerequisite for validity; an unreliable test cannot consistently predict anything.", "type": "TF" },
+            { "q": "[HIGH-LEVEL] 47. Compliance with equal employment laws in employee selection is optional if a company is privately owned.", "o": ["True", "False"], "a": 1, "e": "[HIGH-LEVEL] Correct answer ✓\nFalse: Equal employment laws apply to private employers as well, prohibiting discriminatory selection.", "type": "TF" },
+            { "q": "[HIGH-LEVEL] 48. A management assessment center relies solely on multiple-choice paper exams administered in a quiet classroom.", "o": ["True", "False"], "a": 1, "e": "[HIGH-LEVEL] Correct answer ✓\nFalse: Assessment centers use 2-3 day realistic simulations and tasks observed by experts, not simple paper exams.", "type": "TF" },
+            { "q": "[HIGH-LEVEL] 49. In measuring test reliability via test-retest methods, testing candidates too soon after the first test can artificially inflate reliability scores due to memory recall of specific answers.", "o": ["True", "False"], "a": 0, "e": "[HIGH-LEVEL] Correct answer ✓\nTrue: Memory carryover from prior testing sessions can artificially inflate test-retest consistency scores.", "type": "TF" },
+            { "q": "[HIGH-LEVEL] 50. Achieving person-job fit requires evaluating both cognitive/technical KSAs and personality traits central to successful job execution.", "o": ["True", "False"], "a": 0, "e": "[HIGH-LEVEL] Correct answer ✓\nTrue: Person-job fit encompasses matching both core KSAs and competencies.", "type": "TF" }
         ];
 
         const getQuestionType = question => question.type.replace(/[.!?]+$/, "");
@@ -215,7 +396,6 @@
             ...P1_SOURCE.filter(question => getQuestionType(question) === "TF"),
             ...P2_SOURCE.filter(question => getQuestionType(question) === "TF")
         ];
-
         let activePart = 1;
         let qData = P1_DATA;
         let cIdx = 0;
@@ -247,10 +427,10 @@
 
             const isHighLevel = cIdx >= 45;
             const badgeClass = isHighLevel ? "q-badge high-level" : "q-badge";
-            const badgeText = isHighLevel 
+            const badgeText = isHighLevel
                 ? (getQuestionType(q) === 'TF' ? 'True / False — High Level' : 'Multiple Choice — High Level')
                 : (getQuestionType(q) === 'TF' ? 'True / False' : 'Multiple Choice');
-            
+
             $("card").innerHTML = `
                 <span class="${badgeClass}">${badgeText}</span>
                 <p class="q">${q.q}</p>
@@ -261,7 +441,7 @@
             q.o.forEach((optText, i) => {
                 const b = document.createElement("button");
                 b.className = "opt";
-                b.innerHTML = `<b>${getQuestionType(q) === 'TF' ? (i===0?'T':'F') : "ABCD"[i] + ")"}</b><span></span>`;
+                b.innerHTML = `<b>${getQuestionType(q) === 'TF' ? (i === 0 ? 'T' : 'F') : "ABCD"[i] + ")"}</b><span></span>`;
                 b.querySelector("span").textContent = optText;
                 b.onclick = () => handleAnswer(i);
                 $("opts").appendChild(b);
@@ -304,7 +484,7 @@
             $("bar").style.width = "100%";
             $("n").textContent = "Quiz complete";
             const pct = Math.round((score / qData.length) * 100);
-            
+
             let html = `
                 <div class="score">${score} / ${qData.length}</div>
                 <p style="text-align:center;font-size:1.2rem;margin:0 0 16px;">Percentage: <b>${pct}%</b></p>
@@ -327,4 +507,5 @@
         renderQuestion();
     </script>
 </body>
+
 </html>

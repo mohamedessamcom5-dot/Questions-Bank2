@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en" dir="ltr">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -28,7 +29,10 @@
             }
         }
 
-        * { box-sizing: border-box; }
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             margin: 0;
             background: var(--bg);
@@ -72,8 +76,17 @@
             transform: scale(1.05);
         }
 
-        h1 { font-size: 3rem; margin: 0 0 8px; color: #ffffff; }
-        .sub { color: var(--m); font-size: 1.1rem; margin: 0; }
+        h1 {
+            font-size: 3rem;
+            margin: 0 0 8px;
+            color: #ffffff;
+        }
+
+        .sub {
+            color: var(--m);
+            font-size: 1.1rem;
+            margin: 0;
+        }
 
         .grid-container {
             display: grid;
@@ -142,13 +155,10 @@
             width: fit-content;
         }
 
-        .btn-material:hover {
-            background: #f2ff03;
-            transform: scale(1.05);
-        }
     </style>
     <link rel="stylesheet" href="site-theme.css">
 </head>
+
 <body>
     <main>
         <div class="header-panel">
@@ -175,12 +185,12 @@
             </div> -->
 
             <!-- Chapter 3 -->
-            <!-- <div class="chapter-card" onclick="location.href='Problem Solving/Chapter3.html'">
+            <div class="chapter-card" onclick="location.href='Problem Solving/Chapter3.html'">
                 <div class="card-inner">
                     <h3 class="chapter-title">Chapter 3</h3>
                     <a href="Problem Solving/Chapter3.html" class="btn-material">Start Quiz ➔</a>
                 </div>
-            </div> -->
+            </div>
 
             <!-- Chapter 4 -->
             <!-- <div class="chapter-card" onclick="location.href='Problem Solving/Chapter4.html'">
@@ -214,6 +224,15 @@
                 </div>
             </div>
         </div> -->
+            <!-- Quiz1 -->
+            <div class="chapter-card" onclick="location.href='Problem Solving/Quiz1PS.html'">
+                <div class="card-inner">
+                    <h3 class="chapter-title">Quiz1</h3>
+                    <a href="Problem Solving/Quiz1PS.html" class="btn-material">Start Quiz ➔</a>
+                </div>
+            </div>
+        </div>
     </main>
 </body>
+
 </html>

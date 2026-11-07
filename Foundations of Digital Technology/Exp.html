@@ -1,0 +1,437 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Foundations of Digital Technology — Interactive Question Bank</title>
+    <style>
+        :root {
+            --bg: #0f172a;
+            --c: #1e293b;
+            --t: #f8fafc;
+            --m: #94a3b8;
+            --b: #334155;
+            --ac: #38bdf8;
+            --ok: #22c55e;
+            --okb: #052e16;
+            --no: #ef4444;
+            --nob: #450a0a;
+            box-sizing: border-box;
+        }
+
+        @media(prefers-color-scheme: light) {
+            :root[data-theme=light] {
+                --bg: #f8fafc;
+                --c: #ffffff;
+                --t: #0f172a;
+                --m: #64748b;
+                --b: #e2e8f0;
+                --ac: #0284c7;
+                --okb: #dcfce7;
+                --nob: #fee2e2;
+                --ok: #16a34a;
+                --no: #dc2626;
+            }
+        }
+
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--t);
+            font-family: 'Segoe UI', Tahoma, system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+        }
+        main {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 24px 16px 60px;
+        }
+        .header-panel {
+            text-align: center;
+            margin-bottom: 24px;
+            border-bottom: 8px solid var(--b);
+            padding-bottom: 30px;
+        }
+        h1 { font-size: 1.5rem; margin: 0 0 8px; color: var(--ac); }
+        .sub { color: var(--m); font-size: 0.95rem; margin: 0; }
+        
+        .nav-tabs {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .tab-btn {
+            flex: 1;
+            padding: 12px;
+            background: var(--c);
+            border: 1px solid var(--b);
+            color: var(--t);
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .tab-btn.active {
+            background: var(--ac);
+            color: #000;
+            border-color: var(--ac);
+        }
+
+        .bar {
+            height: 8px;
+            background: var(--b);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+        .bar i {
+            display: block;
+            height: 100%;
+            background: var(--ac);
+            width: 0;
+            transition: width 0.3s;
+        }
+        .meta {
+            display: flex;
+            justify-content: space-between;
+            color: var(--m);
+            font-size: 0.9rem;
+            margin-bottom: 16px;
+        }
+        .card {
+            background: var(--c);
+            border: 1px solid var(--b);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+        .q-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            background: var(--b);
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+            color: var(--ac);
+        }
+        .q-badge.high-level {
+            background: #f59e0b;
+            color: #000;
+            font-weight: bold;
+        }
+        .q {
+            font-size: 1.1rem;
+            font-weight: 600;
+            direction: ltr;
+            text-align: left;
+            margin: 0 0 16px;
+        }
+        .opt {
+            display: flex;
+            gap: 12px;
+            direction: ltr;
+            text-align: left;
+            width: 100%;
+            background: var(--c);
+            color: var(--t);
+            border: 1.5px solid var(--b);
+            border-radius: 8px;
+            padding: 12px 14px;
+            margin-bottom: 10px;
+            font: inherit;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+        .opt:hover:not(:disabled) { border-color: var(--ac); }
+        .opt b { min-width: 1.5em; color: var(--ac); }
+        .opt.ok { background: var(--okb); border-color: var(--ok); }
+        .opt.no { background: var(--nob); border-color: var(--no); }
+        .opt:disabled { cursor: default; }
+
+        .ex {
+            margin-top: 16px;
+            padding: 14px;
+            border-radius: 8px;
+            direction: ltr;
+            text-align: left;
+            font-size: 0.95rem;
+            white-space: pre-line;
+        }
+        .ex.ok { background: var(--okb); border: 1px solid var(--ok); }
+        .ex.no { background: var(--nob); border: 1px solid var(--no); }
+        .ex strong { display: block; margin-bottom: 4px; }
+
+        .btn {
+            margin-top: 16px;
+            background: var(--ac);
+            color: #000;
+            border: 0;
+            border-radius: 8px;
+            padding: 12px 24px;
+            font: inherit;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+        }
+        .score { text-align: center; font-size: 3rem; font-weight: 800; margin: 12px 0; color: var(--ac); }
+        .rev { margin: 16px 0 0; padding: 0; list-style: none; direction: ltr; text-align: left; font-size: 0.9rem; }
+        .rev li { padding: 8px 0; border-top: 1px solid var(--b); }
+    </style>
+</head>
+<body>
+    <main>
+        <div class="header-panel">
+            <h1>Foundations of Digital Technology</h1>
+            <p class="sub">Expected questions</p>
+        </div>
+        
+        <div class="nav-tabs">
+            <button class="tab-btn active" id="tab1" onclick="switchPart(1)">Multiple Choice</button>
+            <button class="tab-btn" id="tab2" onclick="switchPart(2)">True/False </button>
+        </div>
+
+        <div class="bar"><i id="bar"></i></div>
+        <div class="meta">
+            <span id="n"></span>
+            <span id="s"></span>
+        </div>
+        <div class="card" id="card"></div>
+    </main>
+      
+    <script>
+       const P1_SOURCE = [
+            // --- 50 MCQs ---
+            {"q": "1. What does the term 'digital' strictly refer to in the context of data processing?", "o": ["Continuous analog electrical signals", "Discrete symbols or digits, typically in binary form (0s and 1s)", "Random magnetic wavelengths", "Physical and mechanical gear counters"], "a": 1, "e": "Correct answer ✓\nThe term 'digital' strictly refers to discrete symbols or digits, typically in binary form (0s and 1s).", "type": "MCQ"},
+            {"q": "2. In the digital revolution timeline, which breakthrough in 1947 is considered the foundational starting point?", "o": ["The invention of the World Wide Web", "The development of ARPANET", "The invention of the transistor", "The release of the first home computer"], "a": 2, "e": "Correct answer ✓\nThe invention of the transistor in 1947 is considered the foundational starting point.", "type": "MCQ"},
+            {"q": "3. The Digital Revolution is also commonly referred to as:", "o": ["The First Industrial Revolution", "The Second Industrial Revolution", "The Third Industrial Revolution", "The Mechanical Revolution"], "a": 2, "e": "Correct answer ✓\nThe Digital Revolution is commonly referred to as the Third Industrial Revolution.", "type": "MCQ"},
+            {"q": "4. In 1969, the first network message was transmitted across which system to introduce concepts paving the way for the modern Internet?", "o": ["ARPANET", "Ethernet", "World Wide Web", "NSFNET"], "a": 0, "e": "Correct answer ✓\nARPANET was established in 1969 and introduced concepts paving the way for the internet.", "type": "MCQ"},
+            {"q": "5. In 1989, Tim Berners-Lee fundamentally advanced the digital revolution by designing rules and browser software for:", "o": ["The Transistor", "The World Wide Web", "Relational Databases", "Cellular Networks"], "a": 1, "e": "Correct answer ✓\nTim Berners-Lee designed rules and software for the World Wide Web starting in 1989.", "type": "MCQ"},
+            {"q": "6. What role did the 'discrete cosine transform' (DCT) play in the digital revolution from the late 1980s onwards?", "o": ["It served as a cooling mechanism for mainframes", "It became fundamental for digital image, audio, and video compression standards", "It acted as the primary operating system for early mobile phones", "It was an encryption protocol for military intelligence"], "a": 1, "e": "Correct answer ✓\nDCT became fundamental for digital image, audio, and video compression standards.", "type": "MCQ"},
+            {"q": "7. By what year had global internet connectivity reached the milestone where almost every country had an active internet connection?", "o": ["1983", "1996", "1999", "2005"], "a": 2, "e": "Correct answer ✓\nBy 1999, almost every country in the world had an active internet connection.", "type": "MCQ"},
+            {"q": "8. Approximately when did global internet users reach the monumental milestone of one billion people?", "o": ["Late 2005", "1991", "1999", "2015"], "a": 0, "e": "Correct answer ✓\nBy late 2005, the total number of global internet users reached one billion.", "type": "MCQ"},
+            {"q": "9. In what year was the very first mobile phone constructed, preceding commercial digital cell phone sales in 1991?", "o": ["1975", "1983", "1988", "1995"], "a": 1, "e": "Correct answer ✓\nThe very first mobile phone was constructed in 1983, preceding commercial digital cell phone sales in 1991.", "type": "MCQ"},
+            {"q": "10. The integration of IoT, AI, and automation into manufacturing processes to optimize productivity represents:", "o": ["Industry 1.0", "Industry 2.0", "Industry 4.0", "Traditional Mechanization"], "a": 2, "e": "Correct answer ✓\nIndustry 4.0 integrates digital technologies like IoT, AI, and automation into manufacturing.", "type": "MCQ"},
+            {"q": "11. How is Artificial Intelligence (AI) broadly defined?", "o": ["The simulation of human intelligence processes by machines, especially computer systems", "The physical manufacturing of silicon microchips", "The manual wiring of telecommunication copper cables", "The creation of mechanical clockwork gears"], "a": 0, "e": "Correct answer ✓\nAI is defined as the simulation of human intelligence processes by computer systems.", "type": "MCQ"},
+            {"q": "12. Which subfield of AI focuses on enabling computers to learn from data without being explicitly programmed?", "o": ["Machine Learning (ML)", "HTML Web Design", "Relational SQL Querying", "Paper Accounting"], "a": 0, "e": "Correct answer ✓\nMachine Learning enables computers to learn from data without explicit programming.", "type": "MCQ"},
+            {"q": "13. What is the primary characteristic of Supervised Learning in Machine Learning?", "o": ["Training a model on labeled datasets where both input and correct output are provided", "Allowing an algorithm to explore unlabelled data independently", "Training an agent through trial and error using rewards and penalties", "Running programs offline without data"], "a": 0, "e": "Correct answer ✓\nSupervised learning utilizes labeled datasets where inputs are paired with correct target outputs.", "type": "MCQ"},
+            {"q": "14. Which type of machine learning algorithm is best suited for customer segmentation where data has no pre-existing labels?", "o": ["Supervised Learning", "Unsupervised Learning", "Relational SQL Querying", "Manual Spreadsheet Entry"], "a": 1, "e": "Correct answer ✓\nUnsupervised learning works with unlabeled data (unlike supervised learning which requires labels).", "type": "MCQ"},
+            {"q": "15. What does Reinforcement Learning rely on to train an agent to make a sequence of decisions?", "o": ["Pre-labeled CSV files", "Trial and error interactions with an environment using rewards and penalties", "Static HTML templates", "Manual physical labor"], "a": 1, "e": "Correct answer ✓\nReinforcement learning trains agents through trial and error using rewards and penalties.", "type": "MCQ"},
+            {"q": "16. What distinguishes Deep Learning from traditional Machine Learning?", "o": ["It utilizes multi-layered artificial neural networks to automatically extract complex features from raw data", "It requires zero data and zero computational power", "It is limited strictly to paper bookkeeping", "It cannot process images or audio"], "a": 0, "e": "Correct answer ✓\nDeep Learning utilizes multi-layered artificial neural networks for automatic feature extraction.", "type": "MCQ"},
+            {"q": "17. What is an Artificial Neural Network (ANN) inspired by?", "o": ["Biological neural networks in the human brain", "Mechanical steam engine pistons", "Relational database tables", "Fiber optic cable routing"], "a": 0, "e": "Correct answer ✓\nANNs are inspired by biological neural networks in the human brain.", "type": "MCQ"},
+            {"q": "18. Which AI subfield deals with enabling computers to understand, interpret, and generate human language?", "o": ["Natural Language Processing (NLP)", "Computer Vision", "Hardware Circuitry Design", "Database Indexing"], "a": 0, "e": "Correct answer ✓\nNLP enables computers to understand, interpret, and generate human language.", "type": "MCQ"},
+            {"q": "19. What is the primary function of Computer Vision in AI systems?", "o": ["Enabling computers to derive meaningful information from digital images, videos, and visual inputs", "Playing audio files through loudspeakers", "Managing enterprise payroll systems", "Printing hardcopy documents"], "a": 0, "e": "Correct answer ✓\nComputer Vision allows computers to extract and process meaningful information from visual inputs.", "type": "MCQ"},
+            {"q": "20. Which of the following is a classic example of Supervised Learning?", "o": ["Spam email classification using labeled examples", "Grouping random customer purchase records without labels", "Autonomous robot navigation via trial and error rewards", "Random file compression"], "a": 0, "e": "Correct answer ✓\nSpam email classification using labeled examples is a classic supervised learning task.", "type": "MCQ"},
+            {"q": "21. What is the role of activation functions within an artificial neural network node?", "o": ["To introduce non-linearity, determining whether the neuron should fire or not based on its input", "To physically cool down the processor", "To connect ethernet cables to the router", "To delete redundant database backups"], "a": 0, "e": "Correct answer ✓\nActivation functions introduce non-linearity to determine if a neuron fires.", "type": "MCQ"},
+            {"q": "22. What is Generative AI (GenAI)?", "o": ["A branch of AI focused on creating new content such as text, images, audio, and video based on training data", "A software tool for formatting computer hard drives", "A physical printer for paper invoices", "A database query optimizer"], "a": 0, "e": "Correct answer ✓\nGenAI focuses on creating original content like text, images, and audio.", "type": "MCQ"},
+            {"q": "23. Which of the following models is a prominent example of a Large Language Model (LLM)?", "o": ["GPT (Generative Pre-trained Transformer)", "Microsoft Paint", "Apache Hadoop HDFS", "SQL Server Management Studio"], "a": 0, "e": "Correct answer ✓\nGPT models are prominent examples of Large Language Models (LLMs).", "type": "MCQ"},
+            {"q": "24. What ethical challenge is frequently associated with biased training data in AI systems?", "o": ["Algorithmic bias leading to unfair, discriminatory decisions against certain demographic groups", "Excessive electrical power consumption by office lights", "Slower typing speeds on keyboards", "Incompatibility with Wi-Fi routers"], "a": 0, "e": "Correct answer ✓\nBiased training data can cause AI algorithms to produce discriminatory decisions.", "type": "MCQ"},
+            {"q": "25. Why is 'Explainable AI' (XAI) becoming increasingly crucial in high-stakes domains like healthcare and finance?", "o": ["To ensure humans can understand, trust, and audit how an AI model arrived at a specific decision", "To make AI models run twice as slow", "To eliminate the need for computer programmers", "To encrypt user passwords"], "a": 0, "e": "Correct answer ✓\nXAI provides transparency so humans can understand how AI models make decisions.", "type": "MCQ"},
+            {"q": "26. What is 'Narrow AI' (Weak AI) compared to 'Artificial General Intelligence' (AGI)?", "o": ["Narrow AI performs a specific narrow task, whereas AGI possesses human-level general intelligence across all domains", "Narrow AI can solve every problem in the universe simultaneously", "Narrow AI only runs on mobile phones without internet", "Narrow AI was invented in the 19th century"], "a": 0, "e": "Correct answer ✓\nNarrow AI performs specific narrow tasks, unlike general AGI.", "type": "MCQ"},
+            {"q": "27. What is the function of the 'loss function' during machine learning model training?", "o": ["To measure how well the model's predictions match actual target labels so optimization can minimize errors", "To delete old log files", "To measure internet download speeds", "To adjust screen brightness"], "a": 0, "e": "Correct answer ✓\nLoss functions measure prediction error to guide optimization.", "type": "MCQ"},
+            {"q": "28. Which optimization algorithm is commonly used in neural networks to update weights by calculating gradients?", "o": ["Gradient Descent", "Bubble Sort", "Binary Search", "DNS Lookup"], "a": 0, "e": "Correct answer ✓\nGradient Descent is used to update neural network weights.", "type": "MCQ"},
+            {"q": "29. What is Transfer Learning in machine learning?", "o": ["Using a pre-trained model on a new, related task to save training time and data requirements", "Transferring physical hardware between offices", "Copying files via USB drive", "Migrating databases to SQL"], "a": 0, "e": "Correct answer ✓\nTransfer learning applies pre-trained models to new related tasks.", "type": "MCQ"},
+            {"q": "30. What does 'Overfitting' mean in machine learning?", "o": ["When a model learns training data too well (including noise), resulting in poor generalization to new data", "When a model is too simple to learn anything", "When a computer runs out of RAM", "When a server overheats from heavy traffic"], "a": 0, "e": "Correct answer ✓\nOverfitting occurs when a model memorizes training noise and fails to generalize.", "type": "MCQ"},
+            {"q": "31. How is the Internet of Things (IoT) formally defined?", "o": ["An isolated offline database storing financial ledgers", "A network of interconnected physical devices embedded with sensors, software, and connectivity to exchange data in real time", "A manual bookkeeping method", "A programming language for linear regressions"], "a": 1, "e": "Correct answer ✓\nIoT is a network of interconnected physical devices with sensors and software.", "type": "MCQ"},
+            {"q": "32. What is the primary synergy between Big Data and the Internet of Things (IoT)?", "o": ["IoT generates massive streams of data, while Big Data analytics transforms this information into actionable insights", "IoT deletes historical corporate records", "Big Data replaces physical internet connections", "IoT operates independently of storage systems"], "a": 0, "e": "Correct answer ✓\nBig Data analytics transforms IoT-generated data streams into actionable insights.", "type": "MCQ"},
+            {"q": "33. Which data type serves as the traditional foundation of relational database systems (RDBMS) following tabular structures?", "o": ["Unstructured data", "Semi-structured data", "Structured data", "Acoustic waveforms"], "a": 2, "e": "Correct answer ✓\nStructured data is the foundation of relational database systems.", "type": "MCQ"},
+            {"q": "34. What proportion of collected big data is estimated to be unstructured (voice, images, videos, sensor data)?", "o": ["10-20 percent", "50 percent", "80-90 percent", "Zero percent"], "a": 2, "e": "Correct answer ✓\nUnstructured data accounts for approximately 80-90% of collected big data.", "type": "MCQ"},
+            {"q": "35. Which of the following is considered an example of semi-structured data?", "o": ["Traditional SQL rows and columns", "HTML, XML, and emails", "Pure raw binary machine code", "Physical paper notebooks"], "a": 1, "e": "Correct answer ✓\nHTML, XML, and emails are examples of semi-structured data.", "type": "MCQ"},
+            {"q": "36. What are the initial three classic Vs used to distinguish Big Data?", "o": ["Volume, Velocity, and Variety", "Value, Visualization, and Veracity", "Visibility, Viability, and Vocation", "Venture, Venture, and Venture"], "a": 0, "e": "Correct answer ✓\nVolume, Velocity, and Variety are the initial classic Vs of Big Data.", "type": "MCQ"},
+            {"q": "37. Which 'V' of Big Data refers to the trustworthiness and reliability of the data?", "o": ["Volume", "Velocity", "Veracity", "Variety"], "a": 2, "e": "Correct answer ✓\nVeracity refers to data trustworthiness and reliability.", "type": "MCQ"},
+            {"q": "38. What is the main storage system used by Apache Hadoop for managing large amounts of data across multiple cluster machines?", "o": ["Hadoop Distributed File System (HDFS)", "Microsoft Excel worksheets", "Local floppy disks", "Paper filing cabinets"], "a": 0, "e": "Correct answer ✓\nHDFS is the main storage system used by Hadoop.", "type": "MCQ"},
+            {"q": "39. What is Apache HBase?", "o": ["An open-source nonrelational column DB NoSQL storage solution using HDFS for large unstructured data", "Graphic design software", "A desktop web browser", "A printer driver"], "a": 0, "e": "Correct answer ✓\nApache HBase is a nonrelational column NoSQL database using HDFS.", "type": "MCQ"},
+            {"q": "40. Which Hadoop-based data warehousing framework was originally developed by Facebook and uses an SQL-like language called HiveQL?", "o": ["Hive", "Mahout", "Ambari", "YARN"], "a": 0, "e": "Correct answer ✓\nHive is a Hadoop-based framework using HiveQL queries converted to MapReduce.", "type": "MCQ"},
+            {"q": "41. What is the primary responsibility of YARN in a Hadoop cluster?", "o": ["Managing workloads, monitoring, security controls, and allocating system resources to applications", "Designing website landing pages", "Printing physical invoices", "Recording employee attendance"], "a": 0, "e": "Correct answer ✓\nYARN manages workloads, monitoring, and resource allocation in Hadoop.", "type": "MCQ"},
+            {"q": "42. What does Sqoop do as a connectivity tool in Hadoop?", "o": ["Moves data from non-Hadoop data stores (like relational databases) into Hadoop", "Deletes redundant database files", "Encrypts user passwords", "Renders 3D virtual graphics"], "a": 0, "e": "Correct answer ✓\nSqoop moves data from non-Hadoop stores into Hadoop.", "type": "MCQ"},
+            {"q": "43. What are the four different bases that make up the technology stack of the Internet of Things (IoT)?", "o": ["System hardware, Software device, Communication route, and Platform", "CPU, RAM, Motherboard, and Power supply", "Input, Output, Storage, and Processing", "HTML, CSS, JavaScript, and SQL"], "a": 0, "e": "Correct answer ✓\nIoT stack includes system hardware, software device, communication route, and platform.", "type": "MCQ"},
+            {"q": "44. What shift occurred in business decision-making with the advent of Big Data and AI?", "o": ["Moving from 'gut and intuition' to 'data and rigor' to make predictions and optimize management", "Moving from computers back to manual ledgers", "Eliminating data collection entirely", "Relying solely on coin flipping"], "a": 0, "e": "Correct answer ✓\nBusiness decisions shifted from intuition to data and rigor.", "type": "MCQ"},
+            {"q": "45. What was the global volume of data generated in 2023 according to IDC data cited in the course?", "o": ["123 zettabytes", "4.4 zettabytes", "44 zettabytes", "1 petabyte"], "a": 0, "e": "Correct answer ✓\nGlobal data generated in 2023 reached 123 zettabytes.", "type": "MCQ"},
+            
+            // --- High-Level MCQs (46 to 50) ---
+            {"q": "[HIGH-LEVEL] 46. An enterprise invests heavily in deploying state-of-the-art 5G networks and next-gen IoT devices, but neglects digital literacy training for its workforce. Based on Chapter 1 principles, why is this initiative at high risk?", "o": ["Because 5G networks are physically incompatible with IoT devices", "Because digital technology adoption requires both technological infrastructure and a digitally literate society where individuals utilize technology effectively", "Because digital literacy is strictly required in agricultural economies only", "Because the digital revolution timeline prohibits wireless sensors"], "a": 1, "e": "[HIGH-LEVEL] Correct answer ✓\nTechnology adoption requires both infrastructure and digital literacy.", "type": "MCQ"},
+            {"q": "[HIGH-LEVEL] 47. An AI medical diagnosis model achieves 99% training accuracy on hospital records, but fails catastrophically when deployed in a new hospital with different patient demographics. What phenomenon has occurred?", "o": ["Overfitting, where the model memorized training noise and specific patterns rather than learning generalizable features", "Underfitting, where the model was too simple", "Hardware failure of the hospital's Wi-Fi router", "Adversarial text injection by patients"], "a": 0, "e": "[HIGH-LEVEL] Correct answer ✓\nOverfitting causes models to memorize training noise instead of generalizing.", "type": "MCQ"},
+            {"q": "[HIGH-LEVEL] 48. A financial institution deploys a black-box deep learning model to approve loan applications without any explainability features, leading to accusations of algorithmic bias. What crucial requirement was omitted?", "o": ["Explainable AI (XAI) and fairness audits to ensure transparent, auditable, and unbiased decision-making", "Faster CPU clock speed", "Larger hard disk storage capacity", "Higher internet bandwidth"], "a": 0, "e": "[HIGH-LEVEL] Correct answer ✓\nXAI and fairness audits are required to prevent unaccountable algorithmic bias.", "type": "MCQ"},
+            {"q": "[HIGH-LEVEL] 49. An enterprise collects petabytes of unstructured video and sensor data from IoT devices, but stores it in a traditional relational database (RDBMS) using SQL tabular schemas. Why is this system bound to fail?", "o": ["Because RDBMS and tabular structures are designed for structured data, whereas 80-90% of big data is unstructured and requires NoSQL/Hadoop storage solutions like HBase or Cassandra", "Because RDBMS databases are illegal in corporate environments", "Because IoT devices cannot generate data in video formats", "Because relational databases have zero storage capacity"], "a": 0, "e": "[HIGH-LEVEL] Correct answer ✓\nRelational databases handle structured data, while unstructured big data requires NoSQL/Hadoop solutions.", "type": "MCQ"},
+            {"q": "[HIGH-LEVEL] 50. Why did retail giant eBay select Apache Cassandra and DataStax Enterprise for its big data infrastructure rather than relying on standard single-server databases?", "o": ["To leverage scale-out architecture and high-velocity data capabilities across multiple commodity hardware data centers", "To reduce internet connectivity speeds to zero", "To eliminate the need for any computer storage", "To restrict database access to a single user"], "a": 0, "e": "[HIGH-LEVEL] Correct answer ✓\nScale-out architecture across multiple data centers handles massive high-velocity data.", "type": "MCQ"}
+        ];
+
+        const P2_SOURCE = [
+            // --- 50 True/False ---
+            {"q": "1. The term 'digital' refers to a method of representing data using discrete symbols or digits, typically in binary form (0s and 1s).", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Digital refers to discrete symbols/digits in binary form.", "type": "TF"},
+            {"q": "2. Information Technology (IT) strictly involves manual bookkeeping and has nothing to do with computers.", "o": ["True", "False"], "a": 1, "e": "Correct answer ✓\nFalse: IT involves computers and electronic systems, not manual bookkeeping.", "type": "TF"},
+            {"q": "3. The invention of the transistor in 1947 is considered the beginning of the digital revolution timeline.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: The transistor in 1947 is the foundational starting point.", "type": "TF"},
+            {"q": "4. The digital revolution is frequently called the Third Industrial Revolution.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: It is commonly known as the Third Industrial Revolution.", "type": "TF"},
+            {"q": "5. ARPANET was established in 1969 and introduced public concepts leading to the internet.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: ARPANET in 1969 paved the way for the internet.", "type": "TF"},
+            {"q": "6. Tim Berners-Lee designed communication rules starting in 1989 that formed the World Wide Web.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Tim Berners-Lee designed rules for the WWW in 1989.", "type": "TF"},
+            {"q": "7. Discrete cosine transform became a fundamental basis for most digital media compression standards from the late 1980s onwards.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: DCT became fundamental for compression standards.", "type": "TF"},
+            {"q": "8. By the year 1996, the internet had expanded to become part of mass culture, with many businesses operating websites.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: By 1996 the internet became part of mass culture.", "type": "TF"},
+            {"q": "9. In 1999, almost every country in the world had an active internet connection.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Global connectivity reached this milestone by 1999.", "type": "TF"},
+            {"q": "10. By late 2005, the total number of global internet users reached one billion.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Users reached one billion by late 2005.", "type": "TF"},
+            {"q": "11. By 2020, less than 10 percent of the world's population actively used the internet.", "o": ["True", "False"], "a": 1, "e": "Correct answer ✓\nFalse: By 2020 internet penetration was vastly higher than 10 percent.", "type": "TF"},
+            {"q": "12. The very first mobile phone was constructed in 1983, preceding commercial digital cell phone sales in 1991.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: The first mobile phone was built in 1983.", "type": "TF"},
+            {"q": "13. Television broadcasting began transitioning from analog to digital signals during the 2000s decade.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: TV broadcasting transitioned during the 2000s.", "type": "TF"},
+            {"q": "14. The biggest impact of the digital revolution on low- and middle-income countries occurs through manufacturing process technologies affecting traditional goods.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Manufacturing process technologies impact developing countries significantly.", "type": "TF"},
+            {"q": "15. Artificial Intelligence, Big Data, Blockchain, IoT, and Quantum Computing are classified as next-generation technologies.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: These are next-gen transformative technologies.", "type": "TF"},
+            {"q": "16. 5G networks enable critical advancements in IoT, autonomous vehicles, AR, and VR.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: 5G powers IoT, autonomous driving, AR, and VR.", "type": "TF"},
+            {"q": "17. Information technology solves business or organizational problems on a large scale.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: IT solves organizational problems on a large scale.", "type": "TF"},
+            {"q": "18. Microprocesses enable the data processing and logic capabilities of digital technologies.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Microprocessors enable data processing and logic.", "type": "TF"},
+            {"q": "19. Industry 4.0 integrates digital technologies like IoT, AI, and automation into manufacturing processes.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Industry 4.0 integrates IoT, AI, and automation.", "type": "TF"},
+            {"q": "20. Artificial Intelligence is the simulation of human intelligence processes by computer systems and machines.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: AI simulates human intelligence.", "type": "TF"},
+            {"q": "21. Machine Learning is a subfield of AI that enables computers to learn from data without explicit programming.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: ML learns from data without explicit programming.", "type": "TF"},
+            {"q": "22. Supervised learning utilizes labeled datasets where inputs are paired with correct target outputs.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Supervised learning uses labeled pairs.", "type": "TF"},
+            {"q": "23. Unsupervised learning algorithms work with pre-labeled training outputs for every single data point.", "o": ["True", "False"], "a": 1, "e": "Correct answer ✓\nFalse: Unsupervised learning works with unlabeled data.", "type": "TF"},
+            {"q": "24. Reinforcement learning trains agents through trial and error using rewards and penalties.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Reinforcement learning uses trial and error rewards/penalties.", "type": "TF"},
+            {"q": "25. Deep Learning utilizes multi-layered artificial neural networks for automatic feature extraction.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Deep learning uses multi-layered ANNs.", "type": "TF"},
+            {"q": "26. Natural Language Processing (NLP) enables computers to understand, interpret, and generate human language.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: NLP handles human language processing.", "type": "TF"},
+            {"q": "27. Computer Vision allows computers to extract and process meaningful information from digital images and videos.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Computer vision processes visual inputs.", "type": "TF"},
+            {"q": "28. Spam email classification is a classic example of supervised machine learning.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Spam filtering is supervised learning.", "type": "TF"},
+            {"q": "29. Activation functions in neural networks introduce non-linearity to determine if a neuron fires.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Activation functions introduce non-linearity.", "type": "TF"},
+            {"q": "30. Generative AI focuses on creating new original content such as text, images, and audio.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: GenAI creates new original content.", "type": "TF"},
+            {"q": "31. GPT models are prominent examples of Large Language Models (LLMs).", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: GPT models are prominent LLMs.", "type": "TF"},
+            {"q": "32. Biased training data can cause AI algorithms to produce discriminatory or unfair decisions.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Biased data leads to algorithmic bias.", "type": "TF"},
+            {"q": "33. Explainable AI (XAI) provides transparency so humans can understand how AI models make decisions.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: XAI ensures model transparency and auditability.", "type": "TF"},
+            {"q": "34. Overfitting occurs when a model memorizes training noise and fails to generalize to new data.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Overfitting memorizes noise and hurts generalization.", "type": "TF"},
+            {"q": "35. Regularization and cross-validation help prevent overfitting in machine learning models.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Regularization and cross-validation mitigate overfitting.", "type": "TF"},
+            {"q": "36. Underfitting happens when a model is too simple to capture underlying patterns in the training data.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Underfitting occurs when models are too simple.", "type": "TF"},
+            {"q": "37. Accuracy, precision, recall, and F1-score are standard classification evaluation metrics.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: These are standard classification metrics.", "type": "TF"},
+            {"q": "38. Edge AI runs AI algorithms locally on hardware devices rather than exclusively on remote cloud servers.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Edge AI processes data locally on edge hardware.", "type": "TF"},
+            {"q": "39. The Internet of Things (IoT) is a network of interconnected physical devices embedded with sensors, software, and connectivity.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: IoT interconnects devices with sensors and connectivity.", "type": "TF"},
+            {"q": "40. Big Data analytics transforms IoT-generated data streams into actionable insights for decision-making.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Big Data transforms IoT streams into insights.", "type": "TF"},
+            {"q": "41. Structured data is the foundation of relational database systems and follows tabular formats.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Structured data forms the foundation of RDBMS.", "type": "TF"},
+            {"q": "42. Unstructured data accounts for approximately 80-90% of collected big data.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Unstructured data comprises 80-90% of big data.", "type": "TF"},
+            {"q": "43. Examples of semi-structured data include HTML, XML, and emails.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: HTML, XML, and emails are semi-structured.", "type": "TF"},
+            {"q": "44. Big Data is commonly characterized by Vs including Volume, Velocity, Variety, and Veracity.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Classic Vs include Volume, Velocity, Variety, and Veracity.", "type": "TF"},
+            {"q": "45. HDFS is the main storage system used by Apache Hadoop for managing large data across a cluster.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: HDFS is Hadoop's core distributed storage system.", "type": "TF"},
+            {"q": "46. Apache HBase is an open-source nonrelational column DB NoSQL storage solution using HDFS.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: HBase is a NoSQL column store on HDFS.", "type": "TF"},
+            {"q": "47. Hive is a Hadoop-based framework developed by Facebook using HiveQL queries converted to MapReduce.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Hive uses HiveQL and converts queries to MapReduce.", "type": "TF"},
+            {"q": "48. Sqoop is a connectivity tool for moving data from non-Hadoop data stores into Hadoop.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Sqoop connects external stores to Hadoop.", "type": "TF"},
+            
+            // --- High-Level TFs (49 and 50) ---
+            {"q": "[HIGH-LEVEL] 49. Achieving 99% training accuracy guarantees that a machine learning model will perform perfectly on new unseen real-world data.", "o": ["True", "False"], "a": 1, "e": "[HIGH-LEVEL] Correct answer ✓\nFalse: High training accuracy does not guarantee generalizability due to potential overfitting.", "type": "TF"},
+            {"q": "[HIGH-LEVEL] 50. The integration of Big Data, cloud computing, and IoT set the momentum for artificial intelligence to grow rapidly and revolutionize business decision-making.", "o": ["True", "False"], "a": 0, "e": "[HIGH-LEVEL] Correct answer ✓\nTrue: Big Data, cloud, and IoT provided the foundational momentum for modern AI growth.", "type": "TF"}
+        ];
+
+        const getQuestionType = question => question.type.replace(/[.!?]+$/, "");
+
+        const P1_DATA = [
+            ...P1_SOURCE.filter(question => getQuestionType(question) === "MCQ"),
+            ...P2_SOURCE.filter(question => getQuestionType(question) === "MCQ")
+        ];
+        const P2_DATA = [
+            ...P1_SOURCE.filter(question => getQuestionType(question) === "TF"),
+            ...P2_SOURCE.filter(question => getQuestionType(question) === "TF")
+        ];
+
+        let activePart = 1;
+        let qData = P1_DATA;
+        let cIdx = 0;
+        let score = 0;
+        let wrongList = [];
+
+        const $ = id => document.getElementById(id);
+
+        function switchPart(part) {
+            activePart = part;
+            $("tab1").className = "tab-btn " + (part === 1 ? "active" : "");
+            $("tab2").className = "tab-btn " + (part === 2 ? "active" : "");
+            qData = part === 1 ? P1_DATA : P2_DATA;
+            resetQuiz();
+        }
+
+        function resetQuiz() {
+            cIdx = 0;
+            score = 0;
+            wrongList = [];
+            renderQuestion();
+        }
+
+        function renderQuestion() {
+            const q = qData[cIdx];
+            $("n").textContent = `Question ${cIdx + 1} of ${qData.length}`;
+            $("s").textContent = `Score: ${score}`;
+            $("bar").style.width = `${(cIdx / qData.length) * 100}%`;
+
+            const isHighLevel = q.q.includes("[HIGH-LEVEL]");
+            const badgeClass = isHighLevel ? "q-badge high-level" : "q-badge";
+            const badgeText = isHighLevel 
+                ? (getQuestionType(q) === 'TF' ? 'True / False — High Level' : 'Multiple Choice — High Level')
+                : (getQuestionType(q) === 'TF' ? 'True / False' : 'Multiple Choice');
+            
+            $("card").innerHTML = `
+                <span class="${badgeClass}">${badgeText}</span>
+                <p class="q">${q.q}</p>
+                <div id="opts"></div>
+                <div id="fb"></div>
+            `;
+
+            q.o.forEach((optText, i) => {
+                const b = document.createElement("button");
+                b.className = "opt";
+                b.innerHTML = `<b>${getQuestionType(q) === 'TF' ? (i===0?'T':'F') : "ABCD"[i] + ")"}</b><span></span>`;
+                b.querySelector("span").textContent = optText;
+                b.onclick = () => handleAnswer(i);
+                $("opts").appendChild(b);
+            });
+        }
+
+        function handleAnswer(selected) {
+            const q = qData[cIdx];
+            const isCorrect = selected === q.a;
+            const buttons = document.querySelectorAll(".opt");
+
+            buttons.forEach((btn, idx) => {
+                btn.disabled = true;
+                if (idx === q.a) btn.classList.add("ok");
+                else if (idx === selected) btn.classList.add("no");
+            });
+
+            if (isCorrect) score++;
+            else wrongList.push(cIdx);
+
+            $("s").textContent = `Score: ${score}`;
+
+            $("fb").innerHTML = `
+                <div class="ex ${isCorrect ? 'ok' : 'no'}">
+                    <strong>${isCorrect ? 'Correct answer ✓' : 'Incorrect answer ✗'}</strong>
+                    <span>${q.e}</span>
+                </div>
+                <button class="btn" id="nxtBtn">${cIdx < qData.length - 1 ? 'Next question' : 'Show final results'}</button>
+            `;
+
+            $("nxtBtn").onclick = () => {
+                cIdx++;
+                if (cIdx < qData.length) renderQuestion();
+                else finishQuiz();
+            };
+            $("nxtBtn").focus();
+        }
+
+        function finishQuiz() {
+            $("bar").style.width = "100%";
+            $("n").textContent = "Quiz complete";
+            const pct = Math.round((score / qData.length) * 100);
+
+            let html = `
+                <div class="score">${score} / ${qData.length}</div>
+                <p style="text-align:center;font-size:1.2rem;margin:0 0 16px;">Percentage: <b>${pct}%</b></p>
+            `;
+
+            if (wrongList.length > 0) {
+                html += `<p style="margin:16px 0 8px;"><b>Questions to review:</b></p><ul class="rev">`;
+                wrongList.reverse().forEach(w => {
+                    html += `<li><b>Question ${w + 1}:</b> ${qData[w].q}</li>`;
+                });
+                html += `</ul>`;
+            } else {
+                html += `<p style="text-align:center;color:var(--ok);">Excellent! All answers are correct (100%).</p>`;
+            }
+
+            html += `<button class="btn" onclick="resetQuiz()">Restart quiz</button>`;
+            $("card").innerHTML = html;
+        }
+
+        renderQuestion();
+    </script>
+</body>
+</html>

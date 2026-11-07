@@ -401,7 +401,7 @@
             $("bar").style.width = "100%";
             $("n").textContent = "Quiz complete";
             const pct = Math.round((score / qData.length) * 100);
-            
+
             let html = `
                 <div class="score">${score} / ${qData.length}</div>
                 <p style="text-align:center;font-size:1.2rem;margin:0 0 16px;">Percentage: <b>${pct}%</b></p>
@@ -409,7 +409,7 @@
 
             if (wrongList.length > 0) {
                 html += `<p style="margin:16px 0 8px;"><b>Questions to review:</b></p><ul class="rev">`;
-                wrongList.forEach(w => {
+                wrongList.reverse().forEach(w => {
                     html += `<li><b>Question ${w + 1}:</b> ${qData[w].q}</li>`;
                 });
                 html += `</ul>`;

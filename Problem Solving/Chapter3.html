@@ -1,9 +1,10 @@
 <!doctype html>
 <html lang="en" dir="ltr">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <title>Problem Solving and Decision Making — Chapter 3 Quiz</title>
+    <title>Problem Solving and Decision Making</title>
     <style>
         :root {
             --bg: #0f172a;
@@ -34,7 +35,10 @@
             }
         }
 
-        * { box-sizing: border-box; }
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             margin: 0;
             background: var(--bg);
@@ -42,25 +46,38 @@
             font-family: 'Segoe UI', Tahoma, system-ui, -apple-system, sans-serif;
             line-height: 1.6;
         }
+
         main {
             max-width: 760px;
             margin: 0 auto;
             padding: 24px 16px 60px;
         }
+
         .header-panel {
             text-align: center;
             margin-bottom: 24px;
             border-bottom: 8px solid var(--b);
             padding-bottom: 30px;
         }
-        h1 { font-size: 1.5rem; margin: 0 0 8px; color: var(--ac); }
-        .sub { color: var(--m); font-size: 0.95rem; margin: 0; }
-        
+
+        h1 {
+            font-size: 1.5rem;
+            margin: 0 0 8px;
+            color: var(--ac);
+        }
+
+        .sub {
+            color: var(--m);
+            font-size: 0.95rem;
+            margin: 0;
+        }
+
         .nav-tabs {
             display: flex;
             gap: 12px;
             margin-bottom: 20px;
         }
+
         .tab-btn {
             flex: 1;
             padding: 12px;
@@ -72,6 +89,7 @@
             cursor: pointer;
             transition: all 0.2s;
         }
+
         .tab-btn.active {
             background: var(--ac);
             color: #000;
@@ -85,6 +103,7 @@
             overflow: hidden;
             margin-bottom: 8px;
         }
+
         .bar i {
             display: block;
             height: 100%;
@@ -92,6 +111,7 @@
             width: 0;
             transition: width 0.3s;
         }
+
         .meta {
             display: flex;
             justify-content: space-between;
@@ -99,13 +119,15 @@
             font-size: 0.9rem;
             margin-bottom: 16px;
         }
+
         .card {
             background: var(--c);
             border: 1px solid var(--b);
             border-radius: 12px;
             padding: 20px;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
         }
+
         .q-badge {
             display: inline-block;
             padding: 2px 8px;
@@ -115,11 +137,13 @@
             margin-bottom: 10px;
             color: var(--ac);
         }
+
         .q-badge.high-level {
             background: #f59e0b;
             color: #000;
             font-weight: bold;
         }
+
         .q {
             font-size: 1.1rem;
             font-weight: 600;
@@ -127,6 +151,7 @@
             text-align: left;
             margin: 0 0 16px;
         }
+
         .opt {
             display: flex;
             gap: 12px;
@@ -143,11 +168,29 @@
             cursor: pointer;
             transition: border-color 0.2s;
         }
-        .opt:hover:not(:disabled) { border-color: var(--ac); }
-        .opt b { min-width: 1.5em; color: var(--ac); }
-        .opt.ok { background: var(--okb); border-color: var(--ok); }
-        .opt.no { background: var(--nob); border-color: var(--no); }
-        .opt:disabled { cursor: default; }
+
+        .opt:hover:not(:disabled) {
+            border-color: var(--ac);
+        }
+
+        .opt b {
+            min-width: 1.5em;
+            color: var(--ac);
+        }
+
+        .opt.ok {
+            background: var(--okb);
+            border-color: var(--ok);
+        }
+
+        .opt.no {
+            background: var(--nob);
+            border-color: var(--no);
+        }
+
+        .opt:disabled {
+            cursor: default;
+        }
 
         .ex {
             margin-top: 16px;
@@ -157,9 +200,21 @@
             text-align: left;
             font-size: 0.95rem;
         }
-        .ex.ok { background: var(--okb); border: 1px solid var(--ok); }
-        .ex.no { background: var(--nob); border: 1px solid var(--no); }
-        .ex strong { display: block; margin-bottom: 4px; }
+
+        .ex.ok {
+            background: var(--okb);
+            border: 1px solid var(--ok);
+        }
+
+        .ex.no {
+            background: var(--nob);
+            border: 1px solid var(--no);
+        }
+
+        .ex strong {
+            display: block;
+            margin-bottom: 4px;
+        }
 
         .btn {
             margin-top: 16px;
@@ -173,36 +228,162 @@
             cursor: pointer;
             width: 100%;
         }
-        .score { text-align: center; font-size: 3rem; font-weight: 800; margin: 12px 0; color: var(--ac); }
-        .rev { margin: 16px 0 0; padding: 0; list-style: none; direction: ltr; text-align: left; font-size: 0.9rem; }
-        .rev li { padding: 8px 0; border-top: 1px solid var(--b); }
+
+        .score {
+            text-align: center;
+            font-size: 3rem;
+            font-weight: 800;
+            margin: 12px 0;
+            color: var(--ac);
+        }
+
+        .rev {
+            margin: 16px 0 0;
+            padding: 0;
+            list-style: none;
+            direction: ltr;
+            text-align: left;
+            font-size: 0.9rem;
+        }
+
+        .rev li {
+            padding: 8px 0;
+            border-top: 1px solid var(--b);
+        }
     </style>
 </head>
-<body>
-    <main>
-        <div class="header-panel">
-            <h1>Chapter 1: Problem Solving & Decision Making</h1>
-            <p class="sub">Comprehensive Exam Question Bank)</p>
-        </div>
-        
-        <div class="nav-tabs">
-            <button class="tab-btn active" id="tab1" onclick="switchPart(1)">Multiple Choice (50)</button>
-            <button class="tab-btn" id="tab2" onclick="switchPart(2)">True/False (50)</button>
-        </div>
 
-        <div class="bar"><i id="bar"></i></div>
-        <div class="meta">
-            <span id="n"></span>
-            <span id="s"></span>
-        </div>
-        <div class="card" id="card"></div>
+<body>
+    in>
+    <div class="header-panel">
+        <h1>Problem Solving — Chapter 3</h1>
+        <p class="sub">The Structured Problem-Solving Process</p>
+    </div>
+
+    <div class="nav-tabs">
+        <button class="tab-btn active" id="tab1" onclick="switchPart(1)">Multiple Choice</button>
+        <button class="tab-btn" id="tab2" onclick="switchPart(2)">True/False </button>
+    </div>
+
+    <div class="bar"><i id="bar"></i></div>
+    <div class="meta">
+        <span id="n"></span>
+        <span id="s"></span>
+    </div>
+    <div class="card" id="card"></div>
     </main>
-      
+
     <script>
-       const P1_SOURCE = [
+        const P1_SOURCE = [
+            // --- MCQs (50 Questions) ---
+            { "q": "What is the primary danger when a company experiences a sales decline and immediately reduces prices without structured investigation?", "o": ["It may ignore the actual root causes such as poor product availability or delayed delivery", "It guarantees immediate 100% profitability", "It turns structured problems into simple inventory reorder points", "It eliminates the need for customer feedback"], "a": 0, "e": "Correct answer ✓\nImmediate price reduction without investigating root causes (like availability, marketing, or preferences) can be costly and premature.", "type": "MCQ" },
+            { "q": "How is problem solving described in terms of its structural workflow in Chapter 3?", "o": ["An iterative process where new evidence may require returning to earlier stages", "A rigid, straight-line path that never changes", "An automated software script with zero human input", "A purely financial audit routine"], "a": 0, "e": "Correct answer ✓\nProblem solving is iterative; new evidence can challenge assumptions or require revisiting earlier stages.", "type": "MCQ" },
+            { "q": "How many sequential stages comprise the Structured Problem-Solving Cycle in Section 3.1?", "o": ["8 steps (from Problem Definition to Learning & Feedback)", "3 steps (Define, Analyze, Solve)", "5 steps (Identify, Gather, Test, Implement, Exit)", "10 steps"], "a": 0, "e": "Correct answer ✓\nThe cycle has 8 steps: 1. Definition, 2. Evidence Collection, 3. Cause Analysis, 4. Generating Alternatives, 5. Decision Making, 6. Implementation, 7. Evaluation, 8. Learning & Feedback.", "type": "MCQ" },
+            { "q": "In the customer satisfaction improvement example, why did implementing a new scheduling system result in only slight satisfaction improvement?", "o": ["Because the primary driver (inaccurate info, service errors, poor communication) was missed", "Because the scheduling system was too expensive", "Because wait times increased to 50 minutes", "Because the company had zero customers"], "a": 0, "e": "Correct answer ✓\nSatisfaction improved only slightly because the primary driver of dissatisfaction was missed.", "type": "MCQ" },
+            { "q": "What is the primary goal of evidence collection once a problem is defined?", "o": ["Obtaining evidence appropriate to the analytical questions, rather than collecting maximum data", "Accumulating massive amounts of unstructured raw storage", "Proving executive management is always right", "Eliminating the need for root-cause analysis"], "a": 0, "e": "Correct answer ✓\nThe goal is NOT to collect maximum data, but evidence appropriate to the questions.", "type": "MCQ" },
+            { "q": "Which of the following represents the five characteristics of useful organizational evidence?", "o": ["Relevant, Reliable, Accurate, Timely, Adequate", "Fast, Cheap, Complex, Large, Encrypted", "Structured, Semi-structured, Unstructured, Random, Fixed", "Frequent, Rare, Qualitative, Absolute, Relative"], "a": 0, "e": "Correct answer ✓\nUseful evidence must be Relevant, Reliable, Accurate, Timely, and Adequate.", "type": "MCQ" },
+            { "q": "Transaction records and operational reports maintained inside corporate systems are classified as:", "o": ["Internal sources of evidence", "Customer sources", "Experimental sources", "External sources"], "a": 0, "e": "Correct answer ✓\nDatabases, transactions, and operational reports are internal sources.", "type": "MCQ" },
+            { "q": "Customer surveys, interviews, and feedback complaints belong to which evidence source category?", "o": ["Customer sources", "Internal sources", "Experimental sources", "External sources"], "a": 0, "e": "Correct answer ✓\nSurveys, interviews, and direct observations are customer sources.", "type": "MCQ" },
+            { "q": "Controlled testing environments, pilot studies, and field experiments are classified as:", "o": ["Experimental sources", "Internal sources", "Customer sources", "External sources"], "a": 0, "e": "Correct answer ✓\nControlled testing, pilot studies, and field experiments are experimental sources.", "type": "MCQ" },
+            { "q": "Industry reports, regulatory publications, and academic research are examples of:", "o": ["External sources", "Internal sources", "Customer sources", "Experimental sources"], "a": 0, "e": "Correct answer ✓\nIndustry benchmarks, reports, and academic research are external sources.", "type": "MCQ" },
+            { "q": "What type of evidence summarizes current patterns and status to answer 'What is happening?'", "o": ["Descriptive evidence", "Comparative evidence", "Relationship evidence", "Diagnostic evidence"], "a": 0, "e": "Correct answer ✓\nDescriptive evidence focuses on summarizing current patterns and status.", "type": "MCQ" },
+            { "q": "If an analyst asks 'Are two branches different?', what type of evidence is required?", "o": ["Comparative evidence (identifying variances between groups)", "Descriptive evidence", "Predictive evidence", "Diagnostic evidence"], "a": 0, "e": "Correct answer ✓\nComparative evidence identifies variances between groups.", "type": "MCQ" },
+            { "q": "Evaluating correlations and associations to answer 'Are two variables related?' requires:", "o": ["Relationship evidence", "Descriptive evidence", "Diagnostic evidence", "Comparative evidence"], "a": 0, "e": "Correct answer ✓\nRelationship evidence evaluates correlations and associations.", "type": "MCQ" },
+            { "q": "What type of evidence uncovers underlying drivers to answer 'What factors explain the problem?'", "o": ["Diagnostic evidence", "Comparative evidence", "Descriptive evidence", "Predictive evidence"], "a": 0, "e": "Correct answer ✓\nDiagnostic evidence uncovers underlying drivers.", "type": "MCQ" },
+            { "q": "Forecasting future trends and outcomes to answer 'What may happen in the future?' requires:", "o": ["Predictive evidence", "Diagnostic evidence", "Descriptive evidence", "Relationship evidence"], "a": 0, "e": "Correct answer ✓\nPredictive evidence forecasts future trends and outcomes.", "type": "MCQ" },
+            { "q": "In Example 3.2, Branch A has avg score 4.10 and Branch B has 3.80 (difference 0.30 pts). What does inferential statistics determine?", "o": ["Whether sample differences prove underlying population differences, evaluating sample size and variability", "That Branch B must be closed immediately", "That sample size is irrelevant to data analysis", "That Branch A has 100% customer retention"], "a": 0, "e": "Correct answer ✓\nSample difference describes sample data; inferential statistics and sample size/variability determine population support.", "type": "MCQ" },
+            { "q": "What are the four sequential steps in Root-Cause Analysis (Section 3.3)?", "o": ["Possible Cause -> Causal Hypothesis -> Evidence Collection -> Causal Assessment", "Define -> Solve -> Implement -> Evaluate", "Pareto -> Fishbone -> Five Whys -> Action", "Description -> Comparison -> Prediction -> Decision"], "a": 0, "e": "Correct answer ✓\nSteps: 1. Possible Cause, 2. Causal Hypothesis, 3. Evidence Collection, 4. Causal Assessment.", "type": "MCQ" },
+            { "q": "In causal reasoning, what is defined as a plausible explanation for the observed problem?", "o": ["Possible Cause", "Causal Hypothesis", "Causal Assessment", "Descriptive Evidence"], "a": 0, "e": "Correct answer ✓\nA possible cause is a plausible explanation for the observed problem.", "type": "MCQ" },
+            { "q": "What is an explicit statement suggesting that a specific factor produces an outcome called?", "o": ["Causal Hypothesis", "Possible Cause", "Comparative Evidence", "Pareto Heuristic"], "a": 0, "e": "Correct answer ✓\nA causal hypothesis is an explicit statement suggesting a factor produces the outcome.", "type": "MCQ" },
+            { "q": "Why does employee training achieving higher productivity NOT automatically prove that training causes higher productivity?", "o": ["Because association does not mean causation; other factors like experience, workload, or technology may influence it", "Because training has zero impact on employees", "Because productivity cannot be measured", "Because training is an external source of evidence"], "a": 0, "e": "Correct answer ✓\nAssociation can support a hypothesis, but association alone does not establish causation due to confounding factors.", "type": "MCQ" },
+            { "q": "Which tool organizes possible contributing factors across structured categories like People, Process, Technology, Materials, Environment, and Measurement?", "o": ["Fishbone (Ishikawa / Cause & Effect) Diagram", "Five Whys Technique", "Pareto Analysis", "Reorder Point Formula"], "a": 0, "e": "Correct answer ✓\nFishbone Diagram organizes contributors across structured categories.", "type": "MCQ" },
+            { "q": "What are the standard categories typically used in a Fishbone Diagram?", "o": ["People, Process, Technology, Materials, Environment, Measurement", "Cost, Revenue, Profit, Tax, Dividend, Asset", "Input, Process, Output, Feedback, Control, Storage", "Descriptive, Diagnostic, Predictive, Comparative, Relationship"], "a": 0, "e": "Correct answer ✓\nCommon categories: People, Process, Technology, Materials, Environment, Measurement.", "type": "MCQ" },
+            { "q": "Which tool explores deeper root causes by repeatedly asking 'Why did this occur?' down a process chain?", "o": ["Five Whys Technique", "Fishbone Diagram", "Pareto Analysis", "Sample Variance Test"], "a": 0, "e": "Correct answer ✓\nFive Whys investigates causal chains by repeatedly asking 'Why?'.", "type": "MCQ" },
+            { "q": "What does Pareto Analysis (80/20 Rule) help management accomplish?", "o": ["Prioritizing contributors by frequency, magnitude, or operational impact", "Calculating daily inventory safety stock", "Generating alternative digital marketing slogans", "Measuring customer satisfaction branch scores"], "a": 0, "e": "Correct answer ✓\nPareto Analysis prioritizes contributors that account for a large share of the problem.", "type": "MCQ." },
+            { "q": "According to the Pareto heuristic, what does the 80/20 rule suggest?", "o": ["80% of problems stem from 20% of causes", "80% of employees produce 20% of defects", "80% of data is unreliable", "80% of costs come from fixed overhead"], "a": 0, "e": "Correct answer ✓\nThe heuristic suggests 80% of problems stem from 20% of causes.", "type": "MCQ." },
+            { "q": "In the customer complaints Pareto example (Table), what percentage of total complaints were accounted for by the top 3 categories (Payment failure, Delivery delay, Product quality)?", "o": ["78.0%", "35.0%", "90.0%", "60.0%"], "a": 0, "e": "Correct answer ✓\nPayment (35%) + Delivery (25%) + Quality (18%) = 78.0%.", "type": "MCQ." },
+            { "q": "Why should frequency not be confused with importance in Pareto Analysis?", "o": ["Because low-frequency events like safety hazards can have massive consequence severity requiring immediate action", "Because frequency numbers are always mathematically incorrect", "Because frequency applies only to internal sources", "Because high frequency guarantees zero reputational risk"], "a": 0, "e": "Correct answer ✓\nFrequency should not be confused with importance; consequence severity (e.g. safety hazards) must be considered.", "type": "MCQ." },
+            { "q": "What is the recommended sequence when combining root-cause analysis tools?", "o": ["Step 1: Pareto Analysis -> Step 2: Fishbone Diagram -> Step 3: Five Whys -> Step 4: Evidence Assessment", "Step 1: Five Whys -> Step 2: Pareto -> Step 3: Action -> Step 4: Cost", "Step 1: Evidence -> Step 2: Guess -> Step 3: Implement -> Step 4: Audit", "Step 1: Fishbone -> Step 2: Five Whys -> Step 3: Pareto -> Step 4: Ignore Data"], "a": 0, "e": "Correct answer ✓\nSequence: Pareto (prioritize) -> Fishbone (structure categories) -> Five Whys (explore pathways) -> Evidence Assessment (verify).", "type": "MCQ." },
+            { "q": "In the Five Whys payment failure example, what was the concluding root cause identified after asking 'Why?' five times?", "o": ["Weakness in system-integration update management", "Customer unwillingness to pay bills", "An insufficient number of retail bank branches", "Outdated employee uniforms"], "a": 0, "e": "Correct answer ✓\nConclusion pointed to weakness in system-integration update management.", "type": "MCQ." },
+            { "q": "Why is evaluation after implementation critical in the 8-step problem-solving cycle?", "o": ["To systematically check results rather than assuming a decision was automatically successful", "To increase executive bonuses", "To bypass evidence collection stages in future projects", "To eliminate customer surveys"], "a": 0, "e": "Correct answer ✓\nSystematic evaluation verifies results rather than assuming success.", "type": "MCQ." },
+
+            // --- Additional Advanced MCQs (31 to 50) ---
+            { "q": "31. What makes problem solving an ongoing learning process?", "o": ["Decisions can be revised as new evidence and operational results become available", "Management rules can never be questioned once written", "All problems have static, unchanging solutions", "Data collection stops permanently after Step 1"], "a": 0, "e": "Correct answer ✓\nProblem solving is a continuous learning process in which decisions can be revised as new evidence becomes available.", "type": "MCQ." },
+            { "q": "32. If a bank investigates increasing failed transactions, why are transaction records more useful than annual reports?", "o": ["Because transaction records are directly relevant and timely to the operational failure", "Because annual reports contain zero numbers", "Because transaction records are external sources", "Because annual reports are illegal to review"], "a": 0, "e": "Correct answer ✓\nTransaction records from the relevant period provide direct relevance compared to unrelated annual reports.", "type": "MCQ." },
+            { "q": "33. What is the key distinction between a Fishbone Diagram and the Five Whys technique?", "o": ["Fishbone organizes possible contributing factors across categories, while Five Whys explores deeper causal chains down a process pathway", "Fishbone is used exclusively for financial accounting", "Five Whys cannot be used with empirical evidence", "They are identical tools with different names"], "a": 0, "e": "Correct answer ✓\nFishbone organizes categories, whereas Five Whys explores causal chains; they serve different analytical purposes.", "type": "MCQ." },
+            { "q": "34. When delivery delays rose from 10% to 30% in Section 3.3, what causal hypothesis was tested?", "o": ["A decrease in the number of employees relative to the number of orders leads to delivery delays", "Customer dissatisfaction causes weather storms", "Product prices are too low", "Marketing budgets are too large"], "a": 0, "e": "Correct answer ✓\nHypothesis: Decrease in employees relative to orders leads to delivery delays.", "type": "MCQ." },
+            { "q": "35. Which factor among the following is a confounding variable when evaluating training vs. productivity?", "o": ["Employee experience, workload variations, and technology access", "The company's stock ticker symbol", "The color of office walls", "The number of conference rooms"], "a": 0, "e": "Correct answer ✓\nExperience, workload, management practices, technology, and motivation are confounding variables.", "type": "MCQ." },
+            { "q": "36. What does 'Adequate' mean as a characteristic of useful evidence?", "o": ["Sufficient in quantity and quality to support rigorous analysis", "Available only on weekends", "Collected from a single biased employee", "Exceeding 10 million rows of unstructured data"], "a": 0, "e": "Correct answer ✓\nAdequate means sufficient in quantity and quality to support analysis.", "type": "MCQ." },
+            { "q": "37. In the Fishbone manufacturing defect example, 'Temperature fluctuation and humidity' belong to which category?", "o": ["Environment", "Process", "People", "Materials"], "a": 0, "e": "Correct answer ✓\nTemperature fluctuation and humidity fall under Environment.", "type": "MCQ." },
+            { "q": "38. In the Fishbone manufacturing defect example, 'Low-quality raw materials and supplier variability' belong to:", "o": ["Materials", "Measurement", "Technology", "Process"], "a": 0, "e": "Correct answer ✓\nLow-quality raw materials and supplier variability belong to Materials.", "type": "MCQ." },
+            { "q": "39. What is the danger of stopping at the first plausible explanation during causal analysis?", "o": ["Organizational problems often have multiple interacting causes, and first plausible explanations aren't automatically root causes", "It automatically triggers bankruptcy", "It violates ISO manufacturing standards", "It makes Pareto analysis obsolete"], "a": 0, "e": "Correct answer ✓\nFirst plausible explanations aren't automatically root causes; multiple interacting causes often exist.", "type": "MCQ." },
+            { "q": "40. Why must the final answer in the Five Whys technique still be verified?", "o": ["Because the final answer is a hypothesis and must be verified against empirical evidence", "Because Five Whys is mathematically illegal", "Because it replaces Pareto analysis entirely", "Because management forbids 'Why' questions"], "a": 0, "e": "Correct answer ✓\nThe final conclusion must still be verified with empirical evidence.", "type": "MCQ." },
+            { "q": "[HIGH-LEVEL] 41. If an organization completes all 8 steps of the problem-solving cycle but skips Step 8 (Learning & Feedback), what is the long-term consequence?", "o": ["The organization repeats past mistakes and fails to institutionalize continuous improvement", "Financial audits become mandatory", "Customer satisfaction automatically increases by 50%", "The Fishbone diagram dissolves"], "a": 0, "e": "[HIGH-LEVEL] Correct answer ✓\nSkipping learning and feedback prevents organizational adaptation and repeating corrective insights.", "type": "MCQ." },
+            { "q": "[HIGH-LEVEL] 42. How does sample evidence differ from population support in Branch satisfaction comparisons (Example 3.2)?", "o": ["Sample evidence describes what happened in the observed sample, whereas statistical analysis determines if differences hold true in the broader population", "Sample evidence is always 100% inaccurate", "Population support requires zero calculations", "Sample evidence replaces inferential statistics"], "a": 0, "e": "[HIGH-LEVEL] Correct answer ✓\nSample evidence describes the sample; statistical analysis determines population support.", "type": "MCQ." },
+            { "q": "[HIGH-LEVEL] 43. Why is Pareto analysis considered a heuristic rather than a universal law?", "o": ["Because actual empirical distributions may differ from 80/20, and other criteria like safety or severity must be weighed", "Because it is derived from quantum physics", "Because it applies exclusively to banking transactions", "Because it eliminates the need for Fishbone diagrams"], "a": 0, "e": "[HIGH-LEVEL] Correct answer ✓\nIt is a heuristic, not a universal law; actual distributions differ and importance involves more than frequency.", "type": "MCQ." },
+            { "q": "[HIGH-LEVEL] 44. What happens when new evidence challenges initial management assumptions during Step 3 (Cause Analysis)?", "o": ["The structured process allows returning to earlier stages to re-evaluate the problem definition or evidence", "The project must be immediately canceled without review", "Management is legally required to resign", "All data is permanently deleted"], "a": 0, "e": "[HIGH-LEVEL] Correct answer ✓\nIterative problem solving allows returning to earlier stages when new evidence emerges.", "type": "MCQ." },
+            { "q": "[HIGH-LEVEL] 45. In the context of evidence characteristics, what does 'Timely' mean?", "o": ["Available for the period relevant to the investigation", "Arriving exactly at 8:00 AM every Monday", "Costing less than $100 to acquire", "Published in an academic journal after 10 years"], "a": 0, "e": "[HIGH-LEVEL] Correct answer ✓\nTimely means available for the period relevant to the investigation.", "type": "MCQ." },
+            { "q": "[HIGH-LEVEL] 46. If a safety hazard affects only 2 customers out of 1,000,000, why would Pareto frequency analysis rank it low, yet management must prioritize it?", "o": ["Because frequency does not equal consequence severity; safety and severe risks require immediate critical action regardless of low frequency", "Because Pareto rules forbid safety analysis", "Because 2 customers represent 80% of revenue", "Because safety hazards are internal sources"], "a": 0, "e": "[HIGH-LEVEL] Correct answer ✓\nFrequency does not equal importance; consequence severity (safety) dictates operational priority.", "type": "MCQ." },
+            { "q": "[HIGH-LEVEL] 47. Which analytical question type investigates whether available information can estimate future outcomes?", "o": ["Predictive evidence / Predictive questions", "Descriptive evidence", "Comparative evidence", "Diagnostic evidence"], "a": 0, "e": "[HIGH-LEVEL] Correct answer ✓\nPredictive evidence focuses on forecasting future trends and outcomes.", "type": "MCQ." },
+            { "q": "[HIGH-LEVEL] 48. What is the primary role of combining Pareto, Fishbone, and Five Whys in root-cause analysis?", "o": ["They form a structured funnel from prioritizing broad categories down to specific causal pathways and empirical verification", "They serve as decorative graphics for executive powerpoint slides", "They replace the need for customer survey data", "They automate financial tax returns"], "a": 0, "e": "[HIGH-LEVEL] Correct answer ✓\nCombining tools provides a rigorous multi-stage workflow from prioritization to causal pathway exploration.", "type": "MCQ." },
+            { "q": "[HIGH-LEVEL] 49. Why is 'Customer service' (6% complaints in Pareto table) potentially more critical than its frequency suggests if it involves legal compliance failures?", "o": ["Because legal consequences, reputational risk, and regulatory penalties outweigh raw frequency counts", "Because 6% is greater than 35%", "Because customer service has zero operational impact", "Because legal risk is never evaluated in problem solving"], "a": 0, "e": "[HIGH-LEVEL] Correct answer ✓\nLegal consequences, reputational risk, and regulatory publications are critical decision factors beyond simple frequency.", "type": "MCQ." },
+            { "q": "[HIGH-LEVEL] 50. What is the ultimate outcome of following the structured problem-solving process from evidence to evaluation?", "o": ["Avoiding premature, costly decisions and ensuring solutions address actual root causes with systematic learning", "Eliminating all operational costs permanently", "Guaranteeing zero customer complaints across all industries", "Bypassing the need for management judgment"], "a": 0, "e": "[HIGH-LEVEL] Correct answer ✓\nA structured process helps management avoid premature, costly decisions and systematically evaluate outcomes.", "type": "MCQ." }
         ];
 
         const P2_SOURCE = [
+            // --- True/False (50 Questions) ---
+            { "q": "1. A structured problem-solving process helps management avoid premature, costly decisions.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: A structured process helps management avoid premature, costly decisions.", "type": "TF" },
+            { "q": "2. Problem solving is a strict straight-line process that never requires returning to earlier stages.", "o": ["True", "False"], "a": 1, "e": "Correct answer ✓\nFalse: Problem solving is an iterative process; new evidence may require returning to earlier stages.", "type": "TF" },
+            { "q": "3. The Structured Problem-Solving Cycle in Chapter 3 consists of 8 distinct steps.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: The cycle has 8 steps from Problem Definition to Learning & Feedback.", "type": "TF" },
+            { "q": "4. In the customer satisfaction case, implementing a new scheduling system immediately solved all customer complaints.", "o": ["True", "False"], "a": 1, "e": "Correct answer ✓\nFalse: Satisfaction improved only slightly because the primary driver was missed.", "type": "TF" },
+            { "q": "5. The primary goal of evidence collection in problem solving is to collect the maximum amount of data possible.", "o": ["True", "False"], "a": 1, "e": "Correct answer ✓\nFalse: The goal is NOT to collect maximum data, but evidence appropriate to the questions.", "type": "TF" },
+            { "q": "6. Useful evidence must be relevant, reliable, accurate, timely, and adequate.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Five characteristics of useful evidence.", "type": "TF" },
+            { "q": "7. Transaction records and operational databases are internal sources of organizational evidence.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Databases and transaction records are internal sources.", "type": "TF" },
+            { "q": "8. Customer surveys and direct observations fall under external evidence sources.", "o": ["True", "False"], "a": 1, "e": "Correct answer ✓\nFalse: Surveys and observations are CUSTOMER sources; external sources include industry benchmarks and academic research.", "type": "TF" },
+            { "q": "9. Controlled testing environments and pilot studies are experimental sources of evidence.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Pilot studies and controlled tests are experimental sources.", "type": "TF" },
+            { "q": "10. Descriptive evidence focuses on forecasting future trends and outcomes.", "o": ["True", "False"], "a": 1, "e": "Correct answer ✓\nFalse: PREDICTIVE evidence forecasts the future; descriptive evidence summarizes current patterns and status.", "type": "TF" },
+            { "q": "11. Comparative evidence is used to identify variances between groups or organizational units.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Comparative evidence identifies variances between groups (e.g., comparing branches).", "type": "TF" },
+            { "q": "12. In Example 3.2, a sample difference of 0.30 pts between Branch A and Branch B automatically proves underlying population differences without statistical testing.", "o": ["True", "False"], "a": 1, "e": "Correct answer ✓\nFalse: Sample differences do not automatically prove population differences; inferential statistics and sample evaluation are required.", "type": "TF" },
+            { "q": "13. Root-cause analysis aims to evaluate contributing factors rather than just listing possible causes.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Root-cause analysis evaluates contributing factors, not just listing possibilities.", "type": "TF" },
+            { "q": "14. A possible cause is a plausible explanation for the observed problem.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Definition of a possible cause.", "type": "TF" },
+            { "q": "15. A causal hypothesis is an explicit statement suggesting a factor produces a specific outcome.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Definition of a causal hypothesis.", "type": "TF" },
+            { "q": "16. Association between two variables (e.g. training and productivity) definitively proves causation on its own.", "o": ["True", "False"], "a": 1, "e": "Correct answer ✓\nFalse: Association can support a hypothesis, but association alone does not establish causation.", "type": "TF" },
+            { "q": "17. The Fishbone Diagram is also known as the Ishikawa Diagram or Cause-and-Effect Diagram.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Fishbone is also known as Ishikawa or Cause-and-Effect Diagram.", "type": "TF" },
+            { "q": "18. Common categories in a Fishbone Diagram include People, Process, Technology, Materials, Environment, and Measurement.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Six standard categories of the Fishbone diagram.", "type": "TF" },
+            { "q": "19. The Fishbone Diagram establishes definitive causality on its own without needing empirical evidence.", "o": ["True", "False"], "a": 1, "e": "Correct answer ✓\nFalse: The Fishbone Diagram structures investigation and organizes possible explanations, but does NOT establish causality alone.", "type": "TF" },
+            { "q": "20. The Five Whys technique explores deeper root causes by repeatedly asking 'Why?' down a process chain.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Definition of Five Whys technique.", "type": "TF" },
+            { "q": "21. Pareto Analysis is based on the 80/20 heuristic, suggesting 80% of problems stem from 20% of causes.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Pareto Analysis and the 80/20 heuristic.", "type": "TF" },
+            { "q": "22. The Pareto 80/20 rule is a universal law that never deviates in actual organizational distributions.", "o": ["True", "False"], "a": 1, "e": "Correct answer ✓\nFalse: It is a heuristic, not a universal law; actual distributions may differ.", "type": "TF" },
+            { "q": "23. Frequency in Pareto Analysis should always be treated as identical to operational importance.", "o": ["True", "False"], "a": 1, "e": "Correct answer ✓\nFalse: Frequency should not be confused with importance; consequence severity (safety, legal) must be considered.", "type": "TF" },
+            { "q": "24. In the customer complaints Pareto example, the top three complaint categories accounted for 78% of total volume.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Payment, delivery, and quality accounted for 78% of complaints.", "type": "TF" },
+            { "q": "25. Safety hazards that affect few customers require lower operational priority than high-frequency minor complaints.", "o": ["True", "False"], "a": 1, "e": "Correct answer ✓\nFalse: Safety hazards require immediate critical action regardless of low frequency due to consequence severity.", "type": "TF" },
+            { "q": "26. Combining root-cause tools starts with Pareto Analysis to prioritize categories, followed by Fishbone and Five Whys.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Recommended sequence: Pareto -> Fishbone -> Five Whys -> Evidence Assessment.", "type": "TF" },
+            { "q": "27. Problem solving is a continuous learning process in which decisions can be revised as new evidence emerges.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Core principle of problem solving as continuous learning.", "type": "TF" },
+            { "q": "28. Organizational problems rarely have multiple interacting causes.", "o": ["True", "False"], "a": 1, "e": "Correct answer ✓\nFalse: Organizational problems OFTEN have multiple interacting causes.", "type": "TF" },
+            { "q": "29. Pilot studies and field experiments fall under internal organizational evidence sources.", "o": ["True", "False"], "a": 1, "e": "Correct answer ✓\nFalse: Pilot studies and experiments are EXPERIMENTAL sources.", "type": "TF" },
+            { "q": "30. Diagnostic evidence is used to uncover underlying drivers and explain problems.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Diagnostic evidence uncovers underlying drivers.", "type": "TF" },
+            { "q": "31. The Fishbone diagram categories for manufacturing defects include People, Process, Technology, Materials, Environment, and Measurement.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: The standard six categories.", "type": "TF" },
+            { "q": "32. The final answer obtained from the Five Whys technique should automatically be accepted as the sole root cause without empirical verification.", "o": ["True", "False"], "a": 1, "e": "Correct answer ✓\nFalse: The final answer must still be verified with empirical evidence.", "type": "TF" },
+            { "q": "33. In the Five Whys payment failure example, outdated system integration was identified as a contributing factor in the causal chain.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Outdated system integration was part of the Five Whys chain.", "type": "TF" },
+            { "q": "34. Evaluation and Learning & Feedback are the final two steps of the Structured Problem-Solving Cycle.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Steps 7 and 8 are Evaluation and Learning & Feedback.", "type": "TF" },
+            { "q": "35. External sources of evidence include regulatory publications and academic research.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Regulatory publications and academic research are external sources.", "type": "TF" },
+            { "q": "36. Sample evidence alone guarantees that population parameters are definitively known.", "o": ["True", "False"], "a": 1, "e": "Correct answer ✓\nFalse: Sample evidence describes the sample; inferential statistics are required for population conclusions.", "type": "TF" },
+            { "q": "37. Confounding variables like employee experience and workload can explain productivity differences independently of employee training.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: Confounding factors affect productivity alongside training.", "type": "TF" },
+            { "q": "38. The 80/20 rule in Pareto analysis implies that 20% of problems cause 80% of effects.", "o": ["True", "False"], "a": 0, "e": "Correct answer ✓\nTrue: 80% of problems stem from 20% of causes.", "type": "TF" },
+            { "q": "39. Management should ignore customer complaints when conducting a Pareto analysis.", "o": ["True", "False"], "a": 1, "e": "Correct answer ✓\nFalse: Customer complaints are a key source for Pareto categorization (as shown in Example 3.3).", "type": "TF" },
+            { "q": "40. A structured problem-solving process encourages jumping immediately to conclusions before gathering evidence.", "o": ["True", "False"], "a": 1, "e": "Correct answer ✓\nFalse: A structured process explicitly requires investigating root causes before jumping to conclusions.", "type": "TF" },
+
+            // --- High-Level True/False (41 to 50) ---
+            { "q": "[HIGH-LEVEL] 41. True or False: In the Sales Decline case, reducing prices immediately without checking product availability or customer preferences is an example of an unstructured, hasty decision.", "o": ["True", "False"], "a": 0, "e": "[HIGH-LEVEL] Correct answer ✓\nTrue: Hasty price reduction without root-cause analysis is a premature, costly decision.", "type": "TF" },
+            { "q": "[HIGH-LEVEL] 42. True or False: If implementation of a solution produces unexpected operational results, the structured problem-solving cycle permits looping back to earlier stages.", "o": ["True", "False"], "a": 0, "e": "[HIGH-LEVEL] Correct answer ✓\nTrue: Unexpected results or impractical solutions require returning to earlier stages in the iterative cycle.", "type": "TF" },
+            { "q": "[HIGH-LEVEL] 43. True or False: Transaction records from a bank during a fraud investigation are less useful than unrelated annual reports.", "o": ["True", "False"], "a": 1, "e": "[HIGH-LEVEL] Correct answer ✓\nFalse: Transaction records are far more useful and relevant than unrelated annual reports.", "type": "TF" },
+            { "q": "[HIGH-LEVEL] 44. True or False: In Branch satisfaction comparisons (Example 3.2), evaluating sample size, variability, and sampling design is unnecessary if the sample score difference is 0.30 points.", "o": ["True", "False"], "a": 1, "e": "[HIGH-LEVEL] Correct answer ✓\nFalse: Broader conclusions require evaluating sample size, variability, sampling design, and inferential statistics.", "type": "TF" },
+            { "q": "[HIGH-LEVEL] 45. True or False: The Four-Step Causal Reasoning framework transitions from Possible Cause and Causal Hypothesis to Evidence Collection and Causal Assessment.", "o": ["True", "False"], "a": 0, "e": "[HIGH-LEVEL] Correct answer ✓\nTrue: The 4-step framework for causal reasoning.", "type": "TF" },
+            { "q": "[HIGH-LEVEL] 46. True or False: The Fishbone Diagram proves cause-and-effect relationships automatically without empirical verification.", "o": ["True", "False"], "a": 1, "e": "[HIGH-LEVEL] Correct answer ✓\nFalse: The Fishbone Diagram structures investigation and organizes possible explanations, but does NOT establish causality alone.", "type": "TF" },
+            { "q": "[HIGH-LEVEL] 47. True or False: Financial impact, safety consequences, and reputational risk are important considerations that extend beyond simple Pareto frequency counts.", "o": ["True", "False"], "a": 0, "e": "[HIGH-LEVEL] Correct answer ✓\nTrue: Effective prioritization must consider frequency as well as consequence severity (financial, safety, reputation).", "type": "TF" },
+            { "q": "[HIGH-LEVEL] 48. True or False: Step 2 of combining root-cause tools involves constructing a Fishbone Diagram to structure all possible contributors to top Pareto categories.", "o": ["True", "False"], "a": 0, "e": "[HIGH-LEVEL] Correct answer ✓\nTrue: Step 2 in combining tools is structuring contributors via Fishbone.", "type": "TF" },
+            { "q": "[HIGH-LEVEL] 49. True or False: The statement 'Problem solving is a straight-line process with zero iteration' directly contradicts Chapter 3 core principles.", "o": ["True", "False"], "a": 0, "e": "[HIGH-LEVEL] Correct answer ✓\nTrue: Chapter 3 explicitly states problem solving is NOT a straight-line process; it is iterative.", "type": "TF" },
+            { "q": "[HIGH-LEVEL] 50. True or False: Evidence collection should be driven by specific analytical questions rather than a blind quest for maximum data volume.", "o": ["True", "False"], "a": 0, "e": "[HIGH-LEVEL] Correct answer ✓\nTrue: Evidence collection must be driven by analytical questions, not maximum data collection.", "type": "TF" }
         ];
 
         const getQuestionType = question => question.type.replace(/[.!?]+$/, "");
@@ -247,10 +428,10 @@
 
             const isHighLevel = q.q.includes("[HIGH-LEVEL]");
             const badgeClass = isHighLevel ? "q-badge high-level" : "q-badge";
-            const badgeText = isHighLevel 
+            const badgeText = isHighLevel
                 ? (getQuestionType(q) === 'TF' ? 'True / False — High Level' : 'Multiple Choice — High Level')
                 : (getQuestionType(q) === 'TF' ? 'True / False' : 'Multiple Choice');
-            
+
             $("card").innerHTML = `
                 <span class="${badgeClass}">${badgeText}</span>
                 <p class="q">${q.q}</p>
@@ -261,7 +442,7 @@
             q.o.forEach((optText, i) => {
                 const b = document.createElement("button");
                 b.className = "opt";
-                b.innerHTML = `<b>${getQuestionType(q) === 'TF' ? (i===0?'T':'F') : "ABCD"[i] + ")"}</b><span></span>`;
+                b.innerHTML = `<b>${getQuestionType(q) === 'TF' ? (i === 0 ? 'T' : 'F') : "ABCD"[i] + ")"}</b><span></span>`;
                 b.querySelector("span").textContent = optText;
                 b.onclick = () => handleAnswer(i);
                 $("opts").appendChild(b);
@@ -304,7 +485,7 @@
             $("bar").style.width = "100%";
             $("n").textContent = "Quiz complete";
             const pct = Math.round((score / qData.length) * 100);
-            
+
             let html = `
                 <div class="score">${score} / ${qData.length}</div>
                 <p style="text-align:center;font-size:1.2rem;margin:0 0 16px;">Percentage: <b>${pct}%</b></p>
@@ -327,4 +508,5 @@
         renderQuestion();
     </script>
 </body>
+
 </html>

@@ -1,9 +1,10 @@
 <!doctype html>
 <html lang="en" dir="ltr">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <title>Finance — Chapter 6</title>
+    <title>Corporate Finance — Chapter 6</title>
     <style>
         :root {
             --bg: #0f172a;
@@ -34,7 +35,10 @@
             }
         }
 
-        * { box-sizing: border-box; }
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             margin: 0;
             background: var(--bg);
@@ -42,25 +46,38 @@
             font-family: 'Segoe UI', Tahoma, system-ui, -apple-system, sans-serif;
             line-height: 1.6;
         }
+
         main {
             max-width: 760px;
             margin: 0 auto;
             padding: 24px 16px 60px;
         }
+
         .header-panel {
             text-align: center;
             margin-bottom: 24px;
             border-bottom: 8px solid var(--b);
             padding-bottom: 30px;
         }
-        h1 { font-size: 1.5rem; margin: 0 0 8px; color: var(--ac); }
-        .sub { color: var(--m); font-size: 0.95rem; margin: 0; }
-        
+
+        h1 {
+            font-size: 1.5rem;
+            margin: 0 0 8px;
+            color: var(--ac);
+        }
+
+        .sub {
+            color: var(--m);
+            font-size: 0.95rem;
+            margin: 0;
+        }
+
         .nav-tabs {
             display: flex;
             gap: 12px;
             margin-bottom: 20px;
         }
+
         .tab-btn {
             flex: 1;
             padding: 12px;
@@ -72,6 +89,7 @@
             cursor: pointer;
             transition: all 0.2s;
         }
+
         .tab-btn.active {
             background: var(--ac);
             color: #000;
@@ -85,6 +103,7 @@
             overflow: hidden;
             margin-bottom: 8px;
         }
+
         .bar i {
             display: block;
             height: 100%;
@@ -92,6 +111,7 @@
             width: 0;
             transition: width 0.3s;
         }
+
         .meta {
             display: flex;
             justify-content: space-between;
@@ -99,13 +119,15 @@
             font-size: 0.9rem;
             margin-bottom: 16px;
         }
+
         .card {
             background: var(--c);
             border: 1px solid var(--b);
             border-radius: 12px;
             padding: 20px;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
         }
+
         .q-badge {
             display: inline-block;
             padding: 2px 8px;
@@ -115,11 +137,13 @@
             margin-bottom: 10px;
             color: var(--ac);
         }
+
         .q-badge.high-level {
             background: #f59e0b;
             color: #000;
             font-weight: bold;
         }
+
         .q {
             font-size: 1.1rem;
             font-weight: 600;
@@ -127,15 +151,7 @@
             text-align: left;
             margin: 0 0 16px;
         }
-        .diagram-container {
-            direction: ltr;
-            background: rgba(0,0,0,0.2);
-            border: 1px dashed var(--b);
-            border-radius: 8px;
-            padding: 12px;
-            margin-bottom: 16px;
-            text-align: center;
-        }
+
         .opt {
             display: flex;
             gap: 12px;
@@ -152,11 +168,29 @@
             cursor: pointer;
             transition: border-color 0.2s;
         }
-        .opt:hover:not(:disabled) { border-color: var(--ac); }
-        .opt b { min-width: 1.5em; color: var(--ac); }
-        .opt.ok { background: var(--okb); border-color: var(--ok); }
-        .opt.no { background: var(--nob); border-color: var(--no); }
-        .opt:disabled { cursor: default; }
+
+        .opt:hover:not(:disabled) {
+            border-color: var(--ac);
+        }
+
+        .opt b {
+            min-width: 1.5em;
+            color: var(--ac);
+        }
+
+        .opt.ok {
+            background: var(--okb);
+            border-color: var(--ok);
+        }
+
+        .opt.no {
+            background: var(--nob);
+            border-color: var(--no);
+        }
+
+        .opt:disabled {
+            cursor: default;
+        }
 
         .ex {
             margin-top: 16px;
@@ -165,10 +199,23 @@
             direction: ltr;
             text-align: left;
             font-size: 0.95rem;
+            white-space: pre-line;
         }
-        .ex.ok { background: var(--okb); border: 1px solid var(--ok); }
-        .ex.no { background: var(--nob); border: 1px solid var(--no); }
-        .ex strong { display: block; margin-bottom: 4px; }
+
+        .ex.ok {
+            background: var(--okb);
+            border: 1px solid var(--ok);
+        }
+
+        .ex.no {
+            background: var(--nob);
+            border: 1px solid var(--no);
+        }
+
+        .ex strong {
+            display: block;
+            margin-bottom: 4px;
+        }
 
         .btn {
             margin-top: 16px;
@@ -182,22 +229,41 @@
             cursor: pointer;
             width: 100%;
         }
-        .score { text-align: center; font-size: 3rem; font-weight: 800; margin: 12px 0; color: var(--ac); }
-        .rev { margin: 16px 0 0; padding: 0; list-style: none; direction: ltr; text-align: left; font-size: 0.9rem; }
-        .rev li { padding: 8px 0; border-top: 1px solid var(--b); }
+
+        .score {
+            text-align: center;
+            font-size: 3rem;
+            font-weight: 800;
+            margin: 12px 0;
+            color: var(--ac);
+        }
+
+        .rev {
+            margin: 16px 0 0;
+            padding: 0;
+            list-style: none;
+            direction: ltr;
+            text-align: left;
+            font-size: 0.9rem;
+        }
+
+        .rev li {
+            padding: 8px 0;
+            border-top: 1px solid var(--b);
+        }
     </style>
-    <link rel="stylesheet" href="../site-theme.css">
 </head>
+
 <body>
     <main>
         <div class="header-panel">
-            <h1>Finance — Chapter 6</h1>
-            <p class="sub"></p>
+            <h1>Corporate Finance — Chapter 6</h1>
+            <p class="sub">Stock Valuation </p>
         </div>
 
         <div class="nav-tabs">
-            <button class="tab-btn active" id="tab1" onclick="switchPart(1)">Multiple Choice</button>
-            <button class="tab-btn" id="tab2" onclick="switchPart(2)">True/False</button>
+            <button class="tab-btn active" id="tab1" onclick="switchPart(1)">Multiple Choice (50)</button>
+            <button class="tab-btn" id="tab2" onclick="switchPart(2)">True/False (50)</button>
         </div>
 
         <div class="bar"><i id="bar"></i></div>
@@ -207,27 +273,122 @@
         </div>
         <div class="card" id="card"></div>
     </main>
-      
+
     <script>
         const P1_SOURCE = [
+            // --- 50 MCQ Questions (1-45 Standard, 46-50 High Level) ---
+            { "q": "1. What is the fundamental difference between debt financing and equity financing regarding repayment?", "o": ["Debt is repaid according to a fixed schedule, whereas equity is repaid subject to firm performance", "Equity is repaid on a fixed schedule", "Both have identical repayment schedules", "Neither requires repayment"], "a": 0, "e": "Correct answer: A\nWhy: Debt includes borrowings repaid per a fixed schedule, while equity funds are repaid subject to performance.", "type": "MCQ" },
+            { "q": "2. Who has a legal right to be repaid by the firm?", "o": ["Stockholders", "Creditors / Debt holders", "Common investors", "Board of directors"], "a": 1, "e": "Correct answer: B\nWhy: Creditors have a legal right to be repaid, whereas investors only have an expectation.", "type": "MCQ" },
+            { "q": "3. Which type of capital provides investors with a voice in management?", "o": ["Debt capital", "Equity capital", "Bank loans", "Bonds"], "a": 1, "e": "Correct answer: B\nWhy: Equity owners have voting rights and a voice in management, while debt holders do not.", "type": "MCQ" },
+            { "q": "4. Regarding tax treatment, how are interest payments on debt treated in Egypt?", "o": ["Fully non-deductible", "Deductible to certain limits", "Taxed twice", "Exempt from all corporate rules"], "a": 1, "e": "Correct answer: B\nWhy: Debt financing offers interest deductions (in Egypt to certain limits), whereas equity has no deduction.", "type": "MCQ" },
+            { "q": "5. What are the two primary approaches commonly used to calculate the value of common stock?", "o": ["Discounted cash flow approach and Multiplier approach", "Asset-based approach and Liquidation approach", "Historical cost approach and Replacement approach", "Tax deduction approach and Dividend-only approach"], "a": 0, "e": "Correct answer: A\nWhy: Common stock valuation uses DCF and Multiplier approaches.", "type": "MCQ" },
+            { "q": "6. Within the Discounted Cash Flow (DCF) approach, what are the two specific models mentioned?", "o": ["Dividend model and Free cash flow model", "Fixed model and Floating model", "Short-term model and Long-term model", "Primary model and Secondary model"], "a": 0, "e": "Correct answer: A\nWhy: DCF includes the Dividend model and Free cash flow model.", "type": "MCQ" },
+            { "q": "7. What is the multiplier approach based on?", "o": ["Calculating price multipliers for accounting profit measurements like EPS, DPS, EBITDA, BV", "Discounting future bonds", "Fixed debt maturity schedules", "Tax shields"], "a": 0, "e": "Correct answer: A\nWhy: The multiplier approach uses price multipliers for accounting profit measures like EPS, DPS, EBITDA, and BV.", "type": "MCQ" },
+            { "q": "8. Under the Zero Growth Model, what is the underlying assumption regarding dividends?", "o": ["Dividends grow at a constant positive rate", "Dividends grow at a zero rate (constant dividends)", "Dividends decline exponentially", "Dividends are random"], "a": 1, "e": "Correct answer: B\nWhy: Zero growth assumes dividends remain constant indefinitely.", "type": "MCQ" },
+            { "q": "9. What is the equation for the Zero Growth Model?", "o": ["P0 = D1 / rs", "P0 = D1 / (rs - g)", "P0 = D0 * (1 + g)", "P0 = EPS * Multiplier"], "a": 0, "e": "Correct answer: A\nWhy: P0 = D1 / rs represents the present value of a perpetuity.", "type": "MCQ" },
+            { "q": "10. If a company's dividend is expected to remain constant at EGP 3 per share indefinitely and the required return is 16%, what is the stock's value?", "o": ["EGP 48.00", "EGP 18.75", "EGP 16.00", "EGP 3.00"], "a": 1, "e": "Correct answer: B\nWhy: P0 = 3 / 0.16 = EGP 18.75.", "type": "MCQ" },
+            { "q": "11. Which stock valuation model can also be used to calculate the value of preferred stock due to its constant dividends?", "o": ["Variable-Growth Model", "Zero Growth Model", "Gordon Constant-Growth Model", "Free Cash Flow Model"], "a": 1, "e": "Correct answer: B\nWhy: Zero growth model evaluates perpetual constant dividends, fitting preferred stock.", "type": "MCQ" },
+            { "q": "12. What is the common name for the Constant-Growth Model in stock valuation?", "o": ["Gordon model", "Miller model", "Modigliani model", "Sharpe model"], "a": 0, "e": "Correct answer: A\nWhy: The constant-growth model is commonly known as the Gordon model.", "type": "MCQ" },
+            { "q": "13. What is the equation for the Constant-Growth (Gordon) Model?", "o": ["P0 = D1 / (rs - g)", "P0 = D1 / rs", "P0 = (D1 + D2) / 2", "P0 = EPS * PE ratio"], "a": 0, "e": "Correct answer: A\nWhy: Gordon model formula is P0 = D1 / (rs - g) = [D0(1+g)] / (rs - g).", "type": "MCQ" },
+            { "q": "14. In the Gordon model formula, what does 'g' represent?", "o": ["The constant growth rate of dividends", "The gross profit margin", "The government tax rate", "The general inflation index"], "a": 0, "e": "Correct answer: A\nWhy: 'g' is the constant annual growth rate of dividends.", "type": "MCQ" },
+            { "q": "15. Given next year dividend D1 = EGP 1.696, required return rs = 16%, and constant growth rate g = 10%, what is the stock value (P0)?", "o": ["EGP 10.60", "EGP 28.27", "EGP 16.96", "EGP 42.40"], "a": 1, "e": "Correct answer: B\nWhy: P0 = 1.696 / (0.16 - 0.10) = 1.696 / 0.06 = EGP 28.27.", "type": "MCQ" },
+            { "q": "16. Which model allows for a change in the expected dividend growth rate over time?", "o": ["Zero Growth Model", "Constant-Growth Model", "Variable-Growth Model", "Perpetual Debt Model"], "a": 2, "e": "Correct answer: C\nWhy: The variable-growth model allows for changes in dividend growth rates using a multi-step procedure.", "type": "MCQ" },
+            { "q": "17. Claims on income and assets for debt holders compared to equity holders are:", "o": ["Subordinate to equity", "Senior to equity", "Identical", "Non-existent"], "a": 1, "e": "Correct answer: B\nWhy: Debt claims on income and assets are senior to equity.", "type": "MCQ" },
+            { "q": "18. Does debt financing have a stated maturity date according to firm characteristics?", "o": ["No", "Yes", "Only for equity", "Optional"], "a": 1, "e": "Correct answer: B\nWhy: Debt has a stated maturity, whereas equity has none.", "type": "MCQ" },
+            { "q": "19. Funds provided by the firm's owners that are repaid subject to firm performance are called:", "o": ["Debt capital", "Equity capital", "Bonds", "Bank overdrafts"], "a": 1, "e": "Correct answer: B\nWhy: Equity consists of funds provided by owners repaid based on performance.", "type": "MCQ" },
+            { "q": "20. What does the variable D1 represent in the Gordon growth model?", "o": ["Current year dividends", "Next year dividends = D0(1+g)", "Total accumulated dividends", "Past 5-year average dividends"], "a": 1, "e": "Correct answer: B\nWhy: D1 represents next year dividends, calculated as D0(1+g).", "type": "MCQ" },
+            { "q": "21. What does 'rs' stand for in stock valuation formulas?", "o": ["Risk-free rate", "Required rate of return on stock", "Return on sales", "Retained earnings share"], "a": 1, "e": "Correct answer: B\nWhy: rs represents the required rate of return for the stock.", "type": "MCQ" },
+            { "q": "22. In the variable-growth model, how many steps procedure is typically used to determine share value?", "o": ["A two-step procedure", "A four-step procedure", "A ten-step procedure", "A single step"], "a": 1, "e": "Correct answer: B\nWhy: Variable growth uses a four-step procedure.", "type": "MCQ" },
+            { "q": "23. Creditors obtain financing from:", "o": ["Investors who become part owners", "Lenders / Creditors providing debt", "Employees", "Government grants only"], "a": 1, "e": "Correct answer: B\nWhy: Debt financing is obtained from creditors, equity from investors who become part owners.", "type": "MCQ" },
+            { "q": "24. Under the constant-growth model, what is assumed to be constant rather than the dividend per share itself?", "o": ["The growth rate (g)", "The stock market price", "The earnings per share", "The par value"], "a": 0, "e": "Correct answer: A\nWhy: The growth rate is constant, while dividends per share grow each year.", "type": "MCQ" },
+            { "q": "25. Which of the following is NOT part of Chapter 5/6 stock valuation outline?", "o": ["Debt vs equity capital differences", "Common stock valuation approaches (DCF & Multiplier)", "Perpetual bond tax shields", "Decision making and common stock value"], "a": 2, "e": "Correct answer: C\nWhy: Perpetual bond tax shields are from Chapter 5, not the outline of Chapter 6 stock valuation.", "type": "MCQ" },
+            { "q": "26. Which of the following sources of financing generally bears the highest risk for the provider?", "o": ["Senior secured bonds", "Subordinated debt", "Common stock equity", "Bank term loans"], "a": 2, "e": "Correct answer: C\nWhy: Common stock equity is at the bottom of the capital structure, bearing the highest risk.", "type": "MCQ" },
+            { "q": "27. In the Gordon model, what happens mathematically if the required rate of return (rs) equals the growth rate (g)?", "o": ["Stock value becomes zero", "The model breaks down because the denominator becomes zero (division by zero)", "Stock value becomes infinite", "Growth stops instantly"], "a": 1, "e": "Correct answer: B\nWhy: P0 = D1 / (rs - g). If rs = g, denominator is 0, making the formula undefined.", "type": "MCQ" },
+            { "q": "28. Which approach evaluates stock value based on ratios like Price-to-Earnings (P/E)?", "o": ["Dividend Discount Model", "Free Cash Flow Model", "Multiplier Approach", "Zero Growth Model"], "a": 2, "e": "Correct answer: C\nWhy: Multiplier approach uses accounting price multiples like P/E (EPS multiplier).", "type": "MCQ" },
+            { "q": "29. What type of cash flows are discounted in the Free Cash Flow (FCF) valuation model?", "o": ["Only dividends paid to shareholders", "Cash flows available to all investors (debt and equity) after operating and capital needs", "Only cash flows from bondholders", "Historical net income"], "a": 1, "e": "Correct answer: B\nWhy: FCF model discounts the cash flows available to all capital providers.", "type": "MCQ" },
+            { "q": "30. Why do equity holders have only an 'expectation' of being repaid rather than a legal right?", "o": ["Because equity is short-term", "Because dividends and capital returns depend entirely on firm profitability and board discretion", "Because governments prohibit equity repayment", "Because equity has a fixed maturity"], "a": 1, "e": "Correct answer: B\nWhy: Equity returns are residual and contingent on performance.", "type": "MCQ" },
+            { "q": "31. If a company experiences supernormal growth for 3 years followed by a constant growth rate, which valuation model should be used?", "o": ["Zero Growth Model", "Standard Gordon Model", "Variable-Growth Model (Multi-stage DCF)", "Multiplier Approach only"], "a": 2, "e": "Correct answer: C\nWhy: Variable-growth model handles changing growth phases across multiple periods.", "type": "MCQ" },
+            { "q": "32. What is the primary advantage of the Multiplier Approach over DCF?", "o": ["It requires no future forecasts", "It is quick, intuitive, and relies on market-observable comparable multiples", "It is always 100% theoretically precise", "It ignores accounting profits"], "a": 1, "e": "Correct answer: B\nWhy: Market multiples offer fast relative valuation based on peer benchmarks.", "type": "MCQ" },
+            { "q": "33. If a firm has zero debt in its capital structure, its total capital consists entirely of:", "o": ["Bank overdrafts", "Equity capital", "Current liabilities", "Accounts payable"], "a": 1, "e": "Correct answer: B\nWhy: Zero debt means 100% equity financing.", "type": "MCQ" },
+            { "q": "34. In financial reporting, debt interest is treated as an expense, whereas dividends are treated as:", "o": ["A tax-deductible expense", "A distribution of net income (after-tax profit)", "An operating liability", "A capital loss"], "a": 1, "e": "Correct answer: B\nWhy: Dividends are paid out of earnings and are not tax-deductible.", "type": "MCQ" },
+            { "q": "35. If required return (rs) increases while dividends and growth remain constant, what happens to stock price (P0) in Gordon model?", "o": ["Stock price increases", "Stock price decreases", "Stock price remains unchanged", "Stock price becomes negative"], "a": 1, "e": "Correct answer: B\nWhy: Higher discount rate (rs) reduces the present value of future cash flows.", "type": "MCQ" },
+            { "q": "36. Which financial statement metric is most commonly used in the denominator of the basic price multiplier?", "o": ["Earnings Per Share (EPS)", "Total Assets", "Inventory Turnover", "Gross Debt"], "a": 0, "e": "Correct answer: A\nWhy: P/E ratio uses EPS as the profit denominator.", "type": "MCQ" },
+            { "q": "37. What does 'subordinate to debt' mean regarding equity claims?", "o": ["Equity claims are paid before debt", "In liquidation, debt holders must be paid in full before equity holders receive anything", "Equity and debt share equally", "Equity has legal priority"], "a": 1, "e": "Correct answer: B\nWhy: Subordinate means lower priority; creditors get paid first.", "type": "MCQ" },
+            { "q": "38. Which valuation model assumes g = 0?", "o": ["Constant-Growth Model", "Zero Growth Model", "Variable-Growth Model", "Free Cash Flow Model"], "a": 1, "e": "Correct answer: B\nWhy: Zero growth assumes growth rate equals zero.", "type": "MCQ" },
+            { "q": "39. If D0 = EGP 2.00 and growth rate g = 5%, what is D1?", "o": ["EGP 2.00", "EGP 2.10", "EGP 2.50", "EGP 1.90"], "a": 1, "e": "Correct answer: B\nWhy: D1 = D0 * (1 + g) = 2.00 * 1.05 = EGP 2.10.", "type": "MCQ" },
+            { "q": "40. Which of the following is a characteristic of debt capital?", "o": ["Provides a voice in management", "Has a stated maturity date", "Repayment depends on firm performance", "Provides no tax shield"], "a": 1, "e": "Correct answer: B\nWhy: Debt has a stated maturity date.", "type": "MCQ" },
+            { "q": "41. What is the main limitation of the Zero Growth Model for common stocks?", "o": ["It is too complex", "Most growing firms do not have constant zero dividend growth", "It requires negative discount rates", "It applies only to bonds"], "a": 1, "e": "Correct answer: B\nWhy: Common stocks typically grow their dividends over time, making zero growth unrealistic except for preferred stock.", "type": "MCQ" },
+            { "q": "42. In corporate governance, who elects the board of directors representing firm owners?", "o": ["Bondholders", "Common stockholders (equity owners)", "Suppliers", "Bank lenders"], "a": 1, "e": "Correct answer: B\nWhy: Equity owners vote and manage through elected boards.", "type": "MCQ" },
+            { "q": "43. If a stock's intrinsic value calculated via Gordon model is EGP 50, but its market price is EGP 40, the stock is considered:", "o": ["Overvalued", "Undervalued (A good buy)", "Fairly priced", "Bankrupt"], "a": 1, "e": "Correct answer: B\nWhy: Intrinsic value > Market Price means the stock is undervalued.", "type": "MCQ" },
+            { "q": "44. Which model treats the firm as a perpetual stream of constant cash flows without growth?", "o": ["Gordon Model", "Zero Growth Model", "Free Cash Flow Model", "Variable Growth Model"], "a": 1, "e": "Correct answer: B\nWhy: Zero growth evaluates perpetual constant cash flows.", "type": "MCQ" },
+            { "q": "45. What does decision making in common stock valuation ultimately aim to identify?", "o": ["Whether to issue bonds", "Whether a stock is undervalued, overvalued, or fairly priced relative to required return", "The exact corporate tax rate", "The total number of employees"], "a": 1, "e": "Correct answer: B\nWhy: Valuation guides buy/sell investment decisions.", "type": "MCQ" },
+
+            // --- HIGH-LEVEL MCQs (46 to 50) ---
+            { "q": "[HIGH-LEVEL] 46. A stock currently pays D0 = EGP 4.00. Dividends are expected to grow at 20% for 2 years, after which constant growth of 5% per year begins indefinitely. If rs = 15%, what is the intrinsic value P0?", "o": ["EGP 45.50", "EGP 52.84", "EGP 61.20", "EGP 38.90"], "a": 1, "e": "[HIGH-LEVEL] Correct answer ✓\nExplanation: D1 = 4(1.2) = 4.80; D2 = 4.8(1.2) = 5.76; D3 = 5.76(1.05) = 6.048. P2 = D3 / (rs - g) = 6.048 / (0.15 - 0.05) = 60.48. Discounting cash flows: P0 = 4.80/(1.15)^1 + (5.76 + 60.48)/(1.15)^2 = 4.17 + 50.11 = EGP 52.84.", "type": "MCQ" },
+            { "q": "[HIGH-LEVEL] 47. If a firm's required return on equity (rs) is 14%, its constant growth rate (g) is 6%, and its current market price is EGP 50, what is the implied current dividend (D0) assuming Gordon model holds?", "o": ["EGP 3.77", "EGP 4.00", "EGP 2.50", "EGP 3.11"], "a": 0, "e": "[HIGH-LEVEL] Correct answer ✓\nExplanation: P0 = D0(1+g)/(rs - g) => 50 = D0(1.06)/(0.14 - 0.06) => 50 = D0(1.06)/0.08 => 4.00 = D0(1.06) => D0 = 4.00 / 1.06 = EGP 3.77.", "type": "MCQ" },
+            { "q": "[HIGH-LEVEL] 48. Consider two firms with identical earnings and risk. Firm A has a high retention ratio and high growth rate, while Firm B pays out all earnings as dividends with zero growth. According to dividend valuation theory, which firm will have a higher stock price multiplier (P/E ratio)?", "o": ["Firm B", "Firm A, because growth compounds future dividend value exponentially", "Both will have identical P/E ratios", "Neither can be evaluated"], "a": 1, "e": "[HIGH-LEVEL] Correct answer ✓\nExplanation: Growth (g) drives higher valuation multiples in Gordon model (P1/E1 = payout / (rs - g)); higher g raises the P/E ratio.", "type": "MCQ" },
+            { "q": "[HIGH-LEVEL] 49. In Miller-Modigliani (MM) theory without taxes, how does the choice between debt and equity financing (capital structure) affect the overall value of the firm V0?", "o": ["Debt increases firm value", "Financing mix has zero effect on firm value V0", "Equity always maximizes firm value", "Debt destroys firm value"], "a": 1, "e": "[HIGH-LEVEL] Correct answer ✓\nExplanation: Under MM Theorem I (zero taxes), capital structure is irrelevant; the value of the firm depends solely on its operating cash flows and business risk.", "type": "MCQ" },
+            { "q": "[HIGH-LEVEL] 50. A preferred stock pays a fixed annual dividend of EGP 10. If an investor's required return increases from 8% to 12.5% due to rising market interest rates, what is the percentage change in the preferred stock's intrinsic value?", "o": ["+36.0%", "-36.0%", "+56.25%", "-15.5%"], "a": 1, "e": "[HIGH-LEVEL] Correct answer ✓\nExplanation: Initial Value = 10 / 0.08 = EGP 125. New Value = 10 / 0.125 = EGP 80. Percentage change = (80 - 125) / 125 = -45 / 125 = -36.0%.", "type": "MCQ" }
         ];
 
         const P2_SOURCE = [
-         ];
+            // --- 50 True/False Questions (1-45 Standard, 46-50 High Level) ---
+            { "q": "1. Debt includes all borrowing acquired by a firm, including bonds.", "o": ["True", "False"], "a": 0, "e": "True.", "type": "TF" },
+            { "q": "2. Equity consists of funds provided by the firm's owners that are repaid regardless of firm performance.", "o": ["True", "False"], "a": 1, "e": "False: Equity is repaid subject to the firm's performance.", "type": "TF" },
+            { "q": "3. Creditors have a legal right to be repaid, whereas equity investors only have an expectation.", "o": ["True", "False"], "a": 0, "e": "True.", "type": "TF" },
+            { "q": "4. Debt holders have a voice in the day-to-day management of the firm.", "o": ["True", "False"], "a": 1, "e": "False: Debt holders have NO voice in management.", "type": "TF" },
+            { "q": "5. Claims on income and assets for equity are senior to debt.", "o": ["True", "False"], "a": 1, "e": "False: Debt claims are senior to equity; equity is subordinate to debt.", "type": "TF" },
+            { "q": "6. Equity financing has a stated maturity date.", "o": ["True", "False"], "a": 1, "e": "False: Maturity is stated for debt, but 'None' for equity.", "type": "TF" },
+            { "q": "7. Interest payments on debt are generally tax-deductible (in Egypt to certain limits).", "o": ["True", "False"], "a": 0, "e": "True.", "type": "TF" },
+            { "q": "8. Dividend payments on equity are tax-deductible for the corporation.", "o": ["True", "False"], "a": 1, "e": "False: Equity has No Tax Deduction.", "type": "TF" },
+            { "q": "9. The Discounted Cash Flow (DCF) approach is based on discounting expected dividends or free cash flows.", "o": ["True", "False"], "a": 0, "e": "True.", "type": "TF" },
+            { "q": "10. The Multiplier approach uses price multipliers for accounting profit measurements like EPS and DPS.", "o": ["True", "False"], "a": 0, "e": "True.", "type": "TF" },
+            { "q": "11. The Zero Growth Model assumes that dividends will grow at a constant positive rate like 5%.", "o": ["True", "False"], "a": 1, "e": "False: Zero growth assumes zero growth rate (constant dividends).", "type": "TF" },
+            { "q": "12. The Zero Growth Model can be used to value preferred stock because preferred stock has constant dividends.", "o": ["True", "False"], "a": 0, "e": "True.", "type": "TF" },
+            { "q": "13. If expected dividend is EGP 3 and required return is 16%, the zero growth value is EGP 18.75.", "o": ["True", "False"], "a": 0, "e": "True.", "type": "TF" },
+            { "q": "14. The Constant-Growth model is commonly known as the Gordon model.", "o": ["True", "False"], "a": 0, "e": "True.", "type": "TF" },
+            { "q": "15. In the Gordon model, the dividend per share is assumed to be constant every year.", "o": ["True", "False"], "a": 1, "e": "False: The growth rate (g) is constant, meaning dividends grow each year.", "type": "TF" },
+            { "q": "16. D1 represents next year dividends and is calculated as D0(1 + g).", "o": ["True", "False"], "a": 0, "e": "True.", "type": "TF" },
+            { "q": "17. The Variable-Growth Model allows for changes in the expected dividend growth rate.", "o": ["True", "False"], "a": 0, "e": "True.", "type": "TF" },
+            { "q": "18. Variable-growth valuation uses a four-step procedure.", "o": ["True", "False"], "a": 0, "e": "True.", "type": "TF" },
+            { "q": "19. Equity financing is obtained from creditors who lend money without ownership rights.", "o": ["True", "False"], "a": 1, "e": "False: Equity financing is obtained from investors who become part owners.", "type": "TF" },
+            { "q": "20. Debt financing is obtained from investors who become part owners of the firm.", "o": ["True", "False"], "a": 1, "e": "False: Creditors provide debt; part owners are equity investors.", "type": "TF" },
+            { "q": "21. Stock valuation models under DCF calculate the present value of all future expected cash flows.", "o": ["True", "False"], "a": 0, "e": "True.", "type": "TF" },
+            { "q": "22. In the Gordon model formula P0 = D1 / (rs - g), 'rs' must be strictly greater than 'g' for mathematical validity.", "o": ["True", "False"], "a": 0, "e": "True: rs must exceed g, otherwise the model yields negative or infinite values.", "type": "TF" },
+            { "q": "23. Free cash flow model is one of the two main models under the Discounted Cash Flow approach.", "o": ["True", "False"], "a": 0, "e": "True.", "type": "TF" },
+            { "q": "24. Debt capital has a maturity date, while equity capital has no stated maturity.", "o": ["True", "False"], "a": 0, "e": "True.", "type": "TF" },
+            { "q": "25. Chapter 6 focuses primarily on Stock Valuation and the differences between debt and equity.", "o": ["True", "False"], "a": 0, "e": "True.", "type": "TF" },
+            { "q": "26. Common stock holders have limited liability in a corporation.", "o": ["True", "False"], "a": 0, "e": "True: Shareholders' risk is limited to their invested capital.", "type": "TF" },
+            { "q": "27. The multiplier approach uses ratios like Price-to-Earnings (P/E) to evaluate common stock.", "o": ["True", "False"], "a": 0, "e": "True.", "type": "TF" },
+            { "q": "28. Preferred stock dividends are legally mandatory every year regardless of profits.", "o": ["True", "False"], "a": 1, "e": "False: Preferred dividends can be omitted by directors if earnings are insufficient, though usually cumulative.", "type": "TF" },
+            { "q": "29. In a liquidation, common stockholders get paid before general creditors.", "o": ["True", "False"], "a": 1, "e": "False: Common stockholders are absolute residual claimants at the bottom.", "type": "TF" },
+            { "q": "30. A firm's stock price reflects the present value of all its future expected cash dividends.", "o": ["True", "False"], "a": 0, "e": "True.", "type": "TF" },
+            { "q": "31. If required return rs increases, the calculated stock price using Gordon model decreases.", "o": ["True", "False"], "a": 0, "e": "True: Higher discount rate lowers present value.", "type": "TF" },
+            { "q": "32. Bondholders vote in shareholder meetings to elect the board of directors.", "o": ["True", "False"], "a": 1, "e": "False: Bondholders are creditors, not voting owners.", "type": "TF" },
+            { "q": "33. Zero growth model assumes dividends never change over time.", "o": ["True", "False"], "a": 0, "e": "True.", "type": "TF" },
+            { "q": "34. Gordon model assumes a constant growth rate g for dividends.", "o": ["True", "False"], "a": 0, "e": "True.", "type": "TF" },
+            { "q": "35. Retained earnings are an internal source of equity financing.", "o": ["True", "False"], "a": 0, "e": "True: Reinvested earnings constitute internal equity.", "type": "TF" },
+            { "q": "36. The cost of debt is generally lower than the cost of equity for a stable firm.", "o": ["True", "False"], "a": 0, "e": "True: Debt is less risky to lenders and offers tax shields.", "type": "TF" },
+            { "q": "37. Dividend yield plus capital gains yield equals total expected return on a stock.", "o": ["True", "False"], "a": 0, "e": "True: Total return = Dividend yield (D1/P0) + Growth rate (g).", "type": "TF" },
+            { "q": "38. Stock valuation models are completely immune to macroeconomic changes.", "o": ["True", "False"], "a": 1, "e": "False: Required returns and growth rates depend heavily on economic conditions.", "type": "TF" },
+            { "q": "39. Operating income (EBIT) is earned before interest and taxes are deducted.", "o": ["True", "False"], "a": 0, "e": "True.", "type": "TF" },
+            { "q": "40. Book value per share is always equal to the market price per share.", "o": ["True", "False"], "a": 1, "e": "False: Book value is historical accounting cost, whereas market price reflects future expectations.", "type": "TF" },
+            { "q": "41. Free cash flow valuation discounts cash flows available after funding all necessary investments.", "o": ["True", "False"], "a": 0, "e": "True.", "type": "TF" },
+            { "q": "42. Creditors can force a company into bankruptcy if interest or principal is unpaid.", "o": ["True", "False"], "a": 0, "e": "True: Legal debt obligations carry default bankruptcy rights.", "type": "TF" },
+            { "q": "43. Variable growth models cannot handle multiple growth phases.", "o": ["True", "False"], "a": 1, "e": "False: Variable growth models explicitly handle multiple growth phases.", "type": "TF" },
+            { "q": "44. The term 'capital structure' refers to the mix of debt and equity financing used by a firm.", "o": ["True", "False"], "a": 0, "e": "True.", "type": "TF" },
+            { "q": "45. A higher P/E ratio always indicates a poorly managed company.", "o": ["True", "False"], "a": 1, "e": "False: High P/E often reflects high expected future growth and strong investor confidence.", "type": "TF" },
 
-        const getQuestionType = question => question.type.replace(/[.!?]+$/, "");
-
-        const P1_DATA = [
-            ...P1_SOURCE.filter(question => getQuestionType(question) === "MCQ"),
-            ...P2_SOURCE.filter(question => getQuestionType(question) === "MCQ")
-        ];
-        const P2_DATA = [
-            ...P1_SOURCE.filter(question => getQuestionType(question) === "TF"),
-            ...P2_SOURCE.filter(question => getQuestionType(question) === "TF")
+            // --- HIGH-LEVEL T/Fs (46 to 50) ---
+            { "q": "[HIGH-LEVEL] 46. True or False: If a firm's return on equity (ROE) and retention ratio both increase permanently, its sustainable growth rate (g = ROE * Retention Ratio) will increase, raising its stock price in Gordon model (holding rs constant).", "o": ["True", "False"], "a": 0, "e": "[HIGH-LEVEL] Correct answer ✓\nTrue: Higher ROE and retention boost growth g, which expands stock valuation in the Gordon model denominator.", "type": "TF" },
+            { "q": "[HIGH-LEVEL] 47. True or False: In a multi-stage dividend discount model, the terminal value calculated at the end of the supernormal growth phase represents the present value of all dividends beyond that point.", "o": ["True", "False"], "a": 1, "e": "[HIGH-LEVEL] Correct answer ✓\nFalse: The terminal value calculated via Gordon model represents the value AT the horizon year (t), which must then be discounted back to time zero (P0).", "type": "TF" },
+            { "q": "[HIGH-LEVEL] 48. True or False: According to Modigliani-Miller theorem with corporate taxes, a firm's value increases continuously as it increases its debt-to-equity ratio toward 100% due to the interest tax shield.", "o": ["True", "False"], "a": 0, "e": "[HIGH-LEVEL] Correct answer ✓\nTrue: With corporate taxes, debt shields taxable income, maximizing firm value as leverage increases (ignoring financial distress costs).", "type": "TF" },
+            { "q": "[HIGH-LEVEL] 49. True or False: The Free Cash Flow (FCF) valuation model and Dividend Discount Model (DDM) will always yield different intrinsic stock values even if identical cash flow and growth assumptions are applied.", "o": ["True", "False"], "a": 1, "e": "[HIGH-LEVEL] Correct answer ✓\nFalse: Theoretically, if all cash generated (less reinvestment) is eventually paid out as dividends, FCF and DDM yield identical valuations.", "type": "TF" },
+            { "q": "[HIGH-LEVEL] 50. True or False: If the dividend growth rate (g) exceeds the required rate of return (rs) permanently, the Gordon growth model equation yields a mathematically valid negative stock price.", "o": ["True", "False"], "a": 1, "e": "[HIGH-LEVEL] Correct answer ✓\nFalse: While it yields a negative number mathematically, a negative stock price is economically impossible; the model is simply invalid when g >= rs.", "type": "TF" }
         ];
 
         let activePart = 1;
-        let qData = P1_DATA;
+        let qData = P1_SOURCE;
         let cIdx = 0;
         let score = 0;
         let wrongList = [];
@@ -238,7 +399,7 @@
             activePart = part;
             $("tab1").className = "tab-btn " + (part === 1 ? "active" : "");
             $("tab2").className = "tab-btn " + (part === 2 ? "active" : "");
-            qData = part === 1 ? P1_DATA : P2_DATA;
+            qData = part === 1 ? P1_SOURCE : P2_SOURCE;
             resetQuiz();
         }
 
@@ -255,18 +416,15 @@
             $("s").textContent = `Score: ${score}`;
             $("bar").style.width = `${(cIdx / qData.length) * 100}%`;
 
-            const isHighLevel = cIdx >= 45;
+            const isHighLevel = q.q.includes("[HIGH-LEVEL]");
             const badgeClass = isHighLevel ? "q-badge high-level" : "q-badge";
-            const badgeText = isHighLevel 
-                ? (getQuestionType(q) === 'TF' ? 'True / False — High Level' : 'Multiple Choice — High Level')
-                : (getQuestionType(q) === 'TF' ? 'True / False' : 'Multiple Choice');
+            const badgeText = isHighLevel
+                ? (q.type === 'TF' ? 'True / False — High Level' : 'Multiple Choice — High Level')
+                : (q.type === 'TF' ? 'True / False' : 'Multiple Choice');
 
-            let diagHtml = q.diagram ? `<div class="diagram-container">${q.diagram}</div>` : '';
-            
             $("card").innerHTML = `
                 <span class="${badgeClass}">${badgeText}</span>
                 <p class="q">${q.q}</p>
-                ${diagHtml}
                 <div id="opts"></div>
                 <div id="fb"></div>
             `;
@@ -274,7 +432,7 @@
             q.o.forEach((optText, i) => {
                 const b = document.createElement("button");
                 b.className = "opt";
-                b.innerHTML = `<b>${getQuestionType(q) === 'TF' ? (i===0?'T':'F') : "ABCD"[i] + ")"}</b><span></span>`;
+                b.innerHTML = `<b>${q.type === 'TF' ? (i === 0 ? 'T' : 'F') : "ABCD"[i] + ")"}</b><span></span>`;
                 b.querySelector("span").textContent = optText;
                 b.onclick = () => handleAnswer(i);
                 $("opts").appendChild(b);
@@ -317,7 +475,7 @@
             $("bar").style.width = "100%";
             $("n").textContent = "Quiz complete";
             const pct = Math.round((score / qData.length) * 100);
-            
+
             let html = `
                 <div class="score">${score} / ${qData.length}</div>
                 <p style="text-align:center;font-size:1.2rem;margin:0 0 16px;">Percentage: <b>${pct}%</b></p>
@@ -325,7 +483,7 @@
 
             if (wrongList.length > 0) {
                 html += `<p style="margin:16px 0 8px;"><b>Questions to review:</b></p><ul class="rev">`;
-                wrongList.forEach(w => {
+                wrongList.reverse().forEach(w => {
                     html += `<li><b>Question ${w + 1}:</b> ${qData[w].q}</li>`;
                 });
                 html += `</ul>`;
@@ -340,4 +498,5 @@
         renderQuestion();
     </script>
 </body>
+
 </html>

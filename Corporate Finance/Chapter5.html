@@ -1,9 +1,10 @@
 <!doctype html>
 <html lang="en" dir="ltr">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <title>Finance — Chapter 5</title>
+    <title>Chapter 5: Bond Valuation</title>
     <style>
         :root {
             --bg: #0f172a;
@@ -34,7 +35,10 @@
             }
         }
 
-        * { box-sizing: border-box; }
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             margin: 0;
             background: var(--bg);
@@ -42,25 +46,38 @@
             font-family: 'Segoe UI', Tahoma, system-ui, -apple-system, sans-serif;
             line-height: 1.6;
         }
+
         main {
             max-width: 760px;
             margin: 0 auto;
             padding: 24px 16px 60px;
         }
+
         .header-panel {
             text-align: center;
             margin-bottom: 24px;
             border-bottom: 8px solid var(--b);
             padding-bottom: 30px;
         }
-        h1 { font-size: 1.5rem; margin: 0 0 8px; color: var(--ac); }
-        .sub { color: var(--m); font-size: 0.95rem; margin: 0; }
-        
+
+        h1 {
+            font-size: 1.5rem;
+            margin: 0 0 8px;
+            color: var(--ac);
+        }
+
+        .sub {
+            color: var(--m);
+            font-size: 0.95rem;
+            margin: 0;
+        }
+
         .nav-tabs {
             display: flex;
             gap: 12px;
             margin-bottom: 20px;
         }
+
         .tab-btn {
             flex: 1;
             padding: 12px;
@@ -72,6 +89,7 @@
             cursor: pointer;
             transition: all 0.2s;
         }
+
         .tab-btn.active {
             background: var(--ac);
             color: #000;
@@ -85,6 +103,7 @@
             overflow: hidden;
             margin-bottom: 8px;
         }
+
         .bar i {
             display: block;
             height: 100%;
@@ -92,6 +111,7 @@
             width: 0;
             transition: width 0.3s;
         }
+
         .meta {
             display: flex;
             justify-content: space-between;
@@ -99,13 +119,15 @@
             font-size: 0.9rem;
             margin-bottom: 16px;
         }
+
         .card {
             background: var(--c);
             border: 1px solid var(--b);
             border-radius: 12px;
             padding: 20px;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
         }
+
         .q-badge {
             display: inline-block;
             padding: 2px 8px;
@@ -115,11 +137,13 @@
             margin-bottom: 10px;
             color: var(--ac);
         }
+
         .q-badge.high-level {
             background: #f59e0b;
             color: #000;
             font-weight: bold;
         }
+
         .q {
             font-size: 1.1rem;
             font-weight: 600;
@@ -127,15 +151,7 @@
             text-align: left;
             margin: 0 0 16px;
         }
-        .diagram-container {
-            direction: ltr;
-            background: rgba(0,0,0,0.2);
-            border: 1px dashed var(--b);
-            border-radius: 8px;
-            padding: 12px;
-            margin-bottom: 16px;
-            text-align: center;
-        }
+
         .opt {
             display: flex;
             gap: 12px;
@@ -152,11 +168,29 @@
             cursor: pointer;
             transition: border-color 0.2s;
         }
-        .opt:hover:not(:disabled) { border-color: var(--ac); }
-        .opt b { min-width: 1.5em; color: var(--ac); }
-        .opt.ok { background: var(--okb); border-color: var(--ok); }
-        .opt.no { background: var(--nob); border-color: var(--no); }
-        .opt:disabled { cursor: default; }
+
+        .opt:hover:not(:disabled) {
+            border-color: var(--ac);
+        }
+
+        .opt b {
+            min-width: 1.5em;
+            color: var(--ac);
+        }
+
+        .opt.ok {
+            background: var(--okb);
+            border-color: var(--ok);
+        }
+
+        .opt.no {
+            background: var(--nob);
+            border-color: var(--no);
+        }
+
+        .opt:disabled {
+            cursor: default;
+        }
 
         .ex {
             margin-top: 16px;
@@ -165,10 +199,23 @@
             direction: ltr;
             text-align: left;
             font-size: 0.95rem;
+            white-space: pre-line;
         }
-        .ex.ok { background: var(--okb); border: 1px solid var(--ok); }
-        .ex.no { background: var(--nob); border: 1px solid var(--no); }
-        .ex strong { display: block; margin-bottom: 4px; }
+
+        .ex.ok {
+            background: var(--okb);
+            border: 1px solid var(--ok);
+        }
+
+        .ex.no {
+            background: var(--nob);
+            border: 1px solid var(--no);
+        }
+
+        .ex strong {
+            display: block;
+            margin-bottom: 4px;
+        }
 
         .btn {
             margin-top: 16px;
@@ -182,17 +229,36 @@
             cursor: pointer;
             width: 100%;
         }
-        .score { text-align: center; font-size: 3rem; font-weight: 800; margin: 12px 0; color: var(--ac); }
-        .rev { margin: 16px 0 0; padding: 0; list-style: none; direction: ltr; text-align: left; font-size: 0.9rem; }
-        .rev li { padding: 8px 0; border-top: 1px solid var(--b); }
+
+        .score {
+            text-align: center;
+            font-size: 3rem;
+            font-weight: 800;
+            margin: 12px 0;
+            color: var(--ac);
+        }
+
+        .rev {
+            margin: 16px 0 0;
+            padding: 0;
+            list-style: none;
+            direction: ltr;
+            text-align: left;
+            font-size: 0.9rem;
+        }
+
+        .rev li {
+            padding: 8px 0;
+            border-top: 1px solid var(--b);
+        }
     </style>
-    <link rel="stylesheet" href="../site-theme.css">
 </head>
+
 <body>
     <main>
         <div class="header-panel">
-            <h1>Finance — Chapter 5</h1>
-            <p class="sub"></p>
+            <h1>Corporate Finance — Chapter 5</h1>
+            <p class="sub">Bond Valuation</p>
         </div>
 
         <div class="nav-tabs">
@@ -207,27 +273,122 @@
         </div>
         <div class="card" id="card"></div>
     </main>
-      
+
     <script>
         const P1_SOURCE = [
+            // --- 50 MCQ Questions (1-45 Standard, 46-50 Advanced High Level) ---
+            { "q": "1. What is a corporate bond?", "o": ["A short-term equity instrument", "A long-term debt instrument indicating borrowed funds with defined repayment terms", "A stock option issued to corporate executives", "A risk-free government tax voucher"], "a": 1, "e": "Correct answer: B\nWhy: A bond is a long-term debt instrument indicating that a corporation borrowed money and promises to repay it under defined terms.", "type": "MCQ" },
+            { "q": "2. What does the coupon interest rate represent?", "o": ["The market return rate required by investors", "The percentage of a bond's par value paid annually or semiannually as interest", "The penalty rate for early redemption", "The effective annual tax deduction rate"], "a": 1, "e": "Correct answer: B\nWhy: The coupon interest rate is the fixed percentage of par value paid periodically as interest.", "type": "MCQ" },
+            { "q": "3. The par value (face value) of a bond is:", "o": ["The current market price on the exchange", "The amount borrowed at issuing date owed to be paid at maturity", "The sum of all lifetime interest payments", "The maximum resale price limit"], "a": 1, "e": "Correct answer: B\nWhy: Par value is the amount borrowed at issuing date owed to be paid back at the maturity date.", "type": "MCQ" },
+            { "q": "4. What is the key characteristic of a Perpetual Bond?", "o": ["It has a 10-year maturity date", "It has fixed periodic interest payments and NO maturity date", "It pays zero interest until maturity", "It can only be issued by state municipalities"], "a": 1, "e": "Correct answer: B\nWhy: Perpetual bonds have fixed interest returns but no maturity date.", "type": "MCQ" },
+            { "q": "5. What is the valuation formula for a Perpetual Bond (B0)?", "o": ["B0 = I * rd", "B0 = I / rd", "B0 = Par Value / (1 + rd)", "B0 = I + (M / rd)"], "a": 1, "e": "Correct answer: B\nWhy: B0 = Annual Interest (I) / required rate of return (rd).", "type": "MCQ" },
+            { "q": "6. A perpetual bond with a 10% coupon rate and EGP 1,000 par value pays an annual interest (I) of:", "o": ["EGP 10", "EGP 100", "EGP 1,000", "EGP 120"], "a": 1, "e": "Correct answer: B\nWhy: I = EGP 1,000 * 10% = EGP 100.", "type": "MCQ" },
+            { "q": "7. For a perpetual bond paying I = EGP 100, if the required rate of return (rd) is 8%, the bond value is:", "o": ["EGP 1,000.00", "EGP 1,250.00", "EGP 833.33", "EGP 1,079.85"], "a": 1, "e": "Correct answer: B\nWhy: B0 = 100 / 0.08 = EGP 1,250.00.", "type": "MCQ" },
+            { "q": "8. For a perpetual bond paying I = EGP 100, if the required rate of return (rd) is 10%, the bond value is:", "o": ["EGP 1,250.00", "EGP 1,000.00", "EGP 833.33", "EGP 927.90"], "a": 1, "e": "Correct answer: B\nWhy: B0 = 100 / 0.10 = EGP 1,000.00 (selling at par).", "type": "MCQ" },
+            { "q": "9. For a perpetual bond paying I = EGP 100, if the required rate of return (rd) is 12%, the bond value is:", "o": ["EGP 1,250.00", "EGP 1,000.00", "EGP 833.33", "EGP 927.90"], "a": 2, "e": "Correct answer: C\nWhy: B0 = 100 / 0.12 = EGP 833.33.", "type": "MCQ" },
+            { "q": "10. What type of relationship exists between required rate of return (rd) and bond value (B0)?", "o": ["Direct positive relationship", "Inverse (negative) relationship", "No mathematical relationship", "Exponential multiplier relationship"], "a": 1, "e": "Correct answer: B\nWhy: As required return increases, bond present value decreases.", "type": "MCQ" },
+            { "q": "11. If the required rate of return (rd) equals the bond coupon interest rate, the bond is selling at:", "o": ["A premium", "Par value", "A discount", "Zero yield"], "a": 1, "e": "Correct answer: B\nWhy: When rd = Coupon Rate, Bond Value = Par Value.", "type": "MCQ" },
+            { "q": "12. If the required rate of return (rd) is lower than the bond coupon interest rate, the bond is selling at:", "o": ["A discount", "A premium", "Par value", "Capital loss"], "a": 1, "e": "Correct answer: B\nWhy: When rd < Coupon Rate, Bond Value > Par Value (Premium).", "type": "MCQ" },
+            { "q": "13. If the required rate of return (rd) is higher than the bond coupon interest rate, the bond is selling at:", "o": ["A premium", "Par value", "A discount", "Compound interest"], "a": 2, "e": "Correct answer: C\nWhy: When rd > Coupon Rate, Bond Value < Par Value (Discount).", "type": "MCQ" },
+            { "q": "14. Maturity bonds pay periodic interest and have:", "o": ["No maturity date", "A fixed maturity date", "Variable principal payments dependent on revenue", "Perpetual cash flow streams"], "a": 1, "e": "Correct answer: B\nWhy: Maturity bonds specify a concrete maturity date (n years).", "type": "MCQ" },
+            { "q": "15. In a 5-year bond with EGP 1,000 par value and EGP 100 annual interest, the total cash flow in Year 5 is:", "o": ["EGP 100", "EGP 1,000", "EGP 1,100", "EGP 500"], "a": 2, "e": "Correct answer: C\nWhy: Year 5 cash flow = Coupon Interest (100) + Principal Repayment (1000) = EGP 1,100.", "type": "MCQ" },
+            { "q": "16. A 5-year, 10% coupon bond with EGP 1,000 par value evaluated at rd = 8% yields a value of:", "o": ["EGP 1,000.00", "EGP 1,079.85", "EGP 927.90", "EGP 1,250.00"], "a": 1, "e": "Correct answer: B\nWhy: Discounting cash flows (100 for 4 yrs + 1100 in yr 5) at 8% gives EGP 1,079.85.", "type": "MCQ" },
+            { "q": "17. A 5-year, 10% coupon bond with EGP 1,000 par value evaluated at rd = 10% yields a value of:", "o": ["EGP 1,079.85", "EGP 1,000.00", "EGP 927.90", "EGP 833.33"], "a": 1, "e": "Correct answer: B\nWhy: When rd = 10% = Coupon rate, B0 = Par Value = EGP 1,000.00.", "type": "MCQ" },
+            { "q": "18. A 5-year, 10% coupon bond with EGP 1,000 par value evaluated at rd = 12% yields a value of:", "o": ["EGP 927.90", "EGP 1,079.85", "EGP 1,000.00", "EGP 833.33"], "a": 0, "e": "Correct answer: A\nWhy: Discounting cash flows at 12% gives EGP 927.90.", "type": "MCQ" },
+            { "q": "19. Assuming everything else remains constant, the longer the time to maturity:", "o": ["The lower the risk", "The higher the risk and higher required return, resulting in lower value", "The higher the coupon rate", "The closer the price gets to zero"], "a": 1, "e": "Correct answer: B\nWhy: Longer maturity increases exposure to interest rate risk.", "type": "MCQ" },
+            { "q": "20. Shorter maturity bonds experience lower:", "o": ["Coupon payments", "Interest rate risk", "Par values", "Credit ratings"], "a": 1, "e": "Correct answer: B\nWhy: Shorter time to maturity reduces interest rate risk relative to long-term bonds.", "type": "MCQ" },
+            { "q": "21. What stays constant when market interest rates change during the life of a fixed-rate bond?", "o": ["Bond market value", "Yield to maturity", "Coupon interest payment and Par value", "Present value discount factor"], "a": 2, "e": "Correct answer: C\nWhy: Coupon rate and Par value are legally fixed contracts.", "type": "MCQ" },
+            { "q": "22. If a bond is selling for EGP 1,120 when par value is EGP 1,000, it is selling at:", "o": ["A discount", "A premium", "Par", "Default"], "a": 1, "e": "Correct answer: B\nWhy: Market Price (1,120) > Par Value (1,000) = Premium.", "type": "MCQ" },
+            { "q": "23. If a bond is selling for EGP 880 when par value is EGP 1,000, it is selling at:", "o": ["A premium", "Par", "A discount", "Face value"], "a": 2, "e": "Correct answer: C\nWhy: Market Price (880) < Par Value (1,000) = Discount.", "type": "MCQ" },
+            { "q": "24. If semiannual coupon payments are made on an annual coupon rate of 10% with EGP 1,000 par value, each payment is:", "o": ["EGP 100", "EGP 50", "EGP 25", "EGP 200"], "a": 1, "e": "Correct answer: B\nWhy: Annual interest = 100; semiannual payment = 100 / 2 = EGP 50.", "type": "MCQ" },
+            { "q": "25. The present value of a maturity bond is calculated by discounting expected cash flows at:", "o": ["The coupon interest rate", "The required rate of return (rd)", "The risk-free inflation rate", "The tax rate"], "a": 1, "e": "Correct answer: B\nWhy: Cash flows are discounted using the investor's required rate of return rd.", "type": "MCQ" },
+            { "q": "26. What happens to a bond's price selling at a premium as it approaches its maturity date (assuming rd remains constant)?", "o": ["It increases further above par", "It declines gradually toward par value", "It drops to zero instantly", "It remains completely unchanged until the last day"], "a": 1, "e": "Correct answer: B\nWhy: At maturity, bond value MUST equal par value; thus premium prices decline toward par.", "type": "MCQ" },
+            { "q": "27. What happens to a bond's price selling at a discount as it approaches maturity (assuming rd remains constant)?", "o": ["It decreases further below par", "It rises gradually toward par value", "It doubles in value", "It fluctuates randomly"], "a": 1, "e": "Correct answer: B\nWhy: Discount bond prices rise gradually over time to reach par value at maturity.", "type": "MCQ" },
+            { "q": "28. If an investor requires an 8% return on a 10% coupon bond, the investor is willing to pay:", "o": ["Less than par value", "More than par value", "Exactly par value", "Nothing"], "a": 1, "e": "Correct answer: B\nWhy: Since the bond pays more (10%) than required (8%), investors pay a premium (> par).", "type": "MCQ" },
+            { "q": "29. In bond valuation math, the symbol 'M' represents:", "o": ["Market return", "Par value (Face Value) paid at maturity", "Maturity duration in months", "Marginal tax rate"], "a": 1, "e": "Correct answer: B\nWhy: 'M' stands for Par Value (Egyptian Pound amount owed at maturity).", "type": "MCQ" },
+            { "q": "30. The present value factor equation for a single cash flow in year t discounted at rd is:", "o": ["(1 + rd)^t", "1 / (1 + rd)^t", "rd / (1 + t)", "(1 + t)^rd"], "a": 1, "e": "Correct answer: B\nWhy: PV = Cash Flow / (1 + rd)^t = Cash Flow * [1 / (1 + rd)^t].", "type": "MCQ" },
+            { "q": "31. If coupon interest payments are paid semiannually, what adjustment is made to the number of periods (n) and discount rate (rd)?", "o": ["n is divided by 2, rd is multiplied by 2", "n is multiplied by 2, rd is divided by 2", "Both n and rd are multiplied by 2", "No adjustment is needed"], "a": 1, "e": "Correct answer: B\nWhy: For semiannual compounding, total periods = 2n, and periodic discount rate = rd / 2.", "type": "MCQ" },
+            { "q": "32. A perpetual bond has an annual coupon of EGP 80 and a market value of EGP 800. What is its required rate of return?", "o": ["8%", "10%", "12%", "6%"], "a": 1, "e": "Correct answer: B\nWhy: rd = I / B0 = 80 / 800 = 10%.", "type": "MCQ" },
+            { "q": "33. If a corporate bond has a coupon rate of 0% (zero-coupon bond), its value comes entirely from:", "o": ["Annual dividend yield", "The present value of the par value paid at maturity", "Semiannual bonus payments", "Tax rebates"], "a": 1, "e": "Correct answer: B\nWhy: Zero-coupon bonds pay no interest; value = PV of par value M.", "type": "MCQ" },
+            { "q": "34. Bond price sensitivity to interest rate changes is highest for:", "o": ["Short-maturity, high-coupon bonds", "Long-maturity, low-coupon bonds", "Perpetual bonds with 50% coupon", "Zero-risk government bills"], "a": 1, "e": "Correct answer: B\nWhy: Longer maturity and lower coupon rates increase price sensitivity to rate fluctuations.", "type": "MCQ" },
+            { "q": "35. If market interest rates decrease, what happens to existing bond prices?", "o": ["They decrease", "They increase", "They remain constant", "They fall to zero"], "a": 1, "e": "Correct answer: B\nWhy: Inverse relationship: lower market rates increase the present value of fixed cash flows.", "type": "MCQ" },
+            { "q": "36. If market interest rates increase, what happens to existing bond prices?", "o": ["They increase", "They decrease", "They double", "No effect"], "a": 1, "e": "Correct answer: B\nWhy: Inverse relationship: higher market rates decrease bond values.", "type": "MCQ" },
+            { "q": "37. A bond selling at par value has a yield to maturity (required return) that is:", "o": ["Greater than the coupon rate", "Equal to the coupon rate", "Less than the coupon rate", "Zero"], "a": 1, "e": "Correct answer: B\nWhy: At par value, required return = coupon rate.", "type": "MCQ" },
+            { "q": "38. The formula B0 = sum[ I / (1+rd)^t ] + [ M / (1+rd)^n ] applies to:", "o": ["Perpetual bonds", "Maturity bonds", "Common stock valuation", "Treasury bills with zero maturity"], "a": 1, "e": "Correct answer: B\nWhy: This is the general valuation model for maturity bonds.", "type": "MCQ" },
+            { "q": "39. If a 5-year bond's required return increases from 8% to 10%, its price will:", "o": ["Rise from EGP 1,000 to EGP 1,079.85", "Fall from EGP 1,079.85 to EGP 1,000.00", "Stay at EGP 1,079.85", "Rise to EGP 1,250.00"], "a": 1, "e": "Correct answer: B\nWhy: As rd rises from 8% to 10%, price drops from EGP 1,079.85 to EGP 1,000.00.", "type": "MCQ" },
+            { "q": "40. Why do long-term bonds carry more interest rate risk than short-term bonds?", "o": ["Because their cash flows occur further in the future, making their present values more sensitive to discount rate changes", "Because long-term bonds pay zero coupon interest", "Because long-term bonds have lower par values", "Because short-term bonds are illegal"], "a": 0, "e": "Correct answer: A\nWhy: Cash flows further in time experience greater compounding effects from discount rate changes.", "type": "MCQ" },
+            { "q": "41. An investor buys a bond at EGP 927.90 and holds it to maturity to receive EGP 1,000. The EGP 72.10 difference represents:", "o": ["A capital loss", "Capital gain (price appreciation toward par)", "Coupon interest", "Underwriting fee"], "a": 1, "e": "Correct answer: B\nWhy: Buying at a discount and redeeming at par generates capital appreciation.", "type": "MCQ" },
+            { "q": "42. If a company issues a 10-year bond at par (EGP 1,000) with a 10% coupon, the annual interest paid is:", "o": ["EGP 10", "EGP 100", "EGP 1,000", "EGP 50"], "a": 1, "e": "Correct answer: B\nWhy: Annual interest I = 1000 * 10% = EGP 100.", "type": "MCQ" },
+            { "q": "43. If a bond's coupon rate is 12% and market required return is 12%, a 1-year bond and a 20-year bond will both sell for:", "o": ["Different prices", "Their exact par value (EGP 1,000)", "EGP 1,250", "EGP 833.33"], "a": 1, "e": "Correct answer: B\nWhy: When coupon rate = required return, bond value equals par value REGARDLESS of maturity length.", "type": "MCQ" },
+            { "q": "44. In Example 2 of Chapter 5, when rd was 8%, the bond value was EGP 1079.85. The EGP 79.85 amount over par is called:", "o": ["Discount amount", "Premium amount", "Coupon yield", "Tax liability"], "a": 1, "e": "Correct answer: B\nWhy: Amount above par value (1,079.85 - 1,000 = 79.85) is the premium.", "type": "MCQ" },
+            { "q": "45. The primary cash flow components of a corporate bond are:", "o": ["Dividends and retained earnings", "Periodic coupon interest payments and principal (par value) repayment", "Stock splits and capital claims", "Operating profit and EBITDA"], "a": 1, "e": "Correct answer: B\nWhy: Bonds offer fixed contractual cash flows: periodic interest and principal repayment.", "type": "MCQ" },
+
+            // --- HIGH-LEVEL MCQs (46 to 50) ---
+            { "q": "[HIGH-LEVEL] 46. Two bonds, Bond X and Bond Y, both have a 10% coupon rate and EGP 1,000 par value. Bond X has 2 years to maturity, while Bond Y has 20 years to maturity. If market required return (rd) suddenly jumps from 10% to 14%, which statement mathematically describes their price reaction?", "o": ["Both bonds fall by the exact same Egyptian Pound amount", "Bond Y experiences a significantly larger percentage drop in price than Bond X", "Bond X falls more in price than Bond Y", "Bond Y rises in price while Bond X falls"], "a": 1, "e": "[HIGH-LEVEL] Correct answer ✓\nWhy: Longer maturity bonds (Bond Y) have a much higher Duration/Sensitivity to discount rate changes; discounting remote cash flows at a higher rate severely reduces their present value compared to short-term cash flows.", "type": "MCQ" },
+            { "q": "[HIGH-LEVEL] 47. A company issues a 5-year semiannual bond with an 8% annual coupon rate and EGP 1,000 par value. If the annual required return (rd) is 10%, what is the exact formula structure to calculate B0?", "o": ["Sum of 10 periods of EGP 40 discounted at 5% plus EGP 1,000 discounted at 5% for 10 periods", "Sum of 5 periods of EGP 80 discounted at 10% plus EGP 1,000 discounted at 10%", "Sum of 10 periods of EGP 80 discounted at 5% plus EGP 1,000 discounted at 10%", "Sum of 5 periods of EGP 40 discounted at 10%"], "a": 0, "e": "[HIGH-LEVEL] Correct answer ✓\nWhy: Semiannual adjustment requires: Coupon = (1000 * 8%) / 2 = EGP 40; Periods = 5 * 2 = 10; Periodic discount rate = 10% / 2 = 5%.", "type": "MCQ" },
+            { "q": "[HIGH-LEVEL] 48. Consider a perpetual bond paying EGP 100 annually. If inflation causes investors to raise their required nominal return (rd) from 8% to 12%, what is the percentage change in the bond's valuation?", "o": ["Price decreases by 33.33%", "Price decreases by 20.00%", "Price increases by 50.00%", "Price decreases by 50.00%"], "a": 0, "e": "[HIGH-LEVEL] Correct answer ✓\nWhy: At 8%, B0 = 100 / 0.08 = 1,250. At 12%, B0 = 100 / 0.12 = 833.33. Percentage change = (833.33 - 1250) / 1250 = -416.67 / 1250 = -33.33%.", "type": "MCQ" },
+            { "q": "[HIGH-LEVEL] 49. A zero-coupon bond has a par value of EGP 1,000 and matures in 10 years. If the required rate of return is 8% per annum (annual compounding), what is its current market value?", "o": ["EGP 463.19", "EGP 1,000.00", "EGP 675.56", "EGP 500.00"], "a": 0, "e": "[HIGH-LEVEL] Correct answer ✓\nWhy: For zero-coupon bonds, I = 0. B0 = M / (1 + rd)^n = 1000 / (1.08)^10 = 1000 / 2.1589 = EGP 463.19.", "type": "MCQ" },
+            { "q": "[HIGH-LEVEL] 50. An investor holds a portfolio of two bonds: Bond A selling at a Premium (B0 = 1,150) and Bond B selling at a Discount (B0 = 850). If market interest rates (rd) remain completely constant over the next year, how will the prices of Bond A and Bond B change as time moves 1 year closer to maturity?", "o": ["Bond A price will decrease toward par, while Bond B price will increase toward par", "Both bond prices will increase", "Both bond prices will decrease", "Bond A price will increase, while Bond B price will decrease"], "a": 0, "e": "[HIGH-LEVEL] Correct answer ✓\nWhy: As time to maturity decreases toward zero, premium bonds amortize downward toward par value, and discount bonds accrete upward toward par value ('pull-to-par' effect).", "type": "MCQ" }
         ];
 
         const P2_SOURCE = [
-         ];
+            // --- 50 True/False Questions (1-45 Standard, 46-50 Advanced High Level) ---
+            { "q": "1. A corporate bond is a long-term debt instrument indicating borrowed funds.", "o": ["True", "False"], "a": 0, "e": "True: Definition of a corporate bond.", "type": "TF" },
+            { "q": "2. Perpetual bonds have a fixed maturity date of 50 years.", "o": ["True", "False"], "a": 1, "e": "False: Perpetual bonds have NO maturity date.", "type": "TF" },
+            { "q": "3. Coupon interest rate is calculated as a percentage of the bond's par value.", "o": ["True", "False"], "a": 0, "e": "True: Coupon Interest = Par Value * Coupon Rate.", "type": "TF" },
+            { "q": "4. Par value is the amount borrowed at issuing date owed to be paid at maturity.", "o": ["True", "False"], "a": 0, "e": "True: Definition of Par Value.", "type": "TF" },
+            { "q": "5. The value of a perpetual bond is calculated using B0 = I / rd.", "o": ["True", "False"], "a": 0, "e": "True: Valuation equation for perpetual bonds.", "type": "TF" },
+            { "q": "6. There is a direct positive relationship between required rate of return and bond value.", "o": ["True", "False"], "a": 1, "e": "False: The relationship is inverse (negative).", "type": "TF" },
+            { "q": "7. Higher required rates of return result in lower bond values.", "o": ["True", "False"], "a": 0, "e": "True: As rd increases, present value decreases.", "type": "TF" },
+            { "q": "8. Lower required rates of return result in higher bond values.", "o": ["True", "False"], "a": 0, "e": "True: As rd decreases, present value increases.", "type": "TF" },
+            { "q": "9. If rd equals coupon interest rate, the bond sells at par value.", "o": ["True", "False"], "a": 0, "e": "True: When rd = Coupon rate, B0 = Par value.", "type": "TF" },
+            { "q": "10. If rd is lower than coupon interest rate, the bond sells at a discount.", "o": ["True", "False"], "a": 1, "e": "False: When rd < Coupon rate, bond sells at a PREMIUM.", "type": "TF" },
+            { "q": "11. If rd is higher than coupon interest rate, the bond sells at a discount.", "o": ["True", "False"], "a": 0, "e": "True: When rd > Coupon rate, bond sells at a DISCOUNT.", "type": "TF" },
+            { "q": "12. For a 10% coupon perpetual bond with EGP 1,000 par value, annual interest I is EGP 100.", "o": ["True", "False"], "a": 0, "e": "True: 1000 * 10% = 100.", "type": "TF" },
+            { "q": "13. For a perpetual bond with I = 100 and rd = 8%, B0 equals EGP 1,250.", "o": ["True", "False"], "a": 0, "e": "True: 100 / 0.08 = 1,250.", "type": "TF" },
+            { "q": "14. For a perpetual bond with I = 100 and rd = 12%, B0 equals EGP 1,000.", "o": ["True", "False"], "a": 1, "e": "False: 100 / 0.12 = EGP 833.33.", "type": "TF" },
+            { "q": "15. Maturity bonds pay fixed periodic interest and have a specific maturity date.", "o": ["True", "False"], "a": 0, "e": "True: Characteristics of maturity bonds.", "type": "TF" },
+            { "q": "16. In maturity bond valuation, cash flows include annual interest payments and par value at maturity.", "o": ["True", "False"], "a": 0, "e": "True: Both coupon interest and principal repayment are cash flows.", "type": "TF" },
+            { "q": "17. For a 5-year 10% coupon bond with EGP 1,000 par, if rd = 8%, B0 is EGP 1,079.85.", "o": ["True", "False"], "a": 0, "e": "True: Calculation from Example 2 in Chapter 5.", "type": "TF" },
+            { "q": "18. For a 5-year 10% coupon bond with EGP 1,000 par, if rd = 10%, B0 is EGP 1,000.00.", "o": ["True", "False"], "a": 0, "e": "True: Selling at par value.", "type": "TF" },
+            { "q": "19. For a 5-year 10% coupon bond with EGP 1,000 par, if rd = 12%, B0 is EGP 927.90.", "o": ["True", "False"], "a": 0, "e": "True: Selling at discount.", "type": "TF" },
+            { "q": "20. The longer the time to maturity, the higher the interest rate risk assuming everything else constant.", "o": ["True", "False"], "a": 0, "e": "True: Longer maturity increases risk exposure.", "type": "TF" },
+            { "q": "21. Shorter time to maturity results in lower interest rate risk than long maturities.", "o": ["True", "False"], "a": 0, "e": "True: Shorter maturities have less price sensitivity.", "type": "TF" },
+            { "q": "22. The cash flow of a perpetual bond includes repayment of principal at year 10.", "o": ["True", "False"], "a": 1, "e": "False: Perpetual bonds never repay principal.", "type": "TF" },
+            { "q": "23. Coupon interest payments change every month according to stock market prices.", "o": ["True", "False"], "a": 1, "e": "False: Coupon payments are fixed by contract.", "type": "TF" },
+            { "q": "24. Discounting cash flows means calculating their future value in 20 years.", "o": ["True", "False"], "a": 1, "e": "False: Discounting computes PRESENT value at time zero.", "type": "TF" },
+            { "q": "25. Face value and Par value refer to the same financial concept.", "o": ["True", "False"], "a": 0, "e": "True: Face value is synonymous with Par value.", "type": "TF" },
+            { "q": "26. When a bond sells at a premium, its market price is greater than its par value.", "o": ["True", "False"], "a": 0, "e": "True: Premium definition.", "type": "TF" },
+            { "q": "27. When a bond sells at a discount, its market price is greater than its par value.", "o": ["True", "False"], "a": 1, "e": "False: Discount means market price is LESS than par value.", "type": "TF" },
+            { "q": "28. In year n of a maturity bond, the total cash flow received by the investor is I + M.", "o": ["True", "False"], "a": 0, "e": "True: Final interest + Principal repayment.", "type": "TF" },
+            { "q": "29. Required rate of return is also referred to as the discount rate rd.", "o": ["True", "False"], "a": 0, "e": "True: Discount rate reflects required return for risk.", "type": "TF" },
+            { "q": "30. If a bond's coupon rate is 8% and required return is 10%, the bond sells at a premium.", "o": ["True", "False"], "a": 1, "e": "False: Since 10% > 8%, it sells at a DISCOUNT.", "type": "TF" },
+            { "q": "31. If a bond's coupon rate is 12% and required return is 10%, the bond sells at a premium.", "o": ["True", "False"], "a": 0, "e": "True: Since 10% < 12%, it sells at a PREMIUM.", "type": "TF" },
+            { "q": "32. Semiannual bond interest payments are paid twice a year in equal amounts.", "o": ["True", "False"], "a": 0, "e": "True: Annual interest is split into two equal payments.", "type": "TF" },
+            { "q": "33. As a premium bond approaches maturity, its value rises further above par.", "o": ["True", "False"], "a": 1, "e": "False: Premium bond values decline toward par as maturity approaches.", "type": "TF" },
+            { "q": "34. As a discount bond approaches maturity, its value increases toward par.", "o": ["True", "False"], "a": 0, "e": "True: Discount bond values accrete upward to par at maturity.", "type": "TF" },
+            { "q": "35. Zero-coupon bonds make annual interest payments of EGP 100.", "o": ["True", "False"], "a": 1, "e": "False: Zero-coupon bonds make ZERO periodic interest payments.", "type": "TF" },
+            { "q": "36. The present value of a cash flow stream is inversely related to the discount rate.", "o": ["True", "False"], "a": 0, "e": "True: Higher discount rates reduce present value.", "type": "TF" },
+            { "q": "37. Required rate of return reflects the risk related to the bond.", "o": ["True", "False"], "a": 0, "e": "True: Higher risk demands higher required return rd.", "type": "TF" },
+            { "q": "38. In a 5-year bond, cash flows occur in years 1, 2, 3, 4, and 5.", "o": ["True", "False"], "a": 0, "e": "True: Periodic annual cash flows across 5 years.", "type": "TF" },
+            { "q": "39. If rd is 10% and coupon rate is 10%, the bond value is exactly equal to par value.", "o": ["True", "False"], "a": 0, "e": "True: B0 = Par value when rd = Coupon rate.", "type": "TF" },
+            { "q": "40. A corporate bond is an equity instrument giving voting rights in shareholder meetings.", "o": ["True", "False"], "a": 1, "e": "False: Bonds are DEBT instruments with no voting rights.", "type": "TF" },
+            { "q": "41. An investor who buys a bond selling at discount receives capital appreciation as it matures to par.", "o": ["True", "False"], "a": 0, "e": "True: Buying below par and receiving par at maturity creates capital gain.", "type": "TF" },
+            { "q": "42. All bonds have perpetual cash flow streams.", "o": ["True", "False"], "a": 1, "e": "False: Most bonds are maturity bonds with fixed maturity dates.", "type": "TF" },
+            { "q": "43. Increasing the discount rate increases the present value of future cash flows.", "o": ["True", "False"], "a": 1, "e": "False: Increasing discount rate DECREASES present value.", "type": "TF" },
+            { "q": "44. In Table 6.2 (rd = 10%), the present value of year 5 cash flow (1100) is EGP 683.01.", "o": ["True", "False"], "a": 0, "e": "True: 1100 / (1.10)^5 = 683.01.", "type": "TF" },
+            { "q": "45. In Table 6.3 (rd = 12%), the present value of year 5 cash flow (1100) is EGP 624.17.", "o": ["True", "False"], "a": 0, "e": "True: 1100 / (1.12)^5 = 624.17.", "type": "TF" },
 
-        const getQuestionType = question => question.type.replace(/[.!?]+$/, "");
-
-        const P1_DATA = [
-            ...P1_SOURCE.filter(question => getQuestionType(question) === "MCQ"),
-            ...P2_SOURCE.filter(question => getQuestionType(question) === "MCQ")
-        ];
-        const P2_DATA = [
-            ...P1_SOURCE.filter(question => getQuestionType(question) === "TF"),
-            ...P2_SOURCE.filter(question => getQuestionType(question) === "TF")
+            // --- HIGH-LEVEL T/Fs (46 to 50) ---
+            { "q": "[HIGH-LEVEL] 46. True or False: If a bond's coupon rate is equal to its yield to maturity (rd), its price sensitivity to changes in interest rates is zero.", "o": ["True", "False"], "a": 1, "e": "[HIGH-LEVEL] Correct answer ✓\nFalse: All fixed-income bonds with future cash flows experience interest rate risk and price fluctuations when rd changes, regardless of whether they initially trade at par.", "type": "TF" },
+            { "q": "[HIGH-LEVEL] 47. True or False: For two bonds with identical maturity lengths and identical required returns (rd), the bond with the lower coupon rate will experience a higher percentage price change for a given change in interest rates.", "o": ["True", "False"], "a": 0, "e": "[HIGH-LEVEL] Correct answer ✓\nTrue: Lower coupon bonds have a higher duration (more weight concentrated in the final principal payment), making them more sensitive in percentage terms to interest rate shifts.", "type": "TF" },
+            { "q": "[HIGH-LEVEL] 48. True or False: If an investor purchases a 10-year maturity bond at a premium and market required return (rd) stays constant, the annual capital loss from price amortization toward par is exactly offset by the higher coupon income relative to market yield.", "o": ["True", "False"], "a": 0, "e": "[HIGH-LEVEL] Correct answer ✓\nTrue: The total yield earned equals rd; the above-market coupon rate provides excess income that exactly covers the gradual loss in bond market value as it pulls to par.", "type": "TF" },
+            { "q": "[HIGH-LEVEL] 49. True or False: A perpetual bond's duration (price sensitivity) is calculated as (1 + rd) / rd, meaning its interest rate sensitivity increases as required market returns (rd) drop lower.", "o": ["True", "False"], "a": 0, "e": "[HIGH-LEVEL] Correct answer ✓\nTrue: As rd approaches zero, the present value of distant perpetual cash flows explodes upward, creating extreme price sensitivity to small rate changes.", "type": "TF" },
+            { "q": "[HIGH-LEVEL] 50. True or False: If a corporation issues a bond with a coupon rate equal to current market required return, but makes semiannual interest payments instead of annual payments, the bond will sell at a price slightly higher than par value.", "o": ["True", "False"], "a": 1, "e": "[HIGH-LEVEL] Correct answer ✓\nFalse: If periodic coupon rate equals periodic required return (e.g., 5% semiannual coupon and 5% semiannual rd), the present value remains EXACTLY equal to par value.", "type": "TF" }
         ];
 
         let activePart = 1;
-        let qData = P1_DATA;
+        let qData = P1_SOURCE;
         let cIdx = 0;
         let score = 0;
         let wrongList = [];
@@ -238,7 +399,7 @@
             activePart = part;
             $("tab1").className = "tab-btn " + (part === 1 ? "active" : "");
             $("tab2").className = "tab-btn " + (part === 2 ? "active" : "");
-            qData = part === 1 ? P1_DATA : P2_DATA;
+            qData = part === 1 ? P1_SOURCE : P2_SOURCE;
             resetQuiz();
         }
 
@@ -255,18 +416,15 @@
             $("s").textContent = `Score: ${score}`;
             $("bar").style.width = `${(cIdx / qData.length) * 100}%`;
 
-            const isHighLevel = cIdx >= 45;
+            const isHighLevel = q.q.includes("[HIGH-LEVEL]");
             const badgeClass = isHighLevel ? "q-badge high-level" : "q-badge";
-            const badgeText = isHighLevel 
-                ? (getQuestionType(q) === 'TF' ? 'True / False — High Level' : 'Multiple Choice — High Level')
-                : (getQuestionType(q) === 'TF' ? 'True / False' : 'Multiple Choice');
+            const badgeText = isHighLevel
+                ? (q.type === 'TF' ? 'True / False — High Level' : 'Multiple Choice — High Level')
+                : (q.type === 'TF' ? 'True / False' : 'Multiple Choice');
 
-            let diagHtml = q.diagram ? `<div class="diagram-container">${q.diagram}</div>` : '';
-            
             $("card").innerHTML = `
                 <span class="${badgeClass}">${badgeText}</span>
                 <p class="q">${q.q}</p>
-                ${diagHtml}
                 <div id="opts"></div>
                 <div id="fb"></div>
             `;
@@ -274,7 +432,7 @@
             q.o.forEach((optText, i) => {
                 const b = document.createElement("button");
                 b.className = "opt";
-                b.innerHTML = `<b>${getQuestionType(q) === 'TF' ? (i===0?'T':'F') : "ABCD"[i] + ")"}</b><span></span>`;
+                b.innerHTML = `<b>${q.type === 'TF' ? (i === 0 ? 'T' : 'F') : "ABCD"[i] + ")"}</b><span></span>`;
                 b.querySelector("span").textContent = optText;
                 b.onclick = () => handleAnswer(i);
                 $("opts").appendChild(b);
@@ -317,7 +475,7 @@
             $("bar").style.width = "100%";
             $("n").textContent = "Quiz complete";
             const pct = Math.round((score / qData.length) * 100);
-            
+
             let html = `
                 <div class="score">${score} / ${qData.length}</div>
                 <p style="text-align:center;font-size:1.2rem;margin:0 0 16px;">Percentage: <b>${pct}%</b></p>
@@ -325,7 +483,7 @@
 
             if (wrongList.length > 0) {
                 html += `<p style="margin:16px 0 8px;"><b>Questions to review:</b></p><ul class="rev">`;
-                wrongList.forEach(w => {
+                wrongList.reverse().forEach(w => {
                     html += `<li><b>Question ${w + 1}:</b> ${qData[w].q}</li>`;
                 });
                 html += `</ul>`;
@@ -340,4 +498,5 @@
         renderQuestion();
     </script>
 </body>
+
 </html>

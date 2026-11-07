@@ -1,0 +1,560 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Problem Solving — Quiz</title>
+    <style>
+        :root {
+            --bg: #0f172a;
+            --c: #1e293b;
+            --t: #f8fafc;
+            --m: #94a3b8;
+            --b: #334155;
+            --ac: #38bdf8;
+            --ok: #22c55e;
+            --okb: #052e16;
+            --no: #ef4444;
+            --nob: #450a0a;
+            box-sizing: border-box;
+        }
+
+        @media(prefers-color-scheme: light) {
+            :root[data-theme=light] {
+                --bg: #f8fafc;
+                --c: #ffffff;
+                --t: #0f172a;
+                --m: #64748b;
+                --b: #e2e8f0;
+                --ac: #0284c7;
+                --okb: #dcfce7;
+                --nob: #fee2e2;
+                --ok: #16a34a;
+                --no: #dc2626;
+            }
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--t);
+            font-family: 'Segoe UI', Tahoma, system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+        }
+
+        main {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 24px 16px 60px;
+        }
+
+        .header-panel {
+            text-align: center;
+            margin-bottom: 24px;
+            border-bottom: 8px solid var(--b);
+            padding-bottom: 30px;
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            margin: 0 0 8px;
+            color: var(--ac);
+        }
+
+        .sub {
+            color: var(--m);
+            font-size: 0.95rem;
+            margin: 0;
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 12px;
+            background: var(--c);
+            border: 1px solid var(--b);
+            color: var(--t);
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .tab-btn.active {
+            background: var(--ac);
+            color: #000;
+            border-color: var(--ac);
+        }
+
+        .bar {
+            height: 8px;
+            background: var(--b);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+        .bar i {
+            display: block;
+            height: 100%;
+            background: var(--ac);
+            width: 0;
+            transition: width 0.3s;
+        }
+
+        .meta {
+            display: flex;
+            justify-content: space-between;
+            color: var(--m);
+            font-size: 0.9rem;
+            margin-bottom: 16px;
+        }
+
+        .card {
+            background: var(--c);
+            border: 1px solid var(--b);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .q-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            background: var(--b);
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+            color: var(--ac);
+        }
+
+        .q-badge.high-level {
+            background: #f59e0b;
+            color: #000;
+            font-weight: bold;
+        }
+
+        .q {
+            font-size: 1.1rem;
+            font-weight: 600;
+            direction: ltr;
+            text-align: left;
+            margin: 0 0 16px;
+        }
+
+        .opt {
+            display: flex;
+            gap: 12px;
+            direction: ltr;
+            text-align: left;
+            width: 100%;
+            background: var(--c);
+            color: var(--t);
+            border: 1.5px solid var(--b);
+            border-radius: 8px;
+            padding: 12px 14px;
+            margin-bottom: 10px;
+            font: inherit;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+
+        .opt:hover:not(:disabled) {
+            border-color: var(--ac);
+        }
+
+        .opt b {
+            min-width: 1.5em;
+            color: var(--ac);
+        }
+
+        .opt.ok {
+            background: var(--okb);
+            border-color: var(--ok);
+        }
+
+        .opt.no {
+            background: var(--nob);
+            border-color: var(--no);
+        }
+
+        .opt:disabled {
+            cursor: default;
+        }
+
+        .ex {
+            margin-top: 16px;
+            padding: 14px;
+            border-radius: 8px;
+            direction: ltr;
+            text-align: left;
+            font-size: 0.95rem;
+        }
+
+        .ex.ok {
+            background: var(--okb);
+            border: 1px solid var(--ok);
+        }
+
+        .ex.no {
+            background: var(--nob);
+            border: 1px solid var(--no);
+        }
+
+        .ex strong {
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .btn {
+            margin-top: 16px;
+            background: var(--ac);
+            color: #000;
+            border: 0;
+            border-radius: 8px;
+            padding: 12px 24px;
+            font: inherit;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .score {
+            text-align: center;
+            font-size: 3rem;
+            font-weight: 800;
+            margin: 12px 0;
+            color: var(--ac);
+        }
+
+        .rev {
+            margin: 16px 0 0;
+            padding: 0;
+            list-style: none;
+            direction: ltr;
+            text-align: left;
+            font-size: 0.9rem;
+        }
+
+        .rev li {
+            padding: 8px 0;
+            border-top: 1px solid var(--b);
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <div class="header-panel">
+            <h1>Problem Solving</h1>
+            <p class="sub">Quiz1</p>
+        </div>
+
+        <div class="nav-tabs">
+            <button class="tab-btn active" id="tab1" onclick="switchPart(1)">Quiz 1</button>
+
+        </div>
+
+        <div class="bar"><i id="bar"></i></div>
+        <div class="meta">
+            <span id="n"></span>
+            <span id="s"></span>
+        </div>
+        <div class="card" id="card"></div>
+    </main>
+    <script>
+        const QUIZ_QUESTIONS = [
+            // --- Multiple Choice Questions (1 to 10) ---
+            {
+                "q": "1. Which of the following is a reference point for evaluating performance?",
+                "o": ["An unsupported assumption", "An organizational target", "A suspected cause", "An untested explanation"],
+                "a": 1,
+                "e": "Correct answer: An organizational target.\nWhy: An organizational target acts as the formal benchmark or reference standard used to compare actual performance and evaluate gaps."
+            },
+            {
+                "q": "2. A problem is best described as:",
+                "o": ["Any situation that is different from the past", "Any situation involving technology", "A meaningful discrepancy between a current and desired state", "Any decision made by management"],
+                "a": 2,
+                "e": "Correct answer: A meaningful discrepancy between a current and desired state.\nWhy: A problem is formally defined as the performance gap or variance between where you currently are and where you want/need to be."
+            },
+            {
+                "q": "3. A company considers entering a new digital market as part of its long-term growth plan. This is primarily a:",
+                "o": ["Operational problem", "Routine scheduling problem", "Strategic problem", "Daily service problem"],
+                "a": 2,
+                "e": "Correct answer: Strategic problem.\nWhy: Long-term growth initiatives, market expansion, and fundamental positioning belong strictly to the strategic management level."
+            },
+            {
+                "q": "4. An online store experiences declining sales. An analyst examines website visitors, conversion rates, and average transaction values. This is an example of:",
+                "o": ["Analytical thinking", "Decision implementation", "Strategic planning only", "Data storage"],
+                "a": 0,
+                "e": "Correct answer: Analytical thinking.\nWhy: Deconstructing a broad business problem (declining sales) into specific underlying performance metrics (visitors, conversions, values) demonstrates analytical thinking."
+            },
+            {
+                "q": "5. Statistical thinking requires an analyst to consider:",
+                "o": ["Data variability and uncertainty", "Only the highest observed value", "Only the average of the observations", "The manager's opinion instead of the available data"],
+                "a": 0,
+                "e": "Correct answer: Data variability and uncertainty.\nWhy: Statistical thinking focuses heavily on measuring dispersion, variations, and handling uncertainty in data rather than relying on single point estimates."
+            },
+            {
+                "q": "6. Which type of problem requires both numerical analysis and managerial judgment?",
+                "o": ["Structured", "Semi-structured", "Routine", "Fully predetermined"],
+                "a": 1,
+                "e": "Correct answer: Semi-structured.\nWhy: Semi-structured problems blend quantitative computational data with qualitative subjective managerial insights and judgment."
+            },
+            {
+                "q": "7. What is the unit of analysis?",
+                "o": ["The solution to a problem", "The entity being studied", "The cause of a problem", "The statistical software used"],
+                "a": 1,
+                "e": "Correct answer: The entity being studied.\nWhy: The unit of analysis is the specific level or object of investigation (e.g., individual, department, branch, or whole corporation)."
+            },
+            {
+                "q": "8. Which of the following is an analytical question?",
+                "o": ["How does productivity differ across departments?", "Productivity is poor.", "Management must act immediately.", "Employees are not working hard enough."],
+                "a": 0,
+                "e": "Correct answer: How does productivity differ across departments?\nWhy: This is an open, measurable, and comparative analytical inquiry, unlike the other options which are subjective statements or premature judgments."
+            },
+            {
+                "q": "9. Which of the following best describes decision making?",
+                "o": ["Identifying symptoms", "Selecting a course of action among alternatives", "Collecting data", "Calculating averages"],
+                "a": 1,
+                "e": "Correct answer: Selecting a course of action among alternatives.\nWhy: Decision making is fundamentally the act of choosing one specific path or solution from a set of available alternatives."
+            },
+            {
+                "q": "10. A company's sales decline from EGP 12 million to EGP 10.2 million. What is the relative percentage decline?",
+                "o": ["10%", "12%", "18%", "15%"],
+                "a": 3,
+                "e": "Correct answer: 15%.\nWhy: Absolute decline = 12 - 10.2 = 1.8 million. Relative decline percentage = (1.8 / 12) * 100% = 15%."
+            },
+
+            // --- True or False Questions (11 to 30, following the 20 T/F items in PDF) ---
+            {
+                "q": "11. A problem should be clearly defined before a solution is selected.",
+                "o": ["True", "False"],
+                "a": 0,
+                "e": "Correct answer: True.\nWhy: Proper problem definition is mandatory before picking solutions to ensure you solve the actual root cause rather than wasting resources."
+            },
+            {
+                "q": "12. A problem that initially seems unstructured may become easier to analyze when Alternative explanations are ignored.",
+                "o": ["True", "False"],
+                "a": 1,
+                "e": "Correct answer: False.\nWhy: Ignoring alternative explanations leads to confirmation bias and flawed analysis; examining alternatives is essential for complex/unstructured issues."
+            },
+            {
+                "q": "13. Reordering inventory under known rules is an example of a structured problem.",
+                "o": ["True", "False"],
+                "a": 0,
+                "e": "Correct answer: True.\nWhy: Routine operational tasks governed by clear preset rules and algorithms are classic structured problems."
+            },
+            {
+                "q": "14. Organizing and summarizing observations can transform raw data into useful information.",
+                "o": ["True", "False"],
+                "a": 0,
+                "e": "Correct answer: True.\nWhy: Raw data lacks context; summarizing and structuring it turns it into actionable business information."
+            },
+            {
+                "q": "15. Implementing an action is the same stage as evaluating its results.",
+                "o": ["True", "False"],
+                "a": 1,
+                "e": "Correct answer: False.\nWhy: Implementation is putting the chosen solution into practice, whereas evaluation is a subsequent separate stage to measure its impact."
+            },
+            {
+                "q": "16. A numerical result should be interpreted in its context before it is used to support a conclusion.",
+                "o": ["True", "False"],
+                "a": 0,
+                "e": "Correct answer: True.\nWhy: Numbers without operational context can be misleading and cannot reliably support valid business conclusions."
+            },
+            {
+                "q": "17. The main purpose of defining a problem is choosing a solution immediately.",
+                "o": ["True", "False"],
+                "a": 1,
+                "e": "Correct answer: False.\nWhy: The purpose of definition is understanding the root cause and nature of the gap, not rushing to premature solutions."
+            },
+            {
+                "q": "18. An analytical question should be measurable and relevant to the problem.",
+                "o": ["True", "False"],
+                "a": 0,
+                "e": "Correct answer: True.\nWhy: Effective analytical questions must be objective, measurable, and directly tied to the core issue."
+            },
+            {
+                "q": "19. New evidence may require the problem-solving process to return to an earlier stage.",
+                "o": ["True", "False"],
+                "a": 0,
+                "e": "Correct answer: True.\nWhy: Problem solving is iterative; uncovering new facts often forces teams to loop back and revise problem definitions or analyses."
+            },
+            {
+                "q": "20. A symptom is an explanation that may contribute to the situation but is not necessarily proven.",
+                "o": ["True", "False"],
+                "a": 0,
+                "e": "Correct answer: True.\nWhy: Symptoms are observable surface signals of trouble that point toward potential causes but require investigation to be proven."
+            },
+            // --- Questions 21 to 30 (Repeating T/F 1-10 as listed in the user's PDF) ---
+            {
+                "q": "21. A problem should be clearly defined before a solution is selected.",
+                "o": ["True", "False"],
+                "a": 0,
+                "e": "Correct answer: True.\nWhy: Clear problem definition must precede solution selection."
+            },
+            {
+                "q": "22. A problem that initially seems unstructured may become easier to analyze when Alternative explanations are ignored.",
+                "o": ["True", "False"],
+                "a": 1,
+                "e": "Correct answer: False.\nWhy: Ignoring alternative explanations degrades analytical quality."
+            },
+            {
+                "q": "23. Reordering inventory under known rules is an example of a structured problem.",
+                "o": ["True", "False"],
+                "a": 0,
+                "e": "Correct answer: True.\nWhy: Known rule-based inventory reordering is structured."
+            },
+            {
+                "q": "24. Organizing and summarizing observations can transform raw data into useful information.",
+                "o": ["True", "False"],
+                "a": 0,
+                "e": "Correct answer: True.\nWhy: Structuring raw observations creates meaningful information."
+            },
+            {
+                "q": "25. Implementing an action is the same stage as evaluating its results.",
+                "o": ["True", "False"],
+                "a": 1,
+                "e": "Correct answer: False.\nWhy: Execution and evaluation are distinct sequential phases."
+            },
+            {
+                "q": "26. A numerical result should be interpreted in its context before it is used to support a conclusion.",
+                "o": ["True", "False"],
+                "a": 0,
+                "e": "Correct answer: True.\nWhy: Context is vital for proper quantitative interpretation."
+            },
+            {
+                "q": "27. The main purpose of defining a problem is choosing a solution immediately.",
+                "o": ["True", "False"],
+                "a": 1,
+                "e": "Correct answer: False.\nWhy: Definition is for understanding, not rushing to solutions."
+            },
+            {
+                "q": "28. An analytical question should be measurable and relevant to the problem.",
+                "o": ["True", "False"],
+                "a": 0,
+                "e": "Correct answer: True.\nWhy: Measurability and relevance define good analytical questions."
+            },
+            {
+                "q": "29. New evidence may require the problem-solving process to return to an earlier stage.",
+                "o": ["True", "False"],
+                "a": 0,
+                "e": "Correct answer: True.\nWhy: Iteration is fundamental when new evidence surfaces."
+            },
+            {
+                "q": "30. A symptom is an explanation that may contribute to the situation but is not necessarily proven.",
+                "o": ["True", "False"],
+                "a": 0,
+                "e": "Correct answer: True.\nWhy: Symptoms indicate distress but require deeper validation."
+            }
+        ];
+
+        let cIdx = 0;
+            let score = 0;
+            let wrongList = [];
+
+            const $ = id => document.getElementById(id);
+
+            function resetQuiz() {
+                cIdx = 0;
+                score = 0;
+                wrongList = [];
+                renderQuestion();
+            }
+
+            function renderQuestion() {
+                const q = QUIZ_QUESTIONS[cIdx];
+                $("n").textContent = `Question ${cIdx + 1} of ${QUIZ_QUESTIONS.length}`;
+                $("s").textContent = `Score: ${score}`;
+                $("bar").style.width = `${(cIdx / QUIZ_QUESTIONS.length) * 100}%`;
+
+                const badgeText = q.type === 'TF' ? 'True / False' : 'Multiple Choice';
+
+                $("card").innerHTML = `
+                <span class="q-badge">${badgeText}</span>
+                <p class="q">${q.q}</p>
+                <div id="opts"></div>
+                <div id="fb"></div>
+            `;
+
+                q.o.forEach((optText, i) => {
+                    const b = document.createElement("button");
+                    b.className = "opt";
+                    b.innerHTML = `<b>${q.type === 'TF' ? (i === 0 ? 'T' : 'F') : "ABCD"[i] + ")"}</b><span></span>`;
+                    b.querySelector("span").textContent = optText;
+                    b.onclick = () => handleAnswer(i);
+                    $("opts").appendChild(b);
+                });
+            }
+
+            function handleAnswer(selected) {
+                const q = QUIZ_QUESTIONS[cIdx];
+                const isCorrect = selected === q.a;
+                const buttons = document.querySelectorAll(".opt");
+
+                buttons.forEach((btn, idx) => {
+                    btn.disabled = true;
+                    if (idx === q.a) btn.classList.add("ok");
+                    else if (idx === selected) btn.classList.add("no");
+                });
+
+                if (isCorrect) score++;
+                else wrongList.push(cIdx);
+
+                $("s").textContent = `Score: ${score}`;
+
+                $("fb").innerHTML = `
+                <div class="ex ${isCorrect ? 'ok' : 'no'}">
+                    <strong>${isCorrect ? 'Correct answer ✓' : 'Incorrect answer ✗'}</strong>
+                    <span>${q.e}</span>
+                </div>
+                <button class="btn" id="nxtBtn">${cIdx < QUIZ_QUESTIONS.length - 1 ? 'Next question' : 'Show final results'}</button>
+            `;
+
+                $("nxtBtn").onclick = () => {
+                    cIdx++;
+                    if (cIdx < QUIZ_QUESTIONS.length) renderQuestion();
+                    else finishQuiz();
+                };
+                $("nxtBtn").focus();
+            }
+
+            function finishQuiz() {
+                $("bar").style.width = "100%";
+                $("n").textContent = "Quiz complete";
+                const pct = Math.round((score / qData.length) * 100);
+
+                let html = `
+                <div class="score">${score} / ${qData.length}</div>
+                <p style="text-align:center;font-size:1.2rem;margin:0 0 16px;">Percentage: <b>${pct}%</b></p>
+            `;
+
+                if (wrongList.length > 0) {
+                    html += `<p style="margin:16px 0 8px;"><b>Questions to review:</b></p><ul class="rev">`;
+                    wrongList.reverse().forEach(w => {
+                        html += `<li><b>Question ${w + 1}:</b> ${qData[w].q}</li>`;
+                    });
+                    html += `</ul>`;
+                } else {
+                    html += `<p style="text-align:center;color:var(--ok);">Excellent! All answers are correct (100%).</p>`;
+                }
+
+                html += `<button class="btn" onclick="resetQuiz()">Restart quiz</button>`;
+                $("card").innerHTML = html;
+            }
+
+            renderQuestion();
+        </script>
+    </body>
+    
+    </html>
